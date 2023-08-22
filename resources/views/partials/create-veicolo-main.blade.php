@@ -156,20 +156,48 @@
 
 -->
 <script>
-    $(document).ready(function() {
-        $('#id_marca').change(function() {
-            var marcaId = $(this).val();
-            $.ajax({
-                url: '/get-modello-by-marca/' + marcaId,
-                type: 'GET',
-                success: function(data) {
-                    $('#id_modello').empty();
-                    $.each(data, function(key, value) {
-                        $('#id_modello').append('<option value="' + key + '">' + value + '</option>');
-                    });
-                }
-            });
+    document.addEventListener("DOMContentLoaded", function() {
+        var marcaDropdown = document.getElementById('marca');
+        var modelloDropdown = document.getElementById('modello');
+
+        marcaDropdown.addEventListener('change', function() {
+            var marcaID = this.value;
+
+            if (marcaID) {
+                var xhr = new XMLHttpRequest();
+                xhr.open('GET', '/get-modello-by-marca/' + marcaID, true);
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState == 4 && xhr.status == 200) {
+                        var response = JSON.parse(xhr.responseText);
+                        updateModelloDropdown(response);
+                    }
+                };
+                xhr.send();
+            } else {
+                clearModelloDropdown();
+            }
         });
+
+        function updateModelloDropdown(data) {
+            clearModelloDropdown();
+            var defaultOption = document.createElement('option');
+            defaultOption.text = 'Select';
+            modelloDropdown.add(defaultOption);
+
+            for (var key in data) {
+                var option = document.createElement('option');
+                option.value = key;
+                option.text = data[key];
+                modelloDropdown.add(option);
+            }
+        }
+
+        function clearModelloDropdown() {
+            while (modelloDropdown.firstChild) {
+                modelloDropdown.removeChild(modelloDropdown.firstChild);
+            }
+        }
     });
+
 </script>
 

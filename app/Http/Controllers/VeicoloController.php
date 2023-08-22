@@ -8,6 +8,14 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
 use App\Models\Societa;
 use App\Models\Veicolo;
+use App\Models\TipoVeicolo;
+use App\Models\TipoAllestimento;
+use App\Models\Marca;
+use App\Models\Modello;
+use App\Models\TipoAsse;
+use App\Models\TipoCambio;
+use App\Models\TipoAlimentazione;
+use App\Models\DestinazioneUso;
 
 
 
@@ -34,8 +42,48 @@ class VeicoloController extends Controller
 
     public function create()
     {
+        /*
+         * id_proprietario
+         * id_tipo_veicolo
+         * id_tipo_allestimento
+         * id_marca
+         * id_modello
+         * tipo_asse
+         * tipo_cambio
+         * alimentazione
+         * destinazione_uso
+         */
+
+
+
+        //list to handle id_propietario
         $lista_societa = Societa::all();
-        return view('create_veicolo', ['lista_societa' => $lista_societa]);
+        //list to handle id_tipo_veicolo
+        $lista_tipo_veicolo = TipoVeicolo::all();
+        //list to handle id_tipo_allestimento
+        $lista_tipo_allestimento = TipoAllestimento::all();
+        //list to handle id_marca
+        $lista_marca = Marca::all();
+        //list to handle id_modello
+        $lista_modello = Modello::all();
+        //list to handle tipo_asse
+        $lista_tipo_asse = TipoAsse::all();
+        //list to handle tipo_cambio
+        $lista_tipo_cambio = TipoCambio::all();
+        //list to handle alimentazione
+        $lista_alimentazione = TipoAlimentazione::all();
+        //list to handle destinazione_uso
+        $lista_destinazione_uso = DestinazioneUso::all();
+
+        return view('create_veicolo', ['lista_societa' => $lista_societa,
+                                            'lista_tipo_veicolo' => $lista_tipo_veicolo,
+                                            'lista_tipo_allestimento' => $lista_tipo_allestimento,
+                                            'lista_marca' => $lista_marca,
+                                            'lista_modello' => $lista_modello,
+                                            'lista_tipo_asse' => $lista_tipo_asse,
+                                            'lista_tipo_cambio' => $lista_tipo_cambio,
+                                            'lista_alimentazione' => $lista_alimentazione,
+                                            'lista_destinazione_uso' => $lista_destinazione_uso]);
     }
 
     /**

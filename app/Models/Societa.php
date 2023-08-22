@@ -9,6 +9,6 @@ class Societa extends Model
 {
     use HasFactory;
 
-    protected $table = 'marca';
+    protected $table = 'societa';
     protected $fillable = ['nome'];
 }

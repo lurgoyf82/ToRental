@@ -122,3 +122,54 @@
         <button type="submit" class="btn btn-primary">Create Veicolo</button>
     </div>
 </form>
+
+<!-- script
+<script>
+    $(document).ready(function() {
+        $('#id_tipo').change(function() {
+            var id_tipo = $(this).val();
+            // AJAX request
+            $.ajax({
+                url: '/getMarca/' + id_tipo,
+                type: 'get',
+                dataType: 'json',
+                success: function(response) {
+                    var len = 0;
+                    if (response['data'] != null) {
+                        len = response['data'].length;
+                    }
+                    if (len > 0) {
+                        // Read data and create <option >
+                        var option = "<option value=''>Select Marca</option>";
+                        for (var i = 0; i < len; i++) {
+                            option += "<option value='" +
+                                response['data'][i].id + "'>" +
+                                response['data'][i].nome + "</option>";
+                        }
+                        $("#id_marca").html(option);
+                    }
+                }
+            });
+        });
+    });
+</script>
+
+-->
+<script>
+    $(document).ready(function() {
+        $('#id_marca').change(function() {
+            var marcaId = $(this).val();
+            $.ajax({
+                url: '/get-modello-by-marca/' + marcaId,
+                type: 'GET',
+                success: function(data) {
+                    $('#id_modello').empty();
+                    $.each(data, function(key, value) {
+                        $('#id_modello').append('<option value="' + key + '">' + value + '</option>');
+                    });
+                }
+            });
+        });
+    });
+</script>
+

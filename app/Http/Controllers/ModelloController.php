@@ -62,4 +62,16 @@ class ModelloController extends Controller
     {
         //
     }
+    /*
+    public function getModelloByMarca($id)
+    {
+        $modello = Modello::where('marca_id', $id)->get();
+        return response()->json($modello);
+    }
+    */
+    public function getModelloByMarca($id) {
+        $modelli = Modello::where('id_marca', $id)->pluck('nome', 'id');
+        return response()->json($modelli);
+    }
+
 }

@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\veicoloController;
+use App\Http\Controllers\VeicoloController;
 use App\Http\Controllers\LeasingController;
 use App\Http\Controllers\AssicurazioneController;
 use App\Http\Controllers\BolloController;
@@ -9,6 +9,7 @@ use App\Http\Controllers\TagliandoController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SocietaController;
+use App\Http\Controllers\ModelloController;
 use App\Models\Societa;
 
 
@@ -58,6 +59,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/list_veicolo', [VeicoloController::class, 'read']);
     Route::put('/update_veicolo/{id}', [VeicoloController::class, 'update']);
     Route::delete('/delete_veicolo/{id}', [VeicoloController::class, 'delete']);
+    Route::get('/get-modello-by-marca/{id}', [ModelloController::class, 'getModelloByMarca']);
+
 
 });
 

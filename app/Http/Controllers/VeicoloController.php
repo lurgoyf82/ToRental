@@ -36,9 +36,6 @@ class VeicoloController extends Controller
     {
         $lista_societa = Societa::all();
         return view('create_veicolo', ['lista_societa' => $lista_societa]);
-
-
-        return view('create_veicolo');
     }
 
     /**

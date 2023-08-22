@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
+use App\Models\Societa;
+
+
 
 class VeicoloController extends Controller
 {
@@ -30,6 +33,10 @@ class VeicoloController extends Controller
 
     public function create()
     {
+        $lista_societa = Societa::all();
+        return view('create_veicolo', ['lista_societa' => $lista_societa]);
+
+
         return view('create_veicolo');
     }
 

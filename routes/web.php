@@ -8,6 +8,9 @@ use App\Http\Controllers\RevisioneController;
 use App\Http\Controllers\TagliandoController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\SocietaController;
+use App\Models\Societa;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -44,6 +47,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/alert_revisione', [RevisioneController::class, 'alert']);
     //alert tagliando
     Route::get('/alert_tagliando', [TagliandoController::class, 'alert']);
+
+    Route::resource('lista_societa', SocietaController::class);
 
 
 

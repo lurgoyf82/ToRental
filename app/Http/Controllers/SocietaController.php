@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Societa;
 use Illuminate\Http\Request;
 
 class SocietaController extends Controller

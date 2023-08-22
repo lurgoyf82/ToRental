@@ -57,23 +57,23 @@ class VeicoloController extends Controller
 
 
         //list to handle id_propietario
-        $lista_societa = Societa::all();
+        $lista_societa = Societa::orderBy('nome')->get();
         //list to handle id_tipo_veicolo
-        $lista_tipo_veicolo = TipoVeicolo::all();
+        $lista_tipo_veicolo = TipoVeicolo::orderBy('nome')->get();
         //list to handle id_tipo_allestimento
-        $lista_tipo_allestimento = TipoAllestimento::all();
+        $lista_tipo_allestimento = TipoAllestimento::orderBy('nome')->get();
         //list to handle id_marca
-        $lista_marca = Marca::all();
+        $lista_marca = Marca::orderBy('nome')->get();
         //list to handle id_modello
-        $lista_modello = Modello::all();
+        $lista_modello = Modello::orderBy('nome')->get();
         //list to handle tipo_asse
-        $lista_tipo_asse = TipoAsse::all();
+        $lista_tipo_asse = TipoAsse::orderBy('nome')->get();
         //list to handle tipo_cambio
-        $lista_tipo_cambio = TipoCambio::all();
+        $lista_tipo_cambio = TipoCambio::orderBy('nome')->get();
         //list to handle alimentazione
-        $lista_alimentazione = TipoAlimentazione::all();
+        $lista_alimentazione = TipoAlimentazione::orderBy('nome')->get();
         //list to handle destinazione_uso
-        $lista_destinazione_uso = DestinazioneUso::all();
+        $lista_destinazione_uso = DestinazioneUso::orderBy('nome')->get();
 
         return view('create_veicolo', ['lista_societa' => $lista_societa,
                                             'lista_tipo_veicolo' => $lista_tipo_veicolo,

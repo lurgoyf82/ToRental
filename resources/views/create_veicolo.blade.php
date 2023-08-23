@@ -33,8 +33,9 @@
 
 
     <script>
-
-        $('#id_marca').change(function() {
+        var id_marca = $('#id_marca');
+        var id_modello = $('#id_modello');
+        id_marca.change(function() {
             var marcaID = $(this).val();
             if (marcaID) {
                 $.ajax({
@@ -42,18 +43,18 @@
                     url: "/get-modello-by-marca/" + marcaID,
                     success: function(res) {
                         if (res) {
-                            $("#id_modello").empty();
-                            $("#id_modello").append('<option>Select</option>');
+                            id_modello.empty();
+                            id_modello.append('<option>Select</option>');
                             $.each(res, function(key, value) {
-                                $("#id_modello").append('<option value="' + key + '">' + value + '</option>');
+                                id_modello.append('<option value="' + key + '">' + value + '</option>');
                             });
                         } else {
-                            $("#id_modello").empty();
+                            id_modello.empty();
                         }
                     }
                 });
             } else {
-                $("#id_modello").empty();
+                id_modello.empty();
             }
         });
 

@@ -154,7 +154,6 @@
     });
 </script>
 
--->
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         var marcaDropdown = document.getElementById('marca');
@@ -201,3 +200,4 @@
 
 </script>
 
+-->

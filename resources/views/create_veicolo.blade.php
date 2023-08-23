@@ -30,6 +30,36 @@
     @include('partials.footer')
     @include('partials.scripts')
 
+
+
+    <script>
+
+        $('#id_marca').change(function() {
+            var marcaID = $(this).val();
+            if (marcaID) {
+                $.ajax({
+                    type: "GET",
+                    url: "/get-modello-by-marca/" + marcaID,
+                    success: function(res) {
+                        if (res) {
+                            $("#id_modello").empty();
+                            $("#id_modello").append('<option>Select</option>');
+                            $.each(res, function(key, value) {
+                                $("#id_modello").append('<option value="' + key + '">' + value + '</option>');
+                            });
+                        } else {
+                            $("#id_modello").empty();
+                        }
+                    }
+                });
+            } else {
+                $("#id_modello").empty();
+            }
+        });
+
+
+    </script>
+
     </body>
 <!--end::Body-->
 </html>

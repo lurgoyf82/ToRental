@@ -1,4 +1,4 @@
-<form action="{{ url()->current(); }}" method="POST">
+<form action="{{ url()->current() }}" method="POST">
     @csrf
 
     <!-- Select for Societa -->

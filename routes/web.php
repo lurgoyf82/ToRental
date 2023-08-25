@@ -65,7 +65,7 @@ Route::middleware('auth')->group(function () {
 
     //Routes for CRUD veicolo
     Route::get('/create_veicolo', [VeicoloController::class, 'create']);
-    Route::get('/list_veicolo', [VeicoloController::class, 'read']);
+    Route::get('/list_veicolo', [VeicoloController::class, 'index']);
     Route::put('/update_veicolo/{id}', [VeicoloController::class, 'update']);
     Route::delete('/delete_veicolo/{id}', [VeicoloController::class, 'delete']);
     Route::get('/get-modello-by-marca/{id}', [ModelloController::class, 'getModelloByMarca']);

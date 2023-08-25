@@ -15,4 +15,5 @@ class DettaglioVeicolo extends Model
         'colore', 'lunghezza_esterna', 'larghezza_esterna', 'massa', 'portata', 'cilindrata',
         'potenza', 'numero_assi', 'tipo_asse', 'tipo_cambio', 'alimentazione', 'destinazione_uso'
     ];
+
 }

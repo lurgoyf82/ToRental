@@ -41,13 +41,22 @@ Route::middleware('auth')->group(function () {
     //alert leasing
     Route::get('/alert_leasing', [LeasingController::class, 'alert']);
     //alert assicurazione
-    Route::get('/alert_assicurazione', [AssicurazioneController::class, 'alert']);
+    Route::get('/alert_polizza_assicurativa', [AssicurazioneController::class, 'alert']);
     //alert bollo
-    Route::get('/alert_bollo', [BolloController::class, 'alert']);
+    Route::get('/alert_scadenza_bollo', [BolloController::class, 'alert']);
     //alert revisione
-    Route::get('/alert_revisione', [RevisioneController::class, 'alert']);
+    Route::get('/alert_revisione_meccanica', [RevisioneController::class, 'alert']);
     //alert tagliando
     Route::get('/alert_tagliando', [TagliandoController::class, 'alert']);
+
+
+    Route::get('alert_revisione_bombole', [LeasingController::class, 'alert']);
+    Route::get('alert_revisione_atp', [LeasingController::class, 'alert']);
+    Route::get('alert_revisione_tachigrafo', [LeasingController::class, 'alert']);
+    Route::get('alert_revisione_cronotachigrafo', [LeasingController::class, 'alert']);
+    Route::get('alert_contratto_noleggio', [LeasingController::class, 'alert']);
+
+
 
     Route::resource('lista_societa', SocietaController::class);
 

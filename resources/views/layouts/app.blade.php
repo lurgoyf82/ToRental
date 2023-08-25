@@ -4966,7 +4966,7 @@
                                         <!--begin:Menu item-->
                                         <div class="menu-item">
                                             <!--begin:Menu link-->
-                                            <a class="menu-link" href="alert_assicurazione">
+                                            <a class="menu-link" href="alert_polizza_assicurativa">
                                                 <span class="badge badge-circle badge-outline badge-warning badge-lg">73</span>&nbsp;
                                                 <span class="menu-title">Assicurazione</span>
                                             </a>
@@ -4976,7 +4976,7 @@
                                         <!--begin:Menu item-->
                                         <div class="menu-item">
                                             <!--begin:Menu link-->
-                                            <a class="menu-link" href="alert_bollo">
+                                            <a class="menu-link" href="alert_scadenza_bollo">
                                                 <span class="badge badge-circle badge-outline badge-success badge-lg">3</span>&nbsp;
                                                 <span class="menu-title">Bollo</span>
                                             </a>

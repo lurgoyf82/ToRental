@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
@@ -130,5 +131,32 @@ class VeicoloController extends Controller
         $veicolo = Veicolo::findOrFail($id);
         $veicolo->delete();
         return redirect()->route('veicolo.index')->with('success', 'Veicolo deleted successfully.');
+    }
+    public function checkRevisione()
+    {
+        $veicoli = Veicolo::all();
+
+        foreach ($veicoli as $veicolo) {
+            $revisione = $veicolo->revisione()->latest('fine_validita')->first();
+            $today = Carbon::now();
+            $alert = 'no alerts';
+
+            if (!$revisione || $today->greaterThan($revisione->fine_validita)) {
+                $alert = 'black';
+            } elseif ($today->greaterThanOrEqualTo($revisione->inizio_validita) && $today->lessThanOrEqualTo($revisione->fine_validita)) {
+                $daysToExpiration = $today->diffInDays($revisione->fine_validita);
+
+                if ($daysToExpiration <= 6) {
+                    $alert = 'red';
+                } elseif ($daysToExpiration <= 29) {
+                    $alert = 'yellow';
+                } elseif ($daysToExpiration <= 59) {
+                    $alert = 'green';
+                }
+            }
+
+            // Send alert
+            // ...
+        }
     }
 }

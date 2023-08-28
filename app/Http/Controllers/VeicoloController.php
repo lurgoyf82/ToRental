@@ -17,7 +17,6 @@ use App\Models\TipoAsse;
 use App\Models\TipoCambio;
 use App\Models\TipoAlimentazione;
 use App\Models\DestinazioneUso;
-use Illuminate\Support\Facades\DB;
 
 
 
@@ -134,73 +133,5 @@ class VeicoloController extends Controller
         $veicolo = Veicolo::findOrFail($id);
         $veicolo->delete();
         return redirect()->route('veicolo.index')->with('success', 'Veicolo deleted successfully.');
-    }
-    public function checkRevisione()
-    {
-        $veicoli = Veicolo::all();
-
-        foreach ($veicoli as $veicolo) {
-            $revisione = $veicolo->revisione()->latest('fine_validita')->first();
-            $today = Carbon::now();
-            $alert = 'no alerts';
-
-            if (!$revisione || $today->greaterThan($revisione->fine_validita)) {
-                $alert = 'black';
-            } elseif ($today->greaterThanOrEqualTo($revisione->inizio_validita) && $today->lessThanOrEqualTo($revisione->fine_validita)) {
-                $daysToExpiration = $today->diffInDays($revisione->fine_validita);
-
-                if ($daysToExpiration <= 6) {
-                    $alert = 'red';
-                } elseif ($daysToExpiration <= 29) {
-                    $alert = 'yellow';
-                } elseif ($daysToExpiration <= 59) {
-                    $alert = 'green';
-                }
-            }
-
-
-            $query = DB::table('dettaglio_veicolo')
-                ->leftJoin('revisione', function ($join) {
-                    $join->on('revisione.veicolo_id', '=', 'dettaglio_veicolo.id')
-                        ->where('revisione.inizio_validita', '<', now())
-                        ->where('revisione.fine_validita', '>', now());
-                })
-                ->leftJoin('bollo', function ($join) {
-                    $join->on('bollo.veicolo_id', '=', 'dettaglio_veicolo.id')
-                        ->where('bollo.inizio_validita', '<', now())
-                        ->where('bollo.fine_validita', '>', now());
-                })
-                ->leftJoin('bombole', function ($join) {
-                    $join->on('bombole.veicolo_id', '=', 'dettaglio_veicolo.id')
-                        ->where('bombole.inizio_validita', '<', now())
-                        ->where('bombole.fine_validita', '>', now());
-                })
-                ->leftJoin('cronotachigrafo', function ($join) {
-                    $join->on('cronotachigrafo.veicolo_id', '=', 'dettaglio_veicolo.id')
-                        ->where('cronotachigrafo.inizio_validita', '<', now())
-                        ->where('cronotachigrafo.fine_validita', '>', now());
-                })
-                ->leftJoin('tachigrafo', function ($join) {
-                    $join->on('tachigrafo.veicolo_id', '=', 'dettaglio_veicolo.id')
-                        ->where('tachigrafo.inizio_validita', '<', now())
-                        ->where('tachigrafo.fine_validita', '>', now());
-                })
-                ->select([
-                    'revisione.inizio_validita as revisione_inizio_validita',
-                    'revisione.fine_validita as revisione_fine_validita',
-                    'dettaglio_veicolo.id',
-                    'tachigrafo.inizio_validita as tachigrafo_inizio_validita',
-                    'tachigrafo.fine_validita as tachigrafo_fine_validita',
-                    'bollo.inizio_validita as bollo_inizio_validita',
-                    'bollo.fine_validita as bollo_fine_validita',
-                    'bombole.inizio_validita as bombole_inizio_validita',
-                    'bombole.fine_validita as bombole_fine_validita',
-                    'cronotachigrafo.inizio_validita as cronotachigrafo_inizio_validita',
-                    'cronotachigrafo.fine_validita as cronotachigrafo_fine_validita'
-                ])
-                ->orderBy('dettaglio_veicolo.id', 'ASC')
-                ->get();
-
-        }
     }
 }

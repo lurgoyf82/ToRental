@@ -8,4 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Assicurazione extends Model
 {
     use HasFactory;
+
+    protected $table = 'assicurazione';
+    protected $fillable = ['veicolo_id','anno','data_pagamento','inizio_validita','fine_validita','importo','agenzia','polizza','tipo_scadenza'];
 }

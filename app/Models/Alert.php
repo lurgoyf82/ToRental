@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class Alert extends Model
 {
@@ -12,6 +13,11 @@ class Alert extends Model
 
     public static function all($columns = ['*'])
     {
+        //Parameterized values
+        $firstThreshold = 7;
+        $secondThreshold = 30;
+        $thirdThreshold = 60;
+
         $query = DB::table('dettaglio_veicolo')
             ->leftJoin('revisione', function ($join) {
                 $join->on('revisione.veicolo_id', '=', 'dettaglio_veicolo.id')
@@ -45,6 +51,53 @@ class Alert extends Model
                 'bombole.fine_validita as bombole_fine_validita',
                 'cronotachigrafo.fine_validita as cronotachigrafo_fine_validita',
                 'dettaglio_veicolo.*'
+            ])
+            ->selectRaw("
+                CASE
+                    WHEN revisione.fine_validita IS NULL THEN 4
+                    WHEN DATEDIFF(revisione.fine_validita, NOW()) BETWEEN 0 AND ? THEN 3
+                    WHEN DATEDIFF(revisione.fine_validita, NOW()) BETWEEN ? AND ? THEN 2
+                    WHEN DATEDIFF(revisione.fine_validita, NOW()) BETWEEN ? AND ? THEN 1
+                    WHEN DATEDIFF(revisione.fine_validita, NOW()) >= ? THEN 0
+                    ELSE 4
+                END AS revisione_alert_level,
+                CASE
+                    WHEN bollo.fine_validita IS NULL THEN 4
+                    WHEN DATEDIFF(bollo.fine_validita, NOW()) BETWEEN 0 AND ? THEN 3
+                    WHEN DATEDIFF(bollo.fine_validita, NOW()) BETWEEN ? AND ? THEN 2
+                    WHEN DATEDIFF(bollo.fine_validita, NOW()) BETWEEN ? AND ? THEN 1
+                    WHEN DATEDIFF(bollo.fine_validita, NOW()) >= ? THEN 0
+                    ELSE 4
+                END AS bollo_alert_level,
+                CASE
+                    WHEN bombole.fine_validita IS NULL THEN 4
+                    WHEN DATEDIFF(bombole.fine_validita, NOW()) BETWEEN 0 AND ? THEN 3
+                    WHEN DATEDIFF(bombole.fine_validita, NOW()) BETWEEN ? AND ? THEN 2
+                    WHEN DATEDIFF(bombole.fine_validita, NOW()) BETWEEN ? AND ? THEN 1
+                    WHEN DATEDIFF(bombole.fine_validita, NOW()) >= ? THEN 0
+                    ELSE 4
+                END AS bombole_alert_level,
+                CASE
+                    WHEN cronotachigrafo.fine_validita IS NULL THEN 4
+                    WHEN DATEDIFF(cronotachigrafo.fine_validita, NOW()) BETWEEN 0 AND ? THEN 3
+                    WHEN DATEDIFF(cronotachigrafo.fine_validita, NOW()) BETWEEN ? AND ? THEN 2
+                    WHEN DATEDIFF(cronotachigrafo.fine_validita, NOW()) BETWEEN ? AND ? THEN 1
+                    WHEN DATEDIFF(cronotachigrafo.fine_validita, NOW()) >= ? THEN 0
+                    ELSE 4
+                END AS cronotachigrafo_alert_level,
+                CASE
+                    WHEN tachigrafo.fine_validita IS NULL THEN 4
+                    WHEN DATEDIFF(tachigrafo.fine_validita, NOW()) BETWEEN 0 AND ? THEN 3
+                    WHEN DATEDIFF(tachigrafo.fine_validita, NOW()) BETWEEN ? AND ? THEN 2
+                    WHEN DATEDIFF(tachigrafo.fine_validita, NOW()) BETWEEN ? AND ? THEN 1
+                    WHEN DATEDIFF(tachigrafo.fine_validita, NOW()) >= ? THEN 0
+                    ELSE 4
+                END AS tachigrafo_alert_level", [
+                $firstThreshold, $firstThreshold + 1, $secondThreshold, $secondThreshold + 1, $thirdThreshold, $thirdThreshold,
+                $firstThreshold, $firstThreshold + 1, $secondThreshold, $secondThreshold + 1, $thirdThreshold, $thirdThreshold,
+                $firstThreshold, $firstThreshold + 1, $secondThreshold, $secondThreshold + 1, $thirdThreshold, $thirdThreshold,
+                $firstThreshold, $firstThreshold + 1, $secondThreshold, $secondThreshold + 1, $thirdThreshold, $thirdThreshold,
+                $firstThreshold, $firstThreshold + 1, $secondThreshold, $secondThreshold + 1, $thirdThreshold, $thirdThreshold
             ])
             ->orderBy('dettaglio_veicolo.id', 'ASC');
 
@@ -53,50 +106,4 @@ class Alert extends Model
         );
     }
 
-    //custom all() function
-
-
-    /*
-    public static function all()
-    {
-        $query = DB::table('dettaglio_veicolo')
-            ->leftJoin('revisione', function ($join) {
-                $join->on('revisione.veicolo_id', '=', 'dettaglio_veicolo.id')
-                    ->where('revisione.inizio_validita', '<', now())
-                    ->where('revisione.fine_validita', '>', now());
-            })
-            ->leftJoin('bollo', function ($join) {
-                $join->on('bollo.veicolo_id', '=', 'dettaglio_veicolo.id')
-                    ->where('bollo.inizio_validita', '<', now())
-                    ->where('bollo.fine_validita', '>', now());
-            })
-            ->leftJoin('bombole', function ($join) {
-                $join->on('bombole.veicolo_id', '=', 'dettaglio_veicolo.id')
-                    ->where('bombole.inizio_validita', '<', now())
-                    ->where('bombole.fine_validita', '>', now());
-            })
-            ->leftJoin('cronotachigrafo', function ($join) {
-                $join->on('cronotachigrafo.veicolo_id', '=', 'dettaglio_veicolo.id')
-                    ->where('cronotachigrafo.inizio_validita', '<', now())
-                    ->where('cronotachigrafo.fine_validita', '>', now());
-            })
-            ->leftJoin('tachigrafo', function ($join) {
-                $join->on('tachigrafo.veicolo_id', '=', 'dettaglio_veicolo.id')
-                    ->where('tachigrafo.inizio_validita', '<', now())
-                    ->where('tachigrafo.fine_validita', '>', now());
-            })
-            ->select([
-                'revisione.fine_validita as revisione_fine_validita',
-                'tachigrafo.fine_validita as tachigrafo_fine_validita',
-                'bollo.fine_validita as bollo_fine_validita',
-                'bombole.fine_validita as bombole_fine_validita',
-                'cronotachigrafo.fine_validita as cronotachigrafo_fine_validita',
-                'dettaglio_veicolo.*'
-            ])
-            ->orderBy('dettaglio_veicolo.id', 'ASC')
-            ->get();
-
-
-    }
-    */
 }

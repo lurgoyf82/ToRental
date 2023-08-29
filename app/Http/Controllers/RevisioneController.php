@@ -8,6 +8,7 @@ class RevisioneController extends Controller
 {
     //controller for alert leasing
     public function alert() {
+
         return view('revisione_alert');
     }
     /**

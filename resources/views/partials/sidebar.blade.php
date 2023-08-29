@@ -1,5 +1,52 @@
 <?php
-/**/
+    use App\Models\Alert;
+
+    $alerts=Alert::all();
+
+    $class_alerts=array('0'=>'badge-secondary','1'=>'badge-primary','2'=>'badge-success','3'=>'badge-warning','4'=>'badge-danger');
+
+    $count_alerts=array('revisione'=>0,'tachigrafo'=>0,'bollo'=>0,'bombole'=>0,'cronotachigrafo'=>0,'atp'=>0,'noleggio'=>0,'assicurazione'=>0);
+    $color_alerts=array('revisione'=>0,'tachigrafo'=>0,'bollo'=>0,'bombole'=>0,'cronotachigrafo'=>0,'atp'=>0,'noleggio'=>0,'assicurazione'=>0);
+
+    foreach ($alerts as $alert) {
+        if($alert->revisione_alert_level>0) {
+            $count_alerts['revisione']++;
+            if($color_alerts['revisione']<$alert->revisione_alert_level) {
+                $color_alerts['revisione']=$alert->revisione_alert_level;
+            }
+        }
+
+        if($alert->tachigrafo_alert_level>0) {
+            $count_alerts['tachigrafo']++;
+            if($color_alerts['tachigrafo']<$alert->tachigrafo_alert_level) {
+                $color_alerts['tachigrafo']=$alert->tachigrafo_alert_level;
+            }
+        }
+
+        if($alert->bollo_alert_level>0) {
+            $count_alerts['bollo']++;
+            if($color_alerts['bollo']<$alert->bollo_alert_level) {
+                $color_alerts['bollo']=$alert->bollo_alert_level;
+            }
+        }
+
+        if($alert->bombole_alert_level>0) {
+            $count_alerts['bombole']++;
+            if($color_alerts['bombole']<$alert->bombole_alert_level) {
+                $color_alerts['bombole']=$alert->bombole_alert_level;
+            }
+        }
+
+        if($alert->cronotachigrafo_alert_level>0) {
+            $count_alerts['cronotachigrafo']++;
+            if($color_alerts['cronotachigrafo']<$alert->cronotachigrafo_alert_level) {
+                $color_alerts['cronotachigrafo']=$alert->cronotachigrafo_alert_level;
+            }
+        }
+    }
+
+    //var_dump($alerts);
+    //die();
 ?>
     <!--begin::Sidebar-->
 <div id="kt_app_sidebar" class="app-sidebar flex-column" data-kt-drawer="true" data-kt-drawer-name="app-sidebar" data-kt-drawer-activate="{default: true, lg: false}" data-kt-drawer-overlay="true" data-kt-drawer-width="225px" data-kt-drawer-direction="start" data-kt-drawer-toggle="#kt_app_sidebar_mobile_toggle">
@@ -58,7 +105,7 @@
                         <div class="menu-item">
                             <!--begin:Menu link-->
                             <a class="menu-link {{ (request()->is('alert_revisione_meccanica')) ? 'active' : '' }}" href="alert_revisione_meccanica">
-                                <span class="badge badge-circle badge-outline badge-danger badge-lg">73</span>&nbsp;
+                                <span class="badge badge-square badge-outline {{ $class_alerts[$color_alerts['revisione']] }} badge-lg">{{ $count_alerts['revisione'] }}</span>&nbsp;
                                 <span class="menu-title">Revisione Meccanica</span>
                             </a>
                             <!--end:Menu link-->
@@ -69,7 +116,7 @@
                         <div class="menu-item">
                             <!--begin:Menu link-->
                             <a class="menu-link {{ (request()->is('alert_revisione_bombole')) ? 'active' : '' }}" href="alert_revisione_bombole">
-                                <span class="badge badge-circle badge-outline badge-primary badge-lg">3</span>&nbsp;
+                                <span class="badge badge-square badge-outline {{ $class_alerts[$color_alerts['bombole']] }} badge-lg">{{ $count_alerts['bombole'] }}</span>&nbsp;
                                 <span class="menu-title">Revisione Bombole</span>
                             </a>
                             <!--end:Menu link-->
@@ -80,7 +127,7 @@
                         <div class="menu-item">
                             <!--begin:Menu link-->
                             <a class="menu-link {{ (request()->is('alert_revisione_atp')) ? 'active' : '' }}" href="alert_revisione_atp">
-                                <span class="badge badge-circle badge-outline badge-success badge-lg">4</span>&nbsp;
+                                <span class="badge badge-square badge-outline {{ $class_alerts[$color_alerts['atp']] }} badge-lg">{{ $count_alerts['atp'] }}</span>&nbsp;
                                 <span class="menu-title">Revisione ATP</span>
                             </a>
                             <!--end:Menu link-->
@@ -91,7 +138,7 @@
                         <div class="menu-item">
                             <!--begin:Menu link-->
                             <a class="menu-link {{ (request()->is('alert_revisione_tachigrafo')) ? 'active' : '' }}" href="alert_revisione_tachigrafo">
-                                <span class="badge badge-circle badge-outline badge-warning badge-lg">5</span>&nbsp;
+                                <span class="badge badge-square badge-outline {{ $class_alerts[$color_alerts['tachigrafo']] }} badge-lg">{{ $count_alerts['tachigrafo'] }}</span>&nbsp;
                                 <span class="menu-title">Revisione Tachigrafo</span>
                             </a>
                             <!--end:Menu link-->
@@ -102,7 +149,7 @@
                         <div class="menu-item">
                             <!--begin:Menu link-->
                             <a class="menu-link {{ (request()->is('alert_revisione_cronotachigrafo')) ? 'active' : '' }}" href="alert_revisione_cronotachigrafo">
-                                <span class="badge badge-circle badge-outline badge-danger badge-lg">73</span>&nbsp;
+                                <span class="badge badge-square badge-outline {{ $class_alerts[$color_alerts['cronotachigrafo']] }} badge-lg">{{ $count_alerts['cronotachigrafo'] }}</span>&nbsp;
                                 <span class="menu-title">Revisione Cronotachigrafo</span>
                             </a>
                             <!--end:Menu link-->
@@ -113,7 +160,7 @@
                         <div class="menu-item">
                             <!--begin:Menu link-->
                             <a class="menu-link {{ (request()->is('alert_contratto_noleggio')) ? 'active' : '' }}" href="alert_contratto_noleggio">
-                                <span class="badge badge-circle badge-outline badge-primary badge-lg">3</span>&nbsp;
+                                <span class="badge badge-square badge-outline {{ $class_alerts[$color_alerts['noleggio']] }} badge-lg">{{ $count_alerts['noleggio'] }}</span>&nbsp;
                                 <span class="menu-title">Contratto Noleggio</span>
                             </a>
                             <!--end:Menu link-->
@@ -124,7 +171,7 @@
                         <div class="menu-item">
                             <!--begin:Menu link-->
                             <a class="menu-link {{ (request()->is('alert_polizza_assicurativa')) ? 'active' : '' }}" href="alert_polizza_assicurativa">
-                                <span class="badge badge-circle badge-outline badge-success badge-lg">4</span>&nbsp;
+                                <span class="badge badge-square badge-outline {{ $class_alerts[$color_alerts['assicurazione']] }} badge-lg">{{ $count_alerts['assicurazione'] }}</span>&nbsp;
                                 <span class="menu-title">Polizza Assicurativa</span>
                             </a>
                             <!--end:Menu link-->
@@ -135,7 +182,7 @@
                         <div class="menu-item">
                             <!--begin:Menu link-->
                             <a class="menu-link {{ (request()->is('alert_scadenza_bollo')) ? 'active' : '' }}" href="alert_scadenza_bollo">
-                                <span class="badge badge-circle badge-outline badge-warning badge-lg">5</span>&nbsp;
+                                <span class="badge badge-square badge-outline {{ $class_alerts[$color_alerts['bollo']] }} badge-lg">{{ $count_alerts['bollo'] }}</span>&nbsp;
                                 <span class="menu-title">Scadenza Bollo</span>
                             </a>
                             <!--end:Menu link-->

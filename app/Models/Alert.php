@@ -11,13 +11,12 @@ class Alert extends Model
 {
     use HasFactory;
 
-    public static function all($columns = ['*'])
-    {
-        //Parameterized values
-        $firstThreshold = 7;
-        $secondThreshold = 30;
-        $thirdThreshold = 60;
+    //Parameterized values for alert levels
+    public static int $firstThreshold = 7;
+    public static int $secondThreshold = 30;
+    public static int $thirdThreshold = 60;
 
+    public static function all($columns = ['*']) {
         $query = DB::table('dettaglio_veicolo')
             ->leftJoin('revisione', function ($join) {
                 $join->on('revisione.veicolo_id', '=', 'dettaglio_veicolo.id')
@@ -45,11 +44,16 @@ class Alert extends Model
                     ->where('tachigrafo.fine_validita', '>', now());
             })
             ->select([
-                'revisione.fine_validita as revisione_fine_validita',
-                'tachigrafo.fine_validita as tachigrafo_fine_validita',
-                'bollo.fine_validita as bollo_fine_validita',
-                'bombole.fine_validita as bombole_fine_validita',
-                'cronotachigrafo.fine_validita as cronotachigrafo_fine_validita',
+                DB::raw("DATE_FORMAT(revisione.fine_validita, '%d-%m-%Y') as revisione_fine_validita"),
+                DB::raw("DATE_FORMAT(tachigrafo.fine_validita, '%d-%m-%Y') as tachigrafo_fine_validita"),
+                DB::raw("DATE_FORMAT(bollo.fine_validita, '%d-%m-%Y') as bollo_fine_validita"),
+                DB::raw("DATE_FORMAT(bombole.fine_validita, '%d-%m-%Y') as bombole_fine_validita"),
+                DB::raw("DATE_FORMAT(cronotachigrafo.fine_validita, '%d-%m-%Y') as cronotachigrafo_fine_validita"),
+                //'revisione.fine_validita as revisione_fine_validita_a',
+                //'tachigrafo.fine_validita as tachigrafo_fine_validita_a',
+                //'bollo.fine_validita as bollo_fine_validita_a',
+                //'bombole.fine_validita as bombole_fine_validita_a',
+                //'cronotachigrafo.fine_validita as cronotachigrafo_fine_validita_a',
                 'dettaglio_veicolo.*'
             ])
             ->selectRaw("
@@ -93,11 +97,11 @@ class Alert extends Model
                     WHEN DATEDIFF(tachigrafo.fine_validita, NOW()) >= ? THEN 0
                     ELSE 4
                 END AS tachigrafo_alert_level", [
-                $firstThreshold, $firstThreshold + 1, $secondThreshold, $secondThreshold + 1, $thirdThreshold, $thirdThreshold,
-                $firstThreshold, $firstThreshold + 1, $secondThreshold, $secondThreshold + 1, $thirdThreshold, $thirdThreshold,
-                $firstThreshold, $firstThreshold + 1, $secondThreshold, $secondThreshold + 1, $thirdThreshold, $thirdThreshold,
-                $firstThreshold, $firstThreshold + 1, $secondThreshold, $secondThreshold + 1, $thirdThreshold, $thirdThreshold,
-                $firstThreshold, $firstThreshold + 1, $secondThreshold, $secondThreshold + 1, $thirdThreshold, $thirdThreshold
+                Alert::$firstThreshold, Alert::$firstThreshold + 1, Alert::$secondThreshold, Alert::$secondThreshold + 1, Alert::$thirdThreshold, Alert::$thirdThreshold,
+                Alert::$firstThreshold, Alert::$firstThreshold + 1, Alert::$secondThreshold, Alert::$secondThreshold + 1, Alert::$thirdThreshold, Alert::$thirdThreshold,
+                Alert::$firstThreshold, Alert::$firstThreshold + 1, Alert::$secondThreshold, Alert::$secondThreshold + 1, Alert::$thirdThreshold, Alert::$thirdThreshold,
+                Alert::$firstThreshold, Alert::$firstThreshold + 1, Alert::$secondThreshold, Alert::$secondThreshold + 1, Alert::$thirdThreshold, Alert::$thirdThreshold,
+                Alert::$firstThreshold, Alert::$firstThreshold + 1, Alert::$secondThreshold, Alert::$secondThreshold + 1, Alert::$thirdThreshold, Alert::$thirdThreshold
             ])
             ->orderBy('dettaglio_veicolo.id', 'ASC');
 

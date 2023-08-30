@@ -2,14 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Revisione;
 use Illuminate\Http\Request;
 
 class RevisioneController extends Controller
 {
     //controller for alert leasing
-    public function alert() {
-
-        return view('revisione_alert');
+    public function alertList(Revisione $revisione)
+    {
+        $alertList = $revisione::getRevisioneAlertList();
+        return view('revisione_alert', ['alertList' => $alertList]);
     }
     /**
      * Display a listing of the resource.

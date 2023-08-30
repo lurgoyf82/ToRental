@@ -3108,6 +3108,8 @@
                 <!--end::Menu-->
             </div>
             <!--end::Menu wrapper-->
+            <?php
+                /** /
             <!--begin::Navbar-->
             <div class="app-navbar flex-shrink-0">
                 <!--begin::Search-->
@@ -4861,6 +4863,8 @@
                 <!--end::Header menu toggle-->
             </div>
             <!--end::Navbar-->
+                /**/
+            ?>
         </div>
         <!--end::Header wrapper-->
     </div>

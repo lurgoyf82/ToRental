@@ -36,14 +36,17 @@ class Revisione extends Model
             })
             ->leftJoin('targa', 'targa.id_veicolo', '=', 'dettaglio_veicolo.id')
             ->select([
-                'r.inizio_validita',
-                'r.fine_validita',
+                'r.id as id_revisione',
+                DB::raw("DATE_FORMAT(r.inizio_validita, '%d-%m-%Y') as inizio_validita"),
+                DB::raw("DATE_FORMAT(r.fine_validita, '%d-%m-%Y') as fine_validita"),
+                'marca.id as id_marca',
                 'marca.nome as marca',
+                'modello.id as id_modello',
                 'modello.nome as modello',
                 'dettaglio_veicolo.id',
-                'targa.targa',
                 DB::raw('DATEDIFF(r.fine_validita, NOW()) as livello')
             ])
+            ->orderBy('livello', 'ASC')
             ->orderBy('dettaglio_veicolo.id', 'ASC')
             ->get();
 

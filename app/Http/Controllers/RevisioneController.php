@@ -9,9 +9,11 @@ use Illuminate\Http\Request;
 class RevisioneController extends Controller
 {
     //controller for alert leasing
-    public function alertList(Revisione $revisione, Request $request=null)
+    public function alertList(Request $request)
     {
-        $alertList = $revisione::getRevisioneAlertList($request);
+        $revisione=new Revisione();
+
+        $alertList = $revisione::getRevisioneAlertList($request->route('search'));
         $targaList= Targa::getTargaListByIdVeicolo();
         foreach ($alertList as $key=>$alert) {
             if(isset($targaList[$alert->id_veicolo])) {

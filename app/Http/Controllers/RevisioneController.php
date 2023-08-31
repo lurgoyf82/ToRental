@@ -12,7 +12,6 @@ class RevisioneController extends Controller
     public function alertList(Revisione $revisione, Request $request=null)
     {
         $alertList = $revisione::getRevisioneAlertList($request);
-
         $targaList= Targa::getTargaListByIdVeicolo();
         foreach ($alertList as $key=>$alert) {
             if(isset($targaList[$alert->id_veicolo])) {

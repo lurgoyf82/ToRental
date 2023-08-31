@@ -19,27 +19,27 @@ class Alert extends Model
     public static function all($columns = ['*']) {
         $query = DB::table('dettaglio_veicolo')
             ->leftJoin('revisione', function ($join) {
-                $join->on('revisione.veicolo_id', '=', 'dettaglio_veicolo.id')
+                $join->on('revisione.id_veicolo', '=', 'dettaglio_veicolo.id')
                     ->where('revisione.inizio_validita', '<', now())
                     ->where('revisione.fine_validita', '>', now());
             })
             ->leftJoin('bollo', function ($join) {
-                $join->on('bollo.veicolo_id', '=', 'dettaglio_veicolo.id')
+                $join->on('bollo.id_veicolo', '=', 'dettaglio_veicolo.id')
                     ->where('bollo.inizio_validita', '<', now())
                     ->where('bollo.fine_validita', '>', now());
             })
             ->leftJoin('bombole', function ($join) {
-                $join->on('bombole.veicolo_id', '=', 'dettaglio_veicolo.id')
+                $join->on('bombole.id_veicolo', '=', 'dettaglio_veicolo.id')
                     ->where('bombole.inizio_validita', '<', now())
                     ->where('bombole.fine_validita', '>', now());
             })
             ->leftJoin('cronotachigrafo', function ($join) {
-                $join->on('cronotachigrafo.veicolo_id', '=', 'dettaglio_veicolo.id')
+                $join->on('cronotachigrafo.id_veicolo', '=', 'dettaglio_veicolo.id')
                     ->where('cronotachigrafo.inizio_validita', '<', now())
                     ->where('cronotachigrafo.fine_validita', '>', now());
             })
             ->leftJoin('tachigrafo', function ($join) {
-                $join->on('tachigrafo.veicolo_id', '=', 'dettaglio_veicolo.id')
+                $join->on('tachigrafo.id_veicolo', '=', 'dettaglio_veicolo.id')
                     ->where('tachigrafo.inizio_validita', '<', now())
                     ->where('tachigrafo.fine_validita', '>', now());
             })

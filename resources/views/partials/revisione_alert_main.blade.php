@@ -214,7 +214,7 @@
                                         @endif
                                     </td>
                                     <td class="min-w-150px">
-                                        <a href="update_veicolo/{{ $row->id }}" class="text-gray-800 text-hover-white mb-1">{{ $row->targa ?? 'N/A' }}</a>
+                                        <a href="update_veicolo/{{ $row->id_veicolo }}" class="text-gray-800 text-hover-white mb-1">{{ $row->targa ?? 'N/A' }}</a>
                                     </td>
                                     <td class="min-w-150px">
                                         <a href="update_marca/{{ $row->id_marca }}" class="text-gray-800 text-hover-white mb-1">{{ $row->marca ?? 'N/A' }}</a>
@@ -223,10 +223,10 @@
                                         <a href="update_modello/{{ $row->id_modello }}" class="text-gray-800 text-hover-white mb-1">{{ $row->modello ?? 'N/A' }}</a>
                                     </td>
                                     <td class="min-w-150px">
-                                        <a href="update_revisione/{{ $row->id_revisione }}" class="text-gray-800 text-hover-white mb-1">{{ $row->inizio_validita ?? 'N/A' }}</a>
+                                        <a href="update_revisione/{{ $row->id }}" class="text-gray-800 text-hover-white mb-1">{{ $row->inizio_validita ?? 'N/A' }}</a>
                                     </td>
                                     <td class="min-w-150px">
-                                        <a href="update_revisione/{{ $row->id_revisione }}" class="text-gray-800 text-hover-white mb-1">{{ $row->fine_validita ?? 'N/A' }}</a>
+                                        <a href="update_revisione/{{ $row->id }}" class="text-gray-800 text-hover-white mb-1">{{ $row->fine_validita ?? 'N/A' }}</a>
                                     </td>
                                     <td class="text-end w-100px">
                                         <a href="#" class="btn btn-sm btn-light btn-flex btn-center btn-active-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions

@@ -3,15 +3,23 @@
 namespace App\Http\Controllers;
 
 use App\Models\Revisione;
+use App\Models\Targa;
 use Illuminate\Http\Request;
 
 class RevisioneController extends Controller
 {
     //controller for alert leasing
-    public function alertList(Revisione $revisione)
+    public function alertList(Revisione $revisione, Request $request=null)
     {
-        $alertList = $revisione::getRevisioneAlertList();
-        return view('revisione_alert', ['alertList' => $alertList]);
+        $alertList = $revisione::getRevisioneAlertList($request);
+
+        $targaList= Targa::getTargaListByIdVeicolo();
+        foreach ($alertList as $key=>$alert) {
+            if(isset($targaList[$alert->id_veicolo])) {
+                $alertList[$key]->targa = $targaList[$alert->id_veicolo]->targa;
+            }
+        }
+        return view('alert_revisione_meccanica', ['alertList' => $alertList]);
     }
     /**
      * Display a listing of the resource.

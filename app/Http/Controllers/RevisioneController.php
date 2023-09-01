@@ -13,7 +13,12 @@ class RevisioneController extends Controller
     {
         $revisione=new Revisione();
 
-        $alertList = $revisione::getRevisioneAlertList($request->route('search'));
+        if(@isset($_REQUEST['search'])) {
+            $alertList = $revisione::getRevisioneAlertList($_REQUEST['search']);
+        } else {
+            $alertList = $revisione::getRevisioneAlertList();
+        }
+        
         $targaList= Targa::getTargaListByIdVeicolo();
         foreach ($alertList as $key=>$alert) {
             if(isset($targaList[$alert->id_veicolo])) {

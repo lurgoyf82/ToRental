@@ -13,7 +13,7 @@ class Revisione extends Model
     protected $table = 'revisione';
     protected $fillable = ['id_veicolo','anno','data_pagamento','inizio_validita','fine_validita','importo'];
 
-    public static function getRevisioneAlertList($search = null) {
+    public static function getRevisioneAlertList($search) {
         if($search!=null) {
             $query = DB::table('dettaglio_veicolo')
                 ->leftJoinSub(

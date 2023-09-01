@@ -45,7 +45,6 @@ Route::middleware('auth')->group(function () {
     //alert bollo
     Route::get('/alert_scadenza_bollo', [BolloController::class, 'alert']);
     //alert revisione
-    Route::get('/alert_revisione_meccanica/{search}', [RevisioneController::class, 'alertList']);
     Route::get('/alert_revisione_meccanica', [RevisioneController::class, 'alertList']);
 
 

@@ -13,8 +13,8 @@ class Alert extends Model
 
     //Parameterized values for alert levels
     public static int $firstThreshold = 7;
-    public static int $secondThreshold = 30;
-    public static int $thirdThreshold = 60;
+    public static int $secondThreshold = 15;
+    public static int $thirdThreshold = 30;
 
     public static function all($columns = ['*']) {
         $query = DB::table('dettaglio_veicolo')

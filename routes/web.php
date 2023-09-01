@@ -39,19 +39,19 @@ Route::middleware('auth')->group(function () {
     //Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     //alert leasing
-    Route::get('/alert_leasing', [LeasingController::class, 'alert']);
+    Route::get('alert_leasing', [LeasingController::class, 'alert']);
     //alert assicurazione
-    Route::get('/alert_polizza_assicurativa', [AssicurazioneController::class, 'alert']);
+    Route::get('alert_polizza_assicurativa', [AssicurazioneController::class, 'alert']);
     //alert bollo
-    Route::get('/alert_scadenza_bollo', [BolloController::class, 'alert']);
+    Route::get('alert_scadenza_bollo', [BolloController::class, 'alert']);
     //alert revisione
-    Route::get('/alert_revisione_meccanica', [RevisioneController::class, 'alertList']);
+    Route::get('alert_revisione_meccanica', [RevisioneController::class, 'alertList']);
 
 
 
 
     //alert tagliando
-    Route::get('/alert_tagliando', [TagliandoController::class, 'alert']);
+    Route::get('alert_tagliando', [TagliandoController::class, 'alert']);
 
 
     Route::get('alert_revisione_bombole', [LeasingController::class, 'alert']);
@@ -68,11 +68,11 @@ Route::middleware('auth')->group(function () {
 
 
     //Routes for CRUD veicolo
-    Route::get('/create_veicolo', [VeicoloController::class, 'create']);
-    Route::get('/list_veicolo', [VeicoloController::class, 'index']);
-    Route::put('/update_veicolo/{id}', [VeicoloController::class, 'update']);
-    Route::delete('/delete_veicolo/{id}', [VeicoloController::class, 'delete']);
-    Route::get('/get-modello-by-marca/{id}', [ModelloController::class, 'getModelloByMarca']);
+    Route::get('create_veicolo', [VeicoloController::class, 'create']);
+    Route::get('list_veicolo', [VeicoloController::class, 'index']);
+    Route::put('update_veicolo/{id}', [VeicoloController::class, 'update']);
+    Route::delete('delete_veicolo/{id}', [VeicoloController::class, 'delete']);
+    Route::get('get-modello-by-marca/{id}', [ModelloController::class, 'getModelloByMarca']);
 
 
 });

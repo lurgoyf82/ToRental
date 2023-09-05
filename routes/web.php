@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\VeicoloController;
 use App\Http\Controllers\LeasingController;
 use App\Http\Controllers\AssicurazioneController;
@@ -49,7 +50,6 @@ Route::middleware('auth')->group(function () {
 
 
 
-
     //alert tagliando
     Route::get('alert_tagliando', [TagliandoController::class, 'alert']);
 
@@ -72,8 +72,11 @@ Route::middleware('auth')->group(function () {
     Route::get('list_veicolo', [VeicoloController::class, 'index']);
     Route::put('update_veicolo/{id}', [VeicoloController::class, 'update']);
     Route::delete('delete_veicolo/{id}', [VeicoloController::class, 'delete']);
+
     Route::get('get-modello-by-marca/{id}', [ModelloController::class, 'getModelloByMarca']);
 
+    //route for assign_role to a user with Spatie
+    Route::get('assign_role', [UserController::class, 'index']);
 
 });
 

@@ -1,139 +1,1206 @@
-<?php
-    use App\Models\Alert;
-?>
+
 <!--begin::Main-->
 <div class="app-main flex-column flex-row-fluid" id="kt_app_main">
     <!--begin::Content wrapper-->
     <div class="d-flex flex-column flex-column-fluid">
-        <form action="{{ url('alert_revisione_meccanica') }}" method="get">
-            @csrf
-            <!--begin::Content-->
-            <div id="kt_app_content" class="app-content flex-column-fluid">
-                <!--begin::Content container-->
-                <div id="kt_app_content_container" class="app-container container-xxl">
-                    <!--begin::Card-->
-                    <div class="card">
-                        <!--begin::Card header-->
-                        <div class="card-header border-0 pt-6">
-                            <!--begin::Card title-->
-                            <div class="card-title">
-                                <!--begin::Search-->
-                                <div class="d-flex align-items-center position-relative my-1">
-                                    <i class="ki-duotone ki-magnifier fs-3 position-absolute ms-5">
+        <!--begin::Toolbar-->
+        <div id="kt_app_toolbar" class="app-toolbar py-3 py-lg-6">
+            <!--begin::Toolbar container-->
+            <div id="kt_app_toolbar_container" class="app-container container-xxl d-flex flex-stack">
+                <!--begin::Page title-->
+                <div class="page-title d-flex flex-column justify-content-center flex-wrap me-3">
+                    <!--begin::Title-->
+                    <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">Roles List</h1>
+                    <!--end::Title-->
+                    <!--begin::Breadcrumb-->
+                    <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0 pt-1">
+                        <!--begin::Item-->
+                        <li class="breadcrumb-item text-muted">
+                            <a href="../../demo1/dist/index.html" class="text-muted text-hover-primary">Home</a>
+                        </li>
+                        <!--end::Item-->
+                        <!--begin::Item-->
+                        <li class="breadcrumb-item">
+                            <span class="bullet bg-gray-400 w-5px h-2px"></span>
+                        </li>
+                        <!--end::Item-->
+                        <!--begin::Item-->
+                        <li class="breadcrumb-item text-muted">User Management</li>
+                        <!--end::Item-->
+                        <!--begin::Item-->
+                        <li class="breadcrumb-item">
+                            <span class="bullet bg-gray-400 w-5px h-2px"></span>
+                        </li>
+                        <!--end::Item-->
+                        <!--begin::Item-->
+                        <li class="breadcrumb-item text-muted">Roles</li>
+                        <!--end::Item-->
+                    </ul>
+                    <!--end::Breadcrumb-->
+                </div>
+                <!--end::Page title-->
+                <!--begin::Actions-->
+                <div class="d-flex align-items-center gap-2 gap-lg-3">
+                    <!--begin::Filter menu-->
+                    <div class="m-0">
+                        <!--begin::Menu toggle-->
+                        <a href="#" class="btn btn-sm btn-flex btn-secondary fw-bold" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
+                            <i class="ki-duotone ki-filter fs-6 text-muted me-1">
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                            </i>Filter</a>
+                        <!--end::Menu toggle-->
+                        <!--begin::Menu 1-->
+                        <div class="menu menu-sub menu-sub-dropdown w-250px w-md-300px" data-kt-menu="true" id="kt_menu_64b0bed5761b0">
+                            <!--begin::Header-->
+                            <div class="px-7 py-5">
+                                <div class="fs-5 text-dark fw-bold">Filter Options</div>
+                            </div>
+                            <!--end::Header-->
+                            <!--begin::Menu separator-->
+                            <div class="separator border-gray-200"></div>
+                            <!--end::Menu separator-->
+                            <!--begin::Form-->
+                            <div class="px-7 py-5">
+                                <!--begin::Input group-->
+                                <div class="mb-10">
+                                    <!--begin::Label-->
+                                    <label class="form-label fw-semibold">Status:</label>
+                                    <!--end::Label-->
+                                    <!--begin::Input-->
+                                    <div>
+                                        <select class="form-select form-select-solid" multiple="multiple" data-kt-select2="true" data-close-on-select="false" data-placeholder="Select option" data-dropdown-parent="#kt_menu_64b0bed5761b0" data-allow-clear="true">
+                                            <option></option>
+                                            <option value="1">Approved</option>
+                                            <option value="2">Pending</option>
+                                            <option value="2">In Process</option>
+                                            <option value="2">Rejected</option>
+                                        </select>
+                                    </div>
+                                    <!--end::Input-->
+                                </div>
+                                <!--end::Input group-->
+                                <!--begin::Input group-->
+                                <div class="mb-10">
+                                    <!--begin::Label-->
+                                    <label class="form-label fw-semibold">Member Type:</label>
+                                    <!--end::Label-->
+                                    <!--begin::Options-->
+                                    <div class="d-flex">
+                                        <!--begin::Options-->
+                                        <label class="form-check form-check-sm form-check-custom form-check-solid me-5">
+                                            <input class="form-check-input" type="checkbox" value="1" />
+                                            <span class="form-check-label">Author</span>
+                                        </label>
+                                        <!--end::Options-->
+                                        <!--begin::Options-->
+                                        <label class="form-check form-check-sm form-check-custom form-check-solid">
+                                            <input class="form-check-input" type="checkbox" value="2" checked="checked" />
+                                            <span class="form-check-label">Customer</span>
+                                        </label>
+                                        <!--end::Options-->
+                                    </div>
+                                    <!--end::Options-->
+                                </div>
+                                <!--end::Input group-->
+                                <!--begin::Input group-->
+                                <div class="mb-10">
+                                    <!--begin::Label-->
+                                    <label class="form-label fw-semibold">Notifications:</label>
+                                    <!--end::Label-->
+                                    <!--begin::Switch-->
+                                    <div class="form-check form-switch form-switch-sm form-check-custom form-check-solid">
+                                        <input class="form-check-input" type="checkbox" value="" name="notifications" checked="checked" />
+                                        <label class="form-check-label">Enabled</label>
+                                    </div>
+                                    <!--end::Switch-->
+                                </div>
+                                <!--end::Input group-->
+                                <!--begin::Actions-->
+                                <div class="d-flex justify-content-end">
+                                    <button type="reset" class="btn btn-sm btn-light btn-active-light-primary me-2" data-kt-menu-dismiss="true">Reset</button>
+                                    <button type="submit" class="btn btn-sm btn-primary" data-kt-menu-dismiss="true">Apply</button>
+                                </div>
+                                <!--end::Actions-->
+                            </div>
+                            <!--end::Form-->
+                        </div>
+                        <!--end::Menu 1-->
+                    </div>
+                    <!--end::Filter menu-->
+                    <!--begin::Secondary button-->
+                    <!--end::Secondary button-->
+                    <!--begin::Primary button-->
+                    <a href="#" class="btn btn-sm fw-bold btn-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_create_app">Create</a>
+                    <!--end::Primary button-->
+                </div>
+                <!--end::Actions-->
+            </div>
+            <!--end::Toolbar container-->
+        </div>
+        <!--end::Toolbar-->
+        <!--begin::Content-->
+        <div id="kt_app_content" class="app-content flex-column-fluid">
+            <!--begin::Content container-->
+            <div id="kt_app_content_container" class="app-container container-xxl">
+                <!--begin::Row-->
+                <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-5 g-xl-9">
+                    <!--begin::Col-->
+                    <div class="col-md-4">
+                        <!--begin::Card-->
+                        <div class="card card-flush h-md-100">
+                            <!--begin::Card header-->
+                            <div class="card-header">
+                                <!--begin::Card title-->
+                                <div class="card-title">
+                                    <h2>Administrator</h2>
+                                </div>
+                                <!--end::Card title-->
+                            </div>
+                            <!--end::Card header-->
+                            <!--begin::Card body-->
+                            <div class="card-body pt-1">
+                                <!--begin::Users-->
+                                <div class="fw-bold text-gray-600 mb-5">Total users with this role: 5</div>
+                                <!--end::Users-->
+                                <!--begin::Permissions-->
+                                <div class="d-flex flex-column text-gray-600">
+                                    <div class="d-flex align-items-center py-2">
+                                        <span class="bullet bg-primary me-3"></span>All Admin Controls</div>
+                                    <div class="d-flex align-items-center py-2">
+                                        <span class="bullet bg-primary me-3"></span>View and Edit Financial Summaries</div>
+                                    <div class="d-flex align-items-center py-2">
+                                        <span class="bullet bg-primary me-3"></span>Enabled Bulk Reports</div>
+                                    <div class="d-flex align-items-center py-2">
+                                        <span class="bullet bg-primary me-3"></span>View and Edit Payouts</div>
+                                    <div class="d-flex align-items-center py-2">
+                                        <span class="bullet bg-primary me-3"></span>View and Edit Disputes</div>
+                                    <div class='d-flex align-items-center py-2'>
+                                        <span class='bullet bg-primary me-3'></span>
+                                        <em>and 7 more...</em>
+                                    </div>
+                                </div>
+                                <!--end::Permissions-->
+                            </div>
+                            <!--end::Card body-->
+                            <!--begin::Card footer-->
+                            <div class="card-footer flex-wrap pt-0">
+                                <a href="../../demo1/dist/apps/user-management/roles/view.html" class="btn btn-light btn-active-primary my-1 me-2">View Role</a>
+                                <button type="button" class="btn btn-light btn-active-light-primary my-1" data-bs-toggle="modal" data-bs-target="#kt_modal_update_role">Edit Role</button>
+                            </div>
+                            <!--end::Card footer-->
+                        </div>
+                        <!--end::Card-->
+                    </div>
+                    <!--end::Col-->
+                    <!--begin::Col-->
+                    <div class="col-md-4">
+                        <!--begin::Card-->
+                        <div class="card card-flush h-md-100">
+                            <!--begin::Card header-->
+                            <div class="card-header">
+                                <!--begin::Card title-->
+                                <div class="card-title">
+                                    <h2>Developer</h2>
+                                </div>
+                                <!--end::Card title-->
+                            </div>
+                            <!--end::Card header-->
+                            <!--begin::Card body-->
+                            <div class="card-body pt-1">
+                                <!--begin::Users-->
+                                <div class="fw-bold text-gray-600 mb-5">Total users with this role: 14</div>
+                                <!--end::Users-->
+                                <!--begin::Permissions-->
+                                <div class="d-flex flex-column text-gray-600">
+                                    <div class="d-flex align-items-center py-2">
+                                        <span class="bullet bg-primary me-3"></span>Some Admin Controls</div>
+                                    <div class="d-flex align-items-center py-2">
+                                        <span class="bullet bg-primary me-3"></span>View Financial Summaries only</div>
+                                    <div class="d-flex align-items-center py-2">
+                                        <span class="bullet bg-primary me-3"></span>View and Edit API Controls</div>
+                                    <div class="d-flex align-items-center py-2">
+                                        <span class="bullet bg-primary me-3"></span>View Payouts only</div>
+                                    <div class="d-flex align-items-center py-2">
+                                        <span class="bullet bg-primary me-3"></span>View and Edit Disputes</div>
+                                    <div class='d-flex align-items-center py-2'>
+                                        <span class='bullet bg-primary me-3'></span>
+                                        <em>and 3 more...</em>
+                                    </div>
+                                </div>
+                                <!--end::Permissions-->
+                            </div>
+                            <!--end::Card body-->
+                            <!--begin::Card footer-->
+                            <div class="card-footer flex-wrap pt-0">
+                                <a href="../../demo1/dist/apps/user-management/roles/view.html" class="btn btn-light btn-active-primary my-1 me-2">View Role</a>
+                                <button type="button" class="btn btn-light btn-active-light-primary my-1" data-bs-toggle="modal" data-bs-target="#kt_modal_update_role">Edit Role</button>
+                            </div>
+                            <!--end::Card footer-->
+                        </div>
+                        <!--end::Card-->
+                    </div>
+                    <!--end::Col-->
+                    <!--begin::Col-->
+                    <div class="col-md-4">
+                        <!--begin::Card-->
+                        <div class="card card-flush h-md-100">
+                            <!--begin::Card header-->
+                            <div class="card-header">
+                                <!--begin::Card title-->
+                                <div class="card-title">
+                                    <h2>Analyst</h2>
+                                </div>
+                                <!--end::Card title-->
+                            </div>
+                            <!--end::Card header-->
+                            <!--begin::Card body-->
+                            <div class="card-body pt-1">
+                                <!--begin::Users-->
+                                <div class="fw-bold text-gray-600 mb-5">Total users with this role: 4</div>
+                                <!--end::Users-->
+                                <!--begin::Permissions-->
+                                <div class="d-flex flex-column text-gray-600">
+                                    <div class="d-flex align-items-center py-2">
+                                        <span class="bullet bg-primary me-3"></span>No Admin Controls</div>
+                                    <div class="d-flex align-items-center py-2">
+                                        <span class="bullet bg-primary me-3"></span>View and Edit Financial Summaries</div>
+                                    <div class="d-flex align-items-center py-2">
+                                        <span class="bullet bg-primary me-3"></span>Enabled Bulk Reports</div>
+                                    <div class="d-flex align-items-center py-2">
+                                        <span class="bullet bg-primary me-3"></span>View Payouts only</div>
+                                    <div class="d-flex align-items-center py-2">
+                                        <span class="bullet bg-primary me-3"></span>View Disputes only</div>
+                                    <div class='d-flex align-items-center py-2'>
+                                        <span class='bullet bg-primary me-3'></span>
+                                        <em>and 2 more...</em>
+                                    </div>
+                                </div>
+                                <!--end::Permissions-->
+                            </div>
+                            <!--end::Card body-->
+                            <!--begin::Card footer-->
+                            <div class="card-footer flex-wrap pt-0">
+                                <a href="../../demo1/dist/apps/user-management/roles/view.html" class="btn btn-light btn-active-primary my-1 me-2">View Role</a>
+                                <button type="button" class="btn btn-light btn-active-light-primary my-1" data-bs-toggle="modal" data-bs-target="#kt_modal_update_role">Edit Role</button>
+                            </div>
+                            <!--end::Card footer-->
+                        </div>
+                        <!--end::Card-->
+                    </div>
+                    <!--end::Col-->
+                    <!--begin::Col-->
+                    <div class="col-md-4">
+                        <!--begin::Card-->
+                        <div class="card card-flush h-md-100">
+                            <!--begin::Card header-->
+                            <div class="card-header">
+                                <!--begin::Card title-->
+                                <div class="card-title">
+                                    <h2>Support</h2>
+                                </div>
+                                <!--end::Card title-->
+                            </div>
+                            <!--end::Card header-->
+                            <!--begin::Card body-->
+                            <div class="card-body pt-1">
+                                <!--begin::Users-->
+                                <div class="fw-bold text-gray-600 mb-5">Total users with this role: 23</div>
+                                <!--end::Users-->
+                                <!--begin::Permissions-->
+                                <div class="d-flex flex-column text-gray-600">
+                                    <div class="d-flex align-items-center py-2">
+                                        <span class="bullet bg-primary me-3"></span>No Admin Controls</div>
+                                    <div class="d-flex align-items-center py-2">
+                                        <span class="bullet bg-primary me-3"></span>View Financial Summaries only</div>
+                                    <div class="d-flex align-items-center py-2">
+                                        <span class="bullet bg-primary me-3"></span>View Payouts only</div>
+                                    <div class="d-flex align-items-center py-2">
+                                        <span class="bullet bg-primary me-3"></span>View and Edit Disputes</div>
+                                    <div class="d-flex align-items-center py-2">
+                                        <span class="bullet bg-primary me-3"></span>Response to Customer Feedback</div>
+                                </div>
+                                <!--end::Permissions-->
+                            </div>
+                            <!--end::Card body-->
+                            <!--begin::Card footer-->
+                            <div class="card-footer flex-wrap pt-0">
+                                <a href="../../demo1/dist/apps/user-management/roles/view.html" class="btn btn-light btn-active-primary my-1 me-2">View Role</a>
+                                <button type="button" class="btn btn-light btn-active-light-primary my-1" data-bs-toggle="modal" data-bs-target="#kt_modal_update_role">Edit Role</button>
+                            </div>
+                            <!--end::Card footer-->
+                        </div>
+                        <!--end::Card-->
+                    </div>
+                    <!--end::Col-->
+                    <!--begin::Col-->
+                    <div class="col-md-4">
+                        <!--begin::Card-->
+                        <div class="card card-flush h-md-100">
+                            <!--begin::Card header-->
+                            <div class="card-header">
+                                <!--begin::Card title-->
+                                <div class="card-title">
+                                    <h2>Trial</h2>
+                                </div>
+                                <!--end::Card title-->
+                            </div>
+                            <!--end::Card header-->
+                            <!--begin::Card body-->
+                            <div class="card-body pt-1">
+                                <!--begin::Users-->
+                                <div class="fw-bold text-gray-600 mb-5">Total users with this role: 546</div>
+                                <!--end::Users-->
+                                <!--begin::Permissions-->
+                                <div class="d-flex flex-column text-gray-600">
+                                    <div class="d-flex align-items-center py-2">
+                                        <span class="bullet bg-primary me-3"></span>No Admin Controls</div>
+                                    <div class="d-flex align-items-center py-2">
+                                        <span class="bullet bg-primary me-3"></span>View Financial Summaries only</div>
+                                    <div class="d-flex align-items-center py-2">
+                                        <span class="bullet bg-primary me-3"></span>View Bulk Reports only</div>
+                                    <div class="d-flex align-items-center py-2">
+                                        <span class="bullet bg-primary me-3"></span>View Payouts only</div>
+                                    <div class="d-flex align-items-center py-2">
+                                        <span class="bullet bg-primary me-3"></span>View Disputes only</div>
+                                </div>
+                                <!--end::Permissions-->
+                            </div>
+                            <!--end::Card body-->
+                            <!--begin::Card footer-->
+                            <div class="card-footer flex-wrap pt-0">
+                                <a href="../../demo1/dist/apps/user-management/roles/view.html" class="btn btn-light btn-active-primary my-1 me-2">View Role</a>
+                                <button type="button" class="btn btn-light btn-active-light-primary my-1" data-bs-toggle="modal" data-bs-target="#kt_modal_update_role">Edit Role</button>
+                            </div>
+                            <!--end::Card footer-->
+                        </div>
+                        <!--end::Card-->
+                    </div>
+                    <!--end::Col-->
+                    <!--begin::Add new card-->
+                    <div class="ol-md-4">
+                        <!--begin::Card-->
+                        <div class="card h-md-100">
+                            <!--begin::Card body-->
+                            <div class="card-body d-flex flex-center">
+                                <!--begin::Button-->
+                                <button type="button" class="btn btn-clear d-flex flex-column flex-center" data-bs-toggle="modal" data-bs-target="#kt_modal_add_role">
+                                    <!--begin::Illustration-->
+                                    <img src="assets/media/illustrations/sketchy-1/4.png" alt="" class="mw-100 mh-150px mb-7" />
+                                    <!--end::Illustration-->
+                                    <!--begin::Label-->
+                                    <div class="fw-bold fs-3 text-gray-600 text-hover-primary">Add New Role</div>
+                                    <!--end::Label-->
+                                </button>
+                                <!--begin::Button-->
+                            </div>
+                            <!--begin::Card body-->
+                        </div>
+                        <!--begin::Card-->
+                    </div>
+                    <!--begin::Add new card-->
+                </div>
+                <!--end::Row-->
+                <!--begin::Modals-->
+                <!--begin::Modal - Add role-->
+                <div class="modal fade" id="kt_modal_add_role" tabindex="-1" aria-hidden="true">
+                    <!--begin::Modal dialog-->
+                    <div class="modal-dialog modal-dialog-centered mw-750px">
+                        <!--begin::Modal content-->
+                        <div class="modal-content">
+                            <!--begin::Modal header-->
+                            <div class="modal-header">
+                                <!--begin::Modal title-->
+                                <h2 class="fw-bold">Add a Role</h2>
+                                <!--end::Modal title-->
+                                <!--begin::Close-->
+                                <div class="btn btn-icon btn-sm btn-active-icon-primary" data-kt-roles-modal-action="close">
+                                    <i class="ki-duotone ki-cross fs-1">
                                         <span class="path1"></span>
                                         <span class="path2"></span>
                                     </i>
-                                    <input type="text" name="search" class="form-control form-control-solid w-850px ps-12" placeholder="Ricerca Targa" />
-
-                                    <!--begin::Card toolbar-->
-                                    <div class="card-toolbar">
-                                        <!--begin::Toolbar-->
-                                        <div class="d-flex justify-content-end" data-kt-customer-table-toolbar="base">
-                                            <!--begin::Submit-->
-                                            <button type="submit" class="btn btn-primary">Ricerca</button>
-                                            <!--end::Submit-->
-                                        </div>
-                                        <!--end::Toolbar-->
-                                    </div>
-                                    <!--end::Card toolbar-->
                                 </div>
-                                <!--end::Search-->
+                                <!--end::Close-->
                             </div>
-                            <!--begin::Card title-->
-                        </div>
-                        <!--end::Card header-->
-                        <!--begin::Card body-->
-                        <div class="card-body pt-0">
-                            <!--begin::Table-->
-                            <table class="table text-center align-middle table-row-dashed fs-6 gy-5" id="kt_customers_table">
-                                <thead>
-                                <tr class="text-gray-400 fw-bold fs-7 text-uppercase gs-0">
-                                    <th class="min-w-150px">Livello</th>
-                                    <th class="min-w-150px">Targa</th>
-                                    <th class="min-w-150px">Marca</th>
-                                    <th class="min-w-150px">Modello</th>
-                                    <th class="min-w-150px">Inizio Validit&agrave;</th>
-                                    <th class="min-w-150px">Fine Validit&agrave;</th>
-                                    <th class="text-end w-100px">Azioni</th>
-                                </tr>
-                                </thead>
-                                <tbody class="fw-semibold text-gray-600">
-
-                                @foreach($alertList as $row)
-                                    <?php
-                                        if($row->livello >= Alert::$thirdThreshold) {
-                                            continue;
-                                        }
-
-
-
-                                    ?>
-                                    <tr
-                                        @if($row->livello<=Alert::$firstThreshold)
-                                            class="bg-light-danger bg-hover-danger"
-                                        @elseif($row->livello<=Alert::$secondThreshold)
-                                            class="bg-light-warning bg-hover-warning"
-                                        @elseif($row->livello<=Alert::$thirdThreshold)
-                                            class="bg-light-primary bg-hover-primary"
-                                        @endif
-                                        >
-                                        <td class="min-w-150px align-center">
-                                            @if(!isset($row->livello))
-                                                Mai Revisionato
-                                            @elseif($row->livello<0)
-                                                Scaduto da {{ -$row->livello }} giorni
-                                            @elseif($row->livello>=0)
-                                                Scade tra {{ $row->livello }} giorni
-                                            @endif
-                                        </td>
-                                        <td class="min-w-150px">
-                                            <a href="update_veicolo/{{ $row->id_veicolo }}" class="text-gray-800 text-hover-white mb-1">{{ $row->targa ?? 'N/A' }}</a>
-                                        </td>
-                                        <td class="min-w-150px">
-                                            <a href="update_marca/{{ $row->id_marca }}" class="text-gray-800 text-hover-white mb-1">{{ $row->marca ?? 'N/A' }}</a>
-                                        </td>
-                                        <td class="min-w-150px">
-                                            <a href="update_modello/{{ $row->id_modello }}" class="text-gray-800 text-hover-white mb-1">{{ $row->modello ?? 'N/A' }}</a>
-                                        </td>
-                                        <td class="min-w-150px">
-                                            <a href="update_revisione/{{ $row->id }}" class="text-gray-800 text-hover-white mb-1">{{ $row->inizio_validita ?? 'N/A' }}</a>
-                                        </td>
-                                        <td class="min-w-150px">
-                                            <a href="update_revisione/{{ $row->id }}" class="text-gray-800 text-hover-white mb-1">{{ $row->fine_validita ?? 'N/A' }}</a>
-                                        </td>
-                                        <td class="text-end w-100px">
-                                            <a href="#" class="btn btn-sm btn-light btn-flex btn-center btn-active-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
-                                                <i class="ki-duotone ki-down fs-5 ms-1"></i></a>
-                                            <!--begin::Menu-->
-                                            <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4" data-kt-menu="true">
-                                                <!--begin::Menu item-->
-                                                <div class="menu-item px-3">
-                                                    <a href="../../demo1/dist/apps/customers/view.html" class="menu-link px-3">View</a>
-                                                </div>
-                                                <!--end::Menu item-->
-                                                <!--begin::Menu item-->
-                                                <div class="menu-item px-3">
-                                                    <a href="#" class="menu-link px-3" data-kt-customer-table-filter="delete_row">Delete</a>
-                                                </div>
-                                                <!--end::Menu item-->
+                            <!--end::Modal header-->
+                            <!--begin::Modal body-->
+                            <div class="modal-body scroll-y mx-lg-5 my-7">
+                                <!--begin::Form-->
+                                <form id="kt_modal_add_role_form" class="form" action="#">
+                                    <!--begin::Scroll-->
+                                    <div class="d-flex flex-column scroll-y me-n7 pe-7" id="kt_modal_add_role_scroll" data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#kt_modal_add_role_header" data-kt-scroll-wrappers="#kt_modal_add_role_scroll" data-kt-scroll-offset="300px">
+                                        <!--begin::Input group-->
+                                        <div class="fv-row mb-10">
+                                            <!--begin::Label-->
+                                            <label class="fs-5 fw-bold form-label mb-2">
+                                                <span class="required">Role name</span>
+                                            </label>
+                                            <!--end::Label-->
+                                            <!--begin::Input-->
+                                            <input class="form-control form-control-solid" placeholder="Enter a role name" name="role_name" />
+                                            <!--end::Input-->
+                                        </div>
+                                        <!--end::Input group-->
+                                        <!--begin::Permissions-->
+                                        <div class="fv-row">
+                                            <!--begin::Label-->
+                                            <label class="fs-5 fw-bold form-label mb-2">Role Permissions</label>
+                                            <!--end::Label-->
+                                            <!--begin::Table wrapper-->
+                                            <div class="table-responsive">
+                                                <!--begin::Table-->
+                                                <table class="table align-middle table-row-dashed fs-6 gy-5">
+                                                    <!--begin::Table body-->
+                                                    <tbody class="text-gray-600 fw-semibold">
+                                                    <!--begin::Table row-->
+                                                    <tr>
+                                                        <td class="text-gray-800">Administrator Access
+                                                            <span class="ms-2" data-bs-toggle="popover" data-bs-trigger="hover" data-bs-html="true" data-bs-content="Allows a full access to the system">
+																					<i class="ki-duotone ki-information fs-7">
+																						<span class="path1"></span>
+																						<span class="path2"></span>
+																						<span class="path3"></span>
+																					</i>
+																				</span></td>
+                                                        <td>
+                                                            <!--begin::Checkbox-->
+                                                            <label class="form-check form-check-custom form-check-solid me-9">
+                                                                <input class="form-check-input" type="checkbox" value="" id="kt_roles_select_all" />
+                                                                <span class="form-check-label" for="kt_roles_select_all">Select all</span>
+                                                            </label>
+                                                            <!--end::Checkbox-->
+                                                        </td>
+                                                    </tr>
+                                                    <!--end::Table row-->
+                                                    <!--begin::Table row-->
+                                                    <tr>
+                                                        <!--begin::Label-->
+                                                        <td class="text-gray-800">User Management</td>
+                                                        <!--end::Label-->
+                                                        <!--begin::Options-->
+                                                        <td>
+                                                            <!--begin::Wrapper-->
+                                                            <div class="d-flex">
+                                                                <!--begin::Checkbox-->
+                                                                <label class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20">
+                                                                    <input class="form-check-input" type="checkbox" value="" name="user_management_read" />
+                                                                    <span class="form-check-label">Read</span>
+                                                                </label>
+                                                                <!--end::Checkbox-->
+                                                                <!--begin::Checkbox-->
+                                                                <label class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20">
+                                                                    <input class="form-check-input" type="checkbox" value="" name="user_management_write" />
+                                                                    <span class="form-check-label">Write</span>
+                                                                </label>
+                                                                <!--end::Checkbox-->
+                                                                <!--begin::Checkbox-->
+                                                                <label class="form-check form-check-sm form-check-custom form-check-solid">
+                                                                    <input class="form-check-input" type="checkbox" value="" name="user_management_create" />
+                                                                    <span class="form-check-label">Create</span>
+                                                                </label>
+                                                                <!--end::Checkbox-->
+                                                            </div>
+                                                            <!--end::Wrapper-->
+                                                        </td>
+                                                        <!--end::Options-->
+                                                    </tr>
+                                                    <!--end::Table row-->
+                                                    <!--begin::Table row-->
+                                                    <tr>
+                                                        <!--begin::Label-->
+                                                        <td class="text-gray-800">Content Management</td>
+                                                        <!--end::Label-->
+                                                        <!--begin::Options-->
+                                                        <td>
+                                                            <!--begin::Wrapper-->
+                                                            <div class="d-flex">
+                                                                <!--begin::Checkbox-->
+                                                                <label class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20">
+                                                                    <input class="form-check-input" type="checkbox" value="" name="content_management_read" />
+                                                                    <span class="form-check-label">Read</span>
+                                                                </label>
+                                                                <!--end::Checkbox-->
+                                                                <!--begin::Checkbox-->
+                                                                <label class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20">
+                                                                    <input class="form-check-input" type="checkbox" value="" name="content_management_write" />
+                                                                    <span class="form-check-label">Write</span>
+                                                                </label>
+                                                                <!--end::Checkbox-->
+                                                                <!--begin::Checkbox-->
+                                                                <label class="form-check form-check-sm form-check-custom form-check-solid">
+                                                                    <input class="form-check-input" type="checkbox" value="" name="content_management_create" />
+                                                                    <span class="form-check-label">Create</span>
+                                                                </label>
+                                                                <!--end::Checkbox-->
+                                                            </div>
+                                                            <!--end::Wrapper-->
+                                                        </td>
+                                                        <!--end::Options-->
+                                                    </tr>
+                                                    <!--end::Table row-->
+                                                    <!--begin::Table row-->
+                                                    <tr>
+                                                        <!--begin::Label-->
+                                                        <td class="text-gray-800">Financial Management</td>
+                                                        <!--end::Label-->
+                                                        <!--begin::Options-->
+                                                        <td>
+                                                            <!--begin::Wrapper-->
+                                                            <div class="d-flex">
+                                                                <!--begin::Checkbox-->
+                                                                <label class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20">
+                                                                    <input class="form-check-input" type="checkbox" value="" name="financial_management_read" />
+                                                                    <span class="form-check-label">Read</span>
+                                                                </label>
+                                                                <!--end::Checkbox-->
+                                                                <!--begin::Checkbox-->
+                                                                <label class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20">
+                                                                    <input class="form-check-input" type="checkbox" value="" name="financial_management_write" />
+                                                                    <span class="form-check-label">Write</span>
+                                                                </label>
+                                                                <!--end::Checkbox-->
+                                                                <!--begin::Checkbox-->
+                                                                <label class="form-check form-check-sm form-check-custom form-check-solid">
+                                                                    <input class="form-check-input" type="checkbox" value="" name="financial_management_create" />
+                                                                    <span class="form-check-label">Create</span>
+                                                                </label>
+                                                                <!--end::Checkbox-->
+                                                            </div>
+                                                            <!--end::Wrapper-->
+                                                        </td>
+                                                        <!--end::Options-->
+                                                    </tr>
+                                                    <!--end::Table row-->
+                                                    <!--begin::Table row-->
+                                                    <tr>
+                                                        <!--begin::Label-->
+                                                        <td class="text-gray-800">Reporting</td>
+                                                        <!--end::Label-->
+                                                        <!--begin::Options-->
+                                                        <td>
+                                                            <!--begin::Wrapper-->
+                                                            <div class="d-flex">
+                                                                <!--begin::Checkbox-->
+                                                                <label class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20">
+                                                                    <input class="form-check-input" type="checkbox" value="" name="reporting_read" />
+                                                                    <span class="form-check-label">Read</span>
+                                                                </label>
+                                                                <!--end::Checkbox-->
+                                                                <!--begin::Checkbox-->
+                                                                <label class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20">
+                                                                    <input class="form-check-input" type="checkbox" value="" name="reporting_write" />
+                                                                    <span class="form-check-label">Write</span>
+                                                                </label>
+                                                                <!--end::Checkbox-->
+                                                                <!--begin::Checkbox-->
+                                                                <label class="form-check form-check-sm form-check-custom form-check-solid">
+                                                                    <input class="form-check-input" type="checkbox" value="" name="reporting_create" />
+                                                                    <span class="form-check-label">Create</span>
+                                                                </label>
+                                                                <!--end::Checkbox-->
+                                                            </div>
+                                                            <!--end::Wrapper-->
+                                                        </td>
+                                                        <!--end::Options-->
+                                                    </tr>
+                                                    <!--end::Table row-->
+                                                    <!--begin::Table row-->
+                                                    <tr>
+                                                        <!--begin::Label-->
+                                                        <td class="text-gray-800">Payroll</td>
+                                                        <!--end::Label-->
+                                                        <!--begin::Options-->
+                                                        <td>
+                                                            <!--begin::Wrapper-->
+                                                            <div class="d-flex">
+                                                                <!--begin::Checkbox-->
+                                                                <label class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20">
+                                                                    <input class="form-check-input" type="checkbox" value="" name="payroll_read" />
+                                                                    <span class="form-check-label">Read</span>
+                                                                </label>
+                                                                <!--end::Checkbox-->
+                                                                <!--begin::Checkbox-->
+                                                                <label class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20">
+                                                                    <input class="form-check-input" type="checkbox" value="" name="payroll_write" />
+                                                                    <span class="form-check-label">Write</span>
+                                                                </label>
+                                                                <!--end::Checkbox-->
+                                                                <!--begin::Checkbox-->
+                                                                <label class="form-check form-check-sm form-check-custom form-check-solid">
+                                                                    <input class="form-check-input" type="checkbox" value="" name="payroll_create" />
+                                                                    <span class="form-check-label">Create</span>
+                                                                </label>
+                                                                <!--end::Checkbox-->
+                                                            </div>
+                                                            <!--end::Wrapper-->
+                                                        </td>
+                                                        <!--end::Options-->
+                                                    </tr>
+                                                    <!--end::Table row-->
+                                                    <!--begin::Table row-->
+                                                    <tr>
+                                                        <!--begin::Label-->
+                                                        <td class="text-gray-800">Disputes Management</td>
+                                                        <!--end::Label-->
+                                                        <!--begin::Options-->
+                                                        <td>
+                                                            <!--begin::Wrapper-->
+                                                            <div class="d-flex">
+                                                                <!--begin::Checkbox-->
+                                                                <label class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20">
+                                                                    <input class="form-check-input" type="checkbox" value="" name="disputes_management_read" />
+                                                                    <span class="form-check-label">Read</span>
+                                                                </label>
+                                                                <!--end::Checkbox-->
+                                                                <!--begin::Checkbox-->
+                                                                <label class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20">
+                                                                    <input class="form-check-input" type="checkbox" value="" name="disputes_management_write" />
+                                                                    <span class="form-check-label">Write</span>
+                                                                </label>
+                                                                <!--end::Checkbox-->
+                                                                <!--begin::Checkbox-->
+                                                                <label class="form-check form-check-sm form-check-custom form-check-solid">
+                                                                    <input class="form-check-input" type="checkbox" value="" name="disputes_management_create" />
+                                                                    <span class="form-check-label">Create</span>
+                                                                </label>
+                                                                <!--end::Checkbox-->
+                                                            </div>
+                                                            <!--end::Wrapper-->
+                                                        </td>
+                                                        <!--end::Options-->
+                                                    </tr>
+                                                    <!--end::Table row-->
+                                                    <!--begin::Table row-->
+                                                    <tr>
+                                                        <!--begin::Label-->
+                                                        <td class="text-gray-800">API Controls</td>
+                                                        <!--end::Label-->
+                                                        <!--begin::Options-->
+                                                        <td>
+                                                            <!--begin::Wrapper-->
+                                                            <div class="d-flex">
+                                                                <!--begin::Checkbox-->
+                                                                <label class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20">
+                                                                    <input class="form-check-input" type="checkbox" value="" name="api_controls_read" />
+                                                                    <span class="form-check-label">Read</span>
+                                                                </label>
+                                                                <!--end::Checkbox-->
+                                                                <!--begin::Checkbox-->
+                                                                <label class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20">
+                                                                    <input class="form-check-input" type="checkbox" value="" name="api_controls_write" />
+                                                                    <span class="form-check-label">Write</span>
+                                                                </label>
+                                                                <!--end::Checkbox-->
+                                                                <!--begin::Checkbox-->
+                                                                <label class="form-check form-check-sm form-check-custom form-check-solid">
+                                                                    <input class="form-check-input" type="checkbox" value="" name="api_controls_create" />
+                                                                    <span class="form-check-label">Create</span>
+                                                                </label>
+                                                                <!--end::Checkbox-->
+                                                            </div>
+                                                            <!--end::Wrapper-->
+                                                        </td>
+                                                        <!--end::Options-->
+                                                    </tr>
+                                                    <!--end::Table row-->
+                                                    <!--begin::Table row-->
+                                                    <tr>
+                                                        <!--begin::Label-->
+                                                        <td class="text-gray-800">Database Management</td>
+                                                        <!--end::Label-->
+                                                        <!--begin::Options-->
+                                                        <td>
+                                                            <!--begin::Wrapper-->
+                                                            <div class="d-flex">
+                                                                <!--begin::Checkbox-->
+                                                                <label class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20">
+                                                                    <input class="form-check-input" type="checkbox" value="" name="database_management_read" />
+                                                                    <span class="form-check-label">Read</span>
+                                                                </label>
+                                                                <!--end::Checkbox-->
+                                                                <!--begin::Checkbox-->
+                                                                <label class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20">
+                                                                    <input class="form-check-input" type="checkbox" value="" name="database_management_write" />
+                                                                    <span class="form-check-label">Write</span>
+                                                                </label>
+                                                                <!--end::Checkbox-->
+                                                                <!--begin::Checkbox-->
+                                                                <label class="form-check form-check-sm form-check-custom form-check-solid">
+                                                                    <input class="form-check-input" type="checkbox" value="" name="database_management_create" />
+                                                                    <span class="form-check-label">Create</span>
+                                                                </label>
+                                                                <!--end::Checkbox-->
+                                                            </div>
+                                                            <!--end::Wrapper-->
+                                                        </td>
+                                                        <!--end::Options-->
+                                                    </tr>
+                                                    <!--end::Table row-->
+                                                    <!--begin::Table row-->
+                                                    <tr>
+                                                        <!--begin::Label-->
+                                                        <td class="text-gray-800">Repository Management</td>
+                                                        <!--end::Label-->
+                                                        <!--begin::Options-->
+                                                        <td>
+                                                            <!--begin::Wrapper-->
+                                                            <div class="d-flex">
+                                                                <!--begin::Checkbox-->
+                                                                <label class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20">
+                                                                    <input class="form-check-input" type="checkbox" value="" name="repository_management_read" />
+                                                                    <span class="form-check-label">Read</span>
+                                                                </label>
+                                                                <!--end::Checkbox-->
+                                                                <!--begin::Checkbox-->
+                                                                <label class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20">
+                                                                    <input class="form-check-input" type="checkbox" value="" name="repository_management_write" />
+                                                                    <span class="form-check-label">Write</span>
+                                                                </label>
+                                                                <!--end::Checkbox-->
+                                                                <!--begin::Checkbox-->
+                                                                <label class="form-check form-check-sm form-check-custom form-check-solid">
+                                                                    <input class="form-check-input" type="checkbox" value="" name="repository_management_create" />
+                                                                    <span class="form-check-label">Create</span>
+                                                                </label>
+                                                                <!--end::Checkbox-->
+                                                            </div>
+                                                            <!--end::Wrapper-->
+                                                        </td>
+                                                        <!--end::Options-->
+                                                    </tr>
+                                                    <!--end::Table row-->
+                                                    </tbody>
+                                                    <!--end::Table body-->
+                                                </table>
+                                                <!--end::Table-->
                                             </div>
-                                            <!--end::Menu-->
-                                        </td>
-                                    </tr>
-                                @endforeach
-
-                                </tbody>
-                            </table>
-                            <!--end::Table-->
+                                            <!--end::Table wrapper-->
+                                        </div>
+                                        <!--end::Permissions-->
+                                    </div>
+                                    <!--end::Scroll-->
+                                    <!--begin::Actions-->
+                                    <div class="text-center pt-15">
+                                        <button type="reset" class="btn btn-light me-3" data-kt-roles-modal-action="cancel">Discard</button>
+                                        <button type="submit" class="btn btn-primary" data-kt-roles-modal-action="submit">
+                                            <span class="indicator-label">Submit</span>
+                                            <span class="indicator-progress">Please wait...
+																<span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                                        </button>
+                                    </div>
+                                    <!--end::Actions-->
+                                </form>
+                                <!--end::Form-->
+                            </div>
+                            <!--end::Modal body-->
                         </div>
-                        <!--end::Card body-->
+                        <!--end::Modal content-->
                     </div>
-                    <!--end::Card-->
+                    <!--end::Modal dialog-->
                 </div>
-                <!--end::Content container-->
+                <!--end::Modal - Add role-->
+                <!--begin::Modal - Update role-->
+                <div class="modal fade" id="kt_modal_update_role" tabindex="-1" aria-hidden="true">
+                    <!--begin::Modal dialog-->
+                    <div class="modal-dialog modal-dialog-centered mw-750px">
+                        <!--begin::Modal content-->
+                        <div class="modal-content">
+                            <!--begin::Modal header-->
+                            <div class="modal-header">
+                                <!--begin::Modal title-->
+                                <h2 class="fw-bold">Update Role</h2>
+                                <!--end::Modal title-->
+                                <!--begin::Close-->
+                                <div class="btn btn-icon btn-sm btn-active-icon-primary" data-kt-roles-modal-action="close">
+                                    <i class="ki-duotone ki-cross fs-1">
+                                        <span class="path1"></span>
+                                        <span class="path2"></span>
+                                    </i>
+                                </div>
+                                <!--end::Close-->
+                            </div>
+                            <!--end::Modal header-->
+                            <!--begin::Modal body-->
+                            <div class="modal-body scroll-y mx-5 my-7">
+                                <!--begin::Form-->
+                                <form id="kt_modal_update_role_form" class="form" action="#">
+                                    <!--begin::Scroll-->
+                                    <div class="d-flex flex-column scroll-y me-n7 pe-7" id="kt_modal_update_role_scroll" data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#kt_modal_update_role_header" data-kt-scroll-wrappers="#kt_modal_update_role_scroll" data-kt-scroll-offset="300px">
+                                        <!--begin::Input group-->
+                                        <div class="fv-row mb-10">
+                                            <!--begin::Label-->
+                                            <label class="fs-5 fw-bold form-label mb-2">
+                                                <span class="required">Role name</span>
+                                            </label>
+                                            <!--end::Label-->
+                                            <!--begin::Input-->
+                                            <input class="form-control form-control-solid" placeholder="Enter a role name" name="role_name" value="Developer" />
+                                            <!--end::Input-->
+                                        </div>
+                                        <!--end::Input group-->
+                                        <!--begin::Permissions-->
+                                        <div class="fv-row">
+                                            <!--begin::Label-->
+                                            <label class="fs-5 fw-bold form-label mb-2">Role Permissions</label>
+                                            <!--end::Label-->
+                                            <!--begin::Table wrapper-->
+                                            <div class="table-responsive">
+                                                <!--begin::Table-->
+                                                <table class="table align-middle table-row-dashed fs-6 gy-5">
+                                                    <!--begin::Table body-->
+                                                    <tbody class="text-gray-600 fw-semibold">
+                                                    <!--begin::Table row-->
+                                                    <tr>
+                                                        <td class="text-gray-800">Administrator Access
+                                                            <span class="ms-1" data-bs-toggle="tooltip" title="Allows a full access to the system">
+																					<i class="ki-duotone ki-information-5 text-gray-500 fs-6">
+																						<span class="path1"></span>
+																						<span class="path2"></span>
+																						<span class="path3"></span>
+																					</i>
+																				</span></td>
+                                                        <td>
+                                                            <!--begin::Checkbox-->
+                                                            <label class="form-check form-check-sm form-check-custom form-check-solid me-9">
+                                                                <input class="form-check-input" type="checkbox" value="" id="kt_roles_select_all" />
+                                                                <span class="form-check-label" for="kt_roles_select_all">Select all</span>
+                                                            </label>
+                                                            <!--end::Checkbox-->
+                                                        </td>
+                                                    </tr>
+                                                    <!--end::Table row-->
+                                                    <!--begin::Table row-->
+                                                    <tr>
+                                                        <!--begin::Label-->
+                                                        <td class="text-gray-800">User Management</td>
+                                                        <!--end::Label-->
+                                                        <!--begin::Input group-->
+                                                        <td>
+                                                            <!--begin::Wrapper-->
+                                                            <div class="d-flex">
+                                                                <!--begin::Checkbox-->
+                                                                <label class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20">
+                                                                    <input class="form-check-input" type="checkbox" value="" name="user_management_read" />
+                                                                    <span class="form-check-label">Read</span>
+                                                                </label>
+                                                                <!--end::Checkbox-->
+                                                                <!--begin::Checkbox-->
+                                                                <label class="form-check form-check-custom form-check-solid me-5 me-lg-20">
+                                                                    <input class="form-check-input" type="checkbox" value="" name="user_management_write" />
+                                                                    <span class="form-check-label">Write</span>
+                                                                </label>
+                                                                <!--end::Checkbox-->
+                                                                <!--begin::Checkbox-->
+                                                                <label class="form-check form-check-custom form-check-solid">
+                                                                    <input class="form-check-input" type="checkbox" value="" name="user_management_create" />
+                                                                    <span class="form-check-label">Create</span>
+                                                                </label>
+                                                                <!--end::Checkbox-->
+                                                            </div>
+                                                            <!--end::Wrapper-->
+                                                        </td>
+                                                        <!--end::Input group-->
+                                                    </tr>
+                                                    <!--end::Table row-->
+                                                    <!--begin::Table row-->
+                                                    <tr>
+                                                        <!--begin::Label-->
+                                                        <td class="text-gray-800">Content Management</td>
+                                                        <!--end::Label-->
+                                                        <!--begin::Input group-->
+                                                        <td>
+                                                            <!--begin::Wrapper-->
+                                                            <div class="d-flex">
+                                                                <!--begin::Checkbox-->
+                                                                <label class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20">
+                                                                    <input class="form-check-input" type="checkbox" value="" name="content_management_read" />
+                                                                    <span class="form-check-label">Read</span>
+                                                                </label>
+                                                                <!--end::Checkbox-->
+                                                                <!--begin::Checkbox-->
+                                                                <label class="form-check form-check-custom form-check-solid me-5 me-lg-20">
+                                                                    <input class="form-check-input" type="checkbox" value="" name="content_management_write" />
+                                                                    <span class="form-check-label">Write</span>
+                                                                </label>
+                                                                <!--end::Checkbox-->
+                                                                <!--begin::Checkbox-->
+                                                                <label class="form-check form-check-custom form-check-solid">
+                                                                    <input class="form-check-input" type="checkbox" value="" name="content_management_create" />
+                                                                    <span class="form-check-label">Create</span>
+                                                                </label>
+                                                                <!--end::Checkbox-->
+                                                            </div>
+                                                            <!--end::Wrapper-->
+                                                        </td>
+                                                        <!--end::Input group-->
+                                                    </tr>
+                                                    <!--end::Table row-->
+                                                    <!--begin::Table row-->
+                                                    <tr>
+                                                        <!--begin::Label-->
+                                                        <td class="text-gray-800">Financial Management</td>
+                                                        <!--end::Label-->
+                                                        <!--begin::Input group-->
+                                                        <td>
+                                                            <!--begin::Wrapper-->
+                                                            <div class="d-flex">
+                                                                <!--begin::Checkbox-->
+                                                                <label class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20">
+                                                                    <input class="form-check-input" type="checkbox" value="" name="financial_management_read" />
+                                                                    <span class="form-check-label">Read</span>
+                                                                </label>
+                                                                <!--end::Checkbox-->
+                                                                <!--begin::Checkbox-->
+                                                                <label class="form-check form-check-custom form-check-solid me-5 me-lg-20">
+                                                                    <input class="form-check-input" type="checkbox" value="" name="financial_management_write" />
+                                                                    <span class="form-check-label">Write</span>
+                                                                </label>
+                                                                <!--end::Checkbox-->
+                                                                <!--begin::Checkbox-->
+                                                                <label class="form-check form-check-custom form-check-solid">
+                                                                    <input class="form-check-input" type="checkbox" value="" name="financial_management_create" />
+                                                                    <span class="form-check-label">Create</span>
+                                                                </label>
+                                                                <!--end::Checkbox-->
+                                                            </div>
+                                                            <!--end::Wrapper-->
+                                                        </td>
+                                                        <!--end::Input group-->
+                                                    </tr>
+                                                    <!--end::Table row-->
+                                                    <!--begin::Table row-->
+                                                    <tr>
+                                                        <!--begin::Label-->
+                                                        <td class="text-gray-800">Reporting</td>
+                                                        <!--end::Label-->
+                                                        <!--begin::Input group-->
+                                                        <td>
+                                                            <!--begin::Wrapper-->
+                                                            <div class="d-flex">
+                                                                <!--begin::Checkbox-->
+                                                                <label class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20">
+                                                                    <input class="form-check-input" type="checkbox" value="" name="reporting_read" />
+                                                                    <span class="form-check-label">Read</span>
+                                                                </label>
+                                                                <!--end::Checkbox-->
+                                                                <!--begin::Checkbox-->
+                                                                <label class="form-check form-check-custom form-check-solid me-5 me-lg-20">
+                                                                    <input class="form-check-input" type="checkbox" value="" name="reporting_write" />
+                                                                    <span class="form-check-label">Write</span>
+                                                                </label>
+                                                                <!--end::Checkbox-->
+                                                                <!--begin::Checkbox-->
+                                                                <label class="form-check form-check-custom form-check-solid">
+                                                                    <input class="form-check-input" type="checkbox" value="" name="reporting_create" />
+                                                                    <span class="form-check-label">Create</span>
+                                                                </label>
+                                                                <!--end::Checkbox-->
+                                                            </div>
+                                                            <!--end::Wrapper-->
+                                                        </td>
+                                                        <!--end::Input group-->
+                                                    </tr>
+                                                    <!--end::Table row-->
+                                                    <!--begin::Table row-->
+                                                    <tr>
+                                                        <!--begin::Label-->
+                                                        <td class="text-gray-800">Payroll</td>
+                                                        <!--end::Label-->
+                                                        <!--begin::Input group-->
+                                                        <td>
+                                                            <!--begin::Wrapper-->
+                                                            <div class="d-flex">
+                                                                <!--begin::Checkbox-->
+                                                                <label class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20">
+                                                                    <input class="form-check-input" type="checkbox" value="" name="payroll_read" />
+                                                                    <span class="form-check-label">Read</span>
+                                                                </label>
+                                                                <!--end::Checkbox-->
+                                                                <!--begin::Checkbox-->
+                                                                <label class="form-check form-check-custom form-check-solid me-5 me-lg-20">
+                                                                    <input class="form-check-input" type="checkbox" value="" name="payroll_write" />
+                                                                    <span class="form-check-label">Write</span>
+                                                                </label>
+                                                                <!--end::Checkbox-->
+                                                                <!--begin::Checkbox-->
+                                                                <label class="form-check form-check-custom form-check-solid">
+                                                                    <input class="form-check-input" type="checkbox" value="" name="payroll_create" />
+                                                                    <span class="form-check-label">Create</span>
+                                                                </label>
+                                                                <!--end::Checkbox-->
+                                                            </div>
+                                                            <!--end::Wrapper-->
+                                                        </td>
+                                                        <!--end::Input group-->
+                                                    </tr>
+                                                    <!--end::Table row-->
+                                                    <!--begin::Table row-->
+                                                    <tr>
+                                                        <!--begin::Label-->
+                                                        <td class="text-gray-800">Disputes Management</td>
+                                                        <!--end::Label-->
+                                                        <!--begin::Input group-->
+                                                        <td>
+                                                            <!--begin::Wrapper-->
+                                                            <div class="d-flex">
+                                                                <!--begin::Checkbox-->
+                                                                <label class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20">
+                                                                    <input class="form-check-input" type="checkbox" value="" name="disputes_management_read" />
+                                                                    <span class="form-check-label">Read</span>
+                                                                </label>
+                                                                <!--end::Checkbox-->
+                                                                <!--begin::Checkbox-->
+                                                                <label class="form-check form-check-custom form-check-solid me-5 me-lg-20">
+                                                                    <input class="form-check-input" type="checkbox" value="" name="disputes_management_write" />
+                                                                    <span class="form-check-label">Write</span>
+                                                                </label>
+                                                                <!--end::Checkbox-->
+                                                                <!--begin::Checkbox-->
+                                                                <label class="form-check form-check-custom form-check-solid">
+                                                                    <input class="form-check-input" type="checkbox" value="" name="disputes_management_create" />
+                                                                    <span class="form-check-label">Create</span>
+                                                                </label>
+                                                                <!--end::Checkbox-->
+                                                            </div>
+                                                            <!--end::Wrapper-->
+                                                        </td>
+                                                        <!--end::Input group-->
+                                                    </tr>
+                                                    <!--end::Table row-->
+                                                    <!--begin::Table row-->
+                                                    <tr>
+                                                        <!--begin::Label-->
+                                                        <td class="text-gray-800">API Controls</td>
+                                                        <!--end::Label-->
+                                                        <!--begin::Input group-->
+                                                        <td>
+                                                            <!--begin::Wrapper-->
+                                                            <div class="d-flex">
+                                                                <!--begin::Checkbox-->
+                                                                <label class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20">
+                                                                    <input class="form-check-input" type="checkbox" value="" name="api_controls_read" />
+                                                                    <span class="form-check-label">Read</span>
+                                                                </label>
+                                                                <!--end::Checkbox-->
+                                                                <!--begin::Checkbox-->
+                                                                <label class="form-check form-check-custom form-check-solid me-5 me-lg-20">
+                                                                    <input class="form-check-input" type="checkbox" value="" name="api_controls_write" />
+                                                                    <span class="form-check-label">Write</span>
+                                                                </label>
+                                                                <!--end::Checkbox-->
+                                                                <!--begin::Checkbox-->
+                                                                <label class="form-check form-check-custom form-check-solid">
+                                                                    <input class="form-check-input" type="checkbox" value="" name="api_controls_create" />
+                                                                    <span class="form-check-label">Create</span>
+                                                                </label>
+                                                                <!--end::Checkbox-->
+                                                            </div>
+                                                            <!--end::Wrapper-->
+                                                        </td>
+                                                        <!--end::Input group-->
+                                                    </tr>
+                                                    <!--end::Table row-->
+                                                    <!--begin::Table row-->
+                                                    <tr>
+                                                        <!--begin::Label-->
+                                                        <td class="text-gray-800">Database Management</td>
+                                                        <!--end::Label-->
+                                                        <!--begin::Input group-->
+                                                        <td>
+                                                            <!--begin::Wrapper-->
+                                                            <div class="d-flex">
+                                                                <!--begin::Checkbox-->
+                                                                <label class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20">
+                                                                    <input class="form-check-input" type="checkbox" value="" name="database_management_read" />
+                                                                    <span class="form-check-label">Read</span>
+                                                                </label>
+                                                                <!--end::Checkbox-->
+                                                                <!--begin::Checkbox-->
+                                                                <label class="form-check form-check-custom form-check-solid me-5 me-lg-20">
+                                                                    <input class="form-check-input" type="checkbox" value="" name="database_management_write" />
+                                                                    <span class="form-check-label">Write</span>
+                                                                </label>
+                                                                <!--end::Checkbox-->
+                                                                <!--begin::Checkbox-->
+                                                                <label class="form-check form-check-custom form-check-solid">
+                                                                    <input class="form-check-input" type="checkbox" value="" name="database_management_create" />
+                                                                    <span class="form-check-label">Create</span>
+                                                                </label>
+                                                                <!--end::Checkbox-->
+                                                            </div>
+                                                            <!--end::Wrapper-->
+                                                        </td>
+                                                        <!--end::Input group-->
+                                                    </tr>
+                                                    <!--end::Table row-->
+                                                    <!--begin::Table row-->
+                                                    <tr>
+                                                        <!--begin::Label-->
+                                                        <td class="text-gray-800">Repository Management</td>
+                                                        <!--end::Label-->
+                                                        <!--begin::Input group-->
+                                                        <td>
+                                                            <!--begin::Wrapper-->
+                                                            <div class="d-flex">
+                                                                <!--begin::Checkbox-->
+                                                                <label class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20">
+                                                                    <input class="form-check-input" type="checkbox" value="" name="repository_management_read" />
+                                                                    <span class="form-check-label">Read</span>
+                                                                </label>
+                                                                <!--end::Checkbox-->
+                                                                <!--begin::Checkbox-->
+                                                                <label class="form-check form-check-custom form-check-solid me-5 me-lg-20">
+                                                                    <input class="form-check-input" type="checkbox" value="" name="repository_management_write" />
+                                                                    <span class="form-check-label">Write</span>
+                                                                </label>
+                                                                <!--end::Checkbox-->
+                                                                <!--begin::Checkbox-->
+                                                                <label class="form-check form-check-custom form-check-solid">
+                                                                    <input class="form-check-input" type="checkbox" value="" name="repository_management_create" />
+                                                                    <span class="form-check-label">Create</span>
+                                                                </label>
+                                                                <!--end::Checkbox-->
+                                                            </div>
+                                                            <!--end::Wrapper-->
+                                                        </td>
+                                                        <!--end::Input group-->
+                                                    </tr>
+                                                    <!--end::Table row-->
+                                                    </tbody>
+                                                    <!--end::Table body-->
+                                                </table>
+                                                <!--end::Table-->
+                                            </div>
+                                            <!--end::Table wrapper-->
+                                        </div>
+                                        <!--end::Permissions-->
+                                    </div>
+                                    <!--end::Scroll-->
+                                    <!--begin::Actions-->
+                                    <div class="text-center pt-15">
+                                        <button type="reset" class="btn btn-light me-3" data-kt-roles-modal-action="cancel">Discard</button>
+                                        <button type="submit" class="btn btn-primary" data-kt-roles-modal-action="submit">
+                                            <span class="indicator-label">Submit</span>
+                                            <span class="indicator-progress">Please wait...
+																<span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                                        </button>
+                                    </div>
+                                    <!--end::Actions-->
+                                </form>
+                                <!--end::Form-->
+                            </div>
+                            <!--end::Modal body-->
+                        </div>
+                        <!--end::Modal content-->
+                    </div>
+                    <!--end::Modal dialog-->
+                </div>
+                <!--end::Modal - Update role-->
+                <!--end::Modals-->
             </div>
-            <!--end::Content-->
-        </form>
+            <!--end::Content container-->
+        </div>
+        <!--end::Content-->
     </div>
     <!--end::Content wrapper-->
     <!--begin::Footer-->

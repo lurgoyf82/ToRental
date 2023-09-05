@@ -191,620 +191,638 @@
                     </div>
                     <!--end:Menu sub-->
                 </div>
-                <!--end:Menu item-->
-                <!--begin:Menu item-->
-                <div class="menu-item pt-5">
-                    <!--begin:Menu content-->
-                    <div class="menu-content">
-                        <span class="menu-heading fw-bold text-uppercase fs-7">Veicolo</span>
+                    <!--end:Menu item-->
+
+
+                    @can('edit roles')  {{-- Check if the user has the 'edit roles' permission --}}
+                    <!-- HTML content that should only be visible to users with the 'edit roles' permission -->
+                    <!--begin:Menu item-->
+                    <div class="menu-item pt-5">
+                        <!--begin:Menu content-->
+                        <div class="menu-content">
+                            <span class="menu-heading fw-bold text-uppercase fs-7">Gestione Ruoli</span>
+                        </div>
+                        <!--end:Menu content-->
                     </div>
-                    <!--end:Menu content-->
-                </div>
-                <!--end:Menu item-->
-
-
-                <!--begin:Menu item-->
-                <div data-kt-menu-trigger="click" class="menu-item here  {{ (request()->is('create_veicolo')||
-                                                       request()->is('list_veicolo')||
-                                                       request()->is('update_veicolo')||
-                                                       request()->is('delete_veicolo')) ? 'show' : '' }} menu-accordion">
-                <!--begin:Menu link-->
-                <span class="menu-link {{ (request()->is('create_veicolo')||
-                                                       request()->is('list_veicolo')||
-                                                       request()->is('update_veicolo')||
-                                                       request()->is('delete_veicolo')) ? 'active' : '' }}">
-                            <span class="menu-icon">
-                                <i class="ki-duotone ki-element-11 fs-2">
-                                    <span class="path1"></span>
-                                    <span class="path2"></span>
-                                    <span class="path3"></span>
-                                    <span class="path4"></span>
-                                </i>
+                    <!--end:Menu item-->
+                    <!--begin:Menu item-->
+                    <div data-kt-menu-trigger="click" class="menu-item here  {{ (request()->is('assign_role')) ? 'show' : '' }} menu-accordion">
+                        <!--begin:Menu link-->
+                        <span class="menu-link {{ (request()->is('assign_role')) ? 'active' : '' }}">
+                                <span class="menu-icon">
+                                    <i class="ki-duotone ki-element-11 fs-2">
+                                        <span class="path1"></span>
+                                        <span class="path2"></span>
+                                        <span class="path3"></span>
+                                        <span class="path4"></span>
+                                    </i>
+                                </span>
+                                <span class="menu-title">Ruoli</span>
+                                <span class="menu-arrow"></span>
                             </span>
-                            <span class="menu-title">Veicolo</span>
-                            <span class="menu-arrow"></span>
-                        </span>
-                <!--end:Menu link-->
-                <!--begin:Menu sub-->
-                <div class="menu-sub menu-sub-accordion">
-                    <!--begin:Menu item-->
-                    <div class="menu-item">
-                        <!--begin:Menu link-->
-                        <a class="menu-link {{ (request()->is('create_veicolo')) ? 'active' : '' }}" href="create_veicolo">
-                                        <span class="menu-bullet">
-                                            <span class="bullet bullet-dot"></span>
-                                        </span>
-                            <span class="menu-title">Inserisci</span>
-                        </a>
                         <!--end:Menu link-->
+                        <!--begin:Menu sub-->
+                        <div class="menu-sub menu-sub-accordion">
+                            <!--begin:Menu item-->
+                            <div class="menu-item">
+                                <!--begin:Menu link-->
+                                <a class="menu-link {{ (request()->is('assign_role')) ? 'active' : '' }}" href="assign_role">
+                                            <span class="menu-bullet">
+                                                <span class="bullet bullet-dot"></span>
+                                            </span>
+                                    <span class="menu-title">Modifica</span>
+                                </a>
+                                <!--end:Menu link-->
+                            </div>
+                            <!--end:Menu item-->
+                        </div>
+                        <!--end:Menu sub-->
                     </div>
                     <!--end:Menu item-->
+                    @endcan
+
+
                     <!--begin:Menu item-->
-                    <div class="menu-item">
-                        <!--begin:Menu link-->
-                        <a class="menu-link {{ (request()->is('list_veicolo')) ? 'active' : '' }}" href="list_veicolo">
-                                        <span class="menu-bullet">
-                                            <span class="bullet bullet-dot"></span>
-                                        </span>
-                            <span class="menu-title">Lista</span>
-                        </a>
-                        <!--end:Menu link-->
+                    <div class="menu-item pt-5">
+                        <!--begin:Menu content-->
+                        <div class="menu-content">
+                            <span class="menu-heading fw-bold text-uppercase fs-7">Veicolo</span>
+                        </div>
+                        <!--end:Menu content-->
                     </div>
                     <!--end:Menu item-->
+
+
                     <!--begin:Menu item-->
-                    <div class="menu-item">
+                    <div data-kt-menu-trigger="click" class="menu-item here  {{ (request()->is('create_veicolo')||
+                                                           request()->is('list_veicolo')||
+                                                           request()->is('update_veicolo')||
+                                                           request()->is('delete_veicolo')) ? 'show' : '' }} menu-accordion">
                         <!--begin:Menu link-->
-                        <a class="menu-link {{ (request()->is('update_veicolo')) ? 'active' : '' }}" href="update_veicolo">
-                                        <span class="menu-bullet">
-                                            <span class="bullet bullet-dot"></span>
-                                        </span>
-                            <span class="menu-title">Aggiorna</span>
-                        </a>
-                        <!--end:Menu link-->
-                    </div>
-                    <!--end:Menu item-->
-                    <!--begin:Menu item-->
-                    <div class="menu-item">
-                        <!--begin:Menu link-->
-                        <a class="menu-link {{ (request()->is('delete_veicolo')) ? 'active' : '' }}" href="delete_veicolo">
-                                        <span class="menu-bullet">
-                                            <span class="bullet bullet-dot"></span>
-                                        </span>
-                            <span class="menu-title">Cancella</span>
-                        </a>
-                        <!--end:Menu link-->
-                    </div>
-                    <!--end:Menu item-->
-                </div>
-                <!--end:Menu sub-->
-            </div>
-            <!--end:Menu item-->
-
-
-
-
-            <!--begin:Menu item-->
-            <div data-kt-menu-trigger="click" class="menu-item here menu-accordion">
-                <!--begin:Menu link-->
-                <span class="menu-link {{ (request()->is('alert_leasing')) ? 'active' : '' }}">
-                            <span class="menu-icon">
-                                <i class="ki-duotone ki-element-11 fs-2">
-                                    <span class="path1"></span>
-                                    <span class="path2"></span>
-                                    <span class="path3"></span>
-                                    <span class="path4"></span>
-                                </i>
+                        <span class="menu-link {{ (request()->is('create_veicolo')||
+                                                           request()->is('list_veicolo')||
+                                                           request()->is('update_veicolo')||
+                                                           request()->is('delete_veicolo')) ? 'active' : '' }}">
+                                <span class="menu-icon">
+                                    <i class="ki-duotone ki-element-11 fs-2">
+                                        <span class="path1"></span>
+                                        <span class="path2"></span>
+                                        <span class="path3"></span>
+                                        <span class="path4"></span>
+                                    </i>
+                                </span>
+                                <span class="menu-title">Veicolo</span>
+                                <span class="menu-arrow"></span>
                             </span>
-                            <span class="menu-title">Decorazione</span>
-                            <span class="menu-arrow"></span>
-                        </span>
-                <!--end:Menu link-->
-                <!--begin:Menu sub-->
-                <div class="menu-sub menu-sub-accordion">
-                    <!--begin:Menu item-->
-                    <div class="menu-item">
-                        <!--begin:Menu link-->
-                        <a class="menu-link {{ (request()->is('alert_leasing')) ? 'active' : '' }}" href="create_decorazione">
-                                        <span class="menu-bullet">
-                                            <span class="bullet bullet-dot"></span>
-                                        </span>
-                            <span class="menu-title">Inserisci</span>
-                        </a>
                         <!--end:Menu link-->
+                        <!--begin:Menu sub-->
+                        <div class="menu-sub menu-sub-accordion">
+                            <!--begin:Menu item-->
+                            <div class="menu-item">
+                                <!--begin:Menu link-->
+                                <a class="menu-link {{ (request()->is('create_veicolo')) ? 'active' : '' }}" href="create_veicolo">
+                                            <span class="menu-bullet">
+                                                <span class="bullet bullet-dot"></span>
+                                            </span>
+                                    <span class="menu-title">Inserisci</span>
+                                </a>
+                                <!--end:Menu link-->
+                            </div>
+                            <!--end:Menu item-->
+                            <!--begin:Menu item-->
+                            <div class="menu-item">
+                                <!--begin:Menu link-->
+                                <a class="menu-link {{ (request()->is('list_veicolo')) ? 'active' : '' }}" href="list_veicolo">
+                                            <span class="menu-bullet">
+                                                <span class="bullet bullet-dot"></span>
+                                            </span>
+                                    <span class="menu-title">Lista</span>
+                                </a>
+                                <!--end:Menu link-->
+                            </div>
+                            <!--end:Menu item-->
+                            <!--begin:Menu item-->
+                            <div class="menu-item">
+                                <!--begin:Menu link-->
+                                <a class="menu-link {{ (request()->is('update_veicolo')) ? 'active' : '' }}" href="update_veicolo">
+                                            <span class="menu-bullet">
+                                                <span class="bullet bullet-dot"></span>
+                                            </span>
+                                    <span class="menu-title">Aggiorna</span>
+                                </a>
+                                <!--end:Menu link-->
+                            </div>
+                            <!--end:Menu item-->
+                            <!--begin:Menu item-->
+                            <div class="menu-item">
+                                <!--begin:Menu link-->
+                                <a class="menu-link {{ (request()->is('delete_veicolo')) ? 'active' : '' }}" href="delete_veicolo">
+                                            <span class="menu-bullet">
+                                                <span class="bullet bullet-dot"></span>
+                                            </span>
+                                    <span class="menu-title">Cancella</span>
+                                </a>
+                                <!--end:Menu link-->
+                            </div>
+                            <!--end:Menu item-->
+                        </div>
+                        <!--end:Menu sub-->
                     </div>
                     <!--end:Menu item-->
                     <!--begin:Menu item-->
-                    <div class="menu-item">
+                    <div data-kt-menu-trigger="click" class="menu-item here menu-accordion">
                         <!--begin:Menu link-->
-                        <a class="menu-link {{ (request()->is('alert_leasing')) ? 'active' : '' }}" href="list_decorazione">
-														<span class="menu-bullet">
-															<span class="bullet bullet-dot"></span>
-														</span>
-                            <span class="menu-title">Elenco</span>
-                        </a>
+                        <span class="menu-link {{ (request()->is('alert_leasing')) ? 'active' : '' }}">
+                                    <span class="menu-icon">
+                                        <i class="ki-duotone ki-element-11 fs-2">
+                                            <span class="path1"></span>
+                                            <span class="path2"></span>
+                                            <span class="path3"></span>
+                                            <span class="path4"></span>
+                                        </i>
+                                    </span>
+                                    <span class="menu-title">Decorazione</span>
+                                    <span class="menu-arrow"></span>
+                                </span>
                         <!--end:Menu link-->
+                        <!--begin:Menu sub-->
+                        <div class="menu-sub menu-sub-accordion">
+                            <!--begin:Menu item-->
+                            <div class="menu-item">
+                                <!--begin:Menu link-->
+                                <a class="menu-link {{ (request()->is('alert_leasing')) ? 'active' : '' }}" href="create_decorazione">
+                                                <span class="menu-bullet">
+                                                    <span class="bullet bullet-dot"></span>
+                                                </span>
+                                    <span class="menu-title">Inserisci</span>
+                                </a>
+                                <!--end:Menu link-->
+                            </div>
+                            <!--end:Menu item-->
+                            <!--begin:Menu item-->
+                            <div class="menu-item">
+                                <!--begin:Menu link-->
+                                <a class="menu-link {{ (request()->is('alert_leasing')) ? 'active' : '' }}" href="list_decorazione">
+                                                                <span class="menu-bullet">
+                                                                    <span class="bullet bullet-dot"></span>
+                                                                </span>
+                                    <span class="menu-title">Elenco</span>
+                                </a>
+                                <!--end:Menu link-->
+                            </div>
+                            <!--end:Menu item-->
+                            <!--begin:Menu item-->
+                            <div class="menu-item">
+                                <!--begin:Menu link-->
+                                <a class="menu-link {{ (request()->is('alert_leasing')) ? 'active' : '' }}" href="update_decorazione">
+                                                                <span class="menu-bullet">
+                                                                    <span class="bullet bullet-dot"></span>
+                                                                </span>
+                                    <span class="menu-title">Aggiorna</span>
+                                </a>
+                                <!--end:Menu link-->
+                            </div>
+                            <!--end:Menu item-->
+                            <!--begin:Menu item-->
+                            <div class="menu-item">
+                                <!--begin:Menu link-->
+                                <a class="menu-link {{ (request()->is('alert_leasing')) ? 'active' : '' }}" href="delete_decorazione">
+                                                                <span class="menu-bullet">
+                                                                    <span class="bullet bullet-dot"></span>
+                                                                </span>
+                                    <span class="menu-title">Cancella</span>
+                                </a>
+                                <!--end:Menu link-->
+                            </div>
+                            <!--end:Menu item-->
+                        </div>
+                        <!--end:Menu sub-->
                     </div>
                     <!--end:Menu item-->
                     <!--begin:Menu item-->
-                    <div class="menu-item">
+                    <div data-kt-menu-trigger="click" class="menu-item here menu-accordion">
                         <!--begin:Menu link-->
-                        <a class="menu-link {{ (request()->is('alert_leasing')) ? 'active' : '' }}" href="update_decorazione">
-														<span class="menu-bullet">
-															<span class="bullet bullet-dot"></span>
-														</span>
-                            <span class="menu-title">Aggiorna</span>
-                        </a>
+                        <span class="menu-link {{ (request()->is('alert_leasing')) ? 'active' : '' }}">
+                                    <span class="menu-icon">
+                                        <i class="ki-duotone ki-element-11 fs-2">
+                                            <span class="path1"></span>
+                                            <span class="path2"></span>
+                                            <span class="path3"></span>
+                                            <span class="path4"></span>
+                                        </i>
+                                    </span>
+                                    <span class="menu-title">Assicurazione</span>
+                                    <span class="menu-arrow"></span>
+                                </span>
                         <!--end:Menu link-->
+                        <!--begin:Menu sub-->
+                        <div class="menu-sub menu-sub-accordion">
+                            <!--begin:Menu item-->
+                            <div class="menu-item">
+                                <!--begin:Menu link-->
+                                <a class="menu-link {{ (request()->is('alert_leasing')) ? 'active' : '' }}" href="create_assicurazione">
+                                                <span class="menu-bullet">
+                                                    <span class="bullet bullet-dot"></span>
+                                                </span>
+                                    <span class="menu-title">Inserisci</span>
+                                </a>
+                                <!--end:Menu link-->
+                            </div>
+                            <!--end:Menu item-->
+                            <!--begin:Menu item-->
+                            <div class="menu-item">
+                                <!--begin:Menu link-->
+                                <a class="menu-link {{ (request()->is('alert_leasing')) ? 'active' : '' }}" href="list_assicurazione">
+                                                                <span class="menu-bullet">
+                                                                    <span class="bullet bullet-dot"></span>
+                                                                </span>
+                                    <span class="menu-title">Elenco</span>
+                                </a>
+                                <!--end:Menu link-->
+                            </div>
+                            <!--end:Menu item-->
+                            <!--begin:Menu item-->
+                            <div class="menu-item">
+                                <!--begin:Menu link-->
+                                <a class="menu-link {{ (request()->is('alert_leasing')) ? 'active' : '' }}" href="update_assicurazione">
+                                                                <span class="menu-bullet">
+                                                                    <span class="bullet bullet-dot"></span>
+                                                                </span>
+                                    <span class="menu-title">Aggiorna</span>
+                                </a>
+                                <!--end:Menu link-->
+                            </div>
+                            <!--end:Menu item-->
+                            <!--begin:Menu item-->
+                            <div class="menu-item">
+                                <!--begin:Menu link-->
+                                <a class="menu-link {{ (request()->is('alert_leasing')) ? 'active' : '' }}" href="delete_assicurazione">
+                                                                <span class="menu-bullet">
+                                                                    <span class="bullet bullet-dot"></span>
+                                                                </span>
+                                    <span class="menu-title">Cancella</span>
+                                </a>
+                                <!--end:Menu link-->
+                            </div>
+                            <!--end:Menu item-->
+                        </div>
+                        <!--end:Menu sub-->
                     </div>
                     <!--end:Menu item-->
                     <!--begin:Menu item-->
-                    <div class="menu-item">
+                    <div data-kt-menu-trigger="click" class="menu-item here menu-accordion">
                         <!--begin:Menu link-->
-                        <a class="menu-link {{ (request()->is('alert_leasing')) ? 'active' : '' }}" href="delete_decorazione">
-														<span class="menu-bullet">
-															<span class="bullet bullet-dot"></span>
-														</span>
-                            <span class="menu-title">Cancella</span>
-                        </a>
+                        <span class="menu-link {{ (request()->is('alert_leasing')) ? 'active' : '' }}">
+                                    <span class="menu-icon">
+                                        <i class="ki-duotone ki-element-11 fs-2">
+                                            <span class="path1"></span>
+                                            <span class="path2"></span>
+                                            <span class="path3"></span>
+                                            <span class="path4"></span>
+                                        </i>
+                                    </span>
+                                    <span class="menu-title">Bollo</span>
+                                    <span class="menu-arrow"></span>
+                                </span>
                         <!--end:Menu link-->
-                    </div>
-                    <!--end:Menu item-->
-                </div>
-                <!--end:Menu sub-->
-            </div>
-            <!--end:Menu item-->
-
-
-
-
-            <!--begin:Menu item-->
-            <div data-kt-menu-trigger="click" class="menu-item here menu-accordion">
-                <!--begin:Menu link-->
-                <span class="menu-link {{ (request()->is('alert_leasing')) ? 'active' : '' }}">
-                            <span class="menu-icon">
-                                <i class="ki-duotone ki-element-11 fs-2">
-                                    <span class="path1"></span>
-                                    <span class="path2"></span>
-                                    <span class="path3"></span>
-                                    <span class="path4"></span>
-                                </i>
-                            </span>
-                            <span class="menu-title">Assicurazione</span>
-                            <span class="menu-arrow"></span>
-                        </span>
-                <!--end:Menu link-->
-                <!--begin:Menu sub-->
-                <div class="menu-sub menu-sub-accordion">
-                    <!--begin:Menu item-->
-                    <div class="menu-item">
-                        <!--begin:Menu link-->
-                        <a class="menu-link {{ (request()->is('alert_leasing')) ? 'active' : '' }}" href="create_assicurazione">
-                                        <span class="menu-bullet">
-                                            <span class="bullet bullet-dot"></span>
-                                        </span>
-                            <span class="menu-title">Inserisci</span>
-                        </a>
-                        <!--end:Menu link-->
-                    </div>
-                    <!--end:Menu item-->
-                    <!--begin:Menu item-->
-                    <div class="menu-item">
-                        <!--begin:Menu link-->
-                        <a class="menu-link {{ (request()->is('alert_leasing')) ? 'active' : '' }}" href="list_assicurazione">
-														<span class="menu-bullet">
-															<span class="bullet bullet-dot"></span>
-														</span>
-                            <span class="menu-title">Elenco</span>
-                        </a>
-                        <!--end:Menu link-->
-                    </div>
-                    <!--end:Menu item-->
-                    <!--begin:Menu item-->
-                    <div class="menu-item">
-                        <!--begin:Menu link-->
-                        <a class="menu-link {{ (request()->is('alert_leasing')) ? 'active' : '' }}" href="update_assicurazione">
-														<span class="menu-bullet">
-															<span class="bullet bullet-dot"></span>
-														</span>
-                            <span class="menu-title">Aggiorna</span>
-                        </a>
-                        <!--end:Menu link-->
+                        <!--begin:Menu sub-->
+                        <div class="menu-sub menu-sub-accordion">
+                            <!--begin:Menu item-->
+                            <div class="menu-item">
+                                <!--begin:Menu link-->
+                                <a class="menu-link {{ (request()->is('alert_leasing')) ? 'active' : '' }}" href="create_bollo">
+                                                <span class="menu-bullet">
+                                                    <span class="bullet bullet-dot"></span>
+                                                </span>
+                                    <span class="menu-title">Inserisci</span>
+                                </a>
+                                <!--end:Menu link-->
+                            </div>
+                            <!--end:Menu item-->
+                            <!--begin:Menu item-->
+                            <div class="menu-item">
+                                <!--begin:Menu link-->
+                                <a class="menu-link {{ (request()->is('alert_leasing')) ? 'active' : '' }}" href="list_bollo">
+                                                                <span class="menu-bullet">
+                                                                    <span class="bullet bullet-dot"></span>
+                                                                </span>
+                                    <span class="menu-title">Elenco</span>
+                                </a>
+                                <!--end:Menu link-->
+                            </div>
+                            <!--end:Menu item-->
+                            <!--begin:Menu item-->
+                            <div class="menu-item">
+                                <!--begin:Menu link-->
+                                <a class="menu-link {{ (request()->is('alert_leasing')) ? 'active' : '' }}" href="update_bollo">
+                                                                <span class="menu-bullet">
+                                                                    <span class="bullet bullet-dot"></span>
+                                                                </span>
+                                    <span class="menu-title">Aggiorna</span>
+                                </a>
+                                <!--end:Menu link-->
+                            </div>
+                            <!--end:Menu item-->
+                            <!--begin:Menu item-->
+                            <div class="menu-item">
+                                <!--begin:Menu link-->
+                                <a class="menu-link {{ (request()->is('alert_leasing')) ? 'active' : '' }}" href="delete_bollo">
+                                                                <span class="menu-bullet">
+                                                                    <span class="bullet bullet-dot"></span>
+                                                                </span>
+                                    <span class="menu-title">Cancella</span>
+                                </a>
+                                <!--end:Menu link-->
+                            </div>
+                            <!--end:Menu item-->
+                        </div>
+                        <!--end:Menu sub-->
                     </div>
                     <!--end:Menu item-->
                     <!--begin:Menu item-->
-                    <div class="menu-item">
+                    <div data-kt-menu-trigger="click" class="menu-item here menu-accordion">
                         <!--begin:Menu link-->
-                        <a class="menu-link {{ (request()->is('alert_leasing')) ? 'active' : '' }}" href="delete_assicurazione">
-														<span class="menu-bullet">
-															<span class="bullet bullet-dot"></span>
-														</span>
-                            <span class="menu-title">Cancella</span>
-                        </a>
+                        <span class="menu-link {{ (request()->is('alert_leasing')) ? 'active' : '' }}">
+                                    <span class="menu-icon">
+                                        <i class="ki-duotone ki-element-11 fs-2">
+                                            <span class="path1"></span>
+                                            <span class="path2"></span>
+                                            <span class="path3"></span>
+                                            <span class="path4"></span>
+                                        </i>
+                                    </span>
+                                    <span class="menu-title">Tagliando</span>
+                                    <span class="menu-arrow"></span>
+                                </span>
                         <!--end:Menu link-->
-                    </div>
-                    <!--end:Menu item-->
-                </div>
-                <!--end:Menu sub-->
-            </div>
-            <!--end:Menu item-->
-
-
-
-
-            <!--begin:Menu item-->
-            <div data-kt-menu-trigger="click" class="menu-item here menu-accordion">
-                <!--begin:Menu link-->
-                <span class="menu-link {{ (request()->is('alert_leasing')) ? 'active' : '' }}">
-                            <span class="menu-icon">
-                                <i class="ki-duotone ki-element-11 fs-2">
-                                    <span class="path1"></span>
-                                    <span class="path2"></span>
-                                    <span class="path3"></span>
-                                    <span class="path4"></span>
-                                </i>
-                            </span>
-                            <span class="menu-title">Bollo</span>
-                            <span class="menu-arrow"></span>
-                        </span>
-                <!--end:Menu link-->
-                <!--begin:Menu sub-->
-                <div class="menu-sub menu-sub-accordion">
-                    <!--begin:Menu item-->
-                    <div class="menu-item">
-                        <!--begin:Menu link-->
-                        <a class="menu-link {{ (request()->is('alert_leasing')) ? 'active' : '' }}" href="create_bollo">
-                                        <span class="menu-bullet">
-                                            <span class="bullet bullet-dot"></span>
-                                        </span>
-                            <span class="menu-title">Inserisci</span>
-                        </a>
-                        <!--end:Menu link-->
-                    </div>
-                    <!--end:Menu item-->
-                    <!--begin:Menu item-->
-                    <div class="menu-item">
-                        <!--begin:Menu link-->
-                        <a class="menu-link {{ (request()->is('alert_leasing')) ? 'active' : '' }}" href="list_bollo">
-														<span class="menu-bullet">
-															<span class="bullet bullet-dot"></span>
-														</span>
-                            <span class="menu-title">Elenco</span>
-                        </a>
-                        <!--end:Menu link-->
-                    </div>
-                    <!--end:Menu item-->
-                    <!--begin:Menu item-->
-                    <div class="menu-item">
-                        <!--begin:Menu link-->
-                        <a class="menu-link {{ (request()->is('alert_leasing')) ? 'active' : '' }}" href="update_bollo">
-														<span class="menu-bullet">
-															<span class="bullet bullet-dot"></span>
-														</span>
-                            <span class="menu-title">Aggiorna</span>
-                        </a>
-                        <!--end:Menu link-->
+                        <!--begin:Menu sub-->
+                        <div class="menu-sub menu-sub-accordion">
+                            <!--begin:Menu item-->
+                            <div class="menu-item">
+                                <!--begin:Menu link-->
+                                <a class="menu-link {{ (request()->is('alert_leasing')) ? 'active' : '' }}" href="create_tagliando">
+                                                <span class="menu-bullet">
+                                                    <span class="bullet bullet-dot"></span>
+                                                </span>
+                                    <span class="menu-title">Inserisci</span>
+                                </a>
+                                <!--end:Menu link-->
+                            </div>
+                            <!--end:Menu item-->
+                            <!--begin:Menu item-->
+                            <div class="menu-item">
+                                <!--begin:Menu link-->
+                                <a class="menu-link {{ (request()->is('alert_leasing')) ? 'active' : '' }}" href="list_tagliando">
+                                                                <span class="menu-bullet">
+                                                                    <span class="bullet bullet-dot"></span>
+                                                                </span>
+                                    <span class="menu-title">Elenco</span>
+                                </a>
+                                <!--end:Menu link-->
+                            </div>
+                            <!--end:Menu item-->
+                            <!--begin:Menu item-->
+                            <div class="menu-item">
+                                <!--begin:Menu link-->
+                                <a class="menu-link {{ (request()->is('alert_leasing')) ? 'active' : '' }}" href="update_tagliando">
+                                                                <span class="menu-bullet">
+                                                                    <span class="bullet bullet-dot"></span>
+                                                                </span>
+                                    <span class="menu-title">Aggiorna</span>
+                                </a>
+                                <!--end:Menu link-->
+                            </div>
+                            <!--end:Menu item-->
+                            <!--begin:Menu item-->
+                            <div class="menu-item">
+                                <!--begin:Menu link-->
+                                <a class="menu-link {{ (request()->is('alert_leasing')) ? 'active' : '' }}" href="delete_tagliando">
+                                                                <span class="menu-bullet">
+                                                                    <span class="bullet bullet-dot"></span>
+                                                                </span>
+                                    <span class="menu-title">Cancella</span>
+                                </a>
+                                <!--end:Menu link-->
+                            </div>
+                            <!--end:Menu item-->
+                        </div>
+                        <!--end:Menu sub-->
                     </div>
                     <!--end:Menu item-->
                     <!--begin:Menu item-->
-                    <div class="menu-item">
+                    <div data-kt-menu-trigger="click" class="menu-item here menu-accordion">
                         <!--begin:Menu link-->
-                        <a class="menu-link {{ (request()->is('alert_leasing')) ? 'active' : '' }}" href="delete_bollo">
-														<span class="menu-bullet">
-															<span class="bullet bullet-dot"></span>
-														</span>
-                            <span class="menu-title">Cancella</span>
-                        </a>
+                        <span class="menu-link {{ (request()->is('alert_leasing')) ? 'active' : '' }}">
+                                    <span class="menu-icon">
+                                        <i class="ki-duotone ki-element-11 fs-2">
+                                            <span class="path1"></span>
+                                            <span class="path2"></span>
+                                            <span class="path3"></span>
+                                            <span class="path4"></span>
+                                        </i>
+                                    </span>
+                                    <span class="menu-title">GPS</span>
+                                    <span class="menu-arrow"></span>
+                                </span>
                         <!--end:Menu link-->
-                    </div>
-                    <!--end:Menu item-->
-                </div>
-                <!--end:Menu sub-->
-            </div>
-            <!--end:Menu item-->
-
-
-
-
-            <!--begin:Menu item-->
-            <div data-kt-menu-trigger="click" class="menu-item here menu-accordion">
-                <!--begin:Menu link-->
-                <span class="menu-link {{ (request()->is('alert_leasing')) ? 'active' : '' }}">
-                            <span class="menu-icon">
-                                <i class="ki-duotone ki-element-11 fs-2">
-                                    <span class="path1"></span>
-                                    <span class="path2"></span>
-                                    <span class="path3"></span>
-                                    <span class="path4"></span>
-                                </i>
-                            </span>
-                            <span class="menu-title">Tagliando</span>
-                            <span class="menu-arrow"></span>
-                        </span>
-                <!--end:Menu link-->
-                <!--begin:Menu sub-->
-                <div class="menu-sub menu-sub-accordion">
-                    <!--begin:Menu item-->
-                    <div class="menu-item">
-                        <!--begin:Menu link-->
-                        <a class="menu-link {{ (request()->is('alert_leasing')) ? 'active' : '' }}" href="create_tagliando">
-                                        <span class="menu-bullet">
-                                            <span class="bullet bullet-dot"></span>
-                                        </span>
-                            <span class="menu-title">Inserisci</span>
-                        </a>
-                        <!--end:Menu link-->
-                    </div>
-                    <!--end:Menu item-->
-                    <!--begin:Menu item-->
-                    <div class="menu-item">
-                        <!--begin:Menu link-->
-                        <a class="menu-link {{ (request()->is('alert_leasing')) ? 'active' : '' }}" href="list_tagliando">
-														<span class="menu-bullet">
-															<span class="bullet bullet-dot"></span>
-														</span>
-                            <span class="menu-title">Elenco</span>
-                        </a>
-                        <!--end:Menu link-->
-                    </div>
-                    <!--end:Menu item-->
-                    <!--begin:Menu item-->
-                    <div class="menu-item">
-                        <!--begin:Menu link-->
-                        <a class="menu-link {{ (request()->is('alert_leasing')) ? 'active' : '' }}" href="update_tagliando">
-														<span class="menu-bullet">
-															<span class="bullet bullet-dot"></span>
-														</span>
-                            <span class="menu-title">Aggiorna</span>
-                        </a>
-                        <!--end:Menu link-->
+                        <!--begin:Menu sub-->
+                        <div class="menu-sub menu-sub-accordion">
+                            <!--begin:Menu item-->
+                            <div class="menu-item">
+                                <!--begin:Menu link-->
+                                <a class="menu-link {{ (request()->is('alert_leasing')) ? 'active' : '' }}" href="create_gps">
+                                                <span class="menu-bullet">
+                                                    <span class="bullet bullet-dot"></span>
+                                                </span>
+                                    <span class="menu-title">Inserisci</span>
+                                </a>
+                                <!--end:Menu link-->
+                            </div>
+                            <!--end:Menu item-->
+                            <!--begin:Menu item-->
+                            <div class="menu-item">
+                                <!--begin:Menu link-->
+                                <a class="menu-link {{ (request()->is('alert_leasing')) ? 'active' : '' }}" href="list_gps">
+                                                                <span class="menu-bullet">
+                                                                    <span class="bullet bullet-dot"></span>
+                                                                </span>
+                                    <span class="menu-title">Elenco</span>
+                                </a>
+                                <!--end:Menu link-->
+                            </div>
+                            <!--end:Menu item-->
+                            <!--begin:Menu item-->
+                            <div class="menu-item">
+                                <!--begin:Menu link-->
+                                <a class="menu-link {{ (request()->is('alert_leasing')) ? 'active' : '' }}" href="update_gps">
+                                                                <span class="menu-bullet">
+                                                                    <span class="bullet bullet-dot"></span>
+                                                                </span>
+                                    <span class="menu-title">Aggiorna</span>
+                                </a>
+                                <!--end:Menu link-->
+                            </div>
+                            <!--end:Menu item-->
+                            <!--begin:Menu item-->
+                            <div class="menu-item">
+                                <!--begin:Menu link-->
+                                <a class="menu-link {{ (request()->is('alert_leasing')) ? 'active' : '' }}" href="delete_gps">
+                                                                <span class="menu-bullet">
+                                                                    <span class="bullet bullet-dot"></span>
+                                                                </span>
+                                    <span class="menu-title">Cancella</span>
+                                </a>
+                                <!--end:Menu link-->
+                            </div>
+                            <!--end:Menu item-->
+                        </div>
+                        <!--end:Menu sub-->
                     </div>
                     <!--end:Menu item-->
                     <!--begin:Menu item-->
-                    <div class="menu-item">
+                    <div data-kt-menu-trigger="click" class="menu-item here menu-accordion">
                         <!--begin:Menu link-->
-                        <a class="menu-link {{ (request()->is('alert_leasing')) ? 'active' : '' }}" href="delete_tagliando">
-														<span class="menu-bullet">
-															<span class="bullet bullet-dot"></span>
-														</span>
-                            <span class="menu-title">Cancella</span>
-                        </a>
+                        <span class="menu-link {{ (request()->is('alert_leasing')) ? 'active' : '' }}">
+                                    <span class="menu-icon">
+                                        <i class="ki-duotone ki-element-11 fs-2">
+                                            <span class="path1"></span>
+                                            <span class="path2"></span>
+                                            <span class="path3"></span>
+                                            <span class="path4"></span>
+                                        </i>
+                                    </span>
+                                    <span class="menu-title">Multa</span>
+                                    <span class="menu-arrow"></span>
+                                </span>
                         <!--end:Menu link-->
-                    </div>
-                    <!--end:Menu item-->
-                </div>
-                <!--end:Menu sub-->
-            </div>
-            <!--end:Menu item-->
-
-
-
-
-            <!--begin:Menu item-->
-            <div data-kt-menu-trigger="click" class="menu-item here menu-accordion">
-                <!--begin:Menu link-->
-                <span class="menu-link {{ (request()->is('alert_leasing')) ? 'active' : '' }}">
-                            <span class="menu-icon">
-                                <i class="ki-duotone ki-element-11 fs-2">
-                                    <span class="path1"></span>
-                                    <span class="path2"></span>
-                                    <span class="path3"></span>
-                                    <span class="path4"></span>
-                                </i>
-                            </span>
-                            <span class="menu-title">GPS</span>
-                            <span class="menu-arrow"></span>
-                        </span>
-                <!--end:Menu link-->
-                <!--begin:Menu sub-->
-                <div class="menu-sub menu-sub-accordion">
-                    <!--begin:Menu item-->
-                    <div class="menu-item">
-                        <!--begin:Menu link-->
-                        <a class="menu-link {{ (request()->is('alert_leasing')) ? 'active' : '' }}" href="create_gps">
-                                        <span class="menu-bullet">
-                                            <span class="bullet bullet-dot"></span>
-                                        </span>
-                            <span class="menu-title">Inserisci</span>
-                        </a>
-                        <!--end:Menu link-->
-                    </div>
-                    <!--end:Menu item-->
-                    <!--begin:Menu item-->
-                    <div class="menu-item">
-                        <!--begin:Menu link-->
-                        <a class="menu-link {{ (request()->is('alert_leasing')) ? 'active' : '' }}" href="list_gps">
-														<span class="menu-bullet">
-															<span class="bullet bullet-dot"></span>
-														</span>
-                            <span class="menu-title">Elenco</span>
-                        </a>
-                        <!--end:Menu link-->
-                    </div>
-                    <!--end:Menu item-->
-                    <!--begin:Menu item-->
-                    <div class="menu-item">
-                        <!--begin:Menu link-->
-                        <a class="menu-link {{ (request()->is('alert_leasing')) ? 'active' : '' }}" href="update_gps">
-														<span class="menu-bullet">
-															<span class="bullet bullet-dot"></span>
-														</span>
-                            <span class="menu-title">Aggiorna</span>
-                        </a>
-                        <!--end:Menu link-->
+                        <!--begin:Menu sub-->
+                        <div class="menu-sub menu-sub-accordion">
+                            <!--begin:Menu item-->
+                            <div class="menu-item">
+                                <!--begin:Menu link-->
+                                <a class="menu-link {{ (request()->is('alert_leasing')) ? 'active' : '' }}" href="create_multa">
+                                                <span class="menu-bullet">
+                                                    <span class="bullet bullet-dot"></span>
+                                                </span>
+                                    <span class="menu-title">Inserisci</span>
+                                </a>
+                                <!--end:Menu link-->
+                            </div>
+                            <!--end:Menu item-->
+                            <!--begin:Menu item-->
+                            <div class="menu-item">
+                                <!--begin:Menu link-->
+                                <a class="menu-link {{ (request()->is('alert_leasing')) ? 'active' : '' }}" href="list_multa">
+                                                                <span class="menu-bullet">
+                                                                    <span class="bullet bullet-dot"></span>
+                                                                </span>
+                                    <span class="menu-title">Elenco</span>
+                                </a>
+                                <!--end:Menu link-->
+                            </div>
+                            <!--end:Menu item-->
+                            <!--begin:Menu item-->
+                            <div class="menu-item">
+                                <!--begin:Menu link-->
+                                <a class="menu-link {{ (request()->is('alert_leasing')) ? 'active' : '' }}" href="update_multa">
+                                                                <span class="menu-bullet">
+                                                                    <span class="bullet bullet-dot"></span>
+                                                                </span>
+                                    <span class="menu-title">Aggiorna</span>
+                                </a>
+                                <!--end:Menu link-->
+                            </div>
+                            <!--end:Menu item-->
+                            <!--begin:Menu item-->
+                            <div class="menu-item">
+                                <!--begin:Menu link-->
+                                <a class="menu-link {{ (request()->is('alert_leasing')) ? 'active' : '' }}" href="delete_multa">
+                                                                <span class="menu-bullet">
+                                                                    <span class="bullet bullet-dot"></span>
+                                                                </span>
+                                    <span class="menu-title">Cancella</span>
+                                </a>
+                                <!--end:Menu link-->
+                            </div>
+                            <!--end:Menu item-->
+                        </div>
+                        <!--end:Menu sub-->
                     </div>
                     <!--end:Menu item-->
                     <!--begin:Menu item-->
-                    <div class="menu-item">
+                    <div data-kt-menu-trigger="click" class="menu-item here menu-accordion">
                         <!--begin:Menu link-->
-                        <a class="menu-link {{ (request()->is('alert_leasing')) ? 'active' : '' }}" href="delete_gps">
-														<span class="menu-bullet">
-															<span class="bullet bullet-dot"></span>
-														</span>
-                            <span class="menu-title">Cancella</span>
-                        </a>
+                        <span class="menu-link {{ (request()->is('alert_leasing')) ? 'active' : '' }}">
+                                    <span class="menu-icon">
+                                        <i class="ki-duotone ki-element-11 fs-2">
+                                            <span class="path1"></span>
+                                            <span class="path2"></span>
+                                            <span class="path3"></span>
+                                            <span class="path4"></span>
+                                        </i>
+                                    </span>
+                                    <span class="menu-title">Revisione</span>
+                                    <span class="menu-arrow"></span>
+                                </span>
                         <!--end:Menu link-->
-                    </div>
-                    <!--end:Menu item-->
-                </div>
-                <!--end:Menu sub-->
-            </div>
-            <!--end:Menu item-->
-
-
-
-
-            <!--begin:Menu item-->
-            <div data-kt-menu-trigger="click" class="menu-item here menu-accordion">
-                <!--begin:Menu link-->
-                <span class="menu-link {{ (request()->is('alert_leasing')) ? 'active' : '' }}">
-                            <span class="menu-icon">
-                                <i class="ki-duotone ki-element-11 fs-2">
-                                    <span class="path1"></span>
-                                    <span class="path2"></span>
-                                    <span class="path3"></span>
-                                    <span class="path4"></span>
-                                </i>
-                            </span>
-                            <span class="menu-title">Multa</span>
-                            <span class="menu-arrow"></span>
-                        </span>
-                <!--end:Menu link-->
-                <!--begin:Menu sub-->
-                <div class="menu-sub menu-sub-accordion">
-                    <!--begin:Menu item-->
-                    <div class="menu-item">
-                        <!--begin:Menu link-->
-                        <a class="menu-link {{ (request()->is('alert_leasing')) ? 'active' : '' }}" href="create_multa">
-                                        <span class="menu-bullet">
-                                            <span class="bullet bullet-dot"></span>
-                                        </span>
-                            <span class="menu-title">Inserisci</span>
-                        </a>
-                        <!--end:Menu link-->
-                    </div>
-                    <!--end:Menu item-->
-                    <!--begin:Menu item-->
-                    <div class="menu-item">
-                        <!--begin:Menu link-->
-                        <a class="menu-link {{ (request()->is('alert_leasing')) ? 'active' : '' }}" href="list_multa">
-														<span class="menu-bullet">
-															<span class="bullet bullet-dot"></span>
-														</span>
-                            <span class="menu-title">Elenco</span>
-                        </a>
-                        <!--end:Menu link-->
-                    </div>
-                    <!--end:Menu item-->
-                    <!--begin:Menu item-->
-                    <div class="menu-item">
-                        <!--begin:Menu link-->
-                        <a class="menu-link {{ (request()->is('alert_leasing')) ? 'active' : '' }}" href="update_multa">
-														<span class="menu-bullet">
-															<span class="bullet bullet-dot"></span>
-														</span>
-                            <span class="menu-title">Aggiorna</span>
-                        </a>
-                        <!--end:Menu link-->
+                        <!--begin:Menu sub-->
+                        <div class="menu-sub menu-sub-accordion">
+                            <!--begin:Menu item-->
+                            <div class="menu-item">
+                                <!--begin:Menu link-->
+                                <a class="menu-link {{ (request()->is('alert_leasing')) ? 'active' : '' }}" href="create_revisione">
+                                                <span class="menu-bullet">
+                                                    <span class="bullet bullet-dot"></span>
+                                                </span>
+                                    <span class="menu-title">Inserisci</span>
+                                </a>
+                                <!--end:Menu link-->
+                            </div>
+                            <!--end:Menu item-->
+                            <!--begin:Menu item-->
+                            <div class="menu-item">
+                                <!--begin:Menu link-->
+                                <a class="menu-link {{ (request()->is('alert_leasing')) ? 'active' : '' }}" href="list_revisione">
+                                                <span class="menu-bullet">
+                                                    <span class="bullet bullet-dot"></span>
+                                                </span>
+                                    <span class="menu-title">Elenco</span>
+                                </a>
+                                <!--end:Menu link-->
+                            </div>
+                            <!--end:Menu item-->
+                            <!--begin:Menu item-->
+                            <div class="menu-item">
+                                <!--begin:Menu link-->
+                                <a class="menu-link {{ (request()->is('alert_leasing')) ? 'active' : '' }}" href="update_revisione">
+                                                                <span class="menu-bullet">
+                                                                    <span class="bullet bullet-dot"></span>
+                                                                </span>
+                                    <span class="menu-title">Aggiorna</span>
+                                </a>
+                                <!--end:Menu link-->
+                            </div>
+                            <!--end:Menu item-->
+                            <!--begin:Menu item-->
+                            <div class="menu-item">
+                                <!--begin:Menu link-->
+                                <a class="menu-link {{ (request()->is('alert_leasing')) ? 'active' : '' }}" href="delete_revisione">
+                                                                <span class="menu-bullet">
+                                                                    <span class="bullet bullet-dot"></span>
+                                                                </span>
+                                    <span class="menu-title">Cancella</span>
+                                </a>
+                                <!--end:Menu link-->
+                            </div>
+                            <!--end:Menu item-->
+                        </div>
+                        <!--end:Menu sub-->
                     </div>
                     <!--end:Menu item-->
                     <!--begin:Menu item-->
-                    <div class="menu-item">
+                    <div data-kt-menu-trigger="click" class="menu-item here menu-accordion">
                         <!--begin:Menu link-->
-                        <a class="menu-link {{ (request()->is('alert_leasing')) ? 'active' : '' }}" href="delete_multa">
-														<span class="menu-bullet">
-															<span class="bullet bullet-dot"></span>
-														</span>
-                            <span class="menu-title">Cancella</span>
-                        </a>
-                        <!--end:Menu link-->
-                    </div>
-                    <!--end:Menu item-->
-                </div>
-                <!--end:Menu sub-->
-            </div>
-            <!--end:Menu item-->
-
-
-
-
-            <!--begin:Menu item-->
-            <div data-kt-menu-trigger="click" class="menu-item here menu-accordion">
-                <!--begin:Menu link-->
-                <span class="menu-link {{ (request()->is('alert_leasing')) ? 'active' : '' }}">
-                            <span class="menu-icon">
-                                <i class="ki-duotone ki-element-11 fs-2">
-                                    <span class="path1"></span>
-                                    <span class="path2"></span>
-                                    <span class="path3"></span>
-                                    <span class="path4"></span>
-                                </i>
-                            </span>
-                            <span class="menu-title">Revisione</span>
-                            <span class="menu-arrow"></span>
-                        </span>
-                <!--end:Menu link-->
-                <!--begin:Menu sub-->
-                <div class="menu-sub menu-sub-accordion">
-                    <!--begin:Menu item-->
-                    <div class="menu-item">
-                        <!--begin:Menu link-->
-                        <a class="menu-link {{ (request()->is('alert_leasing')) ? 'active' : '' }}" href="create_revisione">
-                                        <span class="menu-bullet">
-                                            <span class="bullet bullet-dot"></span>
-                                        </span>
-                            <span class="menu-title">Inserisci</span>
-                        </a>
-                        <!--end:Menu link-->
-                    </div>
-                    <!--end:Menu item-->
-                    <!--begin:Menu item-->
-                    <div class="menu-item">
-                        <!--begin:Menu link-->
-                        <a class="menu-link {{ (request()->is('alert_leasing')) ? 'active' : '' }}" href="list_revisione">
-                                        <span class="menu-bullet">
-                                            <span class="bullet bullet-dot"></span>
-                                        </span>
-                            <span class="menu-title">Elenco</span>
-                        </a>
-                        <!--end:Menu link-->
-                    </div>
-                    <!--end:Menu item-->
-                    <!--begin:Menu item-->
-                    <div class="menu-item">
-                        <!--begin:Menu link-->
-                        <a class="menu-link {{ (request()->is('alert_leasing')) ? 'active' : '' }}" href="update_revisione">
-														<span class="menu-bullet">
-															<span class="bullet bullet-dot"></span>
-														</span>
-                            <span class="menu-title">Aggiorna</span>
-                        </a>
-                        <!--end:Menu link-->
-                    </div>
-                    <!--end:Menu item-->
-                    <!--begin:Menu item-->
-                    <div class="menu-item">
-                        <!--begin:Menu link-->
-                        <a class="menu-link {{ (request()->is('alert_leasing')) ? 'active' : '' }}" href="delete_revisione">
-														<span class="menu-bullet">
-															<span class="bullet bullet-dot"></span>
-														</span>
-                            <span class="menu-title">Cancella</span>
-                        </a>
-                        <!--end:Menu link-->
-                    </div>
-                    <!--end:Menu item-->
-                </div>
-                <!--end:Menu sub-->
-            </div>
-            <!--end:Menu item-->
-
-
-
-
-            <!--begin:Menu item-->
-            <div data-kt-menu-trigger="click" class="menu-item here menu-accordion">
-                <!--begin:Menu link-->
-                <span class="menu-link {{ (request()->is('alert_leasing')) ? 'active' : '' }}">
+                        <span class="menu-link {{ (request()->is('alert_leasing')) ? 'active' : '' }}">
                             <span class="menu-icon">
                                 <i class="ki-duotone ki-element-11 fs-2">
                                     <span class="path1"></span>
@@ -816,63 +834,61 @@
                             <span class="menu-title">Stazionamento Prolungato</span>
                             <span class="menu-arrow"></span>
                         </span>
-                <!--end:Menu link-->
-                <!--begin:Menu sub-->
-                <div class="menu-sub menu-sub-accordion">
-                    <!--begin:Menu item-->
-                    <div class="menu-item">
-                        <!--begin:Menu link-->
-                        <a class="menu-link {{ (request()->is('alert_leasing')) ? 'active' : '' }}" href="create_stazionamento">
+                        <!--end:Menu link-->
+                        <!--begin:Menu sub-->
+                        <div class="menu-sub menu-sub-accordion">
+                            <!--begin:Menu item-->
+                            <div class="menu-item">
+                                <!--begin:Menu link-->
+                                <a class="menu-link {{ (request()->is('alert_leasing')) ? 'active' : '' }}" href="create_stazionamento">
                                         <span class="menu-bullet">
                                             <span class="bullet bullet-dot"></span>
                                         </span>
-                            <span class="menu-title">Inserisci</span>
-                        </a>
-                        <!--end:Menu link-->
+                                    <span class="menu-title">Inserisci</span>
+                                </a>
+                                <!--end:Menu link-->
+                            </div>
+                            <!--end:Menu item-->
+                            <!--begin:Menu item-->
+                            <div class="menu-item">
+                                <!--begin:Menu link-->
+                                <a class="menu-link {{ (request()->is('alert_leasing')) ? 'active' : '' }}" href="list_stazionamento">
+                                                        <span class="menu-bullet">
+                                                            <span class="bullet bullet-dot"></span>
+                                                        </span>
+                                    <span class="menu-title">Elenco</span>
+                                </a>
+                                <!--end:Menu link-->
+                            </div>
+                            <!--end:Menu item-->
+                            <!--begin:Menu item-->
+                            <div class="menu-item">
+                                <!--begin:Menu link-->
+                                <a class="menu-link {{ (request()->is('alert_leasing')) ? 'active' : '' }}" href="update_stazionamento">
+                                                        <span class="menu-bullet">
+                                                            <span class="bullet bullet-dot"></span>
+                                                        </span>
+                                    <span class="menu-title">Aggiorna</span>
+                                </a>
+                                <!--end:Menu link-->
+                            </div>
+                            <!--end:Menu item-->
+                            <!--begin:Menu item-->
+                            <div class="menu-item">
+                                <!--begin:Menu link-->
+                                <a class="menu-link {{ (request()->is('alert_leasing')) ? 'active' : '' }}" href="delete_stazionamento">
+                                                        <span class="menu-bullet">
+                                                            <span class="bullet bullet-dot"></span>
+                                                        </span>
+                                    <span class="menu-title">Cancella</span>
+                                </a>
+                                <!--end:Menu link-->
+                            </div>
+                            <!--end:Menu item-->
+                        </div>
+                        <!--end:Menu sub-->
                     </div>
                     <!--end:Menu item-->
-                    <!--begin:Menu item-->
-                    <div class="menu-item">
-                        <!--begin:Menu link-->
-                        <a class="menu-link {{ (request()->is('alert_leasing')) ? 'active' : '' }}" href="list_stazionamento">
-														<span class="menu-bullet">
-															<span class="bullet bullet-dot"></span>
-														</span>
-                            <span class="menu-title">Elenco</span>
-                        </a>
-                        <!--end:Menu link-->
-                    </div>
-                    <!--end:Menu item-->
-                    <!--begin:Menu item-->
-                    <div class="menu-item">
-                        <!--begin:Menu link-->
-                        <a class="menu-link {{ (request()->is('alert_leasing')) ? 'active' : '' }}" href="update_stazionamento">
-														<span class="menu-bullet">
-															<span class="bullet bullet-dot"></span>
-														</span>
-                            <span class="menu-title">Aggiorna</span>
-                        </a>
-                        <!--end:Menu link-->
-                    </div>
-                    <!--end:Menu item-->
-                    <!--begin:Menu item-->
-                    <div class="menu-item">
-                        <!--begin:Menu link-->
-                        <a class="menu-link {{ (request()->is('alert_leasing')) ? 'active' : '' }}" href="delete_stazionamento">
-														<span class="menu-bullet">
-															<span class="bullet bullet-dot"></span>
-														</span>
-                            <span class="menu-title">Cancella</span>
-                        </a>
-                        <!--end:Menu link-->
-                    </div>
-                    <!--end:Menu item-->
-                </div>
-                <!--end:Menu sub-->
-            </div>
-            <!--end:Menu item-->
-
-
 
         </div>
         <!--end::Menu-->

@@ -122,7 +122,7 @@ $class_alerts=array('0'=>'badge-secondary','1'=>'badge-primary','2'=>'badge-succ
                             <!--begin:Menu link-->
                             <a class="menu-link {{ (request()->is('alert_revisione_meccanica')) ? 'active' : '' }}" href="alert_revisione_meccanica">
                                 <span class="badge badge-square badge-outline {{ $class_alerts[$color_alerts['revisione']] }} badge-lg">{{ $count_alerts['revisione'] }}</span>&nbsp;
-                                <span class="menu-title">Revisione Meccanicaa</span>
+                                <span class="menu-title">Revisione Meccanica</span>
                             </a>
                             <!--end:Menu link-->
                         </div>

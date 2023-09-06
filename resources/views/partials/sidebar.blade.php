@@ -1,7 +1,12 @@
 <?php
+    //use Illuminate\Support\Facades\Cache;
     use App\Models\Alert;
 
-    $alerts=Alert::all();
+    //$alerts=Alert::all();
+
+    $alerts = Cache::remember('alerts', 5, function () {
+        return Alert::all();
+    });
 
     $class_alerts=array('0'=>'badge-secondary','1'=>'badge-primary','2'=>'badge-success','3'=>'badge-warning','4'=>'badge-danger');
 

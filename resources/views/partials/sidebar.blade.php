@@ -1,5 +1,5 @@
 <?php
-    //use Illuminate\Support\Facades\Cache;
+    use Illuminate\Support\Facades\Cache;
     use App\Models\Alert;
 
     //$alerts=Alert::all();

@@ -6,7 +6,6 @@
     <!--begin::Content wrapper-->
     <div class="d-flex flex-column flex-column-fluid">
         <form action="{{ url('alert_revisione_meccanica') }}" method="get">
-            @csrf
             <!--begin::Content-->
             <div id="kt_app_content" class="app-content flex-column-fluid">
                 <!--begin::Content container-->
@@ -23,7 +22,7 @@
                                         <span class="path1"></span>
                                         <span class="path2"></span>
                                     </i>
-                                    <input type="text" name="search" class="form-control form-control-solid w-850px ps-12" placeholder="Ricerca Targa" />
+                                    <input type="text" name="search" value="{{ request('search') }}" class="form-control form-control-solid w-850px ps-12" placeholder="Ricerca Targa" />
 
                                     <!--begin::Card toolbar-->
                                     <div class="card-toolbar">

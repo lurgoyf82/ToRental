@@ -3,9 +3,26 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Targa;
+use App\Models\Noleggio;
+
+
+use App\Models\Revisione;
 
 class NoleggioController extends Controller
 {
+    public function alertList(Request $request)
+    {
+        $alertList = Revisione::getRevisioneAlertList($request->input('search'));
+
+        $targaList= Targa::getTargaListByIdVeicolo();
+        foreach ($alertList as $key=>$alert) {
+            if(isset($targaList[$alert->id_veicolo])) {
+                $alertList[$key]->targa = $targaList[$alert->id_veicolo]->targa;
+            }
+        }
+        return view('alert_contratto_noleggio', ['alertList' => $alertList]);
+    }
     /**
      * Display a listing of the resource.
      */

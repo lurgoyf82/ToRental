@@ -99,7 +99,6 @@ foreach ($alerts as $alert) {
                                                 $routePath==('alert_revisione_bombole')||
                                                 $routePath==('alert_revisione_atp')||
                                                 $routePath==('alert_revisione_tachigrafo')||
-                                                $routePath==('alert_revisione_cronotachigrafo')||
                                                 $routePath==('alert_contratto_noleggio')||
                                                 $routePath==('alert_polizza_assicurativa')||
                                                 $routePath==('alert_scadenza_bollo')) ? 'show' : '' }} menu-accordion">
@@ -108,7 +107,6 @@ foreach ($alerts as $alert) {
                                                 $routePath==('alert_revisione_bombole')||
                                                 $routePath==('alert_revisione_atp')||
                                                 $routePath==('alert_revisione_tachigrafo')||
-                                                $routePath==('alert_revisione_cronotachigrafo')||
                                                 $routePath==('alert_contratto_noleggio')||
                                                 $routePath==('alert_polizza_assicurativa')||
                                                 $routePath==('alert_scadenza_bollo')) ? 'active' : '' }}">
@@ -173,19 +171,6 @@ foreach ($alerts as $alert) {
                                     <span
                                         class="badge badge-square badge-outline {{ $class_alerts[$color_alerts['tachigrafo']] }} badge-lg">{{ $count_alerts['tachigrafo'] }}</span>&nbsp;
                                     <span class="menu-title">Revisione Tachigrafo</span>
-                                </a>
-                                <!--end:Menu link-->
-                            </div>
-                            <!--end:Menu item-->
-
-                            <!--begin:Menu item Scadenza revisione cronotachigrafo-->
-                            <div class="menu-item">
-                                <!--begin:Menu link-->
-                                <a class="menu-link {{ ( $routePath==('alert_revisione_cronotachigrafo')) ? 'active' : '' }}"
-                                   href="alert_revisione_cronotachigrafo">
-                                    <span
-                                        class="badge badge-square badge-outline {{ $class_alerts[$color_alerts['cronotachigrafo']] }} badge-lg">{{ $count_alerts['cronotachigrafo'] }}</span>&nbsp;
-                                    <span class="menu-title">Revisione Cronotachigrafo</span>
                                 </a>
                                 <!--end:Menu link-->
                             </div>

@@ -11,9 +11,9 @@ use App\Models\Revisione;
 
 class AssicurazioneController extends Controller
 {
-    public function alertList(Request $request)
+    public function alert(Request $request)
     {
-        $alertList = Revisione::getRevisioneAlertList($request->input('search'));
+        $alertList = Revisione::getExpiringRevisioniMeccaniche($request->input('search'));
 
         $targaList= Targa::getTargaListByIdVeicolo();
         foreach ($alertList as $key=>$alert) {
@@ -21,11 +21,8 @@ class AssicurazioneController extends Controller
                 $alertList[$key]->targa = $targaList[$alert->id_veicolo]->targa;
             }
         }
+
         return view('alert_polizza_assicurativa', ['alertList' => $alertList]);
-    }
-    //controller for alert leasing
-    public function alert() {
-        return view('assicurazione_alert');
     }
     /**
      * Display a listing of the resource.

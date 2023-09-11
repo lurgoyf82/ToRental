@@ -43,19 +43,19 @@ Route::middleware('auth')->group(function () {
     //Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     //alert revisione meccanica
-    Route::get('alert_revisione_meccanica', [RevisioneController::class, 'alertList']);
+    Route::get('alert_revisione_meccanica', [RevisioneController::class, 'listExpiringRevisioniMeccaniche']);
     //alert revisione bombole
-    Route::get('alert_revisione_bombole', [BomboleController::class, 'alertList']);
+    Route::get('alert_revisione_bombole', [BomboleController::class, 'alert']);
     //alert revisione atp
-    Route::get('alert_revisione_atp', [AtpController::class, 'alertList']);
+    Route::get('alert_revisione_atp', [AtpController::class, 'alert']);
     //alert revisione tachigrafo
-    Route::get('alert_revisione_tachigrafo', [TachigrafoController::class, 'alertList']);
+    Route::get('alert_revisione_tachigrafo', [TachigrafoController::class, 'alert']);
     //alert contratto noleggio
-    Route::get('alert_contratto_noleggio', [NoleggioController::class, 'alertList']);
+    Route::get('alert_contratto_noleggio', [NoleggioController::class, 'alert']);
     //alert polizza assicurativa
-    Route::get('alert_polizza_assicurativa', [AssicurazioneController::class, 'alertList']);
+    Route::get('alert_polizza_assicurativa', [AssicurazioneController::class, 'alert']);
     //alert scadenza bollo
-    Route::get('alert_scadenza_bollo', [BolloController::class, 'alertList']);
+    Route::get('alert_scadenza_bollo', [BolloController::class, 'alert']);
 
     /*
         //alert leasing

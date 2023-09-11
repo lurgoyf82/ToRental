@@ -11,9 +11,6 @@ class UserController extends Controller
     //Display a listing of the resource.
     public function index()
     {
-        //
-        $revisione=new Revisione();
-        $alertList = $revisione::getRevisioneAlertList();
         return view('assign_role', []);
     }
 

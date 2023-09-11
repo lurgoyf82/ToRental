@@ -13,7 +13,7 @@ class NoleggioController extends Controller
 {
     public function alertList(Request $request)
     {
-        $alertList = Revisione::getRevisioneAlertList($request->input('search'));
+        $alertList = Revisione::getExpiringRevisioniMeccaniche($request->input('search'));
 
         $targaList= Targa::getTargaListByIdVeicolo();
         foreach ($alertList as $key=>$alert) {

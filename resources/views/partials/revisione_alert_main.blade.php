@@ -58,7 +58,7 @@
                                 </thead>
                                 <tbody class="fw-semibold text-gray-600">
 
-                                @foreach($alertList as $row)
+                                @foreach($expiringMechanicalRevisions as $row)
                                     <?php
                                         if($row->livello >= Alert::$thirdThreshold) {
                                             continue;

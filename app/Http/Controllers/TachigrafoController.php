@@ -6,23 +6,21 @@ use Illuminate\Http\Request;
 use App\Models\Targa;
 use App\Models\Tachigrafo;
 
-
-use App\Models\Revisione;
-
 class TachigrafoController extends Controller
 {
     public function listExpiringRevisioniTachigrafi(Request $request): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
     {
-        $alertList = Revisione::getExpiringRevisioniMeccaniche($request->input('search'));
+        $expiringRevisioniTachigrafi = Tachigrafo::getExpiringRevisioniTachigrafi($request->input('search'));
 
         $targaList= Targa::getTargaListByIdVeicolo();
-        foreach ($alertList as $key=>$alert) {
+        foreach ($expiringRevisioniTachigrafi as $key=>$alert) {
             if(isset($targaList[$alert->id_veicolo])) {
-                $alertList[$key]->targa = $targaList[$alert->id_veicolo]->targa;
+                $expiringRevisioniTachigrafi[$key]->targa = $targaList[$alert->id_veicolo]->targa;
             }
         }
-        return view('alert_revisione_tachigrafo', ['alertList' => $alertList]);
+        return view('alert_revisione_tachigrafo', ['expiringRevisioniTachigrafi' => $expiringRevisioniTachigrafi]);
     }
+
     /**
      * Display a listing of the resource.
      */

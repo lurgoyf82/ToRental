@@ -6,23 +6,21 @@ use Illuminate\Http\Request;
 use App\Models\Targa;
 use App\Models\Atp;
 
-
-use App\Models\Revisione;
-
 class AtpController extends Controller
 {
     public function listExpiringRevisioniAtp(Request $request): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
     {
-        $alertList = Revisione::getExpiringRevisioniMeccaniche($request->input('search'));
+        $expiringRevisioniAtp = Atp::getExpiringRevisioniAtp($request->input('search'));
 
         $targaList= Targa::getTargaListByIdVeicolo();
-        foreach ($alertList as $key=>$alert) {
+        foreach ($expiringRevisioniAtp as $key=>$alert) {
             if(isset($targaList[$alert->id_veicolo])) {
-                $alertList[$key]->targa = $targaList[$alert->id_veicolo]->targa;
+                $expiringRevisioniAtp[$key]->targa = $targaList[$alert->id_veicolo]->targa;
             }
         }
-        return view('alert_revisione_atp', ['alertList' => $alertList]);
+        return view('alert_revisione_atp', ['expiringRevisioniAtp' => $expiringRevisioniAtp]);
     }
+
     /**
      * Display a listing of the resource.
      */

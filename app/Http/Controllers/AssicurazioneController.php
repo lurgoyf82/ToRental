@@ -6,24 +6,21 @@ use Illuminate\Http\Request;
 use App\Models\Targa;
 use App\Models\Assicurazione;
 
-
-use App\Models\Revisione;
-
 class AssicurazioneController extends Controller
 {
     public function listExpiringPolizzeAssicurative(Request $request): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
     {
-        $alertList = Revisione::getExpiringRevisioniMeccaniche($request->input('search'));
+        $expiringPolizzeAssicurative = Assicurazione::getExpiringPolizzeAssicurative($request->input('search'));
 
         $targaList= Targa::getTargaListByIdVeicolo();
-        foreach ($alertList as $key=>$alert) {
+        foreach ($expiringPolizzeAssicurative as $key=>$alert) {
             if(isset($targaList[$alert->id_veicolo])) {
-                $alertList[$key]->targa = $targaList[$alert->id_veicolo]->targa;
+                $expiringPolizzeAssicurative[$key]->targa = $targaList[$alert->id_veicolo]->targa;
             }
         }
-
-        return view('alert_polizza_assicurativa', ['alertList' => $alertList]);
+        return view('alert_polizza_assicurativa', ['expiringPolizzeAssicurative' => $expiringPolizzeAssicurative]);
     }
+
     /**
      * Display a listing of the resource.
      */

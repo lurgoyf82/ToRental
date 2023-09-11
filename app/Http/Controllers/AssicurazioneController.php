@@ -11,7 +11,7 @@ use App\Models\Revisione;
 
 class AssicurazioneController extends Controller
 {
-    public function alert(Request $request)
+    public function listExpiringPolizzeAssicurative(Request $request): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
     {
         $alertList = Revisione::getExpiringRevisioniMeccaniche($request->input('search'));
 

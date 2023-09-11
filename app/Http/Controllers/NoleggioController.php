@@ -11,7 +11,7 @@ use App\Models\Revisione;
 
 class NoleggioController extends Controller
 {
-    public function alertList(Request $request)
+    public function listExpiringContrattiNoleggio(Request $request): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
     {
         $alertList = Revisione::getExpiringRevisioniMeccaniche($request->input('search'));
 

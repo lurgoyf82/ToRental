@@ -11,7 +11,7 @@ use App\Models\Revisione;
 
 class BolloController extends Controller
 {
-    public function alertList(Request $request)
+    public function listExpiringScadenzeBolli(Request $request): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
     {
         $alertList = Revisione::getExpiringRevisioniMeccaniche($request->input('search'));
 

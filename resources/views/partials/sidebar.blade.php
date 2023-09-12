@@ -10,8 +10,6 @@ $alerts = Cache::remember('alerts', 5, function () {
     return Alert::all();
 });
 
-dd($alerts);
-
 /*
  * //Refresh cached data
 if ($event == true) {

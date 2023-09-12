@@ -10,6 +10,8 @@ $alerts = Cache::remember('alerts', 5, function () {
     return Alert::all();
 });
 
+dd($alerts);
+
 /*
  * //Refresh cached data
 if ($event == true) {
@@ -23,8 +25,8 @@ if ($event == true) {
 
 $class_alerts = array('0' => 'badge-secondary', '1' => 'badge-primary', '2' => 'badge-success', '3' => 'badge-warning', '4' => 'badge-danger');
 
-$count_alerts = array('revisione' => 0, 'tachigrafo' => 0, 'bollo' => 0, 'bombole' => 0, 'cronotachigrafo' => 0, 'atp' => 0, 'noleggio' => 0, 'assicurazione' => 0);
-$color_alerts = array('revisione' => 0, 'tachigrafo' => 0, 'bollo' => 0, 'bombole' => 0, 'cronotachigrafo' => 0, 'atp' => 0, 'noleggio' => 0, 'assicurazione' => 0);
+$count_alerts = array('revisione' => 0, 'tachigrafo' => 0, 'bollo' => 0, 'bombole' => 0, 'atp' => 0, 'noleggio' => 0, 'assicurazione' => 0);
+$color_alerts = array('revisione' => 0, 'tachigrafo' => 0, 'bollo' => 0, 'bombole' => 0, 'atp' => 0, 'noleggio' => 0, 'assicurazione' => 0);
 
 foreach ($alerts as $alert) {
     if ($alert->revisione_alert_level > 0) {
@@ -55,10 +57,24 @@ foreach ($alerts as $alert) {
         }
     }
 
-    if ($alert->cronotachigrafo_alert_level > 0) {
-        $count_alerts['cronotachigrafo']++;
-        if ($color_alerts['cronotachigrafo'] < $alert->cronotachigrafo_alert_level) {
-            $color_alerts['cronotachigrafo'] = $alert->cronotachigrafo_alert_level;
+    if ($alert->atp_alert_level > 0) {
+        $count_alerts['atp']++;
+        if ($color_alerts['atp'] < $alert->atp_alert_level) {
+            $color_alerts['atp'] = $alert->atp_alert_level;
+        }
+    }
+
+    if ($alert->noleggio_alert_level > 0) {
+        $count_alerts['noleggio']++;
+        if ($color_alerts['noleggio'] < $alert->noleggio_alert_level) {
+            $color_alerts['noleggio'] = $alert->noleggio_alert_level;
+        }
+    }
+
+    if ($alert->assicurazione_alert_level > 0) {
+        $count_alerts['assicurazione']++;
+        if ($color_alerts['assicurazione'] < $alert->assicurazione_alert_level) {
+            $color_alerts['assicurazione'] = $alert->assicurazione_alert_level;
         }
     }
 }

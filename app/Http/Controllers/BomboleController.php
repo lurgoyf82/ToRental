@@ -18,7 +18,7 @@ class BomboleController extends Controller
                 $expiringRevisioniBombole[$key]->targa = $targaList[$alert->id_veicolo]->targa;
             }
         }
-        return view('alert_revisione_meccanica', ['expiringRevisioniBombole' => $expiringRevisioniBombole]);
+        return view('alert_revisione_bombole', ['expiringRevisioniBombole' => $expiringRevisioniBombole]);
     }
 
     /**

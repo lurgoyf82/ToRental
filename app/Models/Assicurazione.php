@@ -18,7 +18,7 @@ class Assicurazione extends Model
         if($search!=null) {
             $query = DB::table('dettaglio_veicolo')
                 ->leftJoinSub(
-                    DB::table('revisione')
+                    DB::table('assicurazione')
                         ->select(DB::raw('id_veicolo, MAX(fine_validita) as latest_fine_validita'))
                         ->where('inizio_validita', '<=', now())
                         ->groupBy('id_veicolo'),
@@ -27,9 +27,9 @@ class Assicurazione extends Model
                     '=',
                     'dettaglio_veicolo.id'
                 )
-                ->leftJoin('revisione', function ($join) {
-                    $join->on('revisione.id_veicolo', '=', 'dettaglio_veicolo.id')
-                        ->on('revisione.fine_validita', '=', 'latest_revision.latest_fine_validita');
+                ->leftJoin('assicurazione', function ($join) {
+                    $join->on('assicurazione.id_veicolo', '=', 'dettaglio_veicolo.id')
+                        ->on('assicurazione.fine_validita', '=', 'latest_revision.latest_fine_validita');
                 })
                 ->leftJoin('marca', 'dettaglio_veicolo.id_marca', '=', 'marca.id')
                 ->leftJoin('modello', function ($join) {
@@ -38,15 +38,15 @@ class Assicurazione extends Model
                 })
                 ->leftJoin('targa', 'targa.id_veicolo', '=', 'dettaglio_veicolo.id')
                 ->select([
-                    'revisione.id as id',
-                    DB::raw("DATE_FORMAT(revisione.inizio_validita, '%d-%m-%Y') as inizio_validita"),
-                    DB::raw("DATE_FORMAT(revisione.fine_validita, '%d-%m-%Y') as fine_validita"),
+                    'assicurazione.id as id',
+                    DB::raw("DATE_FORMAT(assicurazione.inizio_validita, '%d-%m-%Y') as inizio_validita"),
+                    DB::raw("DATE_FORMAT(assicurazione.fine_validita, '%d-%m-%Y') as fine_validita"),
                     'marca.id as id_marca',
                     'marca.nome as marca',
                     'modello.id as id_modello',
                     'modello.nome as modello',
                     'dettaglio_veicolo.id as id_veicolo',
-                    DB::raw('DATEDIFF(revisione.fine_validita, NOW()) as livello')
+                    DB::raw('DATEDIFF(assicurazione.fine_validita, NOW()) as livello')
                 ])
                 ->where('targa.targa', 'LIKE', '%' . $search . '%')
                 ->orderBy('livello', 'ASC')
@@ -57,7 +57,7 @@ class Assicurazione extends Model
 
             $query = DB::table('dettaglio_veicolo')
                 ->leftJoinSub(
-                    DB::table('revisione')
+                    DB::table('assicurazione')
                         ->select(DB::raw('id_veicolo, MAX(fine_validita) as latest_fine_validita'))
                         ->where('inizio_validita', '<=', now())
                         ->groupBy('id_veicolo'),
@@ -66,9 +66,9 @@ class Assicurazione extends Model
                     '=',
                     'dettaglio_veicolo.id'
                 )
-                ->leftJoin('revisione', function ($join) {
-                    $join->on('revisione.id_veicolo', '=', 'dettaglio_veicolo.id')
-                        ->on('revisione.fine_validita', '=', 'latest_revision.latest_fine_validita');
+                ->leftJoin('assicurazione', function ($join) {
+                    $join->on('assicurazione.id_veicolo', '=', 'dettaglio_veicolo.id')
+                        ->on('assicurazione.fine_validita', '=', 'latest_revision.latest_fine_validita');
                 })
                 ->leftJoin('marca', 'dettaglio_veicolo.id_marca', '=', 'marca.id')
                 ->leftJoin('modello', function ($join) {
@@ -76,15 +76,15 @@ class Assicurazione extends Model
                         ->on('modello.id_marca', '=', 'marca.id');
                 })
                 ->select([
-                    'revisione.id as id',
-                    DB::raw("DATE_FORMAT(revisione.inizio_validita, '%d-%m-%Y') as inizio_validita"),
-                    DB::raw("DATE_FORMAT(revisione.fine_validita, '%d-%m-%Y') as fine_validita"),
+                    'assicurazione.id as id',
+                    DB::raw("DATE_FORMAT(assicurazione.inizio_validita, '%d-%m-%Y') as inizio_validita"),
+                    DB::raw("DATE_FORMAT(assicurazione.fine_validita, '%d-%m-%Y') as fine_validita"),
                     'marca.id as id_marca',
                     'marca.nome as marca',
                     'modello.id as id_modello',
                     'modello.nome as modello',
                     'dettaglio_veicolo.id as id_veicolo',
-                    DB::raw('DATEDIFF(revisione.fine_validita, NOW()) as livello')
+                    DB::raw('DATEDIFF(assicurazione.fine_validita, NOW()) as livello')
                 ])
                 ->orderBy('livello', 'ASC')
                 ->orderBy('dettaglio_veicolo.id', 'ASC')

@@ -17,7 +17,7 @@
         <!--begin::Wrapper-->
         <div class="app-wrapper flex-column flex-row-fluid" id="kt_app_wrapper">
             @include('partials.sidebar')
-            @include('partials.revisione_alert_main')
+            @include('partials.bombole_alert_main')
         </div>
         <!--end::Wrapper-->
     </div>

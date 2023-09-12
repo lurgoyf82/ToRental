@@ -33,10 +33,20 @@ class Alert extends Model
                     ->where('bombole.inizio_validita', '<', now())
                     ->where('bombole.fine_validita', '>', now());
             })
-            ->leftJoin('cronotachigrafo', function ($join) {
-                $join->on('cronotachigrafo.id_veicolo', '=', 'dettaglio_veicolo.id')
-                    ->where('cronotachigrafo.inizio_validita', '<', now())
-                    ->where('cronotachigrafo.fine_validita', '>', now());
+            ->leftJoin('atp', function ($join) {
+                $join->on('atp.id_veicolo', '=', 'dettaglio_veicolo.id')
+                    ->where('atp.inizio_validita', '<', now())
+                    ->where('atp.fine_validita', '>', now());
+            })
+            ->leftJoin('noleggio', function ($join) {
+                $join->on('noleggio.id_veicolo', '=', 'dettaglio_veicolo.id')
+                    ->where('noleggio.inizio_validita', '<', now())
+                    ->where('noleggio.fine_validita', '>', now());
+            })
+            ->leftJoin('assicurazione', function ($join) {
+                $join->on('assicurazione.id_veicolo', '=', 'dettaglio_veicolo.id')
+                    ->where('assicurazione.inizio_validita', '<', now())
+                    ->where('assicurazione.fine_validita', '>', now());
             })
             ->leftJoin('tachigrafo', function ($join) {
                 $join->on('tachigrafo.id_veicolo', '=', 'dettaglio_veicolo.id')
@@ -48,7 +58,9 @@ class Alert extends Model
                 DB::raw("DATE_FORMAT(tachigrafo.fine_validita, '%d-%m-%Y') as tachigrafo_fine_validita"),
                 DB::raw("DATE_FORMAT(bollo.fine_validita, '%d-%m-%Y') as bollo_fine_validita"),
                 DB::raw("DATE_FORMAT(bombole.fine_validita, '%d-%m-%Y') as bombole_fine_validita"),
-                DB::raw("DATE_FORMAT(cronotachigrafo.fine_validita, '%d-%m-%Y') as cronotachigrafo_fine_validita"),
+                DB::raw("DATE_FORMAT(atp.fine_validita, '%d-%m-%Y') as atp_fine_validita"),
+                DB::raw("DATE_FORMAT(noleggio.fine_validita, '%d-%m-%Y') as noleggio_fine_validita"),
+                DB::raw("DATE_FORMAT(assicurazione.fine_validita, '%d-%m-%Y') as assicurazione_fine_validita"),
                 //'revisione.fine_validita as revisione_fine_validita_a',
                 //'tachigrafo.fine_validita as tachigrafo_fine_validita_a',
                 //'bollo.fine_validita as bollo_fine_validita_a',
@@ -82,13 +94,29 @@ class Alert extends Model
                     ELSE 4
                 END AS bombole_alert_level,
                 CASE
-                    WHEN cronotachigrafo.fine_validita IS NULL THEN 4
-                    WHEN DATEDIFF(cronotachigrafo.fine_validita, NOW()) BETWEEN 0 AND ? THEN 3
-                    WHEN DATEDIFF(cronotachigrafo.fine_validita, NOW()) BETWEEN ? AND ? THEN 2
-                    WHEN DATEDIFF(cronotachigrafo.fine_validita, NOW()) BETWEEN ? AND ? THEN 1
-                    WHEN DATEDIFF(cronotachigrafo.fine_validita, NOW()) >= ? THEN 0
+                    WHEN atp.fine_validita IS NULL THEN 4
+                    WHEN DATEDIFF(atp.fine_validita, NOW()) BETWEEN 0 AND ? THEN 3
+                    WHEN DATEDIFF(atp.fine_validita, NOW()) BETWEEN ? AND ? THEN 2
+                    WHEN DATEDIFF(atp.fine_validita, NOW()) BETWEEN ? AND ? THEN 1
+                    WHEN DATEDIFF(atp.fine_validita, NOW()) >= ? THEN 0
                     ELSE 4
-                END AS cronotachigrafo_alert_level,
+                END AS atp_alert_level,
+                CASE
+                    WHEN noleggio.fine_validita IS NULL THEN 4
+                    WHEN DATEDIFF(noleggio.fine_validita, NOW()) BETWEEN 0 AND ? THEN 3
+                    WHEN DATEDIFF(noleggio.fine_validita, NOW()) BETWEEN ? AND ? THEN 2
+                    WHEN DATEDIFF(noleggio.fine_validita, NOW()) BETWEEN ? AND ? THEN 1
+                    WHEN DATEDIFF(noleggio.fine_validita, NOW()) >= ? THEN 0
+                    ELSE 4
+                END AS noleggio_alert_level,
+                CASE
+                    WHEN assicurazione.fine_validita IS NULL THEN 4
+                    WHEN DATEDIFF(assicurazione.fine_validita, NOW()) BETWEEN 0 AND ? THEN 3
+                    WHEN DATEDIFF(assicurazione.fine_validita, NOW()) BETWEEN ? AND ? THEN 2
+                    WHEN DATEDIFF(assicurazione.fine_validita, NOW()) BETWEEN ? AND ? THEN 1
+                    WHEN DATEDIFF(assicurazione.fine_validita, NOW()) >= ? THEN 0
+                    ELSE 4
+                END AS assicurazione_alert_level,
                 CASE
                     WHEN tachigrafo.fine_validita IS NULL THEN 4
                     WHEN DATEDIFF(tachigrafo.fine_validita, NOW()) BETWEEN 0 AND ? THEN 3
@@ -97,6 +125,8 @@ class Alert extends Model
                     WHEN DATEDIFF(tachigrafo.fine_validita, NOW()) >= ? THEN 0
                     ELSE 4
                 END AS tachigrafo_alert_level", [
+                Alert::$firstThreshold, Alert::$firstThreshold + 1, Alert::$secondThreshold, Alert::$secondThreshold + 1, Alert::$thirdThreshold, Alert::$thirdThreshold,
+                Alert::$firstThreshold, Alert::$firstThreshold + 1, Alert::$secondThreshold, Alert::$secondThreshold + 1, Alert::$thirdThreshold, Alert::$thirdThreshold,
                 Alert::$firstThreshold, Alert::$firstThreshold + 1, Alert::$secondThreshold, Alert::$secondThreshold + 1, Alert::$thirdThreshold, Alert::$thirdThreshold,
                 Alert::$firstThreshold, Alert::$firstThreshold + 1, Alert::$secondThreshold, Alert::$secondThreshold + 1, Alert::$thirdThreshold, Alert::$thirdThreshold,
                 Alert::$firstThreshold, Alert::$firstThreshold + 1, Alert::$secondThreshold, Alert::$secondThreshold + 1, Alert::$thirdThreshold, Alert::$thirdThreshold,

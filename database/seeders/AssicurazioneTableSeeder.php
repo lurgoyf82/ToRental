@@ -21,13 +21,13 @@ class AssicurazioneTableSeeder extends Seeder
 
         // Loop to create and insert dummy records
         foreach ($veicoloIds as $veicoloId) {
-            for($i=0;$i<3;$i++) {
-                $anno = rand(2022, 2023); // Generate a random year
-                $tipoScadenza = ['Quadrimestrale', 'Semestrale', 'Annuale'][rand(0, 2)]; // Choose a random tipo_scadenza
+            // Calculate inizio_validita based on anno
+            $inizioValidita = Carbon::createFromDate(rand(2019, 2022), 1, 1);
+            $inizioValidita->addDays(rand(0, 365));
 
-                // Calculate inizio_validita based on anno
-                $inizioValidita = Carbon::createFromDate($anno, 1, 1);
-                $inizioValidita->addDays(rand(0, 365));
+            for($i=0;$i<4;$i++) {
+                $anno=$inizioValidita->year;
+                $tipoScadenza = ['Quadrimestrale', 'Semestrale', 'Annuale'][rand(0, 2)]; // Choose a random tipo_scadenza
 
                 // Calculate data_pagamento as a random date between -7 and +7 days from inizio_validita
                 $dataPagamento = $inizioValidita->copy()->addDays(rand(-7, 7));
@@ -55,7 +55,7 @@ class AssicurazioneTableSeeder extends Seeder
                 ]);
 
                 // Increment inizio_validita for the next record to avoid overlap
-                $inizioValidita->addDay();
+                $inizioValidita=$fineValidita->copy()->addDay();
             }
         }
     }

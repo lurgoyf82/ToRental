@@ -21,8 +21,12 @@ class NoleggioTableSeeder extends Seeder
 
         // Loop to create and insert dummy records
         foreach ($veicoloIds as $veicoloId) {
-            for($i=0;$i<3;$i++) {
-                $anno = rand(2022, 2023); // Generate a random year
+            // Calculate inizio_validita based on anno
+            $inizioValidita = Carbon::createFromDate(rand(2019, 2022), 1, 1);
+            $inizioValidita->addDays(rand(0, 365));
+
+            for($i=0;$i<4;$i++) {
+                $anno=$inizioValidita->year;
                 $tipoScadenza = ['Quadrimestrale', 'Semestrale', 'Annuale'][rand(0, 2)]; // Choose a random tipo_scadenza
 
                 // Calculate inizio_validita based on anno
@@ -52,7 +56,7 @@ class NoleggioTableSeeder extends Seeder
                 ]);
 
                 // Increment inizio_validita for the next record to avoid overlap
-                $inizioValidita->addDay();
+                $inizioValidita=$fineValidita->copy()->addDay();
             }
         }
     }

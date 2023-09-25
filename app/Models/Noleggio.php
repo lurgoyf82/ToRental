@@ -6,11 +6,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
-class Noleggio extends Model
+class Noleggio extends AlertBase
 {
     use HasFactory;
 
     protected $table = 'noleggio';
+    public static string $tableName = 'noleggio';
     protected $fillable = ['id_veicolo','anno','data_pagamento','inizio_validita','fine_validita','importo'];
 
     public static function getExpiringContrattiNoleggio($search=null): \Illuminate\Support\Collection

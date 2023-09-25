@@ -7,11 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
 
-class Tachigrafo extends Model
+class Tachigrafo extends AlertBase
 {
     use HasFactory;
 
     protected $table = 'tachigrafo';
+    public static string $tableName = 'tachigrafo';
     protected $fillable = ['id_veicolo','anno','data_pagamento','inizio_validita','fine_validita','importo'];
 
     public static function getExpiringRevisioniTachigrafi($search=null): \Illuminate\Support\Collection

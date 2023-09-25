@@ -6,11 +6,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
-class Bollo extends Model
+class Bollo extends AlertBase
 {
     use HasFactory;
 
     protected $table = 'bollo';
+    public static string $tableName = 'bollo';
     protected $fillable = ['id_veicolo','anno','data_pagamento','inizio_validita','fine_validita','importo'];
 
     public static function getExpiringScadenzeBolli($search=null): \Illuminate\Support\Collection

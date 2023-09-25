@@ -6,11 +6,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
-class Revisione extends Model
+class Revisione extends AlertBase
 {
     use HasFactory;
 
     protected $table = 'revisione';
+    public static string $tableName = 'revisione';
     protected $fillable = ['id_veicolo','anno','data_pagamento','inizio_validita','fine_validita','importo'];
 
     public static function getExpiringRevisioniMeccaniche($search=null): \Illuminate\Support\Collection

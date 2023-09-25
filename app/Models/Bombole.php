@@ -6,11 +6,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
-class Bombole extends Model
+class Bombole extends AlertBase
 {
     use HasFactory;
 
     protected $table = 'bombole';
+    public static string $tableName = 'bombole';
     protected $fillable = ['id_veicolo','anno','data_pagamento','inizio_validita','fine_validita','importo'];
 
     public static function getExpiringRevisioniBombole($search=null): \Illuminate\Support\Collection

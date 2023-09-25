@@ -1,5 +1,7 @@
 <?php
     use App\Models\Alert;
+    use App\Models\Revisione;
+    Revisione::getAlerts();
 ?>
 <!--begin::Main-->
 <div class="app-main flex-column flex-row-fluid" id="kt_app_main">

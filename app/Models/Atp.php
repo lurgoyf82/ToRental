@@ -6,11 +6,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
-class Atp extends Model
+class Atp extends AlertBase
 {
     use HasFactory;
 
     protected $table = 'atp';
+    public static string $tableName = 'atp';
     protected $fillable = ['id_veicolo','anno','data_pagamento','inizio_validita','fine_validita','importo'];
 
     public static function getExpiringRevisioniAtp($search=null): \Illuminate\Support\Collection

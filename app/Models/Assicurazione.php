@@ -6,11 +6,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
-class Assicurazione extends Model
+class Assicurazione extends AlertBase
 {
     use HasFactory;
 
     protected $table = 'assicurazione';
+    public static string $tableName = 'assicurazione';
     protected $fillable = ['id_veicolo','anno','data_pagamento','inizio_validita','fine_validita','importo','agenzia','polizza','tipo_scadenza'];
 
     public static function getExpiringPolizzeAssicurative($search=null): \Illuminate\Support\Collection
@@ -93,4 +94,5 @@ class Assicurazione extends Model
 
         return $query;
     }
+
 }

@@ -10,5 +10,6 @@ class Marca extends Model
     use HasFactory;
 
     protected $table = 'marca';
+    public static string $tableName = 'marca';
     protected $fillable = ['nome'];
 }

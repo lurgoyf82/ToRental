@@ -10,5 +10,6 @@ class Modello extends Model
     use HasFactory;
 
     protected $table = 'modello';
+    public static string $tableName = 'modello';
     protected $fillable = ['nome', 'id_marca'];
 }

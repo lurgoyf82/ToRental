@@ -11,6 +11,7 @@ class Targa extends Model
     use HasFactory;
 
     protected $table = 'targa';
+    public static string $tableName = 'targa';
     protected $fillable = ['id_veicolo', 'targa', 'data_immatricolazione'];
 
     //lists all the targa grouped and concatenated by id_veicolo

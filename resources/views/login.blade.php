@@ -205,12 +205,12 @@ include_once('includes\head.php');
 		</div>
 		<!--end::Root-->
 
-        <?php
-        include_once('includes\footer.php');
-        include_once('includes\scripts.php');
-        ?>
+		<?php
+		include_once('includes\footer.php');
+		include_once('includes\scripts.php');
+		?>
 
-    </body>
+	</body>
 <!--end::Body-->
 </html>
 <?php

@@ -1,64 +1,64 @@
 
 <form action="{{ url()->current() }}" method="POST">
-    @csrf
-    <!--begin::Content-->
-    <div id="kt_app_content" class="app-content flex-column-fluid">
-        <!--begin::Content container-->
-        <div id="kt_app_content_container" class="app-container container-fluid">
-            <!--begin::Row-->
-            <div class="row gx-5 gx-xl-10">
-                <!--begin::Col-->
-                <div class="col-xxl-6 mb-5 mb-xl-10">
-                    <!--begin::Chart widget 8-->
-                    <div class="card card-flush h-xl-100">
-                        <!--begin::Header-->
-                        <div class="card-header pt-5">
-                            <!--begin::Title-->
-                            <h3 class="card-title align-items-start flex-column">
-                                <span class="card-label fw-bold text-dark">Performance Overview</span>
-                                <span class="text-gray-400 mt-1 fw-semibold fs-6">Users from all channels</span>
-                            </h3>
-                            <!--end::Title-->
-                        </div>
-                        <!--end::Header-->
-                        <!--begin::Body-->
-                        <div class="card-body pt-6">
-                            <!--begin::Tab content-->
-                            <div class="tab-content">
-                                <!--begin::Tab pane-->
-                                <div class="tab-pane fade active show" id="kt_chart_widget_8_month_tab" role="tabpanel">
-                                    <!--begin::Items-->
-                                    <!-- Select for Societa -->
-                                    <div class="form-group">
-                                        <label for="id_proprietario">Proprietario</label>
-                                        <select name="id_proprietario" id="id_proprietario" class="form-control">
-                                            @foreach($lista_societa as $societa)
-                                                <option value="{{ $societa->id }}">{{ $societa->nome }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    <!-- Select for Tipo -->
-                                    <div class="form-group">
-                                        <label for="id_tipo">Tipo</label>
-                                        <select name="id_tipo" id="id_tipo" class="form-control">
-                                            @foreach($lista_tipo_veicolo as $tipo)
-                                                <option value="{{ $tipo->id }}">{{ $tipo->nome }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    <!-- Select for Tipo Allestimento -->
-                                    <div class="form-group">
-                                        <label for="id_tipo_allestimento">Tipo Allestimento</label>
-                                        <select name="id_tipo_allestimento" id="id_tipo_allestimento" class="form-control">
-                                            @foreach($lista_tipo_allestimento as $tipo_allestimento)
-                                                <option value="{{ $tipo_allestimento->id }}">{{ $tipo_allestimento->nome }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    <!-- Select for Marca -->
-                                    <div class="form-group">
-                                        <label for="id_marca">Marca</label>
-                                        <select name="id_marca" id="id_marca" class="form-control">
+	@csrf
+	<!--begin::Content-->
+	<div id="kt_app_content" class="app-content flex-column-fluid">
+		<!--begin::Content container-->
+		<div id="kt_app_content_container" class="app-container container-fluid">
+			<!--begin::Row-->
+			<div class="row gx-5 gx-xl-10">
+				<!--begin::Col-->
+				<div class="col-xxl-6 mb-5 mb-xl-10">
+					<!--begin::Chart widget 8-->
+					<div class="card card-flush h-xl-100">
+						<!--begin::Header-->
+						<div class="card-header pt-5">
+							<!--begin::Title-->
+							<h3 class="card-title align-items-start flex-column">
+								<span class="card-label fw-bold text-dark">Performance Overview</span>
+								<span class="text-gray-400 mt-1 fw-semibold fs-6">Users from all channels</span>
+							</h3>
+							<!--end::Title-->
+						</div>
+						<!--end::Header-->
+						<!--begin::Body-->
+						<div class="card-body pt-6">
+							<!--begin::Tab content-->
+							<div class="tab-content">
+								<!--begin::Tab pane-->
+								<div class="tab-pane fade active show" id="kt_chart_widget_8_month_tab" role="tabpanel">
+									<!--begin::Items-->
+									<!-- Select for Societa -->
+									<div class="form-group">
+										<label for="id_proprietario">Proprietario</label>
+										<select name="id_proprietario" id="id_proprietario" class="form-control">
+											@foreach($lista_societa as $societa)
+												<option value="{{ $societa->id }}">{{ $societa->nome }}</option>
+											@endforeach
+										</select>
+									</div>
+									<!-- Select for Tipo -->
+									<div class="form-group">
+										<label for="id_tipo">Tipo</label>
+										<select name="id_tipo" id="id_tipo" class="form-control">
+											@foreach($lista_tipo_veicolo as $tipo)
+												<option value="{{ $tipo->id }}">{{ $tipo->nome }}</option>
+											@endforeach
+										</select>
+									</div>
+									<!-- Select for Tipo Allestimento -->
+									<div class="form-group">
+										<label for="id_tipo_allestimento">Tipo Allestimento</label>
+										<select name="id_tipo_allestimento" id="id_tipo_allestimento" class="form-control">
+											@foreach($lista_tipo_allestimento as $tipo_allestimento)
+												<option value="{{ $tipo_allestimento->id }}">{{ $tipo_allestimento->nome }}</option>
+											@endforeach
+										</select>
+									</div>
+									<!-- Select for Marca -->
+									<div class="form-group">
+										<label for="id_marca">Marca</label>
+		                                <select name="id_marca" id="id_marca" class="form-control">
                                             @foreach($lista_marca as $marca)
                                                 <option value="{{ $marca->id }}">{{ $marca->nome }}</option>
                                             @endforeach

@@ -7,8 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class TipoAlimentazione extends Model
 {
-    use HasFactory;
+	use HasFactory;
 
-    protected $table = 'tipo_alimentazione';
-    protected $fillable = ['nome'];
+	protected $table = 'tipo_alimentazione';
+	protected $fillable = ['nome'];
 }

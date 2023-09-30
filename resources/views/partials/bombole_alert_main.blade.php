@@ -1,86 +1,86 @@
 <?php
-    use App\Models\Alert;
+	use App\Models\Alert;
 ?>
 <!--begin::Main-->
 <div class="app-main flex-column flex-row-fluid" id="kt_app_main">
-    <!--begin::Content wrapper-->
-    <div class="d-flex flex-column flex-column-fluid">
-        <form action="{{ url('alert_revisione_bombole') }}" method="get">
-            <!--begin::Content-->
-            <div id="kt_app_content" class="app-content flex-column-fluid">
-                <!--begin::Content container-->
-                <div id="kt_app_content_container" class="app-container container-xxl">
-                    <!--begin::Card-->
-                    <div class="card">
-                        <!--begin::Card header-->
-                        <div class="card-header border-0 pt-6">
-                            <!--begin::Card title-->
-                            <div class="card-title">
-                                <!--begin::Search-->
-                                <div class="d-flex align-items-center position-relative my-1">
-                                    <i class="ki-duotone ki-magnifier fs-3 position-absolute ms-5">
-                                        <span class="path1"></span>
-                                        <span class="path2"></span>
-                                    </i>
-                                    <input type="text" name="search" value="{{ request('search') }}" class="form-control form-control-solid w-850px ps-12" placeholder="Ricerca Targa" />
+	<!--begin::Content wrapper-->
+	<div class="d-flex flex-column flex-column-fluid">
+		<form action="{{ url('alert_revisione_bombole') }}" method="get">
+			<!--begin::Content-->
+			<div id="kt_app_content" class="app-content flex-column-fluid">
+				<!--begin::Content container-->
+				<div id="kt_app_content_container" class="app-container container-xxl">
+					<!--begin::Card-->
+					<div class="card">
+						<!--begin::Card header-->
+						<div class="card-header border-0 pt-6">
+							<!--begin::Card title-->
+							<div class="card-title">
+								<!--begin::Search-->
+								<div class="d-flex align-items-center position-relative my-1">
+									<i class="ki-duotone ki-magnifier fs-3 position-absolute ms-5">
+										<span class="path1"></span>
+										<span class="path2"></span>
+									</i>
+									<input type="text" name="search" value="{{ request('search') }}" class="form-control form-control-solid w-850px ps-12" placeholder="Ricerca Targa" />
 
-                                    <!--begin::Card toolbar-->
-                                    <div class="card-toolbar">
-                                        <!--begin::Toolbar-->
-                                        <div class="d-flex justify-content-end" data-kt-customer-table-toolbar="base">
-                                            <!--begin::Submit-->
-                                            <button type="submit" class="btn btn-primary">Ricerca</button>
-                                            <!--end::Submit-->
-                                        </div>
-                                        <!--end::Toolbar-->
-                                    </div>
-                                    <!--end::Card toolbar-->
-                                </div>
-                                <!--end::Search-->
-                            </div>
-                            <!--begin::Card title-->
-                        </div>
-                        <!--end::Card header-->
-                        <!--begin::Card body-->
-                        <div class="card-body pt-0">
-                            <!--begin::Table-->
-                            <table class="table text-center align-middle table-row-dashed fs-6 gy-5" id="kt_customers_table">
-                                <thead>
-                                <tr class="text-gray-400 fw-bold fs-7 text-uppercase gs-0">
-                                    <th class="min-w-150px">Livello</th>
-                                    <th class="min-w-150px">Targa</th>
-                                    <th class="min-w-150px">Marca</th>
-                                    <th class="min-w-150px">Modello</th>
-                                    <th class="min-w-150px">Inizio Validit&agrave;</th>
-                                    <th class="min-w-150px">Fine Validit&agrave;</th>
-                                    <th class="text-end w-100px">Azioni</th>
-                                </tr>
-                                </thead>
-                                <tbody class="fw-semibold text-gray-600">
+									<!--begin::Card toolbar-->
+									<div class="card-toolbar">
+										<!--begin::Toolbar-->
+										<div class="d-flex justify-content-end" data-kt-customer-table-toolbar="base">
+											<!--begin::Submit-->
+											<button type="submit" class="btn btn-primary">Ricerca</button>
+											<!--end::Submit-->
+										</div>
+										<!--end::Toolbar-->
+									</div>
+									<!--end::Card toolbar-->
+								</div>
+								<!--end::Search-->
+							</div>
+							<!--begin::Card title-->
+						</div>
+						<!--end::Card header-->
+						<!--begin::Card body-->
+						<div class="card-body pt-0">
+							<!--begin::Table-->
+							<table class="table text-center align-middle table-row-dashed fs-6 gy-5" id="kt_customers_table">
+								<thead>
+								<tr class="text-gray-400 fw-bold fs-7 text-uppercase gs-0">
+									<th class="min-w-150px">Livello</th>
+									<th class="min-w-150px">Targa</th>
+									<th class="min-w-150px">Marca</th>
+									<th class="min-w-150px">Modello</th>
+									<th class="min-w-150px">Inizio Validit&agrave;</th>
+									<th class="min-w-150px">Fine Validit&agrave;</th>
+									<th class="text-end w-100px">Azioni</th>
+								</tr>
+								</thead>
+								<tbody class="fw-semibold text-gray-600">
 
-                                @foreach($expiringRevisioniBombole as $row)
-                                    <?php
-                                        if($row->livello >= Alert::$thirdThreshold) {
-                                            continue;
-                                        }
+								@foreach($expiringRevisioniBombole as $row)
+									<?php
+										if($row->livello >= Alert::$thirdThreshold) {
+											continue;
+										}
 
 
 
-                                    ?>
-                                    <tr
-                                        @if($row->livello<=Alert::$firstThreshold)
-                                            class="bg-light-danger bg-hover-danger"
-                                        @elseif($row->livello<=Alert::$secondThreshold)
-                                            class="bg-light-warning bg-hover-warning"
-                                        @elseif($row->livello<=Alert::$thirdThreshold)
-                                            class="bg-light-primary bg-hover-primary"
-                                        @endif
-                                        >
-                                        <td class="min-w-150px align-center">
-                                            @if(!isset($row->livello))
-                                                Mai Revisionato
-                                            @elseif($row->livello<0)
-                                                Scaduto da {{ -$row->livello }} giorni
+									?>
+									<tr
+										@if($row->livello<=Alert::$firstThreshold)
+											class="bg-light-danger bg-hover-danger"
+										@elseif($row->livello<=Alert::$secondThreshold)
+											class="bg-light-warning bg-hover-warning"
+										@elseif($row->livello<=Alert::$thirdThreshold)
+											class="bg-light-primary bg-hover-primary"
+										@endif
+										>
+										<td class="min-w-150px align-center">
+											@if(!isset($row->livello))
+												Mai Revisionato
+											@elseif($row->livello<0)
+	                                            Scaduto da {{ -$row->livello }} giorni
                                             @elseif($row->livello>=0)
                                                 Scade tra {{ $row->livello }} giorni
                                             @endif

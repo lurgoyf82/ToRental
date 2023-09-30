@@ -7,8 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Societa extends Model
 {
-    use HasFactory;
+	use HasFactory;
 
-    protected $table = 'societa';
-    protected $fillable = ['nome'];
+	protected $table = 'societa';
+	protected $fillable = ['nome'];
 }

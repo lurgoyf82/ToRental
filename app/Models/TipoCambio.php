@@ -7,8 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class TipoCambio extends Model
 {
-    use HasFactory;
+	use HasFactory;
 
-    protected $table = 'tipo_cambio';
-    protected $fillable = ['nome'];
+	protected $table = 'tipo_cambio';
+	protected $fillable = ['nome'];
 }

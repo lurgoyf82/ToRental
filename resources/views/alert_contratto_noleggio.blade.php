@@ -11,17 +11,17 @@
 <!--end::Theme mode setup on page load-->
 <!--begin::App-->
 <div class="d-flex flex-column flex-root app-root" id="kt_app_root">
-    <!--begin::Page-->
-    <div class="app-page flex-column flex-column-fluid" id="kt_app_page">
-        @include('partials.headbar')
-        <!--begin::Wrapper-->
-        <div class="app-wrapper flex-column flex-row-fluid" id="kt_app_wrapper">
-            @include('partials.sidebar')
-            @include('partials.noleggio_alert_main')
-        </div>
-        <!--end::Wrapper-->
-    </div>
-    <!--end::Page-->
+	<!--begin::Page-->
+	<div class="app-page flex-column flex-column-fluid" id="kt_app_page">
+		@include('partials.headbar')
+		<!--begin::Wrapper-->
+		<div class="app-wrapper flex-column flex-row-fluid" id="kt_app_wrapper">
+			@include('partials.sidebar')
+			@include('partials.noleggio_alert_main')
+		</div>
+		<!--end::Wrapper-->
+	</div>
+	<!--end::Page-->
 </div>
 <!--end::App-->
 <!--begin::Drawers-->

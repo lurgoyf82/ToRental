@@ -2,36 +2,36 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>{{ config('app.name', 'Laravel') }}</title>
-    <meta name="description" content="{{ config('app.description', 'Laravel') }}" />
-    <meta name="keywords" content="{{ config('app.keywords', 'Laravel') }}" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta property="og:locale" content="en_US" />
-    <meta property="og:type" content="article" />
-    <meta property="og:title" content="{{ config('app.name', 'Laravel') }}" />
-    <meta property="og:url" content="http://www.raffo.photo" />
-    <meta property="og:site_name" content="Keenthemes | Metronic" />
-    <link rel="canonical" href="http://www.raffo.photo" />
-    <link rel="shortcut icon" href="assets/media/logos/favicon.ico" />
-    <!--begin::Fonts(mandatory for all pages)-->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700" />
-    <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-    <!--end::Fonts-->
-    <!--begin::Vendor Stylesheets(used for this page only)-->
-    <link href="assets/plugins/custom/fullcalendar/fullcalendar.bundle.css" rel="stylesheet" type="text/css" />
-    <link href="assets/plugins/custom/datatables/datatables.bundle.css" rel="stylesheet" type="text/css" />
-    <!--end::Vendor Stylesheets-->
-    <!--begin::Global Stylesheets Bundle(mandatory for all pages)-->
-    <link href="assets/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css" />
-    <link href="assets/css/style.bundle.css" rel="stylesheet" type="text/css" />
-    <!--end::Global Stylesheets Bundle-->
-    <!-- Scripts -->
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-    <script>// Frame-busting to prevent site from being loaded within a frame without permission (click-jacking) if (window.top != window.self) { window.top.location.replace(window.self.location.href); }</script>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="csrf-token" content="{{ csrf_token() }}">
+	<title>{{ config('app.name', 'Laravel') }}</title>
+	<meta name="description" content="{{ config('app.description', 'Laravel') }}" />
+	<meta name="keywords" content="{{ config('app.keywords', 'Laravel') }}" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta property="og:locale" content="en_US" />
+	<meta property="og:type" content="article" />
+	<meta property="og:title" content="{{ config('app.name', 'Laravel') }}" />
+	<meta property="og:url" content="http://www.raffo.photo" />
+	<meta property="og:site_name" content="Keenthemes | Metronic" />
+	<link rel="canonical" href="http://www.raffo.photo" />
+	<link rel="shortcut icon" href="assets/media/logos/favicon.ico" />
+	<!--begin::Fonts(mandatory for all pages)-->
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700" />
+	<link rel="preconnect" href="https://fonts.bunny.net">
+	<link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+	<!--end::Fonts-->
+	<!--begin::Vendor Stylesheets(used for this page only)-->
+	<link href="assets/plugins/custom/fullcalendar/fullcalendar.bundle.css" rel="stylesheet" type="text/css" />
+	<link href="assets/plugins/custom/datatables/datatables.bundle.css" rel="stylesheet" type="text/css" />
+	<!--end::Vendor Stylesheets-->
+	<!--begin::Global Stylesheets Bundle(mandatory for all pages)-->
+	<link href="assets/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css" />
+	<link href="assets/css/style.bundle.css" rel="stylesheet" type="text/css" />
+	<!--end::Global Stylesheets Bundle-->
+	<!-- Scripts -->
+	@vite(['resources/css/app.css', 'resources/js/app.js'])
+	<script>// Frame-busting to prevent site from being loaded within a frame without permission (click-jacking) if (window.top != window.self) { window.top.location.replace(window.self.location.href); }</script>
 </head>
 <!--end::Head-->
 <!--begin::Body-->
@@ -41,600 +41,600 @@
 <!--end::Theme mode setup on page load-->
 <!--begin::App-->
 <div class="d-flex flex-column flex-root app-root" id="kt_app_root">
-    <!--begin::Page-->
-    <div class="app-page flex-column flex-column-fluid" id="kt_app_page">
+	<!--begin::Page-->
+	<div class="app-page flex-column flex-column-fluid" id="kt_app_page">
 
-        <!--begin::Header-->
-        <div id="kt_app_header" class="app-header" data-kt-sticky="true" data-kt-sticky-activate="{default: true, lg: true}" data-kt-sticky-name="app-header-minimize" data-kt-sticky-offset="{default: '200px', lg: '0'}" data-kt-sticky-animation="false">
-            <!--begin::Header container-->
-            <div class="app-container container-fluid d-flex align-items-stretch justify-content-between" id="kt_app_header_container">
-                <?php
-                /** /
-                ?>
-                <!--begin::Sidebar mobile toggle-->
-                <div class="d-flex align-items-center d-lg-none ms-n3 me-1 me-md-2" title="Show sidebar menu">
-                <div class="btn btn-icon btn-active-color-primary w-35px h-35px" id="kt_app_sidebar_mobile_toggle">
-                <i class="ki-duotone ki-abstract-14 fs-2 fs-md-1">
-                <span class="path1"></span>
-                <span class="path2"></span>
-                </i>
-                </div>
-                </div>
-                <!--end::Sidebar mobile toggle-->
-                <?php
-                /**/
-                ?>
-                    <!--begin::Mobile logo-->
-                <div class="d-flex align-items-center flex-grow-1 flex-lg-grow-0">
-                    <a href="../../demo1/dist/index.html" class="d-lg-none">
-                        <img alt="Logo" src="assets/media/logos/default-small.svg" class="h-30px" />
-                    </a>
-                </div>
-                <!--end::Mobile logo-->
-                <!--begin::Header wrapper-->
-                <div class="d-flex align-items-stretch justify-content-between flex-lg-grow-1" id="kt_app_header_wrapper">
-                    <!--begin::Menu wrapper-->
-                    <div class="app-header-menu app-header-mobile-drawer align-items-stretch" data-kt-drawer="true" data-kt-drawer-name="app-header-menu" data-kt-drawer-activate="{default: true, lg: false}" data-kt-drawer-overlay="true" data-kt-drawer-width="250px" data-kt-drawer-direction="end" data-kt-drawer-toggle="#kt_app_header_menu_toggle" data-kt-swapper="true" data-kt-swapper-mode="{default: 'append', lg: 'prepend'}" data-kt-swapper-parent="{default: '#kt_app_body', lg: '#kt_app_header_wrapper'}">
-                        <!--begin::Menu-->
-                        <div class="menu menu-rounded menu-column menu-lg-row my-5 my-lg-0 align-items-stretch fw-semibold px-2 px-lg-0" id="kt_app_header_menu" data-kt-menu="true">
-                            <?php
-                            /**/
-                            //Dashboard Menu
-                            /** /
-                            ?>
-                            <!--begin:Menu item-->
-                            <div data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-placement="bottom-start" class="menu-item here show menu-here-bg menu-lg-down-accordion me-0 me-lg-2">
-                            <!--begin:Menu link-->
-                            <span class="menu-link">
-                            <span class="menu-title">Dashboards</span>
-                            <span class="menu-arrow d-lg-none"></span>
-                            </span>
-                            <!--end:Menu link-->
-                            <!--begin:Menu sub-->
-                            <div class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown p-0 w-100 w-lg-850px">
-                            <!--begin:Dashboards menu-->
-                            <div class="menu-state-bg menu-extended overflow-hidden overflow-lg-visible" data-kt-menu-dismiss="true">
-                            <!--begin:Row-->
-                            <div class="row">
-                            <!--begin:Col-->
-                            <div class="col-lg-8 mb-3 mb-lg-0 py-3 px-3 py-lg-6 px-lg-6">
-                            <!--begin:Row-->
-                            <div class="row">
-                            <!--begin:Col-->
-                            <div class="col-lg-6 mb-3">
-                            <!--begin:Menu item-->
-                            <div class="menu-item p-0 m-0">
-                            <!--begin:Menu link-->
-                            <a href="../../demo1/dist/index.html" class="menu-link active">
-                            <span class="menu-custom-icon d-flex flex-center flex-shrink-0 rounded w-40px h-40px me-3">
-                            <i class="ki-duotone ki-element-11 text-primary fs-1">
-                            <span class="path1"></span>
-                            <span class="path2"></span>
-                            <span class="path3"></span>
-                            <span class="path4"></span>
-                            </i>
-                            </span>
-                            <span class="d-flex flex-column">
-                            <span class="fs-6 fw-bold text-gray-800">Default</span>
-                            <span class="fs-7 fw-semibold text-muted">Reports & statistics</span>
-                            </span>
-                            </a>
-                            <!--end:Menu link-->
-                            </div>
-                            <!--end:Menu item-->
-                            </div>
-                            <!--end:Col-->
-                            <!--begin:Col-->
-                            <div class="col-lg-6 mb-3">
-                            <!--begin:Menu item-->
-                            <div class="menu-item p-0 m-0">
-                            <!--begin:Menu link-->
-                            <a href="../../demo1/dist/dashboards/ecommerce.html" class="menu-link">
-                            <span class="menu-custom-icon d-flex flex-center flex-shrink-0 rounded w-40px h-40px me-3">
-                            <i class="ki-duotone ki-basket text-danger fs-1">
-                            <span class="path1"></span>
-                            <span class="path2"></span>
-                            <span class="path3"></span>
-                            <span class="path4"></span>
-                            </i>
-                            </span>
-                            <span class="d-flex flex-column">
-                            <span class="fs-6 fw-bold text-gray-800">eCommerce</span>
-                            <span class="fs-7 fw-semibold text-muted">Sales reports</span>
-                            </span>
-                            </a>
-                            <!--end:Menu link-->
-                            </div>
-                            <!--end:Menu item-->
+		<!--begin::Header-->
+		<div id="kt_app_header" class="app-header" data-kt-sticky="true" data-kt-sticky-activate="{default: true, lg: true}" data-kt-sticky-name="app-header-minimize" data-kt-sticky-offset="{default: '200px', lg: '0'}" data-kt-sticky-animation="false">
+			<!--begin::Header container-->
+			<div class="app-container container-fluid d-flex align-items-stretch justify-content-between" id="kt_app_header_container">
+				<?php
+				/** /
+				?>
+				<!--begin::Sidebar mobile toggle-->
+				<div class="d-flex align-items-center d-lg-none ms-n3 me-1 me-md-2" title="Show sidebar menu">
+				<div class="btn btn-icon btn-active-color-primary w-35px h-35px" id="kt_app_sidebar_mobile_toggle">
+				<i class="ki-duotone ki-abstract-14 fs-2 fs-md-1">
+				<span class="path1"></span>
+				<span class="path2"></span>
+				</i>
+				</div>
+				</div>
+				<!--end::Sidebar mobile toggle-->
+				<?php
+				/**/
+				?>
+					<!--begin::Mobile logo-->
+				<div class="d-flex align-items-center flex-grow-1 flex-lg-grow-0">
+					<a href="../../demo1/dist/index.html" class="d-lg-none">
+						<img alt="Logo" src="assets/media/logos/default-small.svg" class="h-30px" />
+					</a>
+				</div>
+				<!--end::Mobile logo-->
+				<!--begin::Header wrapper-->
+				<div class="d-flex align-items-stretch justify-content-between flex-lg-grow-1" id="kt_app_header_wrapper">
+					<!--begin::Menu wrapper-->
+					<div class="app-header-menu app-header-mobile-drawer align-items-stretch" data-kt-drawer="true" data-kt-drawer-name="app-header-menu" data-kt-drawer-activate="{default: true, lg: false}" data-kt-drawer-overlay="true" data-kt-drawer-width="250px" data-kt-drawer-direction="end" data-kt-drawer-toggle="#kt_app_header_menu_toggle" data-kt-swapper="true" data-kt-swapper-mode="{default: 'append', lg: 'prepend'}" data-kt-swapper-parent="{default: '#kt_app_body', lg: '#kt_app_header_wrapper'}">
+						<!--begin::Menu-->
+						<div class="menu menu-rounded menu-column menu-lg-row my-5 my-lg-0 align-items-stretch fw-semibold px-2 px-lg-0" id="kt_app_header_menu" data-kt-menu="true">
+							<?php
+							/**/
+							//Dashboard Menu
+							/** /
+							?>
+							<!--begin:Menu item-->
+							<div data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-placement="bottom-start" class="menu-item here show menu-here-bg menu-lg-down-accordion me-0 me-lg-2">
+							<!--begin:Menu link-->
+							<span class="menu-link">
+							<span class="menu-title">Dashboards</span>
+							<span class="menu-arrow d-lg-none"></span>
+							</span>
+							<!--end:Menu link-->
+							<!--begin:Menu sub-->
+							<div class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown p-0 w-100 w-lg-850px">
+							<!--begin:Dashboards menu-->
+							<div class="menu-state-bg menu-extended overflow-hidden overflow-lg-visible" data-kt-menu-dismiss="true">
+							<!--begin:Row-->
+							<div class="row">
+							<!--begin:Col-->
+							<div class="col-lg-8 mb-3 mb-lg-0 py-3 px-3 py-lg-6 px-lg-6">
+							<!--begin:Row-->
+							<div class="row">
+							<!--begin:Col-->
+							<div class="col-lg-6 mb-3">
+							<!--begin:Menu item-->
+							<div class="menu-item p-0 m-0">
+							<!--begin:Menu link-->
+							<a href="../../demo1/dist/index.html" class="menu-link active">
+							<span class="menu-custom-icon d-flex flex-center flex-shrink-0 rounded w-40px h-40px me-3">
+							<i class="ki-duotone ki-element-11 text-primary fs-1">
+							<span class="path1"></span>
+							<span class="path2"></span>
+							<span class="path3"></span>
+							<span class="path4"></span>
+							</i>
+							</span>
+							<span class="d-flex flex-column">
+							<span class="fs-6 fw-bold text-gray-800">Default</span>
+							<span class="fs-7 fw-semibold text-muted">Reports & statistics</span>
+							</span>
+							</a>
+							<!--end:Menu link-->
+							</div>
+							<!--end:Menu item-->
+							</div>
+							<!--end:Col-->
+							<!--begin:Col-->
+							<div class="col-lg-6 mb-3">
+							<!--begin:Menu item-->
+							<div class="menu-item p-0 m-0">
+							<!--begin:Menu link-->
+							<a href="../../demo1/dist/dashboards/ecommerce.html" class="menu-link">
+							<span class="menu-custom-icon d-flex flex-center flex-shrink-0 rounded w-40px h-40px me-3">
+							<i class="ki-duotone ki-basket text-danger fs-1">
+							<span class="path1"></span>
+							<span class="path2"></span>
+							<span class="path3"></span>
+							<span class="path4"></span>
+							</i>
+							</span>
+							<span class="d-flex flex-column">
+							<span class="fs-6 fw-bold text-gray-800">eCommerce</span>
+							<span class="fs-7 fw-semibold text-muted">Sales reports</span>
+							</span>
+							</a>
+							<!--end:Menu link-->
+							</div>
+							<!--end:Menu item-->
 
-                            </div>
-                            <!--end:Col-->
-                            <!--begin:Col-->
-                            <div class="col-lg-6 mb-3">
-                            <!--begin:Menu item-->
-                            <div class="menu-item p-0 m-0">
-                            <!--begin:Menu link-->
-                            <a href="../../demo1/dist/dashboards/projects.html" class="menu-link">
-                            <span class="menu-custom-icon d-flex flex-center flex-shrink-0 rounded w-40px h-40px me-3">
-                            <i class="ki-duotone ki-abstract-44 text-info fs-1">
-                            <span class="path1"></span>
-                            <span class="path2"></span>
-                            </i>
-                            </span>
-                            <span class="d-flex flex-column">
-                            <span class="fs-6 fw-bold text-gray-800">Projects</span>
-                            <span class="fs-7 fw-semibold text-muted">Tasts, graphs & charts</span>
-                            </span>
-                            </a>
-                            <!--end:Menu link-->
-                            </div>
-                            <!--end:Menu item-->
-                            </div>
-                            <!--end:Col-->
-                            <!--begin:Col-->
-                            <div class="col-lg-6 mb-3">
-                            <!--begin:Menu item-->
-                            <div class="menu-item p-0 m-0">
-                            <!--begin:Menu link-->
-                            <a href="../../demo1/dist/dashboards/online-courses.html" class="menu-link">
-                            <span class="menu-custom-icon d-flex flex-center flex-shrink-0 rounded w-40px h-40px me-3">
-                            <i class="ki-duotone ki-color-swatch text-success fs-1">
-                            <span class="path1"></span>
-                            <span class="path2"></span>
-                            <span class="path3"></span>
-                            <span class="path4"></span>
-                            <span class="path5"></span>
-                            <span class="path6"></span>
-                            <span class="path7"></span>
-                            <span class="path8"></span>
-                            <span class="path9"></span>
-                            <span class="path10"></span>
-                            <span class="path11"></span>
-                            <span class="path12"></span>
-                            <span class="path13"></span>
-                            <span class="path14"></span>
-                            <span class="path15"></span>
-                            <span class="path16"></span>
-                            <span class="path17"></span>
-                            <span class="path18"></span>
-                            <span class="path19"></span>
-                            <span class="path20"></span>
-                            <span class="path21"></span>
-                            </i>
-                            </span>
-                            <span class="d-flex flex-column">
-                            <span class="fs-6 fw-bold text-gray-800">Online Courses</span>
-                            <span class="fs-7 fw-semibold text-muted">Student progress</span>
-                            </span>
-                            </a>
-                            <!--end:Menu link-->
-                            </div>
-                            <!--end:Menu item-->
-                            </div>
-                            <!--end:Col-->
-                            <!--begin:Col-->
-                            <div class="col-lg-6 mb-3">
-                            <!--begin:Menu item-->
-                            <div class="menu-item p-0 m-0">
-                            <!--begin:Menu link-->
-                            <a href="../../demo1/dist/dashboards/marketing.html" class="menu-link">
-                            <span class="menu-custom-icon d-flex flex-center flex-shrink-0 rounded w-40px h-40px me-3">
-                            <i class="ki-duotone ki-chart-simple text-dark fs-1">
-                            <span class="path1"></span>
-                            <span class="path2"></span>
-                            <span class="path3"></span>
-                            <span class="path4"></span>
-                            </i>
-                            </span>
-                            <span class="d-flex flex-column">
-                            <span class="fs-6 fw-bold text-gray-800">Marketing</span>
-                            <span class="fs-7 fw-semibold text-muted">Campaings & conversions</span>
-                            </span>
-                            </a>
-                            <!--end:Menu link-->
-                            </div>
-                            <!--end:Menu item-->
-                            </div>
-                            <!--end:Col-->
-                            <!--begin:Col-->
-                            <div class="col-lg-6 mb-3">
-                            <!--begin:Menu item-->
-                            <div class="menu-item p-0 m-0">
-                            <!--begin:Menu link-->
-                            <a href="../../demo1/dist/dashboards/bidding.html" class="menu-link">
-                            <span class="menu-custom-icon d-flex flex-center flex-shrink-0 rounded w-40px h-40px me-3">
-                            <i class="ki-duotone ki-switch text-warning fs-1">
-                            <span class="path1"></span>
-                            <span class="path2"></span>
-                            </i>
-                            </span>
-                            <span class="d-flex flex-column">
-                            <span class="fs-6 fw-bold text-gray-800">Bidding</span>
-                            <span class="fs-7 fw-semibold text-muted">Campaings & conversions</span>
-                            </span>
-                            </a>
-                            <!--end:Menu link-->
-                            </div>
-                            <!--end:Menu item-->
-                            </div>
-                            <!--end:Col-->
-                            <!--begin:Col-->
-                            <div class="col-lg-6 mb-3">
-                            <!--begin:Menu item-->
-                            <div class="menu-item p-0 m-0">
-                            <!--begin:Menu link-->
-                            <a href="../../demo1/dist/dashboards/pos.html" class="menu-link">
-                            <span class="menu-custom-icon d-flex flex-center flex-shrink-0 rounded w-40px h-40px me-3">
-                            <i class="ki-duotone ki-abstract-42 text-danger fs-1">
-                            <span class="path1"></span>
-                            <span class="path2"></span>
-                            </i>
-                            </span>
-                            <span class="d-flex flex-column">
-                            <span class="fs-6 fw-bold text-gray-800">POS System</span>
-                            <span class="fs-7 fw-semibold text-muted">Campaings & conversions</span>
-                            </span>
-                            </a>
-                            <!--end:Menu link-->
-                            </div>
-                            <!--end:Menu item-->
-                            </div>
-                            <!--end:Col-->
-                            <!--begin:Col-->
-                            <div class="col-lg-6 mb-3">
-                            <!--begin:Menu item-->
-                            <div class="menu-item p-0 m-0">
-                            <!--begin:Menu link-->
-                            <a href="../../demo1/dist/dashboards/call-center.html" class="menu-link">
-                            <span class="menu-custom-icon d-flex flex-center flex-shrink-0 rounded w-40px h-40px me-3">
-                            <i class="ki-duotone ki-call text-primary fs-1">
-                            <span class="path1"></span>
-                            <span class="path2"></span>
-                            <span class="path3"></span>
-                            <span class="path4"></span>
-                            <span class="path5"></span>
-                            <span class="path6"></span>
-                            <span class="path7"></span>
-                            <span class="path8"></span>
-                            </i>
-                            </span>
-                            <span class="d-flex flex-column">
-                            <span class="fs-6 fw-bold text-gray-800">Call Center</span>
-                            <span class="fs-7 fw-semibold text-muted">Campaings & conversions</span>
-                            </span>
-                            </a>
-                            <!--end:Menu link-->
-                            </div>
-                            <!--end:Menu item-->
-                            </div>
-                            <!--end:Col-->
-                            </div>
-                            <!--end:Row-->
-                            <div class="separator separator-dashed mx-5 my-5"></div>
-                            <!--begin:Landing-->
-                            <div class="d-flex flex-stack flex-wrap flex-lg-nowrap gap-2 mx-5">
-                            <div class="d-flex flex-column me-5">
-                            <div class="fs-6 fw-bold text-gray-800">Landing Page Template</div>
-                            <div class="fs-7 fw-semibold text-muted">Onpe page landing template with pricing & others</div>
-                            </div>
-                            <a href="../../demo1/dist/landing.html" class="btn btn-sm btn-primary fw-bold">Explore</a>
-                            </div>
-                            <!--end:Landing-->
-                            </div>
-                            <!--end:Col-->
-                            <!--begin:Col-->
-                            <div class="menu-more bg-light col-lg-4 py-3 px-3 py-lg-6 px-lg-6 rounded-end">
-                            <!--begin:Heading-->
-                            <h4 class="fs-6 fs-lg-4 text-gray-800 fw-bold mt-3 mb-3 ms-4">More Dashboards</h4>
-                            <!--end:Heading-->
-                            <!--begin:Menu item-->
-                            <div class="menu-item p-0 m-0">
-                            <!--begin:Menu link-->
-                            <a href="../../demo1/dist/dashboards/logistics.html" class="menu-link py-2">
-                            <span class="menu-title">Logistics</span>
-                            </a>
-                            <!--end:Menu link-->
-                            </div>
-                            <!--end:Menu item-->
-                            <!--begin:Menu item-->
-                            <div class="menu-item p-0 m-0">
-                            <!--begin:Menu link-->
-                            <a href="../../demo1/dist/dashboards/website-analytics.html" class="menu-link py-2">
-                            <span class="menu-title">Website Analytics</span>
-                            </a>
-                            <!--end:Menu link-->
-                            </div>
-                            <!--end:Menu item-->
-                            <!--begin:Menu item-->
-                            <div class="menu-item p-0 m-0">
-                            <!--begin:Menu link-->
-                            <a href="../../demo1/dist/dashboards/finance-performance.html" class="menu-link py-2">
-                            <span class="menu-title">Finance Performance</span>
-                            </a>
-                            <!--end:Menu link-->
-                            </div>
-                            <!--end:Menu item-->
-                            <!--begin:Menu item-->
-                            <div class="menu-item p-0 m-0">
-                            <!--begin:Menu link-->
-                            <a href="../../demo1/dist/dashboards/store-analytics.html" class="menu-link py-2">
-                            <span class="menu-title">Store Analytics</span>
-                            </a>
-                            <!--end:Menu link-->
-                            </div>
-                            <!--end:Menu item-->
-                            <!--begin:Menu item-->
-                            <div class="menu-item p-0 m-0">
-                            <!--begin:Menu link-->
-                            <a href="../../demo1/dist/dashboards/social.html" class="menu-link py-2">
-                            <span class="menu-title">Social</span>
-                            </a>
-                            <!--end:Menu link-->
-                            </div>
-                            <!--end:Menu item-->
-                            <!--begin:Menu item-->
-                            <div class="menu-item p-0 m-0">
-                            <!--begin:Menu link-->
-                            <a href="../../demo1/dist/dashboards/delivery.html" class="menu-link py-2">
-                            <span class="menu-title">Delivery</span>
-                            </a>
-                            <!--end:Menu link-->
-                            </div>
-                            <!--end:Menu item-->
-                            <!--begin:Menu item-->
-                            <div class="menu-item p-0 m-0">
-                            <!--begin:Menu link-->
-                            <a href="../../demo1/dist/dashboards/crypto.html" class="menu-link py-2">
-                            <span class="menu-title">Crypto</span>
-                            </a>
-                            <!--end:Menu link-->
-                            </div>
-                            <!--end:Menu item-->
-                            <!--begin:Menu item-->
-                            <div class="menu-item p-0 m-0">
-                            <!--begin:Menu link-->
-                            <a href="../../demo1/dist/dashboards/school.html" class="menu-link py-2">
-                            <span class="menu-title">School</span>
-                            </a>
-                            <!--end:Menu link-->
-                            </div>
-                            <!--end:Menu item-->
-                            <!--begin:Menu item-->
-                            <div class="menu-item p-0 m-0">
-                            <!--begin:Menu link-->
-                            <a href="../../demo1/dist/dashboards/podcast.html" class="menu-link py-2">
-                            <span class="menu-title">Podcast</span>
-                            </a>
-                            <!--end:Menu link-->
-                            </div>
-                            <!--end:Menu item-->
-                            </div>
-                            <!--end:Col-->
-                            </div>
-                            <!--end:Row-->
-                            </div>
-                            <!--end:Dashboards menu-->
-                            </div>
-                            <!--end:Menu sub-->
-                            </div>
-                            <!--end:Menu item-->
-                            <?php
-                            /**/
-                            //Pages Menu
-                            /** /
-                            ?>
-                            <!--begin:Menu item-->
-                            <div data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-placement="bottom-start" class="menu-item menu-lg-down-accordion me-0 me-lg-2">
-                            <!--begin:Menu link-->
-                            <span class="menu-link">
-                            <span class="menu-title">Pages</span>
-                            <span class="menu-arrow d-lg-none"></span>
-                            </span>
-                            <!--end:Menu link-->
-                            <!--begin:Menu sub-->
-                            <div class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown p-0">
-                            <!--begin:Pages menu-->
-                            <div class="menu-active-bg px-4 px-lg-0">
-                            <!--begin:Tabs nav-->
-                            <div class="d-flex w-100 overflow-auto">
-                            <ul class="nav nav-stretch nav-line-tabs fw-bold fs-6 p-0 p-lg-10 flex-nowrap flex-grow-1">
-                            <!--begin:Nav item-->
-                            <li class="nav-item mx-lg-1">
-                            <a class="nav-link py-3 py-lg-6 active text-active-primary" href="#" data-bs-toggle="tab" data-bs-target="#kt_app_header_menu_pages_pages">General</a>
-                            </li>
-                            <!--end:Nav item-->
-                            <!--begin:Nav item-->
-                            <li class="nav-item mx-lg-1">
-                            <a class="nav-link py-3 py-lg-6 text-active-primary" href="#" data-bs-toggle="tab" data-bs-target="#kt_app_header_menu_pages_account">Account</a>
-                            </li>
-                            <!--end:Nav item-->
-                            <!--begin:Nav item-->
-                            <li class="nav-item mx-lg-1">
-                            <a class="nav-link py-3 py-lg-6 text-active-primary" href="#" data-bs-toggle="tab" data-bs-target="#kt_app_header_menu_pages_authentication">Authentication</a>
-                            </li>
-                            <!--end:Nav item-->
-                            <!--begin:Nav item-->
-                            <li class="nav-item mx-lg-1">
-                            <a class="nav-link py-3 py-lg-6 text-active-primary" href="#" data-bs-toggle="tab" data-bs-target="#kt_app_header_menu_pages_utilities">Utilities</a>
-                            </li>
-                            <!--end:Nav item-->
-                            <!--begin:Nav item-->
-                            <li class="nav-item mx-lg-1">
-                            <a class="nav-link py-3 py-lg-6 text-active-primary" href="#" data-bs-toggle="tab" data-bs-target="#kt_app_header_menu_pages_widgets">Widgets</a>
-                            </li>
-                            <!--end:Nav item-->
-                            </ul>
-                            </div>
-                            <!--end:Tabs nav-->
-                            <!--begin:Tab content-->
-                            <div class="tab-content py-4 py-lg-8 px-lg-7">
-                            <!--begin:Tab pane-->
-                            <div class="tab-pane active w-lg-1000px" id="kt_app_header_menu_pages_pages">
-                            <!--begin:Row-->
-                            <div class="row">
-                            <!--begin:Col-->
-                            <div class="col-lg-8">
-                            <!--begin:Row-->
-                            <div class="row">
-                            <!--begin:Col-->
-                            <div class="col-lg-3 mb-6 mb-lg-0">
-                            <!--begin:Menu heading-->
-                            <h4 class="fs-6 fs-lg-4 fw-bold mb-3 ms-4">User Profile</h4>
-                            <!--end:Menu heading-->
-                            <!--begin:Menu item-->
-                            <div class="menu-item p-0 m-0">
-                            <!--begin:Menu link-->
-                            <a href="../../demo1/dist/pages/user-profile/overview.html" class="menu-link">
-                            <span class="menu-title">Overview</span>
-                            </a>
-                            <!--end:Menu link-->
-                            </div>
-                            <!--end:Menu item-->
-                            <!--begin:Menu item-->
-                            <div class="menu-item p-0 m-0">
-                            <!--begin:Menu link-->
-                            <a href="../../demo1/dist/pages/user-profile/projects.html" class="menu-link">
-                            <span class="menu-title">Projects</span>
-                            </a>
-                            <!--end:Menu link-->
-                            </div>
-                            <!--end:Menu item-->
-                            <!--begin:Menu item-->
-                            <div class="menu-item p-0 m-0">
-                            <!--begin:Menu link-->
-                            <a href="../../demo1/dist/pages/user-profile/campaigns.html" class="menu-link">
-                            <span class="menu-title">Campaigns</span>
-                            </a>
-                            <!--end:Menu link-->
-                            </div>
-                            <!--end:Menu item-->
-                            <!--begin:Menu item-->
-                            <div class="menu-item p-0 m-0">
-                            <!--begin:Menu link-->
-                            <a href="../../demo1/dist/pages/user-profile/documents.html" class="menu-link">
-                            <span class="menu-title">Documents</span>
-                            </a>
-                            <!--end:Menu link-->
-                            </div>
-                            <!--end:Menu item-->
-                            <!--begin:Menu item-->
-                            <div class="menu-item p-0 m-0">
-                            <!--begin:Menu link-->
-                            <a href="../../demo1/dist/pages/user-profile/followers.html" class="menu-link">
-                            <span class="menu-title">Followers</span>
-                            </a>
-                            <!--end:Menu link-->
-                            </div>
-                            <!--end:Menu item-->
-                            <!--begin:Menu item-->
-                            <div class="menu-item p-0 m-0">
-                            <!--begin:Menu link-->
-                            <a href="../../demo1/dist/pages/user-profile/activity.html" class="menu-link">
-                            <span class="menu-title">Activity</span>
-                            </a>
-                            <!--end:Menu link-->
-                            </div>
-                            <!--end:Menu item-->
-                            </div>
-                            <!--end:Col-->
-                            <!--begin:Col-->
-                            <div class="col-lg-3 mb-6 mb-lg-0">
-                            <!--begin:Menu section-->
-                            <div class="mb-6">
-                            <!--begin:Menu heading-->
-                            <h4 class="fs-6 fs-lg-4 fw-bold mb-3 ms-4">Corporate</h4>
-                            <!--end:Menu heading-->
-                            <!--begin:Menu item-->
-                            <div class="menu-item p-0 m-0">
-                            <!--begin:Menu link-->
-                            <a href="../../demo1/dist/pages/about.html" class="menu-link">
-                            <span class="menu-title">About</span>
-                            </a>
-                            <!--end:Menu link-->
-                            </div>
-                            <!--end:Menu item-->
-                            <!--begin:Menu item-->
-                            <div class="menu-item p-0 m-0">
-                            <!--begin:Menu link-->
-                            <a href="../../demo1/dist/pages/team.html" class="menu-link">
-                            <span class="menu-title">Our Team</span>
-                            </a>
-                            <!--end:Menu link-->
-                            </div>
-                            <!--end:Menu item-->
-                            <!--begin:Menu item-->
-                            <div class="menu-item p-0 m-0">
-                            <!--begin:Menu link-->
-                            <a href="../../demo1/dist/pages/contact.html" class="menu-link">
-                            <span class="menu-title">Contact Us</span>
-                            </a>
-                            <!--end:Menu link-->
-                            </div>
-                            <!--end:Menu item-->
-                            <!--begin:Menu item-->
-                            <div class="menu-item p-0 m-0">
-                            <!--begin:Menu link-->
-                            <a href="../../demo1/dist/pages/licenses.html" class="menu-link">
-                            <span class="menu-title">Licenses</span>
-                            </a>
-                            <!--end:Menu link-->
-                            </div>
-                            <!--end:Menu item-->
-                            <!--begin:Menu item-->
-                            <div class="menu-item p-0 m-0">
-                            <!--begin:Menu link-->
-                            <a href="../../demo1/dist/pages/sitemap.html" class="menu-link">
-                            <span class="menu-title">Sitemap</span>
-                            </a>
-                            <!--end:Menu link-->
-                            </div>
-                            <!--end:Menu item-->
-                            </div>
-                            <!--end:Menu section-->
-                            <!--begin:Menu section-->
-                            <div class="mb-0">
-                            <!--begin:Menu heading-->
-                            <h4 class="fs-6 fs-lg-4 fw-bold mb-3 ms-4">Careers</h4>
-                            <!--end:Menu heading-->
-                            <!--begin:Menu item-->
-                            <div class="menu-item p-0 m-0">
-                            <!--begin:Menu link-->
-                            <a href="../../demo1/dist/pages/careers/list.html" class="menu-link">
-                            <span class="menu-title">Careers List</span>
-                            </a>
-                            <!--end:Menu link-->
-                            </div>
-                            <!--end:Menu item-->
-                            <!--begin:Menu item-->
-                            <div class="menu-item p-0 m-0">
-                            <!--begin:Menu link-->
-                            <a href="../../demo1/dist/pages/careers/apply.html" class="menu-link">
-                            <span class="menu-title">Careers Apply</span>
-                            </a>
-                            <!--end:Menu link-->
-                            </div>
-                            <!--end:Menu item-->
-                            </div>
-                            <!--end:Menu section-->
-                            </div>
-                            <!--end:Col-->
-                            <!--begin:Col-->
-                            <div class="col-lg-3 mb-6 mb-lg-0">
-                            <!--begin:Menu section-->
-                            <div class="mb-6">
-                            <!--begin:Menu heading-->
-                            <h4 class="fs-6 fs-lg-4 fw-bold mb-3 ms-4">FAQ</h4>
-                            <!--end:Menu heading-->
-                            <!--begin:Menu item-->
-                            <div class="menu-item p-0 m-0">
-                            <!--begin:Menu link-->
-                            <a href="../../demo1/dist/pages/faq/classic.html" class="menu-link">
-                            <span class="menu-title">FAQ Classic</span>
-                            </a>
-                            <!--end:Menu link-->
-                            </div>
-                            <!--end:Menu item-->
-                            <!--begin:Menu item-->
+							</div>
+							<!--end:Col-->
+							<!--begin:Col-->
+							<div class="col-lg-6 mb-3">
+							<!--begin:Menu item-->
+							<div class="menu-item p-0 m-0">
+							<!--begin:Menu link-->
+							<a href="../../demo1/dist/dashboards/projects.html" class="menu-link">
+							<span class="menu-custom-icon d-flex flex-center flex-shrink-0 rounded w-40px h-40px me-3">
+							<i class="ki-duotone ki-abstract-44 text-info fs-1">
+							<span class="path1"></span>
+							<span class="path2"></span>
+							</i>
+							</span>
+							<span class="d-flex flex-column">
+							<span class="fs-6 fw-bold text-gray-800">Projects</span>
+							<span class="fs-7 fw-semibold text-muted">Tasts, graphs & charts</span>
+							</span>
+							</a>
+							<!--end:Menu link-->
+							</div>
+							<!--end:Menu item-->
+							</div>
+							<!--end:Col-->
+							<!--begin:Col-->
+							<div class="col-lg-6 mb-3">
+							<!--begin:Menu item-->
+							<div class="menu-item p-0 m-0">
+							<!--begin:Menu link-->
+							<a href="../../demo1/dist/dashboards/online-courses.html" class="menu-link">
+							<span class="menu-custom-icon d-flex flex-center flex-shrink-0 rounded w-40px h-40px me-3">
+							<i class="ki-duotone ki-color-swatch text-success fs-1">
+							<span class="path1"></span>
+							<span class="path2"></span>
+							<span class="path3"></span>
+							<span class="path4"></span>
+							<span class="path5"></span>
+							<span class="path6"></span>
+							<span class="path7"></span>
+							<span class="path8"></span>
+							<span class="path9"></span>
+							<span class="path10"></span>
+							<span class="path11"></span>
+							<span class="path12"></span>
+							<span class="path13"></span>
+							<span class="path14"></span>
+							<span class="path15"></span>
+							<span class="path16"></span>
+							<span class="path17"></span>
+							<span class="path18"></span>
+							<span class="path19"></span>
+							<span class="path20"></span>
+							<span class="path21"></span>
+							</i>
+							</span>
+							<span class="d-flex flex-column">
+							<span class="fs-6 fw-bold text-gray-800">Online Courses</span>
+							<span class="fs-7 fw-semibold text-muted">Student progress</span>
+							</span>
+							</a>
+							<!--end:Menu link-->
+							</div>
+							<!--end:Menu item-->
+							</div>
+							<!--end:Col-->
+							<!--begin:Col-->
+							<div class="col-lg-6 mb-3">
+							<!--begin:Menu item-->
+							<div class="menu-item p-0 m-0">
+							<!--begin:Menu link-->
+							<a href="../../demo1/dist/dashboards/marketing.html" class="menu-link">
+							<span class="menu-custom-icon d-flex flex-center flex-shrink-0 rounded w-40px h-40px me-3">
+							<i class="ki-duotone ki-chart-simple text-dark fs-1">
+							<span class="path1"></span>
+							<span class="path2"></span>
+							<span class="path3"></span>
+							<span class="path4"></span>
+							</i>
+							</span>
+							<span class="d-flex flex-column">
+							<span class="fs-6 fw-bold text-gray-800">Marketing</span>
+							<span class="fs-7 fw-semibold text-muted">Campaings & conversions</span>
+							</span>
+							</a>
+							<!--end:Menu link-->
+							</div>
+							<!--end:Menu item-->
+							</div>
+							<!--end:Col-->
+							<!--begin:Col-->
+							<div class="col-lg-6 mb-3">
+							<!--begin:Menu item-->
+							<div class="menu-item p-0 m-0">
+							<!--begin:Menu link-->
+							<a href="../../demo1/dist/dashboards/bidding.html" class="menu-link">
+							<span class="menu-custom-icon d-flex flex-center flex-shrink-0 rounded w-40px h-40px me-3">
+							<i class="ki-duotone ki-switch text-warning fs-1">
+							<span class="path1"></span>
+							<span class="path2"></span>
+							</i>
+							</span>
+							<span class="d-flex flex-column">
+							<span class="fs-6 fw-bold text-gray-800">Bidding</span>
+							<span class="fs-7 fw-semibold text-muted">Campaings & conversions</span>
+							</span>
+							</a>
+							<!--end:Menu link-->
+							</div>
+							<!--end:Menu item-->
+							</div>
+							<!--end:Col-->
+							<!--begin:Col-->
+							<div class="col-lg-6 mb-3">
+							<!--begin:Menu item-->
+							<div class="menu-item p-0 m-0">
+							<!--begin:Menu link-->
+							<a href="../../demo1/dist/dashboards/pos.html" class="menu-link">
+							<span class="menu-custom-icon d-flex flex-center flex-shrink-0 rounded w-40px h-40px me-3">
+							<i class="ki-duotone ki-abstract-42 text-danger fs-1">
+							<span class="path1"></span>
+							<span class="path2"></span>
+							</i>
+							</span>
+							<span class="d-flex flex-column">
+							<span class="fs-6 fw-bold text-gray-800">POS System</span>
+							<span class="fs-7 fw-semibold text-muted">Campaings & conversions</span>
+							</span>
+							</a>
+							<!--end:Menu link-->
+							</div>
+							<!--end:Menu item-->
+							</div>
+							<!--end:Col-->
+							<!--begin:Col-->
+							<div class="col-lg-6 mb-3">
+							<!--begin:Menu item-->
+							<div class="menu-item p-0 m-0">
+							<!--begin:Menu link-->
+							<a href="../../demo1/dist/dashboards/call-center.html" class="menu-link">
+							<span class="menu-custom-icon d-flex flex-center flex-shrink-0 rounded w-40px h-40px me-3">
+							<i class="ki-duotone ki-call text-primary fs-1">
+							<span class="path1"></span>
+							<span class="path2"></span>
+							<span class="path3"></span>
+							<span class="path4"></span>
+							<span class="path5"></span>
+							<span class="path6"></span>
+							<span class="path7"></span>
+							<span class="path8"></span>
+							</i>
+							</span>
+							<span class="d-flex flex-column">
+							<span class="fs-6 fw-bold text-gray-800">Call Center</span>
+							<span class="fs-7 fw-semibold text-muted">Campaings & conversions</span>
+							</span>
+							</a>
+							<!--end:Menu link-->
+							</div>
+							<!--end:Menu item-->
+							</div>
+							<!--end:Col-->
+							</div>
+							<!--end:Row-->
+							<div class="separator separator-dashed mx-5 my-5"></div>
+							<!--begin:Landing-->
+							<div class="d-flex flex-stack flex-wrap flex-lg-nowrap gap-2 mx-5">
+							<div class="d-flex flex-column me-5">
+							<div class="fs-6 fw-bold text-gray-800">Landing Page Template</div>
+							<div class="fs-7 fw-semibold text-muted">Onpe page landing template with pricing & others</div>
+							</div>
+							<a href="../../demo1/dist/landing.html" class="btn btn-sm btn-primary fw-bold">Explore</a>
+							</div>
+							<!--end:Landing-->
+							</div>
+							<!--end:Col-->
+							<!--begin:Col-->
+							<div class="menu-more bg-light col-lg-4 py-3 px-3 py-lg-6 px-lg-6 rounded-end">
+							<!--begin:Heading-->
+							<h4 class="fs-6 fs-lg-4 text-gray-800 fw-bold mt-3 mb-3 ms-4">More Dashboards</h4>
+							<!--end:Heading-->
+							<!--begin:Menu item-->
+							<div class="menu-item p-0 m-0">
+							<!--begin:Menu link-->
+							<a href="../../demo1/dist/dashboards/logistics.html" class="menu-link py-2">
+							<span class="menu-title">Logistics</span>
+							</a>
+							<!--end:Menu link-->
+							</div>
+							<!--end:Menu item-->
+							<!--begin:Menu item-->
+							<div class="menu-item p-0 m-0">
+							<!--begin:Menu link-->
+							<a href="../../demo1/dist/dashboards/website-analytics.html" class="menu-link py-2">
+							<span class="menu-title">Website Analytics</span>
+							</a>
+							<!--end:Menu link-->
+							</div>
+							<!--end:Menu item-->
+							<!--begin:Menu item-->
+							<div class="menu-item p-0 m-0">
+							<!--begin:Menu link-->
+							<a href="../../demo1/dist/dashboards/finance-performance.html" class="menu-link py-2">
+							<span class="menu-title">Finance Performance</span>
+							</a>
+							<!--end:Menu link-->
+							</div>
+							<!--end:Menu item-->
+							<!--begin:Menu item-->
+							<div class="menu-item p-0 m-0">
+							<!--begin:Menu link-->
+							<a href="../../demo1/dist/dashboards/store-analytics.html" class="menu-link py-2">
+							<span class="menu-title">Store Analytics</span>
+							</a>
+							<!--end:Menu link-->
+							</div>
+							<!--end:Menu item-->
+							<!--begin:Menu item-->
+							<div class="menu-item p-0 m-0">
+							<!--begin:Menu link-->
+							<a href="../../demo1/dist/dashboards/social.html" class="menu-link py-2">
+							<span class="menu-title">Social</span>
+							</a>
+							<!--end:Menu link-->
+							</div>
+							<!--end:Menu item-->
+							<!--begin:Menu item-->
+							<div class="menu-item p-0 m-0">
+							<!--begin:Menu link-->
+							<a href="../../demo1/dist/dashboards/delivery.html" class="menu-link py-2">
+							<span class="menu-title">Delivery</span>
+							</a>
+							<!--end:Menu link-->
+							</div>
+							<!--end:Menu item-->
+							<!--begin:Menu item-->
+							<div class="menu-item p-0 m-0">
+							<!--begin:Menu link-->
+							<a href="../../demo1/dist/dashboards/crypto.html" class="menu-link py-2">
+							<span class="menu-title">Crypto</span>
+							</a>
+							<!--end:Menu link-->
+							</div>
+							<!--end:Menu item-->
+							<!--begin:Menu item-->
+							<div class="menu-item p-0 m-0">
+							<!--begin:Menu link-->
+							<a href="../../demo1/dist/dashboards/school.html" class="menu-link py-2">
+							<span class="menu-title">School</span>
+							</a>
+							<!--end:Menu link-->
+							</div>
+							<!--end:Menu item-->
+							<!--begin:Menu item-->
+							<div class="menu-item p-0 m-0">
+							<!--begin:Menu link-->
+							<a href="../../demo1/dist/dashboards/podcast.html" class="menu-link py-2">
+							<span class="menu-title">Podcast</span>
+							</a>
+							<!--end:Menu link-->
+							</div>
+							<!--end:Menu item-->
+							</div>
+							<!--end:Col-->
+							</div>
+							<!--end:Row-->
+							</div>
+							<!--end:Dashboards menu-->
+							</div>
+							<!--end:Menu sub-->
+							</div>
+							<!--end:Menu item-->
+							<?php
+							/**/
+							//Pages Menu
+							/** /
+							?>
+							<!--begin:Menu item-->
+							<div data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-placement="bottom-start" class="menu-item menu-lg-down-accordion me-0 me-lg-2">
+							<!--begin:Menu link-->
+							<span class="menu-link">
+							<span class="menu-title">Pages</span>
+							<span class="menu-arrow d-lg-none"></span>
+							</span>
+							<!--end:Menu link-->
+							<!--begin:Menu sub-->
+							<div class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown p-0">
+							<!--begin:Pages menu-->
+							<div class="menu-active-bg px-4 px-lg-0">
+							<!--begin:Tabs nav-->
+							<div class="d-flex w-100 overflow-auto">
+							<ul class="nav nav-stretch nav-line-tabs fw-bold fs-6 p-0 p-lg-10 flex-nowrap flex-grow-1">
+							<!--begin:Nav item-->
+							<li class="nav-item mx-lg-1">
+							<a class="nav-link py-3 py-lg-6 active text-active-primary" href="#" data-bs-toggle="tab" data-bs-target="#kt_app_header_menu_pages_pages">General</a>
+							</li>
+							<!--end:Nav item-->
+							<!--begin:Nav item-->
+							<li class="nav-item mx-lg-1">
+							<a class="nav-link py-3 py-lg-6 text-active-primary" href="#" data-bs-toggle="tab" data-bs-target="#kt_app_header_menu_pages_account">Account</a>
+							</li>
+							<!--end:Nav item-->
+							<!--begin:Nav item-->
+							<li class="nav-item mx-lg-1">
+							<a class="nav-link py-3 py-lg-6 text-active-primary" href="#" data-bs-toggle="tab" data-bs-target="#kt_app_header_menu_pages_authentication">Authentication</a>
+							</li>
+							<!--end:Nav item-->
+							<!--begin:Nav item-->
+							<li class="nav-item mx-lg-1">
+							<a class="nav-link py-3 py-lg-6 text-active-primary" href="#" data-bs-toggle="tab" data-bs-target="#kt_app_header_menu_pages_utilities">Utilities</a>
+							</li>
+							<!--end:Nav item-->
+							<!--begin:Nav item-->
+							<li class="nav-item mx-lg-1">
+							<a class="nav-link py-3 py-lg-6 text-active-primary" href="#" data-bs-toggle="tab" data-bs-target="#kt_app_header_menu_pages_widgets">Widgets</a>
+							</li>
+							<!--end:Nav item-->
+							</ul>
+							</div>
+							<!--end:Tabs nav-->
+							<!--begin:Tab content-->
+							<div class="tab-content py-4 py-lg-8 px-lg-7">
+							<!--begin:Tab pane-->
+							<div class="tab-pane active w-lg-1000px" id="kt_app_header_menu_pages_pages">
+							<!--begin:Row-->
+							<div class="row">
+							<!--begin:Col-->
+							<div class="col-lg-8">
+							<!--begin:Row-->
+							<div class="row">
+							<!--begin:Col-->
+							<div class="col-lg-3 mb-6 mb-lg-0">
+							<!--begin:Menu heading-->
+							<h4 class="fs-6 fs-lg-4 fw-bold mb-3 ms-4">User Profile</h4>
+							<!--end:Menu heading-->
+							<!--begin:Menu item-->
+							<div class="menu-item p-0 m-0">
+							<!--begin:Menu link-->
+							<a href="../../demo1/dist/pages/user-profile/overview.html" class="menu-link">
+							<span class="menu-title">Overview</span>
+							</a>
+							<!--end:Menu link-->
+							</div>
+							<!--end:Menu item-->
+							<!--begin:Menu item-->
+							<div class="menu-item p-0 m-0">
+							<!--begin:Menu link-->
+							<a href="../../demo1/dist/pages/user-profile/projects.html" class="menu-link">
+							<span class="menu-title">Projects</span>
+							</a>
+							<!--end:Menu link-->
+							</div>
+							<!--end:Menu item-->
+							<!--begin:Menu item-->
+							<div class="menu-item p-0 m-0">
+							<!--begin:Menu link-->
+							<a href="../../demo1/dist/pages/user-profile/campaigns.html" class="menu-link">
+							<span class="menu-title">Campaigns</span>
+							</a>
+							<!--end:Menu link-->
+							</div>
+							<!--end:Menu item-->
+							<!--begin:Menu item-->
+							<div class="menu-item p-0 m-0">
+							<!--begin:Menu link-->
+							<a href="../../demo1/dist/pages/user-profile/documents.html" class="menu-link">
+							<span class="menu-title">Documents</span>
+							</a>
+							<!--end:Menu link-->
+							</div>
+							<!--end:Menu item-->
+							<!--begin:Menu item-->
+							<div class="menu-item p-0 m-0">
+							<!--begin:Menu link-->
+							<a href="../../demo1/dist/pages/user-profile/followers.html" class="menu-link">
+							<span class="menu-title">Followers</span>
+							</a>
+							<!--end:Menu link-->
+							</div>
+							<!--end:Menu item-->
+							<!--begin:Menu item-->
+							<div class="menu-item p-0 m-0">
+							<!--begin:Menu link-->
+							<a href="../../demo1/dist/pages/user-profile/activity.html" class="menu-link">
+							<span class="menu-title">Activity</span>
+							</a>
+							<!--end:Menu link-->
+							</div>
+							<!--end:Menu item-->
+							</div>
+							<!--end:Col-->
+							<!--begin:Col-->
+							<div class="col-lg-3 mb-6 mb-lg-0">
+							<!--begin:Menu section-->
+							<div class="mb-6">
+							<!--begin:Menu heading-->
+							<h4 class="fs-6 fs-lg-4 fw-bold mb-3 ms-4">Corporate</h4>
+							<!--end:Menu heading-->
+							<!--begin:Menu item-->
+							<div class="menu-item p-0 m-0">
+							<!--begin:Menu link-->
+							<a href="../../demo1/dist/pages/about.html" class="menu-link">
+							<span class="menu-title">About</span>
+							</a>
+							<!--end:Menu link-->
+							</div>
+							<!--end:Menu item-->
+							<!--begin:Menu item-->
+							<div class="menu-item p-0 m-0">
+							<!--begin:Menu link-->
+							<a href="../../demo1/dist/pages/team.html" class="menu-link">
+							<span class="menu-title">Our Team</span>
+							</a>
+							<!--end:Menu link-->
+							</div>
+							<!--end:Menu item-->
+							<!--begin:Menu item-->
+							<div class="menu-item p-0 m-0">
+							<!--begin:Menu link-->
+							<a href="../../demo1/dist/pages/contact.html" class="menu-link">
+							<span class="menu-title">Contact Us</span>
+							</a>
+							<!--end:Menu link-->
+							</div>
+							<!--end:Menu item-->
+							<!--begin:Menu item-->
+							<div class="menu-item p-0 m-0">
+							<!--begin:Menu link-->
+							<a href="../../demo1/dist/pages/licenses.html" class="menu-link">
+							<span class="menu-title">Licenses</span>
+							</a>
+							<!--end:Menu link-->
+							</div>
+							<!--end:Menu item-->
+							<!--begin:Menu item-->
+							<div class="menu-item p-0 m-0">
+							<!--begin:Menu link-->
+							<a href="../../demo1/dist/pages/sitemap.html" class="menu-link">
+							<span class="menu-title">Sitemap</span>
+							</a>
+							<!--end:Menu link-->
+							</div>
+							<!--end:Menu item-->
+							</div>
+							<!--end:Menu section-->
+							<!--begin:Menu section-->
+							<div class="mb-0">
+							<!--begin:Menu heading-->
+							<h4 class="fs-6 fs-lg-4 fw-bold mb-3 ms-4">Careers</h4>
+							<!--end:Menu heading-->
+							<!--begin:Menu item-->
+							<div class="menu-item p-0 m-0">
+							<!--begin:Menu link-->
+							<a href="../../demo1/dist/pages/careers/list.html" class="menu-link">
+							<span class="menu-title">Careers List</span>
+							</a>
+							<!--end:Menu link-->
+							</div>
+							<!--end:Menu item-->
+							<!--begin:Menu item-->
+							<div class="menu-item p-0 m-0">
+							<!--begin:Menu link-->
+							<a href="../../demo1/dist/pages/careers/apply.html" class="menu-link">
+							<span class="menu-title">Careers Apply</span>
+							</a>
+							<!--end:Menu link-->
+							</div>
+							<!--end:Menu item-->
+							</div>
+							<!--end:Menu section-->
+							</div>
+							<!--end:Col-->
+							<!--begin:Col-->
+							<div class="col-lg-3 mb-6 mb-lg-0">
+							<!--begin:Menu section-->
+							<div class="mb-6">
+							<!--begin:Menu heading-->
+							<h4 class="fs-6 fs-lg-4 fw-bold mb-3 ms-4">FAQ</h4>
+							<!--end:Menu heading-->
+							<!--begin:Menu item-->
+							<div class="menu-item p-0 m-0">
+							<!--begin:Menu link-->
+							<a href="../../demo1/dist/pages/faq/classic.html" class="menu-link">
+							<span class="menu-title">FAQ Classic</span>
+							</a>
+							<!--end:Menu link-->
+							</div>
+							<!--end:Menu item-->
+						    <!--begin:Menu item-->
                             <div class="menu-item p-0 m-0">
                             <!--begin:Menu link-->
                             <a href="../../demo1/dist/pages/faq/extended.html" class="menu-link">

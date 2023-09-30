@@ -7,9 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Modello extends Model
 {
-    use HasFactory;
+	use HasFactory;
 
-    protected $table = 'modello';
-    public static string $tableName = 'modello';
-    protected $fillable = ['nome', 'id_marca'];
+	protected $table = 'modello';
+	public static string $tableName = 'modello';
+	protected $fillable = ['nome', 'id_marca'];
 }

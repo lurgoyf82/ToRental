@@ -7,17 +7,17 @@ use App\Models\Alert;
 $routePath = request()->path();
 
 $alerts = Cache::remember('alerts', 5, function () {
-    return Alert::all();
+	return Alert::all();
 });
 
 /*
  * //Refresh cached data
 if ($event == true) {
-    // Rerun the query to refresh the data
-    $alerts = Alert::all();
+	// Rerun the query to refresh the data
+	$alerts = Alert::all();
 
-    // Update the cache with the refreshed data
-    Cache::put('alerts', $alerts, $minutes);
+	// Update the cache with the refreshed data
+	Cache::put('alerts', $alerts, $minutes);
 }
 */
 
@@ -27,113 +27,113 @@ $count_alerts = array('revisione' => 0, 'tachigrafo' => 0, 'bollo' => 0, 'bombol
 $color_alerts = array('revisione' => 0, 'tachigrafo' => 0, 'bollo' => 0, 'bombole' => 0, 'atp' => 0, 'noleggio' => 0, 'assicurazione' => 0);
 
 foreach ($alerts as $alert) {
-    if ($alert->revisione_alert_level > 0) {
-        $count_alerts['revisione']++;
-        if ($color_alerts['revisione'] < $alert->revisione_alert_level) {
-            $color_alerts['revisione'] = $alert->revisione_alert_level;
-        }
-    }
+	if ($alert->revisione_alert_level > 0) {
+		$count_alerts['revisione']++;
+		if ($color_alerts['revisione'] < $alert->revisione_alert_level) {
+			$color_alerts['revisione'] = $alert->revisione_alert_level;
+		}
+	}
 
-    if ($alert->tachigrafo_alert_level > 0) {
-        $count_alerts['tachigrafo']++;
-        if ($color_alerts['tachigrafo'] < $alert->tachigrafo_alert_level) {
-            $color_alerts['tachigrafo'] = $alert->tachigrafo_alert_level;
-        }
-    }
+	if ($alert->tachigrafo_alert_level > 0) {
+		$count_alerts['tachigrafo']++;
+		if ($color_alerts['tachigrafo'] < $alert->tachigrafo_alert_level) {
+			$color_alerts['tachigrafo'] = $alert->tachigrafo_alert_level;
+		}
+	}
 
-    if ($alert->bollo_alert_level > 0) {
-        $count_alerts['bollo']++;
-        if ($color_alerts['bollo'] < $alert->bollo_alert_level) {
-            $color_alerts['bollo'] = $alert->bollo_alert_level;
-        }
-    }
+	if ($alert->bollo_alert_level > 0) {
+		$count_alerts['bollo']++;
+		if ($color_alerts['bollo'] < $alert->bollo_alert_level) {
+			$color_alerts['bollo'] = $alert->bollo_alert_level;
+		}
+	}
 
-    if ($alert->bombole_alert_level > 0) {
-        $count_alerts['bombole']++;
-        if ($color_alerts['bombole'] < $alert->bombole_alert_level) {
-            $color_alerts['bombole'] = $alert->bombole_alert_level;
-        }
-    }
+	if ($alert->bombole_alert_level > 0) {
+		$count_alerts['bombole']++;
+		if ($color_alerts['bombole'] < $alert->bombole_alert_level) {
+			$color_alerts['bombole'] = $alert->bombole_alert_level;
+		}
+	}
 
-    if ($alert->atp_alert_level > 0) {
-        $count_alerts['atp']++;
-        if ($color_alerts['atp'] < $alert->atp_alert_level) {
-            $color_alerts['atp'] = $alert->atp_alert_level;
-        }
-    }
+	if ($alert->atp_alert_level > 0) {
+		$count_alerts['atp']++;
+		if ($color_alerts['atp'] < $alert->atp_alert_level) {
+			$color_alerts['atp'] = $alert->atp_alert_level;
+		}
+	}
 
-    if ($alert->noleggio_alert_level > 0) {
-        $count_alerts['noleggio']++;
-        if ($color_alerts['noleggio'] < $alert->noleggio_alert_level) {
-            $color_alerts['noleggio'] = $alert->noleggio_alert_level;
-        }
-    }
+	if ($alert->noleggio_alert_level > 0) {
+		$count_alerts['noleggio']++;
+		if ($color_alerts['noleggio'] < $alert->noleggio_alert_level) {
+			$color_alerts['noleggio'] = $alert->noleggio_alert_level;
+		}
+	}
 
-    if ($alert->assicurazione_alert_level > 0) {
-        $count_alerts['assicurazione']++;
-        if ($color_alerts['assicurazione'] < $alert->assicurazione_alert_level) {
-            $color_alerts['assicurazione'] = $alert->assicurazione_alert_level;
-        }
-    }
+	if ($alert->assicurazione_alert_level > 0) {
+		$count_alerts['assicurazione']++;
+		if ($color_alerts['assicurazione'] < $alert->assicurazione_alert_level) {
+			$color_alerts['assicurazione'] = $alert->assicurazione_alert_level;
+		}
+	}
 }
 
 //var_dump($alerts);
 //die();
 ?>
-    <!--begin::Sidebar-->
+	<!--begin::Sidebar-->
 <div id="kt_app_sidebar" class="app-sidebar flex-column" data-kt-drawer="true" data-kt-drawer-name="app-sidebar"
-     data-kt-drawer-activate="{default: true, lg: false}" data-kt-drawer-overlay="true" data-kt-drawer-width="225px"
-     data-kt-drawer-direction="start" data-kt-drawer-toggle="#kt_app_sidebar_mobile_toggle">
-    <!--begin::Logo-->
-    <div class="app-sidebar-logo px-6" id="kt_app_sidebar_logo">
-        <!--begin::Logo image-->
-        <img alt="Logo" src="logo-furgoni-2.svg" class="h-25px app-sidebar-logo-default"/>
-        <img alt="Logo" src="logo-furgoni-2.svg" class="h-20px app-sidebar-logo-minimize"/>
-        <!--end::Logo image-->
-        <?php
-        //include_once('sidebar-toggle.php');
-        ?>
-    </div>
-    <!--end::Logo-->
-    <!--begin::sidebar menu-->
-    <div class="app-sidebar-menu overflow-hidden flex-column-fluid">
-        <!--begin::Menu wrapper-->
-        <div id="kt_app_sidebar_menu_wrapper" class="app-sidebar-wrapper">
-            <!--begin::Scroll wrapper-->
-            <div id="kt_app_sidebar_menu_scroll" class="scroll-y my-5 mx-3" data-kt-scroll="true"
-                 data-kt-scroll-activate="true" data-kt-scroll-height="auto"
-                 data-kt-scroll-dependencies="#kt_app_sidebar_logo, #kt_app_sidebar_footer"
-                 data-kt-scroll-wrappers="#kt_app_sidebar_menu" data-kt-scroll-offset="5px"
-                 data-kt-scroll-save-state="true">
-                <!--begin::Menu-->
-                <div class="menu menu-column menu-rounded menu-sub-indention fw-semibold fs-6" id="#kt_app_sidebar_menu"
-                     data-kt-menu="true" data-kt-menu-expand="false">
-                    <!--begin:Menu item-->
-                    <div data-kt-menu-trigger="click" class="menu-item here  {{ ( $routePath==('alert_revisione_meccanica')||
-                                                $routePath==('alert_revisione_bombole')||
-                                                $routePath==('alert_revisione_atp')||
-                                                $routePath==('alert_revisione_tachigrafo')||
-                                                $routePath==('alert_contratto_noleggio')||
-                                                $routePath==('alert_polizza_assicurativa')||
-                                                $routePath==('alert_scadenza_bollo')) ? 'show' : '' }} menu-accordion">
-                        <!--begin:Menu link-->
-                        <span class="menu-link {{ ( $routePath==('alert_revisione_meccanica')||
-                                                $routePath==('alert_revisione_bombole')||
-                                                $routePath==('alert_revisione_atp')||
-                                                $routePath==('alert_revisione_tachigrafo')||
-                                                $routePath==('alert_contratto_noleggio')||
-                                                $routePath==('alert_polizza_assicurativa')||
-                                                $routePath==('alert_scadenza_bollo')) ? 'active' : '' }}">
-                            <span class="menu-icon">
-                                <i class="ki-duotone ki-star fs-2">
-                                    <span class="path1"></span>
-                                    <span class="path2"></span>
-                                    <span class="path3"></span>
-                                    <span class="path4"></span>
-                                </i>
-                            </span>
-                            <span class="menu-title">Alert</span>
-                            <span class="menu-arrow"></span>
+	 data-kt-drawer-activate="{default: true, lg: false}" data-kt-drawer-overlay="true" data-kt-drawer-width="225px"
+	 data-kt-drawer-direction="start" data-kt-drawer-toggle="#kt_app_sidebar_mobile_toggle">
+	<!--begin::Logo-->
+	<div class="app-sidebar-logo px-6" id="kt_app_sidebar_logo">
+		<!--begin::Logo image-->
+		<img alt="Logo" src="logo-furgoni-2.svg" class="h-25px app-sidebar-logo-default"/>
+		<img alt="Logo" src="logo-furgoni-2.svg" class="h-20px app-sidebar-logo-minimize"/>
+		<!--end::Logo image-->
+		<?php
+		//include_once('sidebar-toggle.php');
+		?>
+	</div>
+	<!--end::Logo-->
+	<!--begin::sidebar menu-->
+	<div class="app-sidebar-menu overflow-hidden flex-column-fluid">
+		<!--begin::Menu wrapper-->
+		<div id="kt_app_sidebar_menu_wrapper" class="app-sidebar-wrapper">
+			<!--begin::Scroll wrapper-->
+			<div id="kt_app_sidebar_menu_scroll" class="scroll-y my-5 mx-3" data-kt-scroll="true"
+				 data-kt-scroll-activate="true" data-kt-scroll-height="auto"
+				 data-kt-scroll-dependencies="#kt_app_sidebar_logo, #kt_app_sidebar_footer"
+				 data-kt-scroll-wrappers="#kt_app_sidebar_menu" data-kt-scroll-offset="5px"
+				 data-kt-scroll-save-state="true">
+				<!--begin::Menu-->
+				<div class="menu menu-column menu-rounded menu-sub-indention fw-semibold fs-6" id="#kt_app_sidebar_menu"
+					 data-kt-menu="true" data-kt-menu-expand="false">
+					<!--begin:Menu item-->
+					<div data-kt-menu-trigger="click" class="menu-item here  {{ ( $routePath==('alert_revisione_meccanica')||
+												$routePath==('alert_revisione_bombole')||
+												$routePath==('alert_revisione_atp')||
+												$routePath==('alert_revisione_tachigrafo')||
+												$routePath==('alert_contratto_noleggio')||
+												$routePath==('alert_polizza_assicurativa')||
+												$routePath==('alert_scadenza_bollo')) ? 'show' : '' }} menu-accordion">
+						<!--begin:Menu link-->
+						<span class="menu-link {{ ( $routePath==('alert_revisione_meccanica')||
+												$routePath==('alert_revisione_bombole')||
+												$routePath==('alert_revisione_atp')||
+												$routePath==('alert_revisione_tachigrafo')||
+												$routePath==('alert_contratto_noleggio')||
+												$routePath==('alert_polizza_assicurativa')||
+												$routePath==('alert_scadenza_bollo')) ? 'active' : '' }}">
+							<span class="menu-icon">
+								<i class="ki-duotone ki-star fs-2">
+									<span class="path1"></span>
+									<span class="path2"></span>
+									<span class="path3"></span>
+									<span class="path4"></span>
+								</i>
+							</span>
+							<span class="menu-title">Alert</span>
+						    <span class="menu-arrow"></span>
                         </span>
                         <!--end:Menu link-->
                         <!--begin:Menu sub-->
@@ -979,6 +979,3 @@ foreach ($alerts as $alert) {
     <!--end::sidebar menu-->
 </div>
 <!--end::Sidebar-->
-    <?php
-    /**/
-    ?>

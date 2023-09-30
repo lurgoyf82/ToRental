@@ -7,9 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Tagliando extends AlertBase
 {
-    use HasFactory;
+	use HasFactory;
 
-    protected $table = 'tagliando';
-    public static string $tableName = 'tagliando';
-    protected $fillable = ['id_veicolo','anno','data_pagamento','inizio_validita','fine_validita','importo'];
+	protected $table = 'tagliando';
+	public static string $tableName = 'tagliando';
+	protected $fillable = ['id_veicolo','anno','data_pagamento','inizio_validita','fine_validita','importo'];
 }

@@ -7,8 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Telaio extends Model
 {
-    use HasFactory;
+	use HasFactory;
 
-    protected $table = 'telaio';
-    protected $fillable = ['id_veicolo', 'telaio'];
+	protected $table = 'telaio';
+	protected $fillable = ['id_veicolo', 'telaio'];
 }

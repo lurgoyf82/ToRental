@@ -9,54 +9,54 @@ use App\Models\Assicurazione;
 
 class AssicurazioneTableSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
-    public function run()
-    {
-        Assicurazione::truncate();
+	/**
+	 * Run the database seeds.
+	 */
+	public function run()
+	{
+		Assicurazione::truncate();
 
-        // Get all id values from the dettaglio_veicolo table
-        $veicoloIds = DB::table('dettaglio_veicolo')->pluck('id');
+		// Get all id values from the dettaglio_veicolo table
+		$veicoloIds = DB::table('dettaglio_veicolo')->pluck('id');
 
-        // Loop to create and insert dummy records
-        foreach ($veicoloIds as $veicoloId) {
-            // Calculate inizio_validita based on anno
-            $inizioValidita = Carbon::createFromDate(rand(2019, 2022), 1, 1);
-            $inizioValidita->addDays(rand(0, 365));
+		// Loop to create and insert dummy records
+		foreach ($veicoloIds as $veicoloId) {
+			// Calculate inizio_validita based on anno
+			$inizioValidita = Carbon::createFromDate(rand(2019, 2022), 1, 1);
+			$inizioValidita->addDays(rand(0, 365));
 
-            for($i=0;$i<4;$i++) {
-                $anno=$inizioValidita->year;
-                $tipoScadenza = ['Quadrimestrale', 'Semestrale', 'Annuale'][rand(0, 2)]; // Choose a random tipo_scadenza
+			for($i=0;$i<4;$i++) {
+				$anno=$inizioValidita->year;
+				$tipoScadenza = ['Quadrimestrale', 'Semestrale', 'Annuale'][rand(0, 2)]; // Choose a random tipo_scadenza
 
-                // Calculate data_pagamento as a random date between -7 and +7 days from inizio_validita
-                $dataPagamento = $inizioValidita->copy()->addDays(rand(-7, 7));
+				// Calculate data_pagamento as a random date between -7 and +7 days from inizio_validita
+				$dataPagamento = $inizioValidita->copy()->addDays(rand(-7, 7));
 
-                // Calculate fine_validita based on tipo_scadenza
-                if ($tipoScadenza === 'Quadrimestrale') {
-                    $fineValidita = $inizioValidita->copy()->addMonths(4);
-                } elseif ($tipoScadenza === 'Semestrale') {
-                    $fineValidita = $inizioValidita->copy()->addMonths(6);
-                } else {
-                    $fineValidita = $inizioValidita->copy()->addYear();
-                }
+				// Calculate fine_validita based on tipo_scadenza
+				if ($tipoScadenza === 'Quadrimestrale') {
+					$fineValidita = $inizioValidita->copy()->addMonths(4);
+				} elseif ($tipoScadenza === 'Semestrale') {
+					$fineValidita = $inizioValidita->copy()->addMonths(6);
+				} else {
+					$fineValidita = $inizioValidita->copy()->addYear();
+				}
 
-                // Insert the data into the table
-                DB::table('assicurazione')->insert([
-                    'id_veicolo' => $veicoloId, // Assign the id_veicolo from dettaglio_veicolo
-                    'anno' => $anno,
-                    'data_pagamento' => $dataPagamento->toDateString(),
-                    'inizio_validita' => $inizioValidita->toDateString(),
-                    'fine_validita' => $fineValidita->toDateString(),
-                    'importo' => rand(100, 10000), // Generate a random importo
-                    'agenzia' => 'Agenzia ' . $veicoloId, // Generate a unique agenzia name based on id_veicolo
-                    'polizza' => 'Polizza ' . $veicoloId, // Generate a unique polizza name based on id_veicolo
-                    'tipo_scadenza' => $tipoScadenza,
-                ]);
+				// Insert the data into the table
+				DB::table('assicurazione')->insert([
+					'id_veicolo' => $veicoloId, // Assign the id_veicolo from dettaglio_veicolo
+					'anno' => $anno,
+					'data_pagamento' => $dataPagamento->toDateString(),
+					'inizio_validita' => $inizioValidita->toDateString(),
+					'fine_validita' => $fineValidita->toDateString(),
+					'importo' => rand(100, 10000), // Generate a random importo
+					'agenzia' => 'Agenzia ' . $veicoloId, // Generate a unique agenzia name based on id_veicolo
+					'polizza' => 'Polizza ' . $veicoloId, // Generate a unique polizza name based on id_veicolo
+					'tipo_scadenza' => $tipoScadenza,
+				]);
 
-                // Increment inizio_validita for the next record to avoid overlap
-                $inizioValidita=$fineValidita->copy()->addDay();
-            }
-        }
-    }
+				// Increment inizio_validita for the next record to avoid overlap
+				$inizioValidita=$fineValidita->copy()->addDay();
+			}
+		}
+	}
 }

@@ -7,8 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class DestinazioneUso extends Model
 {
-    use HasFactory;
+	use HasFactory;
 
-    protected $table = 'destinazione_uso';
-    protected $fillable = ['nome'];
+	protected $table = 'destinazione_uso';
+	protected $fillable = ['nome'];
 }

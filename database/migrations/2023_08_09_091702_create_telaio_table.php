@@ -6,26 +6,26 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
-    public function up(): void
-    {
-        Schema::create('telaio', function (Blueprint $table) {
-            $table->id(); // auto-increment primary key for the targa table
-            $table->unsignedBigInteger('id_veicolo'); // This references the dettaglio_veicolo table
-            $table->string('telaio', 100);  // telaio value
-            $table->timestamps();  // created_at and updated_at columns
+	/**
+	 * Run the migrations.
+	 */
+	public function up(): void
+	{
+		Schema::create('telaio', function (Blueprint $table) {
+			$table->id(); // auto-increment primary key for the targa table
+			$table->unsignedBigInteger('id_veicolo'); // This references the dettaglio_veicolo table
+			$table->string('telaio', 100);  // telaio value
+			$table->timestamps();  // created_at and updated_at columns
 
-            $table->foreign('id_veicolo')->references('id')->on('dettaglio_veicolo');
-        });
-    }
+			$table->foreign('id_veicolo')->references('id')->on('dettaglio_veicolo');
+		});
+	}
 
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
-    {
-        Schema::dropIfExists('telaio');
-    }
+	/**
+	 * Reverse the migrations.
+	 */
+	public function down(): void
+	{
+		Schema::dropIfExists('telaio');
+	}
 };

@@ -1,66 +1,66 @@
 <?php
 
-namespace App\Http\Controllers;
+	namespace App\Http\Controllers;
 
-use Carbon\Carbon;
-use Illuminate\Http\Request;
-use App\Models\Alert;
-use Illuminate\Support\Facades\DB;
+	use Carbon\Carbon;
+	use Illuminate\Http\Request;
+	use App\Models\Alert;
+	use Illuminate\Support\Facades\DB;
 
-class AlertController extends Controller
-{
-	/**
-	 * Display a listing of the resource.
-	 */
-	public function index() {
-
-	}
-
-	/**
-	 * Show the form for creating a new resource.
-	 */
-	public function create()
+	class AlertController extends Controller
 	{
-		//
-	}
+		/**
+		 * Display a listing of the resource.
+		 */
+		public function index() {
 
-	/**
-	 * Store a newly created resource in storage.
-	 */
-	public function store(Request $request)
-	{
-		//
-	}
+		}
 
-	/**
-	 * Display the specified resource.
-	 */
-	public function show(string $id)
-	{
-		//
-	}
+		/**
+		 * Show the form for creating a new resource.
+		 */
+		public function create()
+		{
+			//
+		}
 
-	/**
-	 * Show the form for editing the specified resource.
-	 */
-	public function edit(string $id)
-	{
-		//
-	}
+		/**
+		 * Store a newly created resource in storage.
+		 */
+		public function store(Request $request)
+		{
+			//
+		}
 
-	/**
-	 * Update the specified resource in storage.
-	 */
-	public function update(Request $request, string $id)
-	{
-		//
-	}
+		/**
+		 * Display the specified resource.
+		 */
+		public function show(string $id)
+		{
+			//
+		}
 
-	/**
-	 * Remove the specified resource from storage.
-	 */
-	public function destroy(string $id)
-	{
-		//
+		/**
+		 * Show the form for editing the specified resource.
+		 */
+		public function edit(string $id)
+		{
+			//
+		}
+
+		/**
+		 * Update the specified resource in storage.
+		 */
+		public function update(Request $request, string $id)
+		{
+			//
+		}
+
+		/**
+		 * Remove the specified resource from storage.
+		 */
+		public function destroy(string $id)
+		{
+			//
+		}
 	}
-}

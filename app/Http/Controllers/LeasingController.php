@@ -1,70 +1,70 @@
 <?php
 
-namespace App\Http\Controllers;
+	namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+	use Illuminate\Http\Request;
 
-class LeasingController extends Controller
-{
-	//controller for alert leasing
-	public function alert() {
-		return view('leasing_alert');
-	}
-
-
-	/**
-	 * Display a listing of the resource.
-	 */
-	public function index()
+	class LeasingController extends Controller
 	{
-		//
-	}
+		//controller for alert leasing
+		public function alert() {
+			return view('leasing_alert');
+		}
 
-	/**
-	 * Show the form for creating a new resource.
-	 */
-	public function create()
-	{
-		//
-	}
 
-	/**
-	 * Store a newly created resource in storage.
-	 */
-	public function store(Request $request)
-	{
-		//
-	}
+		/**
+		 * Display a listing of the resource.
+		 */
+		public function index()
+		{
+			//
+		}
 
-	/**
-	 * Display the specified resource.
-	 */
-	public function show(string $id)
-	{
-		//
-	}
+		/**
+		 * Show the form for creating a new resource.
+		 */
+		public function create()
+		{
+			//
+		}
 
-	/**
-	 * Show the form for editing the specified resource.
-	 */
-	public function edit(string $id)
-	{
-		//
-	}
+		/**
+		 * Store a newly created resource in storage.
+		 */
+		public function store(Request $request)
+		{
+			//
+		}
 
-	/**
-	 * Update the specified resource in storage.
-	 */
-	public function update(Request $request, string $id)
-	{
-		//
-	}
+		/**
+		 * Display the specified resource.
+		 */
+		public function show(string $id)
+		{
+			//
+		}
 
-	/**
-	 * Remove the specified resource from storage.
-	 */
-	public function destroy(string $id)
-	{
-		//
+		/**
+		 * Show the form for editing the specified resource.
+		 */
+		public function edit(string $id)
+		{
+			//
+		}
+
+		/**
+		 * Update the specified resource in storage.
+		 */
+		public function update(Request $request, string $id)
+		{
+			//
+		}
+
+		/**
+		 * Remove the specified resource from storage.
+		 */
+		public function destroy(string $id)
+		{
+			//
+		}
 	}
-}

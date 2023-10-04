@@ -8,7 +8,7 @@
 	use Illuminate\Support\Facades\Cache;
 	use Illuminate\Support\Facades\DB;
 
-	class AlertBase extends Model
+	class AlertBase extends BaseModel
 	{
 		use HasFactory;
 
@@ -36,9 +36,9 @@
 					$Dictionary[$item->id_veicolo][] = $item;
 				}
 
-				Cache::put($cacheKey, $Dictionary, 60 * 60);
+				Cache::tags($table)->put($cacheKey, $Dictionary, 60 * 60);
 			} else {
-				$Dictionary = Cache::get($cacheKey);
+				$Dictionary = Cache::tags($table)->get($cacheKey);
 			}
 
 			return $Dictionary;
@@ -65,9 +65,9 @@
 					$Dictionary[$item->id_veicolo][] = $item;
 				}
 
-				Cache::put($cacheKey, $Dictionary, 60 * 60);
+				Cache::tags($table)->put($cacheKey, $Dictionary, 60 * 60);
 			} else {
-				$Dictionary = Cache::get($cacheKey);
+				$Dictionary = Cache::tags($table)->get($cacheKey);
 			}
 
 			return $Dictionary;
@@ -78,7 +78,10 @@
 
 			if ($calculateNewCachedData || !Cache::has($cacheKey)) {
 				$results = DB::table(static::$tableName)
-					->select(['id AS expired_id','id_veicolo','inizio_validita AS expired_inizio_validita','fine_validita AS expired_fine_validita'])
+					->select(['id AS expired_id',
+										'id_veicolo',
+										'inizio_validita AS expired_inizio_validita',
+										'fine_validita AS expired_fine_validita'])
 					->where('fine_validita', '<=', now())
 					->orderBy('id_veicolo', 'ASC')
 					->orderBy('fine_validita', 'DESC')
@@ -94,9 +97,9 @@
 					$Dictionary[$item->id_veicolo][] = $item;
 				}
 
-				Cache::put($cacheKey, $Dictionary, 60 * 60);
+				Cache::tags($table)->put($cacheKey, $Dictionary, 60 * 60);
 			} else {
-				$Dictionary = Cache::get($cacheKey);
+				$Dictionary = Cache::tags($table)->get($cacheKey);
 			}
 
 			return $Dictionary;
@@ -109,25 +112,25 @@
 			$startingNext = static::getStartingNextList(true);
 
 
-			$query = DB::table(Veicolo::$tableName)
-				->leftJoin(Marca::$tableName, Veicolo::$tableName . '.id_marca', '=', Marca::$tableName . '.id')
-				->leftJoin(Modello::$tableName, function ($join) {
-					$join->on(Veicolo::$tableName . '.id_modello', '=', Modello::$tableName . '.id')
-						->on(Modello::$tableName . '.id_marca', '=', Marca::$tableName . '.id');
+			$query = DB::table(Veicolo::getTableName())
+				->leftJoin(Marca::getTableName(), Veicolo::getTableName() . '.id_marca', '=', Marca::getTableName() . '.id')
+				->leftJoin(Modello::getTableName(), function ($join) {
+					$join->on(Veicolo::getTableName() . '.id_modello', '=', Modello::getTableName() . '.id')
+						->on(Modello::getTableName() . '.id_marca', '=', Marca::getTableName() . '.id');
 				})
-				->leftJoin(Targa::$tableName, Targa::$tableName . '.id_veicolo', '=', Veicolo::$tableName . '.id')
+				->leftJoin(Targa::getTableName(), Targa::getTableName() . '.id_veicolo', '=', Veicolo::getTableName() . '.id')
 				->select([
-					Marca::$tableName . '.id as id_marca',
-					Marca::$tableName . '.nome as marca',
-					Modello::$tableName . '.id as id_modello',
-					Modello::$tableName . '.nome as modello',
-					Veicolo::$tableName . '.id as id_veicolo'
+					Marca::getTableName() . '.id as id_marca',
+					Marca::getTableName() . '.nome as marca',
+					Modello::getTableName() . '.id as id_modello',
+					Modello::getTableName() . '.nome as modello',
+					Veicolo::getTableName() . '.id as id_veicolo'
 				]);
 			if ($search !== null) {
-				$query->where(Targa::$tableName . '.targa', 'LIKE', '%' . $search . '%');
+				$query->where(Targa::getTableName() . '.targa', 'LIKE', '%' . $search . '%');
 			}
 
-			$result = $query->orderBy(Veicolo::$tableName . '.id', 'ASC')->get();
+			$result = $query->orderBy(Veicolo::getTableName() . '.id', 'ASC')->get();
 
 			foreach($result as $key => $row) {
 				if(@isset($valid[$row->id_veicolo])) {
@@ -157,29 +160,30 @@
 			$expired = static::getExpiredList(true);
 			$startingNext = static::getStartingNextList(true);
 
-			$query = DB::table(Veicolo::$tableName)
-				->leftJoin(Marca::$tableName, Veicolo::$tableName . '.id_marca', '=', Marca::$tableName . '.id')
-				->leftJoin(Modello::$tableName, function ($join) {
-					$join->on(Veicolo::$tableName . '.id_modello', '=', Modello::$tableName . '.id')
-						->on(Modello::$tableName . '.id_marca', '=', Marca::$tableName . '.id');
+			$query = DB::table(Veicolo::getTableName())
+				->leftJoin(Marca::getTableName(), Veicolo::getTableName() . '.id_marca', '=', Marca::getTableName() . '.id')
+				->leftJoin(Modello::getTableName(), function ($join) {
+					$join->on(Veicolo::getTableName() . '.id_modello', '=', Modello::getTableName() . '.id')
+						->on(Modello::getTableName() . '.id_marca', '=', Marca::getTableName() . '.id');
 				})
-				->leftJoin(Targa::$tableName, Targa::$tableName . '.id_veicolo', '=', Veicolo::$tableName . '.id')
+				->leftJoin(Targa::getTableName(), Targa::getTableName() . '.id_veicolo', '=', Veicolo::getTableName() . '.id')
 				->select([
-					Marca::$tableName . '.id as id_marca',
-					Marca::$tableName . '.nome as marca',
-					Modello::$tableName . '.id as id_modello',
-					Modello::$tableName . '.nome as modello',
-					Veicolo::$tableName . '.id as id_veicolo'
+					Marca::getTableName() . '.id as id_marca',
+					Marca::getTableName() . '.nome as marca',
+					Modello::getTableName() . '.id as id_modello',
+					Modello::getTableName() . '.nome as modello',
+					Veicolo::getTableName() . '.id as id_veicolo'
 				]);
 			if ($search !== null) {
-				$query->where(Targa::$tableName . '.targa', 'LIKE', '%' . $search . '%');
+				$query->where(Targa::getTableName() . '.targa', 'LIKE', '%' . $search . '%');
 			}
 
-			$result = $query->orderBy(Veicolo::$tableName . '.id', 'ASC')->get();
+			$result = $query->orderBy(Veicolo::getTableName() . '.id', 'ASC')->get();
 
 			foreach($result as $key => $vehicle) {
 				$vehicle->livello = null;
 				$vehicle->next = null;
+				$vehicle->id = null;
 
 				if(@isset($valid[$vehicle->id_veicolo])) {
 					$vehicle->valid = $valid[$vehicle->id_veicolo];
@@ -187,6 +191,7 @@
 						$livello = Carbon::parse($contract->current_valid_inizio_validita)->diffInDays(Carbon::now());
 						if($livello>$vehicle->livello) {
 							$vehicle->livello = $livello;
+							$vehicle->id = $contract->current_valid_id;
 						}
 					}
 				} else {
@@ -199,6 +204,7 @@
 						$next = Carbon::parse($contract->next_inizio_validita)->diffInDays(Carbon::now());
 						if($next<$vehicle->next) {
 							$vehicle->next = $next;
+							$vehicle->id = $contract->next_id;
 						}
 					}
 				} else {
@@ -212,6 +218,7 @@
 							$livello = -(Carbon::now()->diffInDays($contract->expired_fine_validita));
 							if($livello>$vehicle->livello) {
 								$vehicle->livello = $livello;
+								$vehicle->id = $contract->expired_id;
 							}
 						}
 					}
@@ -222,6 +229,8 @@
 
 			return ($result->sortBy('livello'));
 		}
-
+		public static function flushCache() {
+			Cache::tags((new static)->getTable())->flush();
+		}
 
 	}

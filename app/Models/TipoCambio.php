@@ -5,7 +5,7 @@
 	use Illuminate\Database\Eloquent\Factories\HasFactory;
 	use Illuminate\Database\Eloquent\Model;
 
-	class TipoCambio extends Model
+	class TipoCambio extends BaseModel
 	{
 		use HasFactory;
 

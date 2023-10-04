@@ -5,7 +5,7 @@
 	use Illuminate\Database\Eloquent\Factories\HasFactory;
 	use Illuminate\Database\Eloquent\Model;
 
-	class DestinazioneUso extends Model
+	class DestinazioneUso extends BaseModel
 	{
 		use HasFactory;
 

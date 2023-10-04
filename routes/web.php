@@ -73,7 +73,9 @@
 
 
 		//Routes for CRUD veicolo
-		Route::get('create_veicolo', [VeicoloController::class, 'create']);
+		Route::get('create_veicolo', [VeicoloController::class, 'create'])->name('create_veicolo');
+		Route::post('store_veicolo', [VeicoloController::class, 'store'])->name('store_veicolo');
+
 		Route::get('list_veicolo', [VeicoloController::class, 'index']);
 		Route::put('update_veicolo/{id}', [VeicoloController::class, 'update']);
 		Route::delete('delete_veicolo/{id}', [VeicoloController::class, 'delete']);

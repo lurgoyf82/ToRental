@@ -5,7 +5,7 @@
 	use Illuminate\Database\Eloquent\Factories\HasFactory;
 	use Illuminate\Database\Eloquent\Model;
 
-	class DettaglioVeicolo extends Model
+	class DettaglioVeicolo extends BaseModel
 	{
 		use HasFactory;
 

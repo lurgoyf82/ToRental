@@ -5,7 +5,7 @@
 	use Illuminate\Database\Eloquent\Factories\HasFactory;
 	use Illuminate\Database\Eloquent\Model;
 
-	class TipoAllestimento extends Model
+	class TipoAllestimento extends BaseModel
 	{
 		use HasFactory;
 

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 
-class Alert extends Model
+class Alert extends BaseModel
 {
 	use HasFactory;
 

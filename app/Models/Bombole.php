@@ -11,7 +11,6 @@
 		use HasFactory;
 
 		protected $table = 'bombole';
-		public static string $tableName = 'bombole';
 		protected $fillable = ['id_veicolo','anno','data_pagamento','inizio_validita','fine_validita','importo'];
 
 		public static function getExpiringRevisioniBombole($search=null): \Illuminate\Support\Collection

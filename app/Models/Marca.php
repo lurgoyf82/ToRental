@@ -5,11 +5,10 @@
 	use Illuminate\Database\Eloquent\Factories\HasFactory;
 	use Illuminate\Database\Eloquent\Model;
 
-	class Marca extends Model
+	class Marca extends BaseModel
 	{
 		use HasFactory;
 
 		protected $table = 'marca';
-		public static string $tableName = 'marca';
 		protected $fillable = ['nome'];
 	}

@@ -3,10 +3,10 @@
 	namespace App\Models;
 
 	use Illuminate\Database\Eloquent\Factories\HasFactory;
-	use Illuminate\Database\Eloquent\Model;
 	use Illuminate\Support\Carbon;
 	use Illuminate\Support\Facades\Cache;
 	use Illuminate\Support\Facades\DB;
+	use Illuminate\Support\Facades\Redis;
 
 	class AlertBase extends BaseModel
 	{
@@ -18,7 +18,7 @@
 			$table=(new static)->getTable();
 			$cacheKey = 'valid_' . $table . '_list';
 
-			if ($calculateNewCachedData || !Cache::has($cacheKey)) {
+			if ($calculateNewCachedData || !Redis::has($cacheKey)) {
 				$results = DB::table($table)
 					->select(['id AS current_valid_id','id_veicolo','inizio_validita AS current_valid_inizio_validita','fine_validita AS current_valid_fine_validita'])
 					->where('fine_validita', '>', now())

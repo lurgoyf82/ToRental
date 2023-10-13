@@ -6,7 +6,6 @@
 	use Illuminate\Support\Carbon;
 	use Illuminate\Support\Facades\Cache;
 	use Illuminate\Support\Facades\DB;
-	use Illuminate\Support\Facades\Redis;
 
 	class AlertBase extends BaseModel
 	{
@@ -18,7 +17,7 @@
 			$table=(new static)->getTable();
 			$cacheKey = 'valid_' . $table . '_list';
 
-			if ($calculateNewCachedData || !Redis::has($cacheKey)) {
+			if ($calculateNewCachedData || !Cache::has($cacheKey)) {
 				$results = DB::table($table)
 					->select(['id AS current_valid_id','id_veicolo','inizio_validita AS current_valid_inizio_validita','fine_validita AS current_valid_fine_validita'])
 					->where('fine_validita', '>', now())
@@ -49,6 +48,7 @@
 			$cacheKey = 'valid_' . $table . '_list';
 
 			if ($calculateNewCachedData || !Cache::has($cacheKey)) {
+				echo "ricalcolo cache getStartingNextList \n";
 				$results = DB::table($table)
 					->select(['id AS next_id','id_veicolo','inizio_validita AS next_inizio_validita','fine_validita AS next_fine_validita'])
 					->where('inizio_validita', '>=', now())
@@ -67,6 +67,8 @@
 
 				Cache::tags($table)->put($cacheKey, $Dictionary, 60 * 60);
 			} else {
+
+				echo "GET cache getStartingNextList \n";
 				$Dictionary = Cache::tags($table)->get($cacheKey);
 			}
 
@@ -75,7 +77,7 @@
 		public static function getExpiredList($calculateNewCachedData = false) : mixed {
 			$table=(new static)->getTable();
 			$cacheKey = 'valid_' . $table . '_list';
-
+			echo '$calculateNewCachedData = '.($calculateNewCachedData ?'true':'false')." ".'Cache::has('."$cacheKey".') = '. (Cache::has($cacheKey) ?'true':'false')."\n";
 			if ($calculateNewCachedData || !Cache::has($cacheKey)) {
 				$results = DB::table(static::$tableName)
 					->select(['id AS expired_id',
@@ -105,60 +107,27 @@
 			return $Dictionary;
 		}
 
-		public static function getAlerts($search=null): \Illuminate\Support\Collection
-		{
-			$valid = static::getCurrentValidList(true);
-			$expired = static::getExpiredList(true);
-			$startingNext = static::getStartingNextList(true);
-
-
-			$query = DB::table(Veicolo::getTableName())
-				->leftJoin(Marca::getTableName(), Veicolo::getTableName() . '.id_marca', '=', Marca::getTableName() . '.id')
-				->leftJoin(Modello::getTableName(), function ($join) {
-					$join->on(Veicolo::getTableName() . '.id_modello', '=', Modello::getTableName() . '.id')
-						->on(Modello::getTableName() . '.id_marca', '=', Marca::getTableName() . '.id');
-				})
-				->leftJoin(Targa::getTableName(), Targa::getTableName() . '.id_veicolo', '=', Veicolo::getTableName() . '.id')
-				->select([
-					Marca::getTableName() . '.id as id_marca',
-					Marca::getTableName() . '.nome as marca',
-					Modello::getTableName() . '.id as id_modello',
-					Modello::getTableName() . '.nome as modello',
-					Veicolo::getTableName() . '.id as id_veicolo'
-				]);
-			if ($search !== null) {
-				$query->where(Targa::getTableName() . '.targa', 'LIKE', '%' . $search . '%');
-			}
-
-			$result = $query->orderBy(Veicolo::getTableName() . '.id', 'ASC')->get();
-
-			foreach($result as $key => $row) {
-				if(@isset($valid[$row->id_veicolo])) {
-					$row->valid = $valid;
-				} else {
-					$row->valid = false;
-				}
-
-				if(@isset($expired[$row->id_veicolo])) {
-					$row->expired = $expired;
-				} else {
-					$row->expired = false;
-				}
-
-				if(@isset($startingNext[$row->id_veicolo])) {
-					$row->startingNext = $startingNext;
-				} else {
-					$row->startingNext = false;
-				}
-			}
-
-			return ($result);
-		}
 		public static function getAlertsTwo($search=null): \Illuminate\Support\Collection
 		{
-			$valid = static::getCurrentValidList(true);
-			$expired = static::getExpiredList(true);
-			$startingNext = static::getStartingNextList(true);
+			$start_time=microtime(true);
+			for($i=0;$i<100;$i++) {
+				$valid = static::getCurrentValidList();
+			}
+			$end_valid_time=microtime(true);
+			for($i=0;$i<100;$i++) {
+				$expired = static::getExpiredList();
+			}
+			$end_expired_time=microtime(true);
+			for($i=0;$i<100;$i++) {
+				$startingNext = static::getStartingNextList();
+			}
+			$end_startingNext_time=microtime(true);
+
+			echo "valid execution time :".($end_valid_time-$start_time)."\n";
+			echo "expired execution time :".($end_expired_time-$end_valid_time)."\n";
+			echo "starting next execution time :".($end_startingNext_time-$end_expired_time)."\n";
+			echo "total execution time :".($end_startingNext_time-$start_time)."\n";
+			die() ;
 
 			$query = DB::table(Veicolo::getTableName())
 				->leftJoin(Marca::getTableName(), Veicolo::getTableName() . '.id_marca', '=', Marca::getTableName() . '.id')
@@ -229,8 +198,28 @@
 
 			return ($result->sortBy('livello'));
 		}
-		public static function flushCache() {
-			Cache::tags((new static)->getTable())->flush();
+		public static function clearCache($all=false) {
+			if($all==true) {
+				Cache::flush();
+			} else {
+				Cache::tags((new static)->getTable())->flush();
+			}
+		}
+
+
+		public static function getAllCacheTags()
+		{
+			$redis = Cache::connection();
+
+			// Get all keys matching the tag pattern
+			$keys = $redis->keys('cache:tag:*');
+
+			// Extract the tags from the keys
+			$tags = array_map(function ($key) {
+				return str_replace('cache:tag:', '', $key);
+			}, $keys);
+
+			return $tags;
 		}
 
 	}

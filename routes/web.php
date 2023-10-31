@@ -15,6 +15,8 @@
 	use App\Http\Controllers\TagliandoController;
 	use App\Http\Controllers\SocietaController;
 	use App\Http\Controllers\ModelloController;
+	use Illuminate\Support\Facades\Redis;
+
 
 
 	/*
@@ -68,6 +70,8 @@
 
 
 		Route::resource('lista_societa', SocietaController::class);
+
+
 
 
 

@@ -1,6 +1,6 @@
 <?php
 	use App\Models\Alert;
-	use App\Models\Revisione;
+	//use App\Models\Revisione;
 	//Revisione::getAlerts();
 ?>
 	<!--begin::Main-->
@@ -19,21 +19,23 @@
 							<!--begin::Card title-->
 							<div class="card-title">
 								<!--begin::Search-->
-								<div class="d-flex align-items-center position-relative my-1">
-									<i class="ki-duotone ki-magnifier fs-3 position-absolute ms-5">
-										<span class="path1"></span>
-										<span class="path2"></span>
-									</i>
-									<input type="text" name="search" value="{{ request('search') }}" class="form-control form-control-solid w-850px ps-12" placeholder="Ricerca Targa" />
-
+								<div class="d-flex align-items-center justify-content-center position-relative my-1">
 									<!--begin::Card toolbar-->
 									<div class="card-toolbar">
 										<!--begin::Toolbar-->
 										<div class="d-flex justify-content-end" data-kt-customer-table-toolbar="base">
+											<input type="text" name="search" value="{{ request('search') }}" class="form-control form-control-solid w-850px ps-12" placeholder="Ricerca Targa" />
+
 											<!--begin::Submit-->
 											<button type="submit" class="btn btn-primary">Ricerca</button>
 											<!--end::Submit-->
+
 										</div>
+										<!--begin::Pages-->
+										@php
+											renderPagination($expiringRevisioniMeccaniche, request('search'), request('order'),11);
+										@endphp
+										<!--end::Pages-->
 										<!--end::Toolbar-->
 									</div>
 									<!--end::Card toolbar-->
@@ -49,10 +51,10 @@
 							<table class="table text-center align-middle table-row-dashed fs-6 gy-5" id="kt_customers_table">
 								<thead>
 								<tr class="text-gray-400 fw-bold fs-7 text-uppercase gs-0">
-									<th class="min-w-150px">Livello</th>
-									<th class="min-w-150px">Targa</th>
-									<th class="min-w-150px">Marca</th>
-									<th class="min-w-150px">Modello</th>
+									<th class="min-w-150px"><a href="{{ generate_order_url('alert_revisione_meccanica', 'livello') }}">Livello</a></th>
+									<th class="min-w-150px"><a href="{{ generate_order_url('alert_revisione_meccanica', 'targa') }}">Targa</a></th>
+									<th class="min-w-150px"><a href="{{ generate_order_url('alert_revisione_meccanica', 'marca') }}">Marca</a></th>
+									<th class="min-w-150px"><a href="{{ generate_order_url('alert_revisione_meccanica', 'modello') }}">Modello</a></th>
 									<th class="min-w-150px">Inizio Validit&agrave;</th>
 									<th class="min-w-150px">Fine Validit&agrave;</th>
 									<th class="text-end w-100px">Azioni</th>
@@ -65,9 +67,6 @@
 										if($row->livello >= Alert::$thirdThreshold) {
 											continue;
 										}
-
-
-
 										?>
 									<tr
 										@if($row->livello<=Alert::$firstThreshold)
@@ -88,19 +87,29 @@
 											@endif
 										</td>
 										<td class="min-w-150px">
-											<a href="update_veicolo/{{ $row->id_veicolo }}" class="text-gray-800 text-hover-white mb-1">{{ $row->targa ?? 'N/A' }}</a>
+											<!-- <a href="update_veicolo/{{ $row->id_veicolo }}" class="text-gray-800 text-hover-white mb-1"> -->
+												{{ $row->targa ?? 'N/A' }}
+											<!-- </a> -->
 										</td>
 										<td class="min-w-150px">
-											<a href="update_marca/{{ $row->id_marca }}" class="text-gray-800 text-hover-white mb-1">{{ $row->marca ?? 'N/A' }}</a>
+											<!-- <a href="update_marca/{{ $row->id_marca }}" class="text-gray-800 text-hover-white mb-1"> -->
+												{{ $row->marca ?? 'N/A' }}
+												<!-- </a> -->
 										</td>
 										<td class="min-w-150px">
-											<a href="update_modello/{{ $row->id_modello }}" class="text-gray-800 text-hover-white mb-1">{{ $row->modello ?? 'N/A' }}</a>
+											<!-- <a href="update_modello/{{ $row->id_modello }}" class="text-gray-800 text-hover-white mb-1"> -->
+												{{ $row->modello ?? 'N/A' }}
+												<!-- </a> -->
 										</td>
 										<td class="min-w-150px">
-											<a href="update_revisione/{{ $row->id_veicolo }}" class="text-gray-800 text-hover-white mb-1">{{ $row->inizio_validita ?? 'N/A' }}</a>
+											<!-- <a href="update_revisione/{{ $row->id_veicolo }}" class="text-gray-800 text-hover-white mb-1"> -->
+												{{ $row->inizio_validita ?? 'N/A' }}
+												<!-- </a> -->
 										</td>
 										<td class="min-w-150px">
-											<a href="update_revisione/{{ $row->id_veicolo }}" class="text-gray-800 text-hover-white mb-1">{{ $row->fine_validita ?? 'N/A' }}</a>
+											<!-- <a href="update_revisione/{{ $row->id_veicolo }}" class="text-gray-800 text-hover-white mb-1"> -->
+												{{ $row->fine_validita ?? 'N/A' }}
+												<!-- </a> -->
 										</td>
 										<td class="text-end w-100px">
 											<a href="#" class="btn btn-sm btn-light-primary btn-flex btn-center btn-active-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Azioni

@@ -8,9 +8,28 @@
 
 	class RevisioneController extends Controller
 	{
+		/*
 		public function listExpiringRevisioniMeccaniche(Request $request): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
 		{
-			$expiringRevisioniMeccaniche = Revisione::getExpiringRevisioniMeccaniche($request->input('search'));
+			$expiringRevisioniMeccaniche = Revisione::getAggregatedAlerts($request->input('search'));
+
+			$targaList= Targa::getTargaListByIdVeicolo();
+			foreach ($expiringRevisioniMeccaniche as $key=>$alert) {
+				if(isset($targaList[$alert->id_veicolo])) {
+					$expiringRevisioniMeccaniche[$key]->targa = $targaList[$alert->id_veicolo]->targa;
+				}
+			}
+			return view('alert_revisione_meccanica', ['expiringRevisioniMeccaniche' => $expiringRevisioniMeccaniche]);
+		}
+		*/
+		public function listExpiringRevisioniMeccaniche(Request $request): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
+		{
+			$search = $request->input('search',null);
+			$order  = $request->input('order','livello');
+			$page   = $request->input('page', 1);  // default to 1 if not provided
+
+
+			$expiringRevisioniMeccaniche = Revisione::getAggregatedAlerts($search, $order, $page);
 
 			$targaList= Targa::getTargaListByIdVeicolo();
 			foreach ($expiringRevisioniMeccaniche as $key=>$alert) {

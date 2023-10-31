@@ -14,11 +14,12 @@
 		public static string $tableName = 'revisione';
 		protected $fillable = ['id_veicolo','anno','data_pagamento','inizio_validita','fine_validita','importo'];
 
-		public static function getExpiringRevisioniMeccaniche($search=null): \Illuminate\Support\Collection
+		public static function all2($search=null): \Illuminate\Support\Collection
 		{
-			return Revisione::getAlertsTwo($search);
+			return Revisione::getAggregatedAlerts($search);
 
 
+			/*
 			if($search!=null) {
 				$query = DB::table('dettaglio_veicolo')
 					->leftJoinSub(
@@ -57,7 +58,9 @@
 					->orderBy('dettaglio_veicolo.id', 'ASC')
 					->get();
 
-			} else {
+			}
+			else
+			{
 
 				$query = DB::table('dettaglio_veicolo')
 					->leftJoinSub(
@@ -94,9 +97,7 @@
 					->orderBy('dettaglio_veicolo.id', 'ASC')
 					->get();
 			}
-			//var_dump($query);die();
 
-			/*
 	["id"]=>NULL
 	["inizio_validita"]=>NULL
 	["fine_validita"]=>NULL
@@ -106,7 +107,7 @@
 	["modello"]=>string(5) "SCUDO"
 	["id_veicolo"]=>int(11)
 	["livello"]=>NULL
-			*/
 			return $query;
+			*/
 		}
 	}

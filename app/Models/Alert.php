@@ -16,7 +16,7 @@ class Alert extends BaseModel
 	public static int $secondThreshold = 15;
 	public static int $thirdThreshold = 30;
 
-	public static function all($columns = ['*']) {
+	public static function getAggregatedAlerts($columns = ['*']) {
 		$query = DB::table('dettaglio_veicolo')
 			->leftJoin('revisione', function ($join) {
 				$join->on('revisione.id_veicolo', '=', 'dettaglio_veicolo.id')

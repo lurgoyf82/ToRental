@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class Assicurazione extends AlertBase
 {
@@ -93,6 +94,49 @@ class Assicurazione extends AlertBase
 		}
 
 		return $query;
+	}
+	public static function validationRules(): array
+	{
+		$id_veicolo = 'required|exists:dettaglio_veicolo,id'; // Assuming 'veicolo' is the name of your vehicles table
+		$anno = 'required|date_format:Y'; // Validates that the input is a year
+		$data_pagamento = 'required|date_format:Y-m-d'; // Validates that the input is a date in Y-m-d format
+		$inizio_validita = 'required|date_format:Y-m-d'; // Same as above
+		$fine_validita = 'required|date_format:Y-m-d|after_or_equal:inizio_validita'; // Ensures fine_validita is after or on the same date as inizio_validita
+		$importo = 'required|numeric|min:0'; // Validates that importo is a numeric value and not negative
+		$agenzia = 'required|string|max:255'; // Validates that agenzia is a string, and its length does not exceed 255 characters
+		$polizza = 'required|string|max:255'; // Same as above for polizza
+		$tipo_scadenza = 'required|in:Quadrimestrale,Semestrale,Annuale'; // Validates that tipo_scadenza is one of the specified options
+
+		return compact('id_veicolo','anno','data_pagamento','inizio_validita',
+			'fine_validita','importo','agenzia','polizza','tipo_scadenza');
+	}
+	public static function validationMessages(): array
+	{
+		$id_veicolo = 'Il veicolo selezionato non è valido';
+		$anno = 'L\' Anno non è valido';
+		$data_pagamento = ' non è valido';
+		$inizio_validita = ' non è valido';
+		$fine_validita = ' non è valido';
+		$importo = ' non è valido';
+		$agenzia = ' non è valido';
+		$polizza = ' non è valido';
+		$tipo_scadenza = ' non è valido';
+
+		return compact('id_veicolo','anno','data_pagamento','inizio_validita',
+			'fine_validita','importo','agenzia','polizza','tipo_scadenza');
+	}
+	public static function validatePartial(array $data)
+	{
+		$rules = self::validationRules();
+
+		$applicableRules = [];
+		foreach ($data as $key => $value) {
+			if (array_key_exists($key, $rules)) {
+				$applicableRules[$key] = $rules[$key];
+			}
+		}
+
+		return Validator::make($data, $applicableRules, self::validationMessages())->validate();
 	}
 
 }

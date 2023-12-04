@@ -11,7 +11,7 @@
 				success: function(res) {
 					if (res) {
 						id_modello.empty();
-						id_modello.append('<option>Select</option>');
+						id_modello.append('<option>Selezionare Un Modello</option>');
 						$.each(res, function(key, value) {
 							id_modello.append('<option value="' + key + '">' + value + '</option>');
 						});

@@ -79,7 +79,7 @@
 			$cacheKey = 'expired_' . $table . '_list';
 
 			if ($calculateNewCachedData || !Cache::has($cacheKey)) {
-				$results = DB::table(static::$tableName)
+				$results = DB::table($table)
 					->select(['id AS expired_id',
 										'id_veicolo',
 										'inizio_validita AS expired_inizio_validita',
@@ -107,7 +107,7 @@
 			return $Dictionary;
 		}
 
-		public static function getAggregatedAlerts($search=null,$order='livello',$page=1): LengthAwarePaginator
+		public static function getAggregatedAlerts($search=null,$order='livello',$page=1,$slice=true): LengthAwarePaginator
 		{
 			$valid = static::getCurrentValidList();
 			$expired = static::getExpiredList();
@@ -180,7 +180,7 @@
 				if(@isset($valid[$vehicle->id_veicolo])) {
 					$vehicle->valid = $valid[$vehicle->id_veicolo];
 					foreach ($vehicle->valid as $contract) {
-						$livello = Carbon::parse($contract->current_valid_inizio_validita)->diffInDays(Carbon::now());
+						$livello = Carbon::parse($contract->current_valid_fine_validita)->diffInDays(Carbon::now());
 						if($livello>$vehicle->livello) {
 							$vehicle->livello = $livello;
 							$vehicle->inizio_validita = $contract->current_valid_inizio_validita;
@@ -239,7 +239,11 @@
 
 			// Manually slice the results for pagination
 			$offset = ($page - 1) * AlertBase::$itemsPerPage;
-			$itemsForCurrentPage = $result->slice($offset, AlertBase::$itemsPerPage);
+			if($slice) {
+				$itemsForCurrentPage = $result->slice($offset, AlertBase::$itemsPerPage);
+			} else {
+				$itemsForCurrentPage = $result;
+			}
 
 			return new LengthAwarePaginator(
 				$itemsForCurrentPage,
@@ -357,6 +361,7 @@
 				Cache::forget($valid);
 				Cache::forget($next);
 				Cache::forget($expired);
+				Cache::forget('alerts');
 			}
 		}
 	}

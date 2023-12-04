@@ -24,69 +24,11 @@ License: For each use you must have a valid license purchased only from above li
 
 			return url($baseRoute) . '?' . http_build_query($queryParams);
 	}
-function renderPagination2($paginator, $search = null, $order = null, $pagesToShow = 9) {
-    // Current page
-    $currentPage = $paginator->currentPage();
 
-    // Total pages
-    $lastPage = $paginator->lastPage();
+	function appendQueryString($url, $query) {
+			return $url . (parse_url($url, PHP_URL_QUERY) ? '&' : '?') . $query;
+	}
 
-    // Determine the range of pages to show
-    $startPage = max(1, $currentPage - floor($pagesToShow / 2));
-    $endPage = min($lastPage, $currentPage + floor($pagesToShow / 2));
-
-    // Adjust if we're too close to the beginning
-    while ($startPage != 1 && ($endPage - $startPage) < $pagesToShow - 1) {
-        $startPage--;
-    }
-
-    // Adjust if we're too close to the end
-    while ($endPage != $lastPage && ($endPage - $startPage) < $pagesToShow - 1) {
-        $endPage++;
-    }
-
-    // Create the base query string
-    $query = [];
-    if ($search !== null) {
-        $query['search'] = $search;
-    }
-    if ($order !== null) {
-        $query['order'] = $order;
-    }
-
-    // Build the pagination HTML
-    echo '<ul class="pagination align-middle">';
-
-    // Previous page button
-    $prevLink = $paginator->url($currentPage - 1) . '?' . http_build_query($query);
-    echo '<li class="page-item previous ' . ($currentPage == 1 ? 'disabled' : '') . '">';
-    echo '<a href="' . ($currentPage == 1 ? '#' : $prevLink) . '" class="page-link"><i class="previous"></i></a>';
-    echo '</li>';
-
-    // Page numbers
-    for ($page = $startPage; $page <= $endPage; $page++) {
-        $pageLink = $paginator->url($page) . '?' . http_build_query($query);
-        echo '<li class="page-item ' . ($page == $currentPage ? 'active' : '') . '">';
-        echo '<a href="' . $pageLink . '" class="page-link">' . $page . '</a>';
-        echo '</li>';
-    }
-
-    // Next page button
-    $nextLink = $paginator->url($currentPage + 1) . '?' . http_build_query($query);
-    echo '<li class="page-item next ' . ($currentPage == $lastPage ? 'disabled' : '') . '">';
-    echo '<a href="' . ($currentPage == $lastPage ? '#' : $nextLink) . '" class="page-link"><i class="next"></i></a>';
-    echo '</li>';
-
-    echo '</ul>';
-
-
-    // Showing X to Y of Z entries
-    echo '<div class="d-flex flex-stack flex-wrap pt-10">';
-    echo '<div class="fs-6 fw-semibold text-gray-700">';
-    echo "Showing {$startItem} to {$endItem} of {$totalItems} entries";
-    echo '</div>';
-    echo '</div>';
-}
 function renderPagination($paginator, $search = null, $order = null, $pagesToShow = 9) {
     // Current page
     $currentPage = $paginator->currentPage();
@@ -131,21 +73,21 @@ function renderPagination($paginator, $search = null, $order = null, $pagesToSho
     echo '<ul class="pagination align-middle">';
 
     // Previous page button
-    $prevLink = $paginator->url($currentPage - 1) . '?' . http_build_query($query);
+    $prevLink = appendQueryString($paginator->url($currentPage - 1), http_build_query($query));
     echo '<li class="page-item previous ' . ($currentPage == 1 ? 'disabled' : '') . '">';
     echo '<a href="' . ($currentPage == 1 ? '#' : $prevLink) . '" class="page-link"><i class="previous"></i></a>';
     echo '</li>';
 
     // Page numbers
     for ($page = $startPage; $page <= $endPage; $page++) {
-        $pageLink = $paginator->url($page) . '?' . http_build_query($query);
+        $pageLink = appendQueryString($paginator->url($page), http_build_query($query));
         echo '<li class="page-item ' . ($page == $currentPage ? 'active' : '') . '">';
         echo '<a href="' . $pageLink . '" class="page-link">' . $page . '</a>';
         echo '</li>';
     }
 
     // Next page button
-    $nextLink = $paginator->url($currentPage + 1) . '?' . http_build_query($query);
+    $nextLink = appendQueryString($paginator->url($currentPage + 1), http_build_query($query));
     echo '<li class="page-item next ' . ($currentPage == $lastPage ? 'disabled' : '') . '">';
     echo '<a href="' . ($currentPage == $lastPage ? '#' : $nextLink) . '" class="page-link"><i class="next"></i></a>';
     echo '</li>';

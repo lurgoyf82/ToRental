@@ -10,7 +10,11 @@
 	{
 		public function listExpiringContrattiNoleggio(Request $request): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
 		{
-			$expiringContrattiNoleggio = Noleggio::getExpiringContrattiNoleggio($request->input('search'));
+			$search = $request->input('search',null);
+			$order  = $request->input('order','livello');
+			$page   = $request->input('page', 1);  // default to 1 if not provided
+
+			$expiringContrattiNoleggio = Noleggio::getAggregatedAlerts($search, $order, $page);
 
 			$targaList= Targa::getTargaListByIdVeicolo();
 			foreach ($expiringContrattiNoleggio as $key=>$alert) {

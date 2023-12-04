@@ -17,7 +17,7 @@
 		<!--begin::Wrapper-->
 		<div class="app-wrapper flex-column flex-row-fluid" id="kt_app_wrapper">
 			@include('partials.sidebar')
-			@include('partials.main')
+			@include('partials.create-assicurazione-main')
 		</div>
 		<!--end::Wrapper-->
 	</div>
@@ -29,6 +29,7 @@
 
 @include('partials.footer')
 @include('partials.scripts')
+@include('partials.modello-script')
 
 </body>
 <!--end::Body-->

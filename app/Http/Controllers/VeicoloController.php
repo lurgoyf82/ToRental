@@ -18,10 +18,6 @@
 	use App\Models\TipoAlimentazione;
 	use App\Models\DestinazioneUso;
 
-
-
-
-
 	class VeicoloController extends Controller
 	{
 		/**
@@ -85,6 +81,7 @@
 		 */
 		public function store(Request $request)
 		{
+			die();
 			$validatedData = $request->validate([
 				// Add your validation rules here
 			]);

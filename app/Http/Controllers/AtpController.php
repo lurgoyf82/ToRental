@@ -10,7 +10,11 @@
 	{
 		public function listExpiringRevisioniAtp(Request $request): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
 		{
-			$expiringRevisioniAtp = Atp::getExpiringRevisioniAtp($request->input('search'));
+			$search = $request->input('search',null);
+			$order  = $request->input('order','livello');
+			$page   = $request->input('page', 1);  // default to 1 if not provided
+
+			$expiringRevisioniAtp = Atp::getAggregatedAlerts($search, $order, $page);
 
 			$targaList= Targa::getTargaListByIdVeicolo();
 			foreach ($expiringRevisioniAtp as $key=>$alert) {

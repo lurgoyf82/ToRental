@@ -2,12 +2,14 @@
 	use App\Models\Alert;
 	//use App\Models\Revisione;
 	//Revisione::getAlerts();
+	$expiring=$expiringRevisioniMeccaniche;
+	$alert_revisione_meccanica='alert_revisione_meccanica';
 ?>
 	<!--begin::Main-->
 <div class="app-main flex-column flex-row-fluid" id="kt_app_main">
 	<!--begin::Content wrapper-->
 	<div class="d-flex flex-column flex-column-fluid">
-		<form action="{{ url('alert_revisione_meccanica') }}" method="get">
+		<form action="{{ url($alert_revisione_meccanica) }}" method="get">
 			<!--begin::Content-->
 			<div id="kt_app_content" class="app-content flex-column-fluid">
 				<!--begin::Content container-->
@@ -33,7 +35,7 @@
 										</div>
 										<!--begin::Pages-->
 										@php
-											renderPagination($expiringRevisioniMeccaniche, request('search'), request('order'),11);
+											renderPagination($expiring, request('search'), request('order'),11);
 										@endphp
 										<!--end::Pages-->
 										<!--end::Toolbar-->
@@ -51,10 +53,10 @@
 							<table class="table text-center align-middle table-row-dashed fs-6 gy-5" id="kt_customers_table">
 								<thead>
 								<tr class="text-gray-400 fw-bold fs-7 text-uppercase gs-0">
-									<th class="min-w-150px"><a href="{{ generate_order_url('alert_revisione_meccanica', 'livello') }}">Livello</a></th>
-									<th class="min-w-150px"><a href="{{ generate_order_url('alert_revisione_meccanica', 'targa') }}">Targa</a></th>
-									<th class="min-w-150px"><a href="{{ generate_order_url('alert_revisione_meccanica', 'marca') }}">Marca</a></th>
-									<th class="min-w-150px"><a href="{{ generate_order_url('alert_revisione_meccanica', 'modello') }}">Modello</a></th>
+									<th class="min-w-150px"><a href="{{ generate_order_url($alert_revisione_meccanica, 'livello') }}">Livello</a></th>
+									<th class="min-w-150px"><a href="{{ generate_order_url($alert_revisione_meccanica, 'targa') }}">Targa</a></th>
+									<th class="min-w-150px"><a href="{{ generate_order_url($alert_revisione_meccanica, 'marca') }}">Marca</a></th>
+									<th class="min-w-150px"><a href="{{ generate_order_url($alert_revisione_meccanica, 'modello') }}">Modello</a></th>
 									<th class="min-w-150px">Inizio Validit&agrave;</th>
 									<th class="min-w-150px">Fine Validit&agrave;</th>
 									<th class="text-end w-100px">Azioni</th>
@@ -62,7 +64,7 @@
 								</thead>
 								<tbody class="fw-semibold text-gray-600">
 
-								@foreach($expiringRevisioniMeccaniche as $row)
+								@foreach($expiring as $row)
 										<?php
 										if($row->livello >= Alert::$thirdThreshold) {
 											continue;

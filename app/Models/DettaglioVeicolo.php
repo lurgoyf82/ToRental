@@ -33,28 +33,58 @@
 			$id_tipo_cambio = 'required|exists:tipo_cambio,id';
 			$id_tipo_alimentazione = 'required|exists:tipo_alimentazione,id';
 			$id_destinazione_uso = 'required|exists:destinazione_uso,id';
+			$colore = 'nullable|string|max:256';
+			$lunghezza_esterna = 'nullable|numeric|min:0';
+			$larghezza_esterna = 'nullable|numeric|min:0';
+			$massa = 'nullable|numeric|min:0';
+			$portata = 'nullable|numeric|min:0';
+			$cilindrata = 'nullable|numeric|min:0';
+			$potenza = 'nullable|numeric|min:0';
+			$numero_assi = 'nullable|integer|min:0';
+			$tipo_asse = 'nullable|exists:tipo_asse,id';
+			$tipo_cambio = 'nullable|exists:tipo_cambio,id';
+			$alimentazione = 'nullable|exists:tipo_alimentazione,id';
+			$destinazione_uso = 'nullable|exists:destinazione_uso,id';
 
-			return compact('targa', 'data_immatricolazione', 'id_proprietario', 'id_tipo_veicolo', 'id_tipo_allestimento', 'id_marca', 'id_modello',
-				'id_numero_assi', 'id_tipo_asse', 'id_tipo_cambio', 'id_tipo_alimentazione', 'id_destinazione_uso');
+			return compact('targa', 'data_immatricolazione', 'id_proprietario', 'id_tipo_veicolo', 'id_tipo_allestimento',
+				'id_marca', 'id_modello','id_numero_assi', 'id_tipo_asse', 'id_tipo_cambio', 'id_tipo_alimentazione', 'id_destinazione_uso',
+				'colore', 'lunghezza_esterna', 'larghezza_esterna', 'massa', 'portata', 'cilindrata', 'potenza', 'numero_assi', 'tipo_asse',
+				'tipo_cambio', 'alimentazione', 'destinazione_uso');
 		}
+
 		public static function validationMessages(): array
 		{
 			$targa = 'Inserire la targa (Controllare non sia già stata inserita)';
 			$data_immatricolazione = 'Inserisci la data di immatricolazione';
-			$id_proprietario = 'Scegliere un proprietario';
-			$id_tipo_veicolo = 'Scegliere un tipo veicolo';
-			$id_tipo_allestimento = 'Scegliere un tipo allestimento';
-			$id_marca = 'Scegliere una marca';
-			$id_modello = 'Scegliere un modello';
 			$id_numero_assi = 'Scegliere un numero assi';
 			$id_tipo_asse = 'Scegliere un tipo asse';
 			$id_tipo_cambio = 'Scegliere un tipo cambio';
 			$id_tipo_alimentazione = 'Scegliere un tipo alimentazione';
 			$id_destinazione_uso = 'Scegliere una destinazione uso';
+			$id_proprietario = 'Il proprietario selezionato per "dettaglio veicolo" non è valido';
+			$id_tipo_veicolo = 'Il tipo di veicolo selezionato per "dettaglio veicolo" non è valido';
+			$id_tipo_allestimento = 'Il tipo di allestimento selezionato per "dettaglio veicolo" non è valido';
+			$id_marca = 'La marca selezionata per "dettaglio veicolo" non è valida';
+			$id_modello = 'Il modello selezionato per "dettaglio veicolo" non è valido';
+			$colore = 'Il colore per "dettaglio veicolo" non è valido';
+			$lunghezza_esterna = 'La lunghezza esterna per "dettaglio veicolo" non è valida';
+			$larghezza_esterna = 'La larghezza esterna per "dettaglio veicolo" non è valida';
+			$massa = 'La massa per "dettaglio veicolo" non è valida';
+			$portata = 'La portata per "dettaglio veicolo" non è valida';
+			$cilindrata = 'La cilindrata per "dettaglio veicolo" non è valida';
+			$potenza = 'La potenza per "dettaglio veicolo" non è valida';
+			$numero_assi = 'Il numero di assi per "dettaglio veicolo" non è valido';
+			$tipo_asse = 'Il tipo di asse selezionato per "dettaglio veicolo" non è valido';
+			$tipo_cambio = 'Il tipo di cambio selezionato per "dettaglio veicolo" non è valido';
+			$alimentazione = 'Il tipo di alimentazione selezionato per "dettaglio veicolo" non è valido';
+			$destinazione_uso = 'La destinazione d\'uso selezionata per "dettaglio veicolo" non è valida';
 
-			return compact('targa', 'data_immatricolazione', 'id_proprietario', 'id_tipo_veicolo', 'id_tipo_allestimento', 'id_marca', 'id_modello',
-				'id_numero_assi', 'id_tipo_asse', 'id_tipo_cambio', 'id_tipo_alimentazione', 'id_destinazione_uso');
+			return compact('targa', 'data_immatricolazione', 'id_proprietario', 'id_tipo_veicolo', 'id_tipo_allestimento',
+				'id_marca', 'id_modello','id_numero_assi', 'id_tipo_asse', 'id_tipo_cambio', 'id_tipo_alimentazione', 'id_destinazione_uso',
+				'colore', 'lunghezza_esterna', 'larghezza_esterna', 'massa', 'portata', 'cilindrata', 'potenza', 'numero_assi', 'tipo_asse',
+				'tipo_cambio', 'alimentazione', 'destinazione_uso');
 		}
+
 		public static function validatePartial(array $data)
 		{
 			$rules = self::validationRules();
@@ -92,22 +122,22 @@
 					} else {
 						// Search across multiple fields
 						$query->where('dettaglio_veicolo.id', '=', $search)
-						->orWhere('dettaglio_veicolo.colore', 'LIKE', "%{$search}%")
-						->orWhere('dettaglio_veicolo.massa', 'LIKE', "%{$search}%")
-						->orWhere('dettaglio_veicolo.portata', 'LIKE', "%{$search}%")
-						->orWhere('dettaglio_veicolo.cilindrata', 'LIKE', "%{$search}%")
-						->orWhere('dettaglio_veicolo.potenza', 'LIKE', "%{$search}%")
-						->orWhere('dettaglio_veicolo.numero_assi', 'LIKE', "%{$search}%")
-						->orWhere('societa.nome', 'LIKE', "%{$search}%")
-						->orWhere('tipo_veicolo.nome', 'LIKE', "%{$search}%")
-						->orWhere('tipo_allestimento.nome', 'LIKE', "%{$search}%")
-						->orWhere('marca.nome', 'LIKE', "%{$search}%")
-						->orWhere('modello.nome', 'LIKE', "%{$search}%")
-						->orWhere('destinazione_uso.nome', 'LIKE', "%{$search}%")
-						->orWhere('tipo_cambio.nome', 'LIKE', "%{$search}%")
-						->orWhere('tipo_asse.nome', 'LIKE', "%{$search}%")
-						->orWhere('tipo_alimentazione.nome', 'LIKE', "%{$search}%")
-						->orWhere('targa.targa', 'LIKE', "%{$search}%");
+							->orWhere('dettaglio_veicolo.colore', 'LIKE', "%{$search}%")
+							->orWhere('dettaglio_veicolo.massa', 'LIKE', "%{$search}%")
+							->orWhere('dettaglio_veicolo.portata', 'LIKE', "%{$search}%")
+							->orWhere('dettaglio_veicolo.cilindrata', 'LIKE', "%{$search}%")
+							->orWhere('dettaglio_veicolo.potenza', 'LIKE', "%{$search}%")
+							->orWhere('dettaglio_veicolo.numero_assi', 'LIKE', "%{$search}%")
+							->orWhere('societa.nome', 'LIKE', "%{$search}%")
+							->orWhere('tipo_veicolo.nome', 'LIKE', "%{$search}%")
+							->orWhere('tipo_allestimento.nome', 'LIKE', "%{$search}%")
+							->orWhere('marca.nome', 'LIKE', "%{$search}%")
+							->orWhere('modello.nome', 'LIKE', "%{$search}%")
+							->orWhere('destinazione_uso.nome', 'LIKE', "%{$search}%")
+							->orWhere('tipo_cambio.nome', 'LIKE', "%{$search}%")
+							->orWhere('tipo_asse.nome', 'LIKE', "%{$search}%")
+							->orWhere('tipo_alimentazione.nome', 'LIKE', "%{$search}%")
+							->orWhere('targa.targa', 'LIKE', "%{$search}%");
 					}
 				})
 				->get([
@@ -130,6 +160,4 @@
 					'targa.targa as targa'
 				]);
 		}
-
-
 	}

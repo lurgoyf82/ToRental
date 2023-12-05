@@ -14,100 +14,39 @@
 		public static string $tableName = 'revisione';
 		protected $fillable = ['id_veicolo','anno','data_pagamento','inizio_validita','fine_validita','importo'];
 
-		public static function all2($search=null): \Illuminate\Support\Collection
+		public static function cancellami($search=null): \Illuminate\Pagination\LengthAwarePaginator
 		{
 			return Revisione::getAggregatedAlerts($search);
-
-
-			/*
-			if($search!=null) {
-				$query = DB::table('dettaglio_veicolo')
-					->leftJoinSub(
-						DB::table('revisione')
-							->select(DB::raw('id_veicolo, MAX(fine_validita) as latest_fine_validita'))
-							->where('inizio_validita', '<=', now())
-							->groupBy('id_veicolo'),
-						'latest_revision',
-						'latest_revision.id_veicolo',
-						'=',
-						'dettaglio_veicolo.id'
-					)
-					->leftJoin('revisione', function ($join) {
-						$join->on('revisione.id_veicolo', '=', 'dettaglio_veicolo.id')
-							->on('revisione.fine_validita', '=', 'latest_revision.latest_fine_validita');
-					})
-					->leftJoin('marca', 'dettaglio_veicolo.id_marca', '=', 'marca.id')
-					->leftJoin('modello', function ($join) {
-						$join->on('dettaglio_veicolo.id_modello', '=', 'modello.id')
-							->on('modello.id_marca', '=', 'marca.id');
-					})
-					->leftJoin('targa', 'targa.id_veicolo', '=', 'dettaglio_veicolo.id')
-					->select([
-						'revisione.id as id',
-						DB::raw("DATE_FORMAT(revisione.inizio_validita, '%d-%m-%Y') as inizio_validita"),
-						DB::raw("DATE_FORMAT(revisione.fine_validita, '%d-%m-%Y') as fine_validita"),
-						'marca.id as id_marca',
-						'marca.nome as marca',
-						'modello.id as id_modello',
-						'modello.nome as modello',
-						'dettaglio_veicolo.id as id_veicolo',
-						DB::raw('DATEDIFF(revisione.fine_validita, NOW()) as livello')
-					])
-					->where('targa.targa', 'LIKE', '%' . $search . '%')
-					->orderBy('livello', 'ASC')
-					->orderBy('dettaglio_veicolo.id', 'ASC')
-					->get();
-
-			}
-			else
-			{
-
-				$query = DB::table('dettaglio_veicolo')
-					->leftJoinSub(
-						DB::table('revisione')
-							->select(DB::raw('id_veicolo, MAX(fine_validita) as latest_fine_validita'))
-							->where('inizio_validita', '<=', now())
-							->groupBy('id_veicolo'),
-						'latest_revision',
-						'latest_revision.id_veicolo',
-						'=',
-						'dettaglio_veicolo.id'
-					)
-					->leftJoin('revisione', function ($join) {
-						$join->on('revisione.id_veicolo', '=', 'dettaglio_veicolo.id')
-							->on('revisione.fine_validita', '=', 'latest_revision.latest_fine_validita');
-					})
-					->leftJoin('marca', 'dettaglio_veicolo.id_marca', '=', 'marca.id')
-					->leftJoin('modello', function ($join) {
-						$join->on('dettaglio_veicolo.id_modello', '=', 'modello.id')
-							->on('modello.id_marca', '=', 'marca.id');
-					})
-					->select([
-						'revisione.id as id',
-						DB::raw("DATE_FORMAT(revisione.inizio_validita, '%d-%m-%Y') as inizio_validita"),
-						DB::raw("DATE_FORMAT(revisione.fine_validita, '%d-%m-%Y') as fine_validita"),
-						'marca.id as id_marca',
-						'marca.nome as marca',
-						'modello.id as id_modello',
-						'modello.nome as modello',
-						'dettaglio_veicolo.id as id_veicolo',
-						DB::raw('DATEDIFF(revisione.fine_validita, NOW()) as livello')
-					])
-					->orderBy('livello', 'ASC')
-					->orderBy('dettaglio_veicolo.id', 'ASC')
-					->get();
-			}
-
-	["id"]=>NULL
-	["inizio_validita"]=>NULL
-	["fine_validita"]=>NULL
-	["id_marca"]=>int(6)
-	["marca"]=>string(4) "FIAT"
-	["id_modello"]=>int(11)
-	["modello"]=>string(5) "SCUDO"
-	["id_veicolo"]=>int(11)
-	["livello"]=>NULL
-			return $query;
-			*/
 		}
+		public static function validationRules(): array
+		{
+			$id_veicolo = 'required|exists:dettaglio_veicolo,id';
+			$anno = 'required|date_format:Y';
+			$data_pagamento = 'required|date_format:Y-m-d';
+			$inizio_validita = 'required|date_format:Y-m-d';
+			$fine_validita = 'required|date_format:Y-m-d|after_or_equal:inizio_validita';
+			$importo = 'required|numeric|min:0';
+			$agenzia = 'required|string|max:255';
+			$polizza = 'required|string|max:255';
+			$tipo_scadenza = 'required|in:Quadrimestrale,Semestrale,Annuale';
+
+			return compact('id_veicolo', 'anno', 'data_pagamento', 'inizio_validita', 'fine_validita', 'importo', 'agenzia', 'polizza', 'tipo_scadenza');
+		}
+
+		public static function validationMessages(): array
+		{
+			$id_veicolo = 'Il veicolo selezionato per "revisione" non è valido';
+			$anno = 'L\'anno specificato per "revisione" non è valido';
+			$data_pagamento = 'La data di pagamento per "revisione" non è valida';
+			$inizio_validita = 'La data di inizio validità per "revisione" non è valida';
+			$fine_validita = 'La data di fine validità per "revisione" non è valida o è precedente alla data di inizio validità';
+			$importo = 'L\'importo per "revisione" non è valido o è negativo';
+			$agenzia = 'L\'agenzia per "revisione" non è valida';
+			$polizza = 'La polizza per "revisione" non è valida';
+			$tipo_scadenza = 'Il tipo di scadenza per "revisione" non è valido o non è tra le opzioni consentite';
+
+			return compact('id_veicolo', 'anno', 'data_pagamento', 'inizio_validita', 'fine_validita', 'importo', 'agenzia', 'polizza', 'tipo_scadenza');
+		}
+
+
 	}

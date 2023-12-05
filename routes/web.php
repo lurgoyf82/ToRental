@@ -140,6 +140,12 @@
 		// Store a newly created assicurazione
 		Route::post('store_assicurazione', [AssicurazioneController::class, 'store'])->name('store_assicurazione');
 
+		// Search by general criteria
+		Route::get('assicurazione/search/{search}', [AssicurazioneController::class, 'search'])->defaults('exactId', false);
+
+		// Search by ID
+		Route::get('assicurazione/id/{search}', [AssicurazioneController::class, 'search'])->defaults('exactId', true);
+
 		// Fallback for accessing store_assicurazione via GET
 		Route::get('store_assicurazione', function () {
 			return redirect()->route('create_assicurazione');
@@ -167,6 +173,12 @@
 		// Store a newly created assicurazione
 		Route::post('store_bollo', [BolloController::class, 'store'])->name('store_bollo');
 
+		// Search by general criteria
+		Route::get('bollo/search/{search}', [BolloController::class, 'search'])->defaults('exactId', false);
+
+		// Search by ID
+		Route::get('bollo/id/{search}', [BolloController::class, 'search'])->defaults('exactId', true);
+
 		// Fallback for accessing store_bollo via GET
 		Route::get('store_bollo', function () {
 			return redirect()->route('create_bollo');
@@ -174,23 +186,31 @@
 
 		/**************************************  TAGLIANDO  **************************************/
 
-		// Display the form for creating a new decorazione
+		// Display the form for creating a new assicurazione
 		Route::get('create_tagliando', [TagliandoController::class, 'create'])->name('create_tagliando');
 
-		// Display a list of decorazioni
+		Route::get('create_tagliando/{id_veicolo}', [TagliandoController::class, 'create'])->name('create_tagliando_with_id');
+
+		// Display a list of assicurazione
 		Route::get('list_tagliando', [TagliandoController::class, 'index'])->name('list_tagliando');
 
-		// Show the form for editing a decorazione
+		// Show the form for editing a assicurazione
 		Route::get('update_tagliando/{id}', [TagliandoController::class, 'edit'])->name('update_tagliando');
 
-		// Update the specified decorazione
+		// Update the specified assicurazione
 		Route::put('update_tagliando/{id}', [TagliandoController::class, 'update_tagliando']);
 
-		// Delete the specified decorazione
+		// Delete the specified assicurazione
 		Route::delete('delete_tagliando/{id}', [TagliandoController::class, 'destroy'])->name('delete_tagliando');
 
-		// Store a newly created decorazione
+		// Store a newly created assicurazione
 		Route::post('store_tagliando', [TagliandoController::class, 'store'])->name('store_tagliando');
+
+		// Search by general criteria
+		Route::get('tagliando/search/{search}', [TagliandoController::class, 'search'])->defaults('exactId', false);
+
+		// Search by ID
+		Route::get('tagliando/id/{search}', [TagliandoController::class, 'search'])->defaults('exactId', true);
 
 		// Fallback for accessing store_tagliando via GET
 		Route::get('store_tagliando', function () {
@@ -199,23 +219,31 @@
 
 		/**************************************  GPS  **************************************/
 
-		// Display the form for creating a new decorazione
+		// Display the form for creating a new assicurazione
 		Route::get('create_gps', [GpsController::class, 'create'])->name('create_gps');
 
-		// Display a list of decorazioni
+		Route::get('create_gps/{id_veicolo}', [GpsController::class, 'create'])->name('create_gps_with_id');
+
+		// Display a list of assicurazione
 		Route::get('list_gps', [GpsController::class, 'index'])->name('list_gps');
 
-		// Show the form for editing a decorazione
+		// Show the form for editing a assicurazione
 		Route::get('update_gps/{id}', [GpsController::class, 'edit'])->name('update_gps');
 
-		// Update the specified decorazione
+		// Update the specified assicurazione
 		Route::put('update_gps/{id}', [GpsController::class, 'update_gps']);
 
-		// Delete the specified decorazione
+		// Delete the specified assicurazione
 		Route::delete('delete_gps/{id}', [GpsController::class, 'destroy'])->name('delete_gps');
 
-		// Store a newly created decorazione
+		// Store a newly created assicurazione
 		Route::post('store_gps', [GpsController::class, 'store'])->name('store_gps');
+
+		// Search by general criteria
+		Route::get('gps/search/{search}', [GpsController::class, 'search'])->defaults('exactId', false);
+
+		// Search by ID
+		Route::get('gps/id/{search}', [GpsController::class, 'search'])->defaults('exactId', true);
 
 		// Fallback for accessing store_gps via GET
 		Route::get('store_gps', function () {
@@ -224,23 +252,31 @@
 
 		/**************************************  MULTA  **************************************/
 
-		// Display the form for creating a new decorazione
+		// Display the form for creating a new assicurazione
 		Route::get('create_multa', [MultaController::class, 'create'])->name('create_multa');
 
-		// Display a list of decorazioni
+		Route::get('create_multa/{id_veicolo}', [MultaController::class, 'create'])->name('create_multa_with_id');
+
+		// Display a list of assicurazione
 		Route::get('list_multa', [MultaController::class, 'index'])->name('list_multa');
 
-		// Show the form for editing a decorazione
+		// Show the form for editing a assicurazione
 		Route::get('update_multa/{id}', [MultaController::class, 'edit'])->name('update_multa');
 
-		// Update the specified decorazione
+		// Update the specified assicurazione
 		Route::put('update_multa/{id}', [MultaController::class, 'update_multa']);
 
-		// Delete the specified decorazione
+		// Delete the specified assicurazione
 		Route::delete('delete_multa/{id}', [MultaController::class, 'destroy'])->name('delete_multa');
 
-		// Store a newly created decorazione
+		// Store a newly created assicurazione
 		Route::post('store_multa', [MultaController::class, 'store'])->name('store_multa');
+
+		// Search by general criteria
+		Route::get('multa/search/{search}', [MultaController::class, 'search'])->defaults('exactId', false);
+
+		// Search by ID
+		Route::get('multa/id/{search}', [MultaController::class, 'search'])->defaults('exactId', true);
 
 		// Fallback for accessing store_multa via GET
 		Route::get('store_multa', function () {
@@ -249,23 +285,32 @@
 
 		/**************************************  REVISIONE  **************************************/
 
-		// Display the form for creating a new decorazione
+		// Display the form for creating a new assicurazione
 		Route::get('create_revisione', [RevisioneController::class, 'create'])->name('create_revisione');
 
-		// Display a list of decorazioni
+		Route::get('create_revisione/{id_veicolo}', [RevisioneController::class, 'create'])->name('create_revisione_with_id');
+
+		// Display a list of assicurazione
 		Route::get('list_revisione', [RevisioneController::class, 'index'])->name('list_revisione');
 
-		// Show the form for editing a decorazione
+		// Show the form for editing a assicurazione
 		Route::get('update_revisione/{id}', [RevisioneController::class, 'edit'])->name('update_revisione');
 
-		// Update the specified decorazione
+		// Update the specified assicurazione
 		Route::put('update_revisione/{id}', [RevisioneController::class, 'update_revisione']);
 
-		// Delete the specified decorazione
+		// Delete the specified assicurazione
 		Route::delete('delete_revisione/{id}', [RevisioneController::class, 'destroy'])->name('delete_revisione');
 
-		// Store a newly created decorazione
+		// Store a newly created assicurazione
 		Route::post('store_revisione', [RevisioneController::class, 'store'])->name('store_revisione');
+
+		// Search by general criteria
+		Route::get('revisione/search/{search}', [RevisioneController::class, 'search'])->defaults('exactId', false);
+
+		// Search by ID
+		Route::get('revisione/id/{search}', [RevisioneController::class, 'search'])->defaults('exactId', true);
+
 
 		// Fallback for accessing store_revisione via GET
 		Route::get('store_revisione', function () {
@@ -325,7 +370,7 @@
 		// General Fallback Route for MethodNotAllowed and NotFound HTTP exceptions
 		Route::fallback(function () {
 			// Redirect to a specific route or return a custom error view
-			return response()->view('errors.404', [], 404); // Ensure you have an errors.404 view
+			return response()->view('dashboard', [], 404); // Ensure you have an errors.404 view
 		});
 
 

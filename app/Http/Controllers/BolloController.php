@@ -51,39 +51,6 @@
 		public function create($id_veicolo = null)
 		{
 			return view('create_bollo', ['id_veicolo' => $id_veicolo]);
-
-			//list to handle id_veicolo
-			$lista_veicolo = DettaglioVeicolo::orderBy('id')->get();
-			//list to handle id_propietario
-			$lista_societa = Societa::orderBy('nome')->get();
-			//list to handle id_tipo_veicolo
-			$lista_tipo_veicolo = TipoVeicolo::orderBy('nome')->get();
-			//list to handle id_tipo_allestimento
-			$lista_tipo_allestimento = TipoAllestimento::orderBy('nome')->get();
-			//list to handle id_marca
-			$lista_marca = Marca::orderBy('nome')->get();
-			//list to handle id_modello
-			$lista_modello = Modello::orderBy('nome')->get();
-			//list to handle tipo_asse
-			$lista_tipo_asse = TipoAsse::orderBy('nome')->get();
-			//list to handle tipo_cambio
-			$lista_tipo_cambio = TipoCambio::orderBy('nome')->get();
-			//list to handle alimentazione
-			$lista_alimentazione = TipoAlimentazione::orderBy('nome')->get();
-			//list to handle destinazione_uso
-			$lista_destinazione_uso = DestinazioneUso::orderBy('nome')->get();
-
-			return view('create_assicurazione', ['id_veicolo' => $id_veicolo,
-				'lista_veicolo' => $lista_veicolo,
-				'lista_societa' => $lista_societa,
-				'lista_tipo_veicolo' => $lista_tipo_veicolo,
-				'lista_tipo_allestimento' => $lista_tipo_allestimento,
-				'lista_marca' => $lista_marca,
-				'lista_modello' => $lista_modello,
-				'lista_tipo_asse' => $lista_tipo_asse,
-				'lista_tipo_cambio' => $lista_tipo_cambio,
-				'lista_alimentazione' => $lista_alimentazione,
-				'lista_destinazione_uso' => $lista_destinazione_uso]);
 		}
 
 		/**
@@ -131,5 +98,12 @@
 		public function destroy(string $id)
 		{
 			//
+		}
+		/**
+		 * Search the specified resource from storage.
+		 */
+		public function search($search, $exactId = false) {
+			$bolli = Bollo::search($search, $exactId);
+			return response()->json($bolli);
 		}
 	}

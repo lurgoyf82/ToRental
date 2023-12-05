@@ -4,6 +4,7 @@
 
 	use App\Models\DestinazioneUso;
 	use App\Models\DettaglioVeicolo;
+	use App\Models\Gps;
 	use App\Models\Marca;
 	use App\Models\Modello;
 	use App\Models\Societa;
@@ -101,5 +102,12 @@
 		public function destroy(string $id)
 		{
 			//
+		}
+		/**
+		 * Search the specified resource from storage.
+		 */
+		public function search($search, $exactId = false) {
+			$gps = Gps::search($search, $exactId);
+			return response()->json($gps);
 		}
 	}

@@ -6,6 +6,7 @@
 	use App\Models\DettaglioVeicolo;
 	use App\Models\Marca;
 	use App\Models\Modello;
+	use App\Models\Multa;
 	use App\Models\Societa;
 	use App\Models\TipoAlimentazione;
 	use App\Models\TipoAllestimento;
@@ -105,5 +106,12 @@
 		public function destroy(string $id)
 		{
 			//
+		}
+		/**
+		 * Search the specified resource from storage.
+		 */
+		public function search($search, $exactId = false) {
+			$multe = Multa::search($search, $exactId);
+			return response()->json($multe);
 		}
 	}

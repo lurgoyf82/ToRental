@@ -165,8 +165,7 @@
 
 	$(document).ready(function () {
 		var oldSearchInput = "{{ old('searchInput') }}";
-		var oldVeicoloId = "@if(old('id_veicolo')) {{ old('id_veicolo') }}
-			@elseif(isset($id_veicolo)) {{ $id_veicolo }} @endif";
+		var oldVeicoloId = "@if(old('id_veicolo')) {{ old('id_veicolo') }} @elseif(isset($id_veicolo)) {{ $id_veicolo }} @endif";
 
 		// If there's an old 'searchInput', repopulate the fields
 		if (oldVeicoloId) {
@@ -177,12 +176,9 @@
 
 		//var vehicles = {};
 
-		$('#searchInput').on('input', function () {
-			fetchAndSetVehicleData($(this).val());
-		});
-
 		// When an option is selected from the datalist
 		$('#searchInput').on('input', function () {
+			fetchAndSetVehicleData($(this).val());
 			var selectedText = $(this).val();
 			var vehicleId = vehicles[selectedText];
 

@@ -932,7 +932,7 @@
 <!--end::Sidebar-->
 
 <script>
-	const currentRoute = "/{{ request()->path() }}";
+	const currentRoute = "/{{ explode('/', request()->path())[0] }}";
 
 	document.addEventListener('DOMContentLoaded', function () {
 		var menuLinks = document.querySelectorAll('.menu-sub .menu-link[href]'); // Select only .menu-link with href inside .menu-sub

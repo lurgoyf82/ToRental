@@ -1,4 +1,4 @@
-<form action="{{ route('store_multa') }}" method="POST">
+<form action="{{ route('store_gps') }}" method="POST">
 	@csrf
 	<!--begin::Content-->
 	<div id="kt_app_content" class="app-content flex-column-fluid">
@@ -14,8 +14,8 @@
 						<div class="card-header pt-5">
 							<!--begin::Title-->
 							<h3 class="card-title align-items-start flex-column">
-								<span class="card-label fw-bold text-dark">Inserisci Dati Della Multa</span>
-								<span class="text-gray-400 mt-1 fw-semibold fs-6">Seleziona il veicolo ed Testo del Sottomenu</span>
+								<span class="card-label fw-bold text-dark">Inserisci Multa</span>
+								<span class="text-gray-400 mt-1 fw-semibold fs-6">Seleziona il veicolo ed inserisci la multa</span>
 							</h3>
 							<!--end::Title-->
 						</div>
@@ -31,7 +31,7 @@
 										<div class="form-group">
 											<div class="alert alert-danger" role="alert">
 												@foreach ($errors->all() as $error)
-													{{ $error }}<br />
+													{{ $error }}<br/>
 												@endforeach
 											</div>
 										</div>
@@ -39,105 +39,58 @@
 									@if (Session::has('success'))
 										<div class="form-group">
 											<div class="alert alert-success" role="alert">
-													{{ Session::get('success') }}
+												{{ Session::get('success') }}
 											</div>
 										</div>
 									@endif
-									<!-- Select for Societa -->
-									<!-- Input for Targa -->
+
+
+									<!-- Search Input for Veicolo -->
 									<div class="form-group">
-										<label for="targa">Targa</label>
-										<input name="targa" type="text" id="targa" class="form-control" value="{{ old('targa') }}" placeholder="Inserire La Targa (AA123AA)">
+										<label for="searchInput">Veicolo</label>
+										<input list="veicoli" name="searchInput" id="searchInput" class="form-control"
+													 value="{{ old('searchInput') }}" placeholder="Cerca Veicolo">
+										<datalist id="veicoli">
+											<!-- Options will be dynamically loaded -->
+										</datalist>
 									</div>
-									<!-- Select for Destinazione D'Uso -->
+
+									<!-- Hidden Field for the actual Veicolo ID -->
+									<input type="hidden" name="id_veicolo" id="id_veicolo" value="{{ old('id_veicolo') }}">
+
+									<!-- Anno Field -->
 									<div class="form-group">
-										<label for="id_destinazione_uso">Destinazione D'Uso</label>
-										<select name="id_destinazione_uso" id="id_destinazione_uso" class="form-control">
-											<option value="">Selezionare Una Destinazione D'Uso</option>
-											@foreach($lista_destinazione_uso as $destinazione_uso)
-												<option value="{{ $destinazione_uso->id }}" @if($destinazione_uso->id==old('id_destinazione_uso')) selected @endif>{{ $destinazione_uso->nome }}</option>
-											@endforeach
-										</select>
+										<label for="anno">Anno</label>
+										<input type="number" name="anno" id="anno" class="form-control" value="{{ old('anno') }}"
+													 placeholder="Anno">
 									</div>
-									<!-- Select for Societa -->
+
+									<!-- Data Pagamento Field -->
 									<div class="form-group">
-										<label for="id_proprietario">Proprietario</label>
-										<select name="id_proprietario" id="id_proprietario" class="form-control">
-											<option value="" selected>Selezionare Un Proprietario</option>
-											@foreach($lista_societa as $societa)
-												<option value="{{ $societa->id }}" @if($societa->id==old('id_proprietario')) selected @endif>{{ $societa->nome }}</option>
-											@endforeach
-										</select>
+										<label for="data_pagamento">Data Pagamento</label>
+										<input type="date" name="data_pagamento" id="data_pagamento" class="form-control"
+													 value="{{ old('data_pagamento') }}">
 									</div>
-									<!-- Select for Tipo -->
+
+									<!-- Importo Field -->
 									<div class="form-group">
-										<label for="id_tipo">Tipo</label>
-										<select name="id_tipo_veicolo" id="id_tipo_veicolo" class="form-control">
-											<option value="" selected>Selezionare Un Tipo Di Veicolo</option>
-											@foreach($lista_tipo_veicolo as $tipo)
-												<option value="{{ $tipo->id }}" @if($tipo->id==old('id_tipo_veicolo')) selected @endif>{{ $tipo->nome }}</option>
-											@endforeach
-										</select>
+										<label for="importo">Importo</label>
+										<input type="number" step="0.01" name="importo" id="importo" class="form-control"
+													 value="{{ old('importo') }}" placeholder="Importo">
 									</div>
-									<!-- Select for Marca -->
+
+									<!-- Inizio Validità Field -->
 									<div class="form-group">
-										<label for="id_marca">Marca</label>
-										<select name="id_marca" id="id_marca" class="form-control">
-											<option value="" selected>Selezionare Una Marca</option>
-											@foreach($lista_marca as $marca)
-												<option value="{{ $marca->id }}" @if($marca->id==old('id_marca')) selected @endif>{{ $marca->nome }}</option>
-											@endforeach
-										</select>
+										<label for="inizio_validita">Inizio Validità</label>
+										<input type="date" name="inizio_validita" id="inizio_validita" class="form-control"
+													 value="{{ old('inizio_validita') }}">
 									</div>
-									<!-- Select for Modello -->
+
+									<!-- Fine Validità Field -->
 									<div class="form-group">
-										<label for="id_modello">Modello</label>
-										<select name="id_modello" id="id_modello" class="form-control">
-											<option value="" selected>Selezionare Un Modello</option>
-											@foreach($lista_modello as $modello)
-												<option value="{{ $modello->id }}" @if($modello->id==old('id_modello')) selected @endif>{{ $modello->nome }}</option>
-											@endforeach
-										</select>
-									</div>
-									<!-- Select for Tipo Allestimento -->
-									<div class="form-group">
-										<label for="id_tipo_allestimento">Tipo Allestimento</label>
-										<select name="id_tipo_allestimento" id="id_tipo_allestimento" class="form-control">
-											<option value="" selected>Selezionare Un Tipo Di Allestimento</option>
-											@foreach($lista_tipo_allestimento as $tipo_allestimento)
-												<option value="{{ $tipo_allestimento->id }}" @if($tipo_allestimento->id==old('id_tipo_allestimento')) selected @endif>{{ $tipo_allestimento->nome }}</option>
-											@endforeach
-										</select>
-									</div>
-									<!-- Select for Tipo Asse -->
-									<div class="form-group">
-										<label for="id_tipo_asse">Tipo Asse</label>
-										<select name="id_tipo_asse" id="id_tipo_asse" class="form-control">
-											<option value="" selected>Selezionare Un Tipo Di Asse</option>
-											@foreach($lista_tipo_asse as $tipo_asse)
-												<option value="{{ $tipo_asse->id }}" @if($tipo_asse->id==old('id_tipo_asse')) selected @endif>{{ $tipo_asse->nome }}</option>
-											@endforeach
-										</select>
-									</div>
-									<!-- Select for Tipo Cambio -->
-									<div class="form-group">
-										<label for="id_tipo_cambio">Tipo Cambio</label>
-										<select name="id_tipo_cambio" id="id_tipo_cambio" class="form-control">
-											<option value="" selected>Selezionare Un Tipo Di Cambio</option>
-											@foreach($lista_tipo_cambio as $tipo_cambio)
-												<option value="{{ $tipo_cambio->id }}" @if($tipo_cambio->id==old('id_tipo_cambio')) selected @endif>{{ $tipo_cambio->nome }}</option>
-											@endforeach
-										</select>
-									</div>
-									<!-- Select for Tipo Alimentazione -->
-									<div class="form-group">
-										<label for="id_tipo_alimentazione">Tipo Alimentazione</label>
-										<select name="id_tipo_alimentazione" id="id_tipo_alimentazione" class="form-control">
-											<option value="" selected>Selezionare Un Tipo Di Alimentazione</option>
-											@foreach($lista_alimentazione as $tipo_alimentazione)
-												<option value="{{ $tipo_alimentazione->id }}" @if($tipo_alimentazione->id==old('id_tipo_alimentazione')) selected @endif>{{ $tipo_alimentazione->nome }}</option>
-											@endforeach
-										</select>
+										<label for="fine_validita">Fine Validità</label>
+										<input type="date" name="fine_validita" id="fine_validita" class="form-control"
+													 value="{{ old('fine_validita') }}">
 									</div>
 
 
@@ -159,8 +112,6 @@
 									<!--ed::Items-->
 
 
-
-
 									<div class="clearfix"></div>
 									<div class="form-group">
 										<button type="submit" class="btn btn-primary">Inserisci I Dati Nel DB</button>
@@ -180,3 +131,63 @@
 		</div>
 	</div>
 </form>
+
+
+<script>
+
+	// Function to fetch and set vehicle data based on search input
+	function fetchAndSetVehicleData(searchInput, exactId = false) {
+		if (searchInput.length >= 1) {
+			if (exactId) {
+				var searchUrl = "/veicolo/id/";
+			} else {
+				var searchUrl = "/veicolo/search/";
+			}
+
+			$.ajax({
+				url: searchUrl + encodeURIComponent(searchInput),
+				type: 'GET',
+				success: function (data) {
+					$('#veicoli').empty();
+					vehicles = {};
+					data.forEach(function (vehicle) {
+						var optionText = '( ID: ' + vehicle.id + ') ' + vehicle.targa + ' - ' + vehicle.marca_nome + ' ' + vehicle.modello_nome + ' - ' + vehicle.colore;
+						$('#veicoli').append($('<option>').val(optionText));
+						vehicles[optionText] = vehicle.id;
+						if (exactId) {
+							$('#searchInput').val(optionText);
+						}
+					});
+				}
+			});
+		}
+	}
+
+	$(document).ready(function () {
+		var oldSearchInput = "{{ old('searchInput') }}";
+		var oldVeicoloId = "@if(old('id_veicolo')) {{ old('id_veicolo') }} @elseif(isset($id_veicolo)) {{ $id_veicolo }} @endif";
+
+		// If there's an old 'searchInput', repopulate the fields
+		if (oldVeicoloId) {
+			//$('#searchInput').val(oldSearchInput);
+			$('#id_veicolo').val(oldVeicoloId);
+			fetchAndSetVehicleData(oldVeicoloId, true);
+		}
+
+		//var vehicles = {};
+
+		// When an option is selected from the datalist
+		$('#searchInput').on('input', function () {
+			fetchAndSetVehicleData($(this).val());
+			var selectedText = $(this).val();
+			var vehicleId = vehicles[selectedText];
+
+			if (vehicleId) {
+				$('#id_veicolo').val(vehicleId); // Update hidden field with the vehicle ID
+			} else {
+				$('#id_veicolo').val(''); // Clear hidden field if no vehicle is selected
+			}
+		});
+	});
+
+</script>

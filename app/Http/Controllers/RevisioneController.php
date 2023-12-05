@@ -135,4 +135,11 @@
 		{
 			//
 		}
+		/**
+		 * Search the specified resource from storage.
+		 */
+		public function search($search, $exactId = false) {
+			$revisioni = Revisione::search($search, $exactId);
+			return response()->json($revisioni);
+		}
 	}

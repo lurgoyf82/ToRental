@@ -12,11 +12,11 @@
 
 		protected $table = 'atp';
 		public static string $tableName = 'atp';
-		protected $fillable = ['id_veicolo','anno','data_pagamento','inizio_validita','fine_validita','importo'];
+		protected $fillable = ['id_veicolo', 'anno', 'data_pagamento', 'inizio_validita', 'fine_validita', 'importo'];
 
-		public static function getExpiringRevisioniAtp($search=null): \Illuminate\Support\Collection
+		public static function getExpiringRevisioniAtp($search = null): \Illuminate\Support\Collection
 		{
-			if($search!=null) {
+			if ($search != null) {
 				$query = DB::table('dettaglio_veicolo')
 					->leftJoinSub(
 						DB::table('atp')
@@ -94,4 +94,30 @@
 
 			return $query;
 		}
+
+		public static function validationRules(): array
+		{
+			$id_veicolo = 'required|exists:dettaglio_veicolo,id';
+			$anno = 'required|date_format:Y';
+			$data_pagamento = 'required|date_format:Y-m-d';
+			$inizio_validita = 'required|date_format:Y-m-d';
+			$fine_validita = 'required|date_format:Y-m-d|after_or_equal:inizio_validita';
+			$importo = 'required|numeric|min:0';
+
+			return compact('id_veicolo', 'anno', 'data_pagamento', 'inizio_validita', 'fine_validita', 'importo');
+		}
+
+		//Validation Messages
+		public static function validationMessages(): array
+		{
+			$id_veicolo = 'Il veicolo selezionato per "Atp" non è valido';
+			$anno = 'L\'anno specificato per "Atp" non è valido';
+			$data_pagamento = 'La data di pagamento per "Atp" non è valida';
+			$inizio_validita = 'La data di inizio validità per "Atp" non è valida';
+			$fine_validita = 'La data di fine validità per "Atp" non è valida o è precedente alla data di inizio validità';
+			$importo = 'L\'importo per "Atp" non è valido o è negativo';
+
+			return compact('id_veicolo', 'anno', 'data_pagamento', 'inizio_validita', 'fine_validita', 'importo');
+		}
+
 	}

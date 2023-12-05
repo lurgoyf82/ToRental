@@ -8,6 +8,7 @@
 	use Illuminate\Support\Facades\Cache;
 	use Illuminate\Support\Facades\DB;
 	use Illuminate\Support\Facades\Redis;
+	use Illuminate\Support\Facades\Validator;
 
 	class AlertBase extends BaseModel
 	{
@@ -107,6 +108,19 @@
 			return $Dictionary;
 		}
 
+		public static function validatePartial(array $data)
+		{
+			$rules = self::validationRules();
+
+			$applicableRules = [];
+			foreach ($data as $key => $value) {
+				if (array_key_exists($key, $rules)) {
+					$applicableRules[$key] = $rules[$key];
+				}
+			}
+
+			return Validator::make($data, $applicableRules, self::validationMessages())->validate();
+		}
 		public static function getAggregatedAlerts($search=null,$order='livello',$page=1,$slice=true): LengthAwarePaginator
 		{
 			$valid = static::getCurrentValidList();

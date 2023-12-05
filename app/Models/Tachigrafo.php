@@ -13,11 +13,11 @@
 
 		protected $table = 'tachigrafo';
 		public static string $tableName = 'tachigrafo';
-		protected $fillable = ['id_veicolo','anno','data_pagamento','inizio_validita','fine_validita','importo'];
+		protected $fillable = ['id_veicolo', 'anno', 'data_pagamento', 'inizio_validita', 'fine_validita', 'importo'];
 
-		public static function getExpiringRevisioniTachigrafi($search=null): \Illuminate\Support\Collection
+		public static function getExpiringRevisioniTachigrafi($search = null): \Illuminate\Support\Collection
 		{
-			if($search!=null) {
+			if ($search != null) {
 				$query = DB::table('dettaglio_veicolo')
 					->leftJoinSub(
 						DB::table('tachigrafo')
@@ -95,4 +95,30 @@
 
 			return $query;
 		}
+
+		public static function validationRules(): array
+		{
+			$id_veicolo = 'required|exists:dettaglio_veicolo,id';
+			$anno = 'required|date_format:Y';
+			$data_pagamento = 'required|date_format:Y-m-d';
+			$inizio_validita = 'required|date_format:Y-m-d';
+			$fine_validita = 'required|date_format:Y-m-d|after_or_equal:inizio_validita';
+			$importo = 'required|numeric|min:0';
+
+			return compact('id_veicolo', 'anno', 'data_pagamento', 'inizio_validita', 'fine_validita', 'importo');
+		}
+
+		//Validation Messages
+		public static function validationMessages(): array
+		{
+			$id_veicolo = 'Il veicolo selezionato per "Cronotachigrafo" non è valido';
+			$anno = 'L\'anno specificato per "Cronotachigrafo" non è valido';
+			$data_pagamento = 'La data di pagamento per "Cronotachigrafo" non è valida';
+			$inizio_validita = 'La data di inizio validità per "Cronotachigrafo" non è valida';
+			$fine_validita = 'La data di fine validità per "Cronotachigrafo" non è valida o è precedente alla data di inizio validità';
+			$importo = 'L\'importo per "Cronotachigrafo" non è valido o è negativo';
+
+			return compact('id_veicolo', 'anno', 'data_pagamento', 'inizio_validita', 'fine_validita', 'importo');
+		}
+
 	}

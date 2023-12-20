@@ -7,6 +7,10 @@
 
 	class TargaController extends Controller
 	{
+		public function __construct()
+		{
+			$this->model = Targa::class;
+		}
 		/**
 		 * Display a listing of the resource.
 		 */
@@ -62,4 +66,9 @@
 		{
 			//
 		}
+
+//		public function search($search, $exactId = false, $exactIdVeicolo = false) {
+//			$result = Targa::search($search, $exactId, $exactIdVeicolo);
+//			return response()->json($result);
+//		}
 	}

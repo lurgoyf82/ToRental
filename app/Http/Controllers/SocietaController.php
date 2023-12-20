@@ -7,6 +7,10 @@
 
 	class SocietaController extends Controller
 	{
+		public function __construct()
+		{
+			$this->model = Societa::class;
+		}
 		/**
 		 * Display a listing of the resource.
 		 */
@@ -84,4 +88,9 @@
 
 			return redirect()->route('societa.index')->with('success', 'Societa deleted successfully!');
 		}
+
+//		public function search($search, $exactId = false, $exactIdVeicolo = false) {
+//			$result = Societa::search($search, $exactId, $exactIdVeicolo);
+//			return response()->json($result);
+//		}
 	}

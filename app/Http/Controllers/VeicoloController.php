@@ -20,6 +20,10 @@
 
 	class VeicoloController extends Controller
 	{
+		public function __construct()
+		{
+			$this->model = Veicolo::class;
+		}
 		/**
 		 * Display a listing of the resource.
 		 */

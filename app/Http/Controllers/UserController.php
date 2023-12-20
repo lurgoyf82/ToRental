@@ -8,6 +8,10 @@
 
 	class UserController extends Controller
 	{
+		public function __construct()
+		{
+			$this->model = User::class;
+		}
 		//Display a listing of the resource.
 		public function index()
 		{

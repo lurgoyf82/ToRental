@@ -2,10 +2,15 @@
 
 	namespace App\Http\Controllers;
 
+	use App\Models\Leasing;
 	use Illuminate\Http\Request;
 
 	class LeasingController extends Controller
 	{
+		public function __construct()
+		{
+			$this->model = Leasing::class;
+		}
 		//controller for alert leasing
 		public function alert() {
 			return view('leasing_alert');
@@ -67,4 +72,8 @@
 		{
 			//
 		}
+//		public function search($search, $exactId = false, $exactIdVeicolo = false) {
+//			$result = Leasing::search($search, $exactId, $exactIdVeicolo);
+//			return response()->json($result);
+//		}
 	}

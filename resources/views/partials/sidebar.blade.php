@@ -9,7 +9,7 @@
 		return Alert::getAllAggregatedAlertsSummary();
 	});
 
-	$class_alerts = array('0' => 'badge-secondary', '1' => 'badge-primary', '2' => 'badge-success', '3' => 'badge-warning', '4' => 'badge-danger');
+	$class_alerts = array('0' => 'badge-secondary', '1' => 'badge-primary', '2' => 'badge-success', '3' => 'badge-warning', '4' => 'badge-danger', '5' => 'badge-danger', '6' => 'badge-dark');
 
 	$count_alerts = $alerts[0];
 	$color_alerts = $alerts[1];
@@ -22,8 +22,8 @@
 	<!--begin::Logo-->
 	<div class="app-sidebar-logo px-6" id="kt_app_sidebar_logo">
 		<!--begin::Logo image-->
-		<img alt="Logo" src="logo-furgoni-2.svg" class="h-25px app-sidebar-logo-default"/>
-		<img alt="Logo" src="logo-furgoni-2.svg" class="h-20px app-sidebar-logo-minimize"/>
+		<img alt="Logo" src="assets/media/logos/logo-furgoni-2.svg" class="h-25px app-sidebar-logo-default"/>
+		<img alt="Logo" src="assets/media/logos/logo-furgoni-2.svg" class="h-20px app-sidebar-logo-minimize"/>
 		<!--end::Logo image-->
 		<?php
 			//include_once('sidebar-toggle.php');
@@ -302,6 +302,7 @@
 								<!--end:Menu link-->
 							</div>
 							<!--end:Menu item-->
+							@if(request()->is('update_veicolo/*'))
 							<!--begin:Menu item-->
 							<div class="menu-item">
 								<!--begin:Menu link-->
@@ -314,6 +315,9 @@
 								<!--end:Menu link-->
 							</div>
 							<!--end:Menu item-->
+							@endif
+
+							@if(request()->is('delete_veicolo/*'))
 							<!--begin:Menu item-->
 							<div class="menu-item">
 								<!--begin:Menu link-->
@@ -326,6 +330,7 @@
 								<!--end:Menu link-->
 							</div>
 							<!--end:Menu item-->
+							@endif
 						</div>
 						<!--end:Menu sub-->
 					</div>
@@ -368,7 +373,7 @@
 									<span class="menu-bullet">
 											<span class="bullet bullet-dot"></span>
 									</span>
-									<span class="menu-title">Elenco</span>
+									<span class="menu-title">Lista</span>
 								</a>
 								<!--end:Menu link-->
 							</div>
@@ -439,11 +444,12 @@
 									<span class="menu-bullet">
 											<span class="bullet bullet-dot"></span>
 									</span>
-									<span class="menu-title">Elenco</span>
+									<span class="menu-title">Lista</span>
 								</a>
 								<!--end:Menu link-->
 							</div>
 							<!--end:Menu item-->
+							@if(request()->is('update_assicurazione/*'))
 							<!--begin:Menu item-->
 							<div class="menu-item">
 								<!--begin:Menu link-->
@@ -456,6 +462,8 @@
 								<!--end:Menu link-->
 							</div>
 							<!--end:Menu item-->
+							@endif
+							@if(request()->is('delete_assicurazione/*'))
 							<!--begin:Menu item-->
 							<div class="menu-item">
 								<!--begin:Menu link-->
@@ -468,6 +476,7 @@
 								<!--end:Menu link-->
 							</div>
 							<!--end:Menu item-->
+							@endif
 						</div>
 						<!--end:Menu sub-->
 					</div>
@@ -510,11 +519,12 @@
 									<span class="menu-bullet">
 											<span class="bullet bullet-dot"></span>
 									</span>
-									<span class="menu-title">Elenco</span>
+									<span class="menu-title">Lista</span>
 								</a>
 								<!--end:Menu link-->
 							</div>
 							<!--end:Menu item-->
+							@if(request()->is('update_bollo/*'))
 							<!--begin:Menu item-->
 							<div class="menu-item">
 								<!--begin:Menu link-->
@@ -527,6 +537,8 @@
 								<!--end:Menu link-->
 							</div>
 							<!--end:Menu item-->
+							@endif
+							@if(request()->is('delete_bollo/*'))
 							<!--begin:Menu item-->
 							<div class="menu-item">
 								<!--begin:Menu link-->
@@ -539,6 +551,7 @@
 								<!--end:Menu link-->
 							</div>
 							<!--end:Menu item-->
+							@endif
 						</div>
 						<!--end:Menu sub-->
 					</div>
@@ -581,11 +594,12 @@
 									<span class="menu-bullet">
 											<span class="bullet bullet-dot"></span>
 									</span>
-									<span class="menu-title">Elenco</span>
+									<span class="menu-title">Lista</span>
 								</a>
 								<!--end:Menu link-->
 							</div>
 							<!--end:Menu item-->
+							@if(request()->is('update_tagliando/*'))
 							<!--begin:Menu item-->
 							<div class="menu-item">
 								<!--begin:Menu link-->
@@ -598,6 +612,8 @@
 								<!--end:Menu link-->
 							</div>
 							<!--end:Menu item-->
+							@endif
+							@if(request()->is('delete_tagliando/*'))
 							<!--begin:Menu item-->
 							<div class="menu-item">
 								<!--begin:Menu link-->
@@ -610,6 +626,7 @@
 								<!--end:Menu link-->
 							</div>
 							<!--end:Menu item-->
+							@endif
 						</div>
 						<!--end:Menu sub-->
 					</div>
@@ -652,11 +669,12 @@
 									<span class="menu-bullet">
 											<span class="bullet bullet-dot"></span>
 									</span>
-									<span class="menu-title">Elenco</span>
+									<span class="menu-title">Lista</span>
 								</a>
 								<!--end:Menu link-->
 							</div>
 							<!--end:Menu item-->
+							@if(request()->is('update_gps/*'))
 							<!--begin:Menu item-->
 							<div class="menu-item">
 								<!--begin:Menu link-->
@@ -669,6 +687,9 @@
 								<!--end:Menu link-->
 							</div>
 							<!--end:Menu item-->
+							@endif
+
+							@if(request()->is('delete_gps/*'))
 							<!--begin:Menu item-->
 							<div class="menu-item">
 								<!--begin:Menu link-->
@@ -681,6 +702,7 @@
 								<!--end:Menu link-->
 							</div>
 							<!--end:Menu item-->
+							@endif
 						</div>
 						<!--end:Menu sub-->
 					</div>
@@ -723,11 +745,13 @@
 									<span class="menu-bullet">
 											<span class="bullet bullet-dot"></span>
 									</span>
-									<span class="menu-title">Elenco</span>
+									<span class="menu-title">Lista</span>
 								</a>
 								<!--end:Menu link-->
 							</div>
 							<!--end:Menu item-->
+
+							@if(request()->is('update_multa/*'))
 							<!--begin:Menu item-->
 							<div class="menu-item">
 								<!--begin:Menu link-->
@@ -740,6 +764,8 @@
 								<!--end:Menu link-->
 							</div>
 							<!--end:Menu item-->
+							@endif
+							@if(request()->is('delete_multa/*'))
 							<!--begin:Menu item-->
 							<div class="menu-item">
 								<!--begin:Menu link-->
@@ -752,6 +778,7 @@
 								<!--end:Menu link-->
 							</div>
 							<!--end:Menu item-->
+							@endif
 						</div>
 						<!--end:Menu sub-->
 					</div>
@@ -794,11 +821,12 @@
 									<span class="menu-bullet">
 											<span class="bullet bullet-dot"></span>
 									</span>
-									<span class="menu-title">Elenco</span>
+									<span class="menu-title">Lista</span>
 								</a>
 								<!--end:Menu link-->
 							</div>
 							<!--end:Menu item-->
+							@if(request()->is('update_revisione/*'))
 							<!--begin:Menu item-->
 							<div class="menu-item">
 								<!--begin:Menu link-->
@@ -811,6 +839,8 @@
 								<!--end:Menu link-->
 							</div>
 							<!--end:Menu item-->
+							@endif
+							@if(request()->is('delete_revisione/*'))
 							<!--begin:Menu item-->
 							<div class="menu-item">
 								<!--begin:Menu link-->
@@ -823,6 +853,7 @@
 								<!--end:Menu link-->
 							</div>
 							<!--end:Menu item-->
+							@endif
 						</div>
 						<!--end:Menu sub-->
 					</div>
@@ -866,7 +897,7 @@
 									<span class="menu-bullet">
 											<span class="bullet bullet-dot"></span>
 									</span>
-									<span class="menu-title">Elenco</span>
+									<span class="menu-title">Lista</span>
 								</a>
 								<!--end:Menu link-->
 							</div>

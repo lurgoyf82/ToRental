@@ -8,6 +8,10 @@
 
 	class AtpController extends Controller
 	{
+		public function __construct()
+		{
+			$this->model = Atp::class;
+		}
 		public function listExpiringRevisioniAtp(Request $request): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
 		{
 			$search = $request->input('search',null);

@@ -24,13 +24,31 @@
 
 	class DettaglioVeicoloController extends Controller
 	{
+		public function __construct()
+		{
+			$this->model = DettaglioVeicolo::class;
+		}
 		/**
 		 * Display a listing of the resource.
 		 */
-		public function index()
+		public function index(Request $request): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
 		{
-			return view('list_veicolo');
+			$search = $request->input('search',null);
+			$order  = $request->input('order','livello');
+			$page   = $request->input('page', 1);  // default to 1 if not provided
+
+
+			$expiringRevisioniMeccaniche = DettaglioVeicolo::index($search, $order, $page);
+
+			$targaList= Targa::getTargaListByIdVeicolo();
+			foreach ($expiringRevisioniMeccaniche as $key=>$alert) {
+				if(isset($targaList[$alert->id_veicolo])) {
+					$expiringRevisioniMeccaniche[$key]->targa = $targaList[$alert->id_veicolo]->targa;
+				}
+			}
+			return view('list_veicolo', ['expiringRevisioniMeccaniche' => $expiringRevisioniMeccaniche]);
 		}
+
 
 		/**
 		 * Show the form for creating a new resource.
@@ -131,13 +149,16 @@
 			$veicolo->delete();
 			return redirect()->route('list_veicolo')->with('success', 'Veicolo deleted successfully.');
 		}
+
 		/**
 		 * Search the specified resource from storage.
 		 */
-		public function search($search, $exactId = false) {
-			$veicoli = DettaglioVeicolo::search($search, $exactId);
-			return response()->json($veicoli);
-		}
+//		public function search($search, $search = false, $searchField = false)
+//		{
+//			var_dump($searchField, $searchFieldVeicolo);
+//			$result = DettaglioVeicolo::search($search, $searchField, $searchField);
+//			return response()->json($result);
+//		}
 	}
 
 	//

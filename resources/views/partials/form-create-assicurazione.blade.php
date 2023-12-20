@@ -14,8 +14,8 @@
 						<div class="card-header pt-5">
 							<!--begin::Title-->
 							<h3 class="card-title align-items-start flex-column">
-								<span class="card-label fw-bold text-dark">Inserisci Dati Del Veicolo</span>
-								<span class="text-gray-400 mt-1 fw-semibold fs-6">Selezione dati Essenziali</span>
+								<span class="card-label fw-bold text-dark">Inserisci Dati Dell' Assicurazione</span>
+								<span class="text-gray-400 mt-1 fw-semibold fs-6">Seleziona il veicolo ed inserisci l' Assicurazione</span>
 							</h3>
 							<!--end::Title-->
 						</div>

@@ -18,6 +18,10 @@
 
 	class RevisioneController extends Controller
 	{
+		public function __construct()
+		{
+			$this->model = Revisione::class;
+		}
 		/*
 		public function listExpiringRevisioniMeccaniche(Request $request): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
 		{
@@ -138,8 +142,8 @@
 		/**
 		 * Search the specified resource from storage.
 		 */
-		public function search($search, $exactId = false) {
-			$revisioni = Revisione::search($search, $exactId);
-			return response()->json($revisioni);
-		}
+//		public function search($search, $searchField = false, $searchFieldVeicolo = false) {
+//			$result = Revisione::search($search, $searchField, $searchFieldVeicolo);
+//			return response()->json($result);
+//		}
 	}

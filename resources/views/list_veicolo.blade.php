@@ -17,7 +17,7 @@
 		<!--begin::Wrapper-->
 		<div class="app-wrapper flex-column flex-row-fluid" id="kt_app_wrapper">
 			@include('partials.sidebar')
-			@include('partials.list_main')
+			@include('partials.list_veicolo_main')
 		</div>
 		<!--end::Wrapper-->
 	</div>

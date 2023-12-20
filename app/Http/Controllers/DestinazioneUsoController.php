@@ -16,6 +16,10 @@
 
 	class DestinazioneUsoController extends Controller
 	{
+		public function __construct()
+		{
+			$this->model = DestinazioneUso::class;
+		}
 		/**
 		 * Display a listing of the resource.
 		 */
@@ -102,4 +106,9 @@
 		{
 			//
 		}
+
+//		public function search($search, $searchField = false, $searchFieldVeicolo = false) {
+//			$result = DestinazioneUso::search($search, $searchField, $searchFieldVeicolo);
+//			return response()->json($result);
+//		}
 	}

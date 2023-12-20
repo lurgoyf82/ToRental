@@ -7,6 +7,10 @@
 
 	class TipoVeicoloController extends Controller
 	{
+		public function __construct()
+		{
+			$this->model = TipoVeicolo::class;
+		}
 		/**
 		 * Display a listing of the resource.
 		 */
@@ -62,4 +66,8 @@
 		{
 			//
 		}
+//		public function search($search, $exactId = false, $exactIdVeicolo = false) {
+//			$result = TipoVeicolo::search($search, $exactId, $exactIdVeicolo);
+//			return response()->json($result);
+//		}
 	}

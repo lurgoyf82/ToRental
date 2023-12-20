@@ -7,6 +7,10 @@
 
 	class ModelloController extends Controller
 	{
+		public function __construct()
+		{
+			$this->model = Modello::class;
+		}
 		/**
 		 * Display a listing of the resource.
 		 */
@@ -73,5 +77,9 @@
 			$modelli = Modello::where('id_marca', $id)->pluck('nome', 'id');
 			return response()->json($modelli);
 		}
+//		public function search($search, $searchField = false, $searchFieldVeicolo = false) {
+//			$result = Modello::search($search, $searchField, $searchFieldVeicolo);
+//			return response()->json($result);
+//		}
 
 	}

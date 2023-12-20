@@ -19,6 +19,11 @@
 
 	class AssicurazioneController extends Controller
 	{
+		public function __construct()
+		{
+			$this->model = Assicurazione::class;
+		}
+
 		public function listExpiringPolizzeAssicurative(Request $request): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
 		{
 			$search = $request->input('search',null);
@@ -42,10 +47,24 @@
 		 */
 
 
-		public function index()
+		public function index(Request $request): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
 		{
-			//
+			$search = $request->input('search',null);
+			$order  = $request->input('order','id');
+			$page   = $request->input('page', 1);  // default to 1 if not provided
+
+
+			$expiringRevisioniMeccaniche = DettaglioVeicolo::index($search, $order, $page);
+
+			$targaList= Targa::getTargaListByIdVeicolo();
+			foreach ($expiringRevisioniMeccaniche as $key=>$alert) {
+				if(isset($targaList[$alert->id_veicolo])) {
+					$expiringRevisioniMeccaniche[$key]->targa = $targaList[$alert->id_veicolo]->targa;
+				}
+			}
+			return view('list_veicolo', ['expiringRevisioniMeccaniche' => $expiringRevisioniMeccaniche]);
 		}
+
 
 		/**
 		 * Show the form for creating a new resource.
@@ -137,8 +156,4 @@
 		/**
 		 * Search the specified resource from storage.
 		 */
-		public function search($search, $exactId = false) {
-			$assicurazioni = Assicurazione::search($search, $exactId);
-			return response()->json($assicurazioni);
-		}
 	}

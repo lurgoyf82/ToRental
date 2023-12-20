@@ -7,6 +7,10 @@
 
 	class TipoAsseController extends Controller
 	{
+		public function __construct()
+		{
+			$this->model = TipoAsse::class;
+		}
 		/**
 		 * Display a listing of the resource.
 		 */
@@ -62,4 +66,8 @@
 		{
 			//
 		}
+//		public function search($search, $searchField = false, $searchFieldVeicolo = false) {
+//			$result = TipoAsse::search($search, $searchField, $exactIdVeicolo);
+//			return response()->json($result);
+//		}
 	}

@@ -13,7 +13,9 @@
 
 		protected $table = 'gps';
 		public static string $tableName = 'gps';
-		protected $fillable = ['id','seriale','modello','costruttore','data_acquisto','stato'];
+		protected $fillable = ['id_veicolo', 'numero_imei', 'seriale', 'modello', 'costruttore',
+			'data_assegnazione', 'data_rimozione', 'data_acquisto', 'stato', 'note'];
+
 
 		public static function getExpiringGps($search=null): \Illuminate\Support\Collection
 		{
@@ -95,7 +97,40 @@
 
 			return $query;
 		}
+
 		public static function validationRules(): array
+		{
+			$id_veicolo = 'nullable|exists:dettaglio_veicolo,id';
+			$numero_imei = 'required|string|min:5|max:255';
+			$seriale = 'nullable|string|max:255';
+			$modello = 'nullable|string|max:255';
+			$costruttore = 'nullable|string|max:255';
+			$data_assegnazione = 'nullable|date_format:Y-m-d';
+			$data_rimozione = 'nullable|date_format:Y-m-d|after_or_equal:data_assegnazione';
+			$data_acquisto = 'nullable|date_format:Y-m-d';
+			$stato = 'required|in:attivo,inattivo,in_mantenimento';
+			$note = 'nullable|string';
+
+			return compact('id_veicolo', 'numero_imei', 'seriale', 'modello', 'costruttore', 'data_assegnazione', 'data_rimozione', 'data_acquisto', 'stato', 'note');
+		}
+
+		public static function validationMessages(): array
+		{
+			$id_veicolo = 'Il veicolo selezionato per il GPS non è valido';
+			$numero_imei = 'Il numero IMEI del GPS è obbligatorio e deve essere una stringa valida';
+			$seriale = 'Il numero di serie del GPS deve essere una stringa valida';
+			$modello = 'Il modello del GPS deve essere una stringa valida';
+			$costruttore = 'Il costruttore del GPS deve essere una stringa valida';
+			$data_assegnazione = 'La data di assegnazione del GPS non è valida';
+			$data_rimozione = 'La data di rimozione del GPS non è valida o è precedente alla data di assegnazione';
+			$data_acquisto = 'La data di acquisto del GPS non è valida';
+			$stato = 'Lo stato del GPS non è valido o non è tra le opzioni consentite (attivo, inattivo, in mantenimento)';
+			$note = 'Le note per il GPS devono essere una stringa valida';
+
+			return compact('id_veicolo', 'numero_imei', 'seriale', 'modello', 'costruttore', 'data_assegnazione', 'data_rimozione', 'data_acquisto', 'stato', 'note');
+		}
+
+		public static function validationRules2(): array
 		{
 			$seriale = 'required|string|max:255';
 			$modello = 'nullable|string|max:100';
@@ -116,7 +151,7 @@
 			return compact('id_veicolo', 'id_gps', 'assegnato_da', 'assegnato_a');
 		}
 
-		public static function validationMessages(): array
+		public static function validationMessages2(): array
 		{
 			$seriale = 'Il seriale del GPS non è valido o mancante';
 			$modello = 'Il modello del GPS non è valido';
@@ -138,7 +173,7 @@
 		}
 
 
-		static function search($search, $exactId = false)
+		static function search($search, $searchField = false)
 		{
 			return self::query()
 				->from('gps')
@@ -154,8 +189,8 @@
 				->leftJoin('destinazione_uso', 'destinazione_uso.id', '=', 'dettaglio_veicolo.destinazione_uso')
 				->leftJoin('tipo_alimentazione', 'tipo_alimentazione.id', '=', 'dettaglio_veicolo.alimentazione')
 				->leftJoin('targa', 'targa.id_veicolo', '=', 'dettaglio_veicolo.id')
-				->where(function ($query) use ($search, $exactId) {
-					if ($exactId) {
+				->where(function ($query) use ($search, $searchField) {
+					if ($searchField) {
 						// Only search by ID
 						$query->where('gps.id', '=', $search)
 							->orWhere('dettaglio_veicolo.id', '=', $search);

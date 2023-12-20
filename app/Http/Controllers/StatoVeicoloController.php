@@ -7,6 +7,10 @@
 
 	class StatoVeicoloController extends Controller
 	{
+		public function __construct()
+		{
+			$this->model = StatoVeicolo::class;
+		}
 		/**
 		 * Display a listing of the resource.
 		 */
@@ -62,4 +66,9 @@
 		{
 			//
 		}
+
+//		public function search($search, $searchField = false, $searchFieldVeicolo = false) {
+//			$result = StatoVeicolo::search($search, $searchField, $searchFieldVeicolo);
+//			return response()->json($result);
+//		}
 	}

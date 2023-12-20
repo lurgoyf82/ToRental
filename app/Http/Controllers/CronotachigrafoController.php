@@ -2,10 +2,15 @@
 
 	namespace App\Http\Controllers;
 
+	use App\Models\Cronotachigrafo;
 	use Illuminate\Http\Request;
 
 	class CronotachigrafoController extends Controller
 	{
+		public function __construct()
+		{
+			$this->model = Cronotachigrafo::class;
+		}
 		/**
 		 * Display a listing of the resource.
 		 */

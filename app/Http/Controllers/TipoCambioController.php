@@ -7,6 +7,10 @@
 
 	class TipoCambioController extends Controller
 	{
+		public function __construct()
+		{
+			$this->model = TipoCambio::class;
+		}
 		/**
 		 * Display a listing of the resource.
 		 */
@@ -62,4 +66,8 @@
 		{
 			//
 		}
+//		public function search($search, $searchField = false, $exactIdVeicolo = false) {
+//			$result = TipoCambio::search($search, $exactId, $exactIdVeicolo);
+//			return response()->json($result);
+//		}
 	}

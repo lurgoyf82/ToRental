@@ -55,42 +55,65 @@
 										</datalist>
 									</div>
 
+
 									<!-- Hidden Field for the actual Veicolo ID -->
 									<input type="hidden" name="id_veicolo" id="id_veicolo" value="{{ old('id_veicolo') }}">
 
-									<!-- Anno Field -->
+									<!-- Numero IMEI Field -->
 									<div class="form-group">
-										<label for="anno">Anno</label>
-										<input type="number" name="anno" id="anno" class="form-control" value="{{ old('anno') }}"
-													 placeholder="Anno">
+										<label for="numero_imei">Numero IMEI</label>
+										<input type="text" name="numero_imei" id="numero_imei" class="form-control" value="{{ old('numero_imei') }}" placeholder="Numero IMEI">
 									</div>
 
-									<!-- Data Pagamento Field -->
+
+									<!-- Seriale Field -->
 									<div class="form-group">
-										<label for="data_pagamento">Data Pagamento</label>
-										<input type="date" name="data_pagamento" id="data_pagamento" class="form-control"
-													 value="{{ old('data_pagamento') }}">
+										<label for="seriale">Seriale</label>
+										<input type="text" name="seriale" id="seriale" class="form-control" value="{{ old('seriale') }}" placeholder="Seriale">
 									</div>
 
-									<!-- Importo Field -->
+
+									<!-- Modello Field -->
 									<div class="form-group">
-										<label for="importo">Importo</label>
-										<input type="number" step="0.01" name="importo" id="importo" class="form-control"
-													 value="{{ old('importo') }}" placeholder="Importo">
+										<label for="modello">Modello</label>
+										<input type="text" name="modello" id="modello" class="form-control" value="{{ old('modello') }}" placeholder="Modello">
 									</div>
 
-									<!-- Inizio Validità Field -->
+
+									<!-- Costruttore Field -->
 									<div class="form-group">
-										<label for="inizio_validita">Inizio Validità</label>
-										<input type="date" name="inizio_validita" id="inizio_validita" class="form-control"
-													 value="{{ old('inizio_validita') }}">
+										<label for="costruttore">Costruttore</label>
+										<input type="text" name="costruttore" id="costruttore" class="form-control" value="{{ old('costruttore') }}" placeholder="Costruttore">
 									</div>
 
-									<!-- Fine Validità Field -->
+
+									<!-- Data Assegnazione Field -->
 									<div class="form-group">
-										<label for="fine_validita">Fine Validità</label>
-										<input type="date" name="fine_validita" id="fine_validita" class="form-control"
-													 value="{{ old('fine_validita') }}">
+										<label for="data_assegnazione">Data Assegnazione</label>
+										<input type="date" name="data_assegnazione" id="data_assegnazione" class="form-control" value="{{ old('data_assegnazione') }}">
+									</div>
+
+
+									<!-- Data Acquisto Field -->
+									<div class="form-group">
+										<label for="data_acquisto">Data Acquisto</label>
+										<input type="date" name="data_acquisto" id="data_acquisto" class="form-control" value="{{ old('data_acquisto') }}">
+									</div>
+
+									<!-- Stato Field -->
+									<div class="form-group">
+										<label for="stato">Stato</label>
+										<select name="stato" id="stato" class="form-control">
+											<option value="attivo" {{ old('stato') == 'attivo' ? 'selected' : '' }}>Attivo</option>
+											<option value="inattivo" {{ old('stato') == 'inattivo' ? 'selected' : '' }}>Inattivo</option>
+											<option value="in_mantenimento" {{ old('stato') == 'in_mantenimento' ? 'selected' : '' }}>In Mantenimento</option>
+										</select>
+									</div>
+
+									<!-- Note Field -->
+									<div class="form-group">
+										<label for="note">Note</label>
+										<textarea name="note" id="note" class="form-control" placeholder="Note">{{ old('note') }}</textarea>
 									</div>
 
 

@@ -120,4 +120,28 @@
 			return compact('id_veicolo', 'anno', 'data_pagamento', 'inizio_validita', 'fine_validita', 'importo');
 		}
 
+
+
+		public static function search($search, $searchField = false)
+		{
+			$query = self::query()
+				->from(self::$tableName)
+				->leftJoin('dettaglio_veicolo', 'dettaglio_veicolo.id', '=', self::$tableName.'.id_veicolo');
+			$query = self::commonJoins($query)->where(function ($query) use ($search, $searchField) {
+				$scopeSearch = self::scopeSearch($query, $search, $searchField);
+				if ($scopeSearch == null) {
+					// General search across multiple fields
+					$query->where(self::$tableName.'.id', '=', $search);
+					$query=self::commonWheres($query,$search);
+				} else {
+					$query = $scopeSearch;
+				}
+			});
+
+			$results = $query->get(array_merge([
+				self::$tableName.'.id'], self::commonSelect()));
+
+			return $results;
+		}
+
 	}

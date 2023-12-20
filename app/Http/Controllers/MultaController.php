@@ -17,6 +17,10 @@
 
 	class MultaController extends Controller
 	{
+		public function __construct()
+		{
+			$this->model = Multa::class;
+		}
 		//controller for alert leasing
 		public function alert() {
 			return view('multa_alert');
@@ -110,8 +114,8 @@
 		/**
 		 * Search the specified resource from storage.
 		 */
-		public function search($search, $exactId = false) {
-			$multe = Multa::search($search, $exactId);
-			return response()->json($multe);
-		}
+//		public function search($search, $searchField = false, $searchFieldVeicolo = false) {
+//			$result = Multa::search($search, $searchField, $searchFieldVeicolo);
+//			return response()->json($result);
+//		}
 	}

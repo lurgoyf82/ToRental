@@ -1,5 +1,6 @@
 <?php
 
+	use App\Http\Controllers\AssegnamentoGpsController;
 	use App\Http\Controllers\DecorazioneController;
 	use App\Http\Controllers\DettaglioVeicoloController;
 	use App\Http\Controllers\GpsController;
@@ -83,10 +84,13 @@
 		Route::post('store_veicolo', [DettaglioVeicoloController::class, 'store'])->name('store_veicolo');
 
 		// Search by general criteria
-		Route::get('veicolo/search/{search}', [DettaglioVeicoloController::class, 'search'])->defaults('exactId', false);
+		Route::get('veicolo/search/{search}', [DettaglioVeicoloController::class, 'search'])->defaults('searchField', false);
 
 		// Search by ID
-		Route::get('veicolo/id/{search}', [DettaglioVeicoloController::class, 'search'])->defaults('exactId', true);
+		Route::get('veicolo/id/{search}', [DettaglioVeicoloController::class, 'search'])->defaults('searchField', 'id');
+
+		// Search by id_veicolo
+		Route::get('veicolo/targa/{search}', [DettaglioVeicoloController::class, 'search'])->defaults('searchField', 'targa');
 
 		// Fallback for accessing store_veicolo via GET
 		Route::get('store_veicolo', function () {
@@ -141,10 +145,13 @@
 		Route::post('store_assicurazione', [AssicurazioneController::class, 'store'])->name('store_assicurazione');
 
 		// Search by general criteria
-		Route::get('assicurazione/search/{search}', [AssicurazioneController::class, 'search'])->defaults('exactId', false);
+		Route::get('assicurazione/search/{search}', [AssicurazioneController::class, 'search'])->defaults('searchField', false);
 
-		// Search by ID
-		Route::get('assicurazione/id/{search}', [AssicurazioneController::class, 'search'])->defaults('exactId', true);
+		// Search by id assicurazione
+		Route::get('assicurazione/id/{search}', [AssicurazioneController::class, 'search'])->defaults('searchField', 'id');
+
+		// Search by id veicolo
+		Route::get('assicurazione/id_veicolo/{search}', [AssicurazioneController::class, 'search'])->defaults('searchField', 'id_veicolo');
 
 		// Fallback for accessing store_assicurazione via GET
 		Route::get('store_assicurazione', function () {
@@ -174,10 +181,10 @@
 		Route::post('store_bollo', [BolloController::class, 'store'])->name('store_bollo');
 
 		// Search by general criteria
-		Route::get('bollo/search/{search}', [BolloController::class, 'search'])->defaults('exactId', false);
+		Route::get('bollo/search/{search}', [BolloController::class, 'search'])->defaults('searchField', false);
 
 		// Search by ID
-		Route::get('bollo/id/{search}', [BolloController::class, 'search'])->defaults('exactId', true);
+		Route::get('bollo/id/{search}', [BolloController::class, 'search'])->defaults('searchField', true);
 
 		// Fallback for accessing store_bollo via GET
 		Route::get('store_bollo', function () {
@@ -207,10 +214,10 @@
 		Route::post('store_tagliando', [TagliandoController::class, 'store'])->name('store_tagliando');
 
 		// Search by general criteria
-		Route::get('tagliando/search/{search}', [TagliandoController::class, 'search'])->defaults('exactId', false);
+		Route::get('tagliando/search/{search}', [TagliandoController::class, 'search'])->defaults('searchField', false);
 
 		// Search by ID
-		Route::get('tagliando/id/{search}', [TagliandoController::class, 'search'])->defaults('exactId', true);
+		Route::get('tagliando/id/{search}', [TagliandoController::class, 'search'])->defaults('searchField', true);
 
 		// Fallback for accessing store_tagliando via GET
 		Route::get('store_tagliando', function () {
@@ -240,15 +247,55 @@
 		Route::post('store_gps', [GpsController::class, 'store'])->name('store_gps');
 
 		// Search by general criteria
-		Route::get('gps/search/{search}', [GpsController::class, 'search'])->defaults('exactId', false);
+		Route::get('gps/search/{search}', [GpsController::class, 'search'])->defaults('searchField', false);
 
 		// Search by ID
-		Route::get('gps/id/{search}', [GpsController::class, 'search'])->defaults('exactId', true);
+		Route::get('gps/id/{search}', [GpsController::class, 'search'])->defaults('searchField', true);
 
 		// Fallback for accessing store_gps via GET
 		Route::get('store_gps', function () {
 			return redirect()->route('create_gps');
 		});
+
+		/**************************************  ASSEGNAMENTO_GPS  **************************************/
+
+//		// Display the form for creating a new assicurazione
+//		Route::get('create_assegnamento_gps', [AssegnamentoGpsController::class, 'create'])->name('create_assegnamento_gps');
+//
+//		Route::get('create_assegnamento_gps/{id_veicolo}', [AssegnamentoGpsController::class, 'create'])->name('create_assegnamento_gps_with_id');
+//
+//		// Display a list of assicurazione
+//		Route::get('list_assegnamento_gps', [AssegnamentoGpsController::class, 'index'])->name('list_assegnamento_gps');
+//
+//		// Show the form for editing a assicurazione
+//		Route::get('update_assegnamento_gps/{id}', [AssegnamentoGpsController::class, 'edit'])->name('update_assegnamento_gps');
+//
+//		// Update the specified assicurazione
+//		Route::put('update_assegnamento_gps/{id}', [AssegnamentoGpsController::class, 'update_assegnamento_gps']);
+//
+//		// Delete the specified assicurazione
+//		Route::delete('delete_assegnamento_gps/{id}', [AssegnamentoGpsController::class, 'destroy'])->name('delete_assegnamento_gps');
+//
+//		// Store a newly created assicurazione
+//		Route::post('store_assegnamento_gps', [AssegnamentoGpsController::class, 'store'])->name('store_assegnamento_gps');
+//
+		// Search by general criteria
+		Route::get('assegnamento_gps/search/{search}', [AssegnamentoGpsController::class, 'search'])->defaults('searchField', false);
+
+		// Search by ID
+		Route::get('assegnamento_gps/id/{search}', [AssegnamentoGpsController::class, 'search'])->defaults('searchField', 'id');
+
+		// Search by id_veicolo
+		Route::get('assegnamento_gps/id_veicolo/{search}', [AssegnamentoGpsController::class, 'search'])->defaults('searchField', 'id_veicolo');
+
+		// Search by id_veicolo
+		Route::get('assegnamento_gps/targa/{search}', [AssegnamentoGpsController::class, 'search'])->defaults('searchField', 'targa');
+
+//
+//		// Fallback for accessing store_assegnamento_gps via GET
+//		Route::get('store_assegnamento_gps', function () {
+//			return redirect()->route('create_assegnamento_gps');
+//		});
 
 		/**************************************  MULTA  **************************************/
 
@@ -273,10 +320,10 @@
 		Route::post('store_multa', [MultaController::class, 'store'])->name('store_multa');
 
 		// Search by general criteria
-		Route::get('multa/search/{search}', [MultaController::class, 'search'])->defaults('exactId', false);
+		Route::get('multa/search/{search}', [MultaController::class, 'search'])->defaults('searchField', false);
 
 		// Search by ID
-		Route::get('multa/id/{search}', [MultaController::class, 'search'])->defaults('exactId', true);
+		Route::get('multa/id/{search}', [MultaController::class, 'search'])->defaults('searchField', true);
 
 		// Fallback for accessing store_multa via GET
 		Route::get('store_multa', function () {
@@ -306,10 +353,10 @@
 		Route::post('store_revisione', [RevisioneController::class, 'store'])->name('store_revisione');
 
 		// Search by general criteria
-		Route::get('revisione/search/{search}', [RevisioneController::class, 'search'])->defaults('exactId', false);
+		Route::get('revisione/search/{search}', [RevisioneController::class, 'search'])->defaults('searchField', false);
 
 		// Search by ID
-		Route::get('revisione/id/{search}', [RevisioneController::class, 'search'])->defaults('exactId', true);
+		Route::get('revisione/id/{search}', [RevisioneController::class, 'search'])->defaults('searchField', true);
 
 
 		// Fallback for accessing store_revisione via GET
@@ -349,6 +396,19 @@
 
 
 
+		/**************************************  ATP  **************************************/
+
+		// Search by general criteria
+		Route::get('atp/search/{search}', [AtpController::class, 'search'])->defaults('searchField', false);
+
+		// Search by ID
+		Route::get('atp/id/{search}', [AtpController::class, 'search'])->defaults('searchField', 'id');
+
+		// Search by id_veicolo
+		Route::get('atp/id_veicolo/{search}', [AtpController::class, 'search'])->defaults('searchField', 'id_veicolo');
+
+		// Search by id_veicolo
+		Route::get('atp/targa/{search}', [AtpController::class, 'search'])->defaults('searchField', 'targa');
 
 
 

@@ -119,7 +119,7 @@
 
 			return compact('id_veicolo', 'anno', 'data_pagamento', 'inizio_validita', 'fine_validita', 'importo');
 		}
-		static function search($search, $exactId = false)
+		static function search($search, $searchField = false)
 		{
 			return self::query()
 				->from('bollo')
@@ -134,8 +134,8 @@
 				->leftJoin('destinazione_uso', 'destinazione_uso.id', '=', 'dettaglio_veicolo.destinazione_uso')
 				->leftJoin('tipo_alimentazione', 'tipo_alimentazione.id', '=', 'dettaglio_veicolo.alimentazione')
 				->leftJoin('targa', 'targa.id_veicolo', '=', 'dettaglio_veicolo.id')
-				->where(function ($query) use ($search, $exactId) {
-					if ($exactId) {
+				->where(function ($query) use ($search, $searchField) {
+					if ($searchField) {
 						// Only search by ID
 						$query->where('bollo.id', '=', $search)
 						->orWhere('dettaglio_veicolo.id', '=', $search);
@@ -191,4 +191,6 @@
 					'targa.targa as veicolo_targa'
 				]);
 		}
+
+
 	}

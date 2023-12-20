@@ -21,38 +21,38 @@ class Alert extends AlertBase
 		$query = DB::table('dettaglio_veicolo')
 			->leftJoin('revisione', function ($join) {
 				$join->on('revisione.id_veicolo', '=', 'dettaglio_veicolo.id')
-					->where('revisione.inizio_validita', '<', now())
-					->where('revisione.fine_validita', '>', now());
+					->where('revisione.inizio_validita', '<=', now())
+					->where('revisione.fine_validita', '>=', now());
 			})
 			->leftJoin('bollo', function ($join) {
 				$join->on('bollo.id_veicolo', '=', 'dettaglio_veicolo.id')
-					->where('bollo.inizio_validita', '<', now())
-					->where('bollo.fine_validita', '>', now());
+					->where('bollo.inizio_validita', '<=', now())
+					->where('bollo.fine_validita', '>=', now());
 			})
 			->leftJoin('bombole', function ($join) {
 				$join->on('bombole.id_veicolo', '=', 'dettaglio_veicolo.id')
-					->where('bombole.inizio_validita', '<', now())
-					->where('bombole.fine_validita', '>', now());
+					->where('bombole.inizio_validita', '<=', now())
+					->where('bombole.fine_validita', '>=', now());
 			})
 			->leftJoin('atp', function ($join) {
 				$join->on('atp.id_veicolo', '=', 'dettaglio_veicolo.id')
-					->where('atp.inizio_validita', '<', now())
-					->where('atp.fine_validita', '>', now());
+					->where('atp.inizio_validita', '<=', now())
+					->where('atp.fine_validita', '>=', now());
 			})
 			->leftJoin('noleggio', function ($join) {
 				$join->on('noleggio.id_veicolo', '=', 'dettaglio_veicolo.id')
-					->where('noleggio.inizio_validita', '<', now())
-					->where('noleggio.fine_validita', '>', now());
+					->where('noleggio.inizio_validita', '<=', now())
+					->where('noleggio.fine_validita', '>=', now());
 			})
 			->leftJoin('assicurazione', function ($join) {
 				$join->on('assicurazione.id_veicolo', '=', 'dettaglio_veicolo.id')
-					->where('assicurazione.inizio_validita', '<', now())
-					->where('assicurazione.fine_validita', '>', now());
+					->where('assicurazione.inizio_validita', '<=', now())
+					->where('assicurazione.fine_validita', '>=', now());
 			})
 			->leftJoin('tachigrafo', function ($join) {
 				$join->on('tachigrafo.id_veicolo', '=', 'dettaglio_veicolo.id')
-					->where('tachigrafo.inizio_validita', '<', now())
-					->where('tachigrafo.fine_validita', '>', now());
+					->where('tachigrafo.inizio_validita', '<=', now())
+					->where('tachigrafo.fine_validita', '>=', now());
 			})
 			->select([
 				DB::raw("DATE_FORMAT(revisione.fine_validita, '%d-%m-%Y') as revisione_fine_validita"),
@@ -164,42 +164,125 @@ class Alert extends AlertBase
 		$returnz=array(0=>$color_alerts,1=>$count_alerts);
 		return $returnz;
 	}
+
+	public static function getAlertLevels($list) {
+		$count=0;
+		$color=0;
+
+
+		foreach($list as $item) {
+			//1455
+
+			if($item->livello === null) {
+				$count++;
+				$color = 5;
+			}
+			else if($item->livello <= Alert::$firstThreshold) {
+				$count++;
+				if($color < 4) {
+					$color = 4;
+				}
+			}
+			else if($item->livello <= Alert::$secondThreshold) {
+				$count++;
+				if($color < 3) {
+					$color = 3;
+				}
+			}
+			else if($item->livello <= Alert::$thirdThreshold) {
+				$count++;
+				if($color < 2) {
+					$color = 2;
+				}
+			}
+		}
+
+		return(array(0=>$color,1=>$count));
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	public static function getAllAggregatedAlertsOLD($columns = ['*']) {
 		$query = DB::table('dettaglio_veicolo')
 			->leftJoin('revisione', function ($join) {
 				$join->on('revisione.id_veicolo', '=', 'dettaglio_veicolo.id')
-					->where('revisione.inizio_validita', '<', now())
-					->where('revisione.fine_validita', '>', now());
+					->where('revisione.inizio_validita', '<=', now())
+					->where('revisione.fine_validita', '>=', now());
 			})
 			->leftJoin('bollo', function ($join) {
 				$join->on('bollo.id_veicolo', '=', 'dettaglio_veicolo.id')
-					->where('bollo.inizio_validita', '<', now())
-					->where('bollo.fine_validita', '>', now());
+					->where('bollo.inizio_validita', '<=', now())
+					->where('bollo.fine_validita', '>=', now());
 			})
 			->leftJoin('bombole', function ($join) {
 				$join->on('bombole.id_veicolo', '=', 'dettaglio_veicolo.id')
-					->where('bombole.inizio_validita', '<', now())
-					->where('bombole.fine_validita', '>', now());
+					->where('bombole.inizio_validita', '<=', now())
+					->where('bombole.fine_validita', '>=', now());
 			})
 			->leftJoin('atp', function ($join) {
 				$join->on('atp.id_veicolo', '=', 'dettaglio_veicolo.id')
-					->where('atp.inizio_validita', '<', now())
-					->where('atp.fine_validita', '>', now());
+					->where('atp.inizio_validita', '<=', now())
+					->where('atp.fine_validita', '>=', now());
 			})
 			->leftJoin('noleggio', function ($join) {
 				$join->on('noleggio.id_veicolo', '=', 'dettaglio_veicolo.id')
-					->where('noleggio.inizio_validita', '<', now())
-					->where('noleggio.fine_validita', '>', now());
+					->where('noleggio.inizio_validita', '<=', now())
+					->where('noleggio.fine_validita', '>=', now());
 			})
 			->leftJoin('assicurazione', function ($join) {
 				$join->on('assicurazione.id_veicolo', '=', 'dettaglio_veicolo.id')
-					->where('assicurazione.inizio_validita', '<', now())
-					->where('assicurazione.fine_validita', '>', now());
+					->where('assicurazione.inizio_validita', '<=', now())
+					->where('assicurazione.fine_validita', '>=', now());
 			})
 			->leftJoin('tachigrafo', function ($join) {
 				$join->on('tachigrafo.id_veicolo', '=', 'dettaglio_veicolo.id')
-					->where('tachigrafo.inizio_validita', '<', now())
-					->where('tachigrafo.fine_validita', '>', now());
+					->where('tachigrafo.inizio_validita', '<=', now())
+					->where('tachigrafo.fine_validita', '>=', now());
 			})
 			->select([
 				DB::raw("DATE_FORMAT(revisione.fine_validita, '%d-%m-%Y') as revisione_fine_validita"),
@@ -287,38 +370,4 @@ class Alert extends AlertBase
 			is_array($columns) ? $columns : func_get_args()
 		);
 	}
-
-	public static function getAlertLevels($list) {
-		$count=0;
-		$color=0;
-
-		foreach($list as $item) {
-			if($item->livello == null) {
-				$count++;
-				if($color < 4) {
-					$color = 4;
-				}
-			}
-			else if($item->livello <= Alert::$firstThreshold) {
-				$count++;
-				if($color < 3) {
-					$color = 3;
-				}
-			}
-			else if($item->livello <= Alert::$secondThreshold) {
-				$count++;
-				if($color < 2) {
-					$color = 2;
-				}
-			}
-			else if($item->livello <= Alert::$thirdThreshold) {
-				$count++;
-				if($color < 1) {
-					$color = 1;
-				}
-			}
-		}
-		return(array(0=>$color,1=>$count));
-	}
-
 }

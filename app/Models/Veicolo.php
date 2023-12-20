@@ -16,16 +16,13 @@
 
 		public function store(Request $request)
 		{
-			$data = $request->validate([
-				'id_proprietario' => 'required|integer',
-				// ... Add other fields with validation rules ...
-				'colore' => 'required|string',
-				// ...
-			]);
-
-			Veicolo::create($data);
-
-			return redirect()->route('create_veicolo')->with('success', 'Veicolo created successfully!');
+//			$validator = Validator::make($request->all(), self::validationRules(), self::validationMessages());
+//			if ($validator->fails()) {
+//				return response()->json(['errors' => $validator->errors()], 422);
+//			}
+//			$veicolo = new Veicolo($validator->validated());
+//			$veicolo->save();
+//			return response()->json(['message' => 'Veicolo inserito correttamente'], 200);
 		}
 
 	}

@@ -7,6 +7,10 @@
 
 	class MarcaController extends Controller
 	{
+		public function __construct()
+		{
+			$this->model = Marca::class;
+		}
 		/**
 		 * Display a listing of the resource.
 		 */
@@ -62,4 +66,9 @@
 		{
 			//
 		}
+
+//		public function search($search, $searchField = false, $searchFieldVeicolo = false) {
+//			$result = Marca::search($search, $searchField, $searchFieldVeicolo);
+//			return response()->json($result);
+//		}
 	}

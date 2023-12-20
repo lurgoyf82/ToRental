@@ -20,6 +20,10 @@
 
 	class TagliandoController extends Controller
 	{
+		public function __construct()
+		{
+			$this->model = Tagliando::class;
+		}
 		public function listExpiringTagliandi(Request $request): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
 		{
 			$search = $request->input('search',null);
@@ -62,13 +66,27 @@
 		public function store(Request $request)
 		{
 			$validatedData = Tagliando::validatePartial($request->all());
+			try {
+				Tagliando::create($validatedData);
 
-			// Remove 'targa' from $validatedData and create Veicolo
-			$veicolo = Assicurazione::create($validatedData);
+				// Assuming AlertBase::clearCache(true) is safe to call even if create fails.
+				AlertBase::clearCache(true);
+
+				return redirect()->route('create_tagliando')->with('success', 'Tagliando created successfully.');
+			} catch (\Exception $e) {
+				// Log the error message for debugging (optional but recommended)
+				\Log::error("Error creating Tagliando: " . $e->getMessage());
+
+				// Redirect back with input data and error message
+				return redirect()->back()->withInput()->with('error', 'Error occurred while creating Tagliando.');
+			}
+
+
+			$veicolo = Tagliando::create($validatedData);
 
 			AlertBase::clearCache(true);
 
-			return redirect()->route('create_assicurazione')->with('success', 'Assicurazione created successfully.');
+			return redirect()->route('create_tagliando')->with('success', 'Tagliando created successfully.');
 		}
 
 		/**
@@ -105,8 +123,8 @@
 		/**
 		 * Search the specified resource from storage.
 		 */
-		public function search($search, $exactId = false) {
-			$tagliandi = Tagliando::search($search, $exactId);
-			return response()->json($tagliandi);
-		}
+//		public function search($search, $searchField = false, $searchFieldVeicolo = false) {
+//			$result = Tagliando::search($search, $searchField, $exactIdVeicolo);
+//			return response()->json($result);
+//		}
 	}

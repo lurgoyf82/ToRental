@@ -8,6 +8,10 @@
 
 	class NoleggioController extends Controller
 	{
+		public function __construct()
+		{
+			$this->model = Noleggio::class;
+		}
 		public function listExpiringContrattiNoleggio(Request $request): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
 		{
 			$search = $request->input('search',null);
@@ -80,4 +84,8 @@
 		{
 			//
 		}
+//		public function search($search, $searchField = false, $searchFieldVeicolo = false) {
+//			$result = Noleggio::search($search, $searchField, $searchFieldVeicolo);
+//			return response()->json($result);
+//		}
 	}

@@ -39,29 +39,27 @@
 			}
 			return view('alert_scadenza_bollo', ['expiringScadenzeBolli' => $expiringScadenzeBolli]);
 		}
-
-
-		/**
-		 * Display a listing of the resource.
-		 */
-		public function index(Request $request): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
-		{
-			$search = $request->input('search',null);
-			$order  = $request->input('order','id');
-			$page   = $request->input('page', 1);  // default to 1 if not provided
-
-
-			$expiringRevisioniMeccaniche = Bollo::index($search, $order, $page);
-
-			$targaList= Targa::getTargaListByIdVeicolo();
-			foreach ($expiringRevisioniMeccaniche as $key=>$alert) {
-				if(isset($targaList[$alert->id_veicolo])) {
-					$expiringRevisioniMeccaniche[$key]->targa = $targaList[$alert->id_veicolo]->targa;
-				}
-			}
-			return view('list_veicolo', ['expiringRevisioniMeccaniche' => $expiringRevisioniMeccaniche]);
-		}
-
+//
+//		/**
+//		 * Display a listing of the resource.
+//		 */
+//		public function index(Request $request): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
+//		{
+//			$search = $request->input('search',null);
+//			$order  = $request->input('order','id');
+//			$page   = $request->input('page', 1);  // default to 1 if not provided
+//
+//
+//			$result = Bollo::index($search, $order, $page);
+//
+//			$targaList= Targa::getTargaListByIdVeicolo();
+//			foreach ($result as $key=>$alert) {
+//				if(isset($targaList[$alert->id_veicolo])) {
+//					$result[$key]->targa = $targaList[$alert->id_veicolo]->targa;
+//				}
+//			}
+//			return view('list_bollo', ['list' => $result]);
+//		}
 
 		/**
 		 * Show the form for creating a new resource.
@@ -124,4 +122,11 @@
 //			$result = Bollo::search($search, $searchField, $searchFieldVeicolo);
 //			return response()->json($result);
 //		}
+
+		public function index(Request $request): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
+		{
+			// 'list_bollo' is the view name specific to this controller
+			return $this->indexView($request, Bollo::class, 'list_bollo');
+		}
+
 	}

@@ -392,4 +392,94 @@
 				Cache::forget('alerts');
 			}
 		}
+
+
+
+//
+//		public static function index($search=null,$order='livello',$page=1,$slice=true): LengthAwarePaginator
+//		{
+//			$page = intval($page);
+//			if ($page <= 0 || !is_int($page)) {
+//				$page = 1;
+//			}
+//
+//			$order=explode('_',$order);
+//
+//			switch (strtolower($order[0])) {
+//				case 'marca':
+//					$orderBy = Marca::getTableName() . '.nome';
+//					break;
+//				case 'modello':
+//					$orderBy = Modello::getTableName() . '.nome';
+//					break;
+//				case 'targa':
+//					$orderBy = Targa::getTableName() . '.targa';
+//					break;
+//				default:
+//					$orderBy = 'id_veicolo';
+//					break;
+//			}
+//
+//			if(array_key_exists(1,$order,)&&strtolower($order[1])=='desc') {
+//				$orderDirection='DESC';
+//			} else {
+//				$orderDirection='ASC';
+//			}
+//
+//			$query = DB::table(Veicolo::getTableName())
+//				->leftJoin(Marca::getTableName(), Veicolo::getTableName() . '.id_marca', '=', Marca::getTableName() . '.id')
+//				->leftJoin(Modello::getTableName(), function ($join) {
+//					$join->on(Veicolo::getTableName() . '.id_modello', '=', Modello::getTableName() . '.id')
+//						->on(Modello::getTableName() . '.id_marca', '=', Marca::getTableName() . '.id');
+//				})
+//				->leftJoin(Targa::getTableName(), Targa::getTableName() . '.id_veicolo', '=', Veicolo::getTableName() . '.id')
+//				->select([
+//					Marca::getTableName() . '.id as id_marca',
+//					Marca::getTableName() . '.nome as marca',
+//					Modello::getTableName() . '.id as id_modello',
+//					Modello::getTableName() . '.nome as modello',
+//					Veicolo::getTableName() . '.id as id_veicolo'
+//				]);
+//
+//			if ($search !== null) {
+//				$query->where(function ($query) use ($search) {
+//					$query->where(Targa::getTableName() . '.targa', 'LIKE', '%' . $search . '%')
+//						->orWhere(Marca::getTableName() . '.nome', 'LIKE', '%' . $search . '%')
+//						->orWhere(Modello::getTableName() . '.nome', 'LIKE', '%' . $search . '%');
+//				});
+//			}
+//
+//			//$query->offset(($page - 1) * AlertBase::$itemsPerPage)->limit(AlertBase::$itemsPerPage);
+//
+//			if ($orderBy!=='id') {
+//				$result = $query->orderBy($orderBy, $orderDirection)->get();
+//			} else {
+//				$result = $query->orderBy(Veicolo::getTableName() . '.id', 'ASC')->get();
+//			}
+//
+//			if ($orderBy=='id') {
+//				if($orderDirection=='DESC') {
+//					$result=($result->sortByDesc('id'));
+//				} else {
+//					$result=($result->sortBy('id'));
+//				}
+//			}
+//
+//			// Manually slice the results for pagination
+//			$offset = ($page - 1) * AlertBase::$itemsPerPage;
+//			if($slice) {
+//				$itemsForCurrentPage = $result->slice($offset, AlertBase::$itemsPerPage);
+//			} else {
+//				$itemsForCurrentPage = $result;
+//			}
+//
+//			return new LengthAwarePaginator(
+//				$itemsForCurrentPage,
+//				$result->count(),
+//				AlertBase::$itemsPerPage,
+//				$page,
+//				['path' => LengthAwarePaginator::resolveCurrentPath()]
+//			);
+//		}
+
 	}

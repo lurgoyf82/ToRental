@@ -87,5 +87,6 @@
 				'tipo_alimentazione.nome as tipo_alimentazione_nome',
 				'targa.targa as veicolo_targa']);
 		}
+
 	}
 

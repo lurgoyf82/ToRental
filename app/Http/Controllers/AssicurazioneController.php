@@ -47,7 +47,7 @@
 		 */
 
 
-		public function index(Request $request): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
+		public function index2(Request $request): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
 		{
 			$search = $request->input('search',null);
 			$order  = $request->input('order','id');
@@ -156,4 +156,11 @@
 		/**
 		 * Search the specified resource from storage.
 		 */
+
+
+		public function index(Request $request): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
+		{
+			// 'list_bollo' is the view name specific to this controller
+			return $this->indexView($request, Assicurazione::class, 'list_assicurazione');
+		}
 	}

@@ -19,6 +19,7 @@
 			'colore', 'lunghezza_esterna', 'larghezza_esterna', 'massa', 'portata', 'cilindrata',
 			'potenza', 'numero_assi', 'tipo_asse', 'tipo_cambio', 'alimentazione', 'destinazione_uso'
 		];
+		public $timestamps = true;
 
 
 		public static function validationRules(): array
@@ -305,6 +306,140 @@
 				$page,
 				['path' => LengthAwarePaginator::resolveCurrentPath()]
 			);
+		}
+
+		// Relationships
+		public function societa()
+		{
+			return $this->belongsTo(Societa::class, 'id_proprietario');
+		}
+
+		public function tipo_veicolo()
+		{
+			return $this->belongsTo(TipoVeicolo::class, 'id_tipo_veicolo');
+		}
+
+		public function tipo_allestimento()
+		{
+			return $this->belongsTo(TipoAllestimento::class, 'id_tipo_allestimento');
+		}
+
+		public function marca()
+		{
+			return $this->belongsTo(Marca::class, 'id_marca');
+		}
+
+		public function modello()
+		{
+			return $this->belongsTo(Modello::class, 'id_modello');
+		}
+
+		public function tipo_asse()
+		{
+			return $this->belongsTo(TipoAsse::class, 'tipo_asse');
+		}
+
+		public function tipo_cambio()
+		{
+			return $this->belongsTo(TipoCambio::class, 'tipo_cambio');
+		}
+
+		public function destinazione_uso()
+		{
+			return $this->belongsTo(DestinazioneUso::class, 'destinazione_uso');
+		}
+
+		public function bollo()
+		{
+			return $this->hasMany(Bollo::class, 'id_veicolo');
+		}
+
+		public function targa()
+		{
+			return $this->hasMany(Targa::class, 'id_veicolo');
+		}
+
+		public function telaio()
+		{
+			return $this->hasMany(Telaio::class, 'id_veicolo');
+		}
+
+		public function scopeWithCommonRelationshipsOLD($query, $search)
+		{
+			$query->orWhere('colore', 'LIKE', "%{$search}%")
+				->orWhere('massa', 'LIKE', "%{$search}%")
+				->orWhere('portata', 'LIKE', "%{$search}%")
+				->orWhere('cilindrata', 'LIKE', "%{$search}%")
+				->orWhere('potenza', 'LIKE', "%{$search}%")
+				->orWhere('numero_assi', 'LIKE', "%{$search}%")
+				->with([
+					'societa' => function ($query) use ($search) {
+						$query->orWhere('nome', $search); // Condition for 'societa'
+					},
+					'tipo_veicolo' => function ($query) use ($search) {
+						$query->orWhere('nome', $search); // Condition for 'tipo_veicolo'
+					},
+					'tipo_allestimento' => function ($query) use ($search) {
+						$query->orWhere('nome', $search); // Condition for 'tipo_allestimento'
+					},
+					'marca' => function ($query) use ($search) {
+						$query->orWhere('nome', $search); // Condition for 'marca'
+					},
+					'modello' => function ($query) use ($search) {
+						$query->orWhere('nome', $search); // Condition for 'modello'
+					},
+					'tipo_asse' => function ($query) use ($search) {
+						$query->orWhere('nome', $search); // Condition for 'tipo_asse'
+					},
+					'tipo_cambio' => function ($query) use ($search) {
+						$query->orWhere('nome', $search); // Condition for 'tipo_cambio'
+					},
+					'destinazione_uso' => function ($query) use ($search) {
+						$query->orWhere('nome', $search); // Condition for 'destinazione_uso'
+					},
+					'targa' => function ($query) use ($search) {
+						$query->orWhere('targa', $search); // Condition for 'targa'
+					},
+					'telaio' => function ($query) use ($search) {
+						$query->orWhere('telaio', $search); // Condition for 'telaio'
+					}
+				]);
+				var_dump($query->toSql());
+			return $query;
+		}
+
+		public function scopeWithCommonRelationships($query, $search)
+		{
+			// Apply conditions on the DettaglioVeicolo fields
+			$query->where(function ($q) use ($search) {
+				$q->orWhere('colore', 'LIKE', "%{$search}%")
+					->orWhere('massa', 'LIKE', "%{$search}%")
+					->orWhere('portata', 'LIKE', "%{$search}%")
+					->orWhere('cilindrata', 'LIKE', "%{$search}%")
+					->orWhere('potenza', 'LIKE', "%{$search}%")
+					->orWhere('numero_assi', 'LIKE', "%{$search}%");
+			});
+
+			$relationships = [
+				'societa' => 'nome',
+				'tipo_veicolo' => 'nome',
+				'tipo_allestimento' => 'nome',
+				'marca' => 'nome',
+				'modello' => 'nome',
+				'tipo_asse' => 'nome',
+				'tipo_cambio' => 'nome',
+				'destinazione_uso' => 'nome',
+				'targa' => 'targa',
+				'telaio' => 'telaio'
+			];
+
+			foreach ($relationships as $relation => $field) {
+				$query->orWhereHas($relation, function ($q) use ($search, $field) {
+					$q->where($field, 'LIKE', "%{$search}%");
+				});
+			}
+
+			return $query;
 		}
 
 	}

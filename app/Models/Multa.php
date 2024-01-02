@@ -4,6 +4,7 @@
 
 	use Illuminate\Database\Eloquent\Factories\HasFactory;
 	use Illuminate\Database\Eloquent\Model;
+	use Illuminate\Pagination\LengthAwarePaginator;
 	use Illuminate\Support\Facades\DB;
 	use Illuminate\Support\Facades\Validator;
 
@@ -220,4 +221,81 @@
 		}
 
 
+
+
+		public static function index($search = null, $order = 'livello', $page = 1, $slice = true) {
+			$page = intval($page);
+			if ($page <= 0 || !is_int($page)) {
+				$page = 1;
+			}
+
+			$order=explode('_',$order);
+
+			switch (strtolower($order[0])) {
+				case 'marca':
+					$orderBy = Marca::getTableName() . '.nome';
+					break;
+				case 'modello':
+					$orderBy = Modello::getTableName() . '.nome';
+					break;
+				case 'targa':
+					$orderBy = Targa::getTableName() . '.targa';
+					break;
+				default:
+					$orderBy = 'id_veicolo';
+					break;
+			}
+
+			if(array_key_exists(1,$order,)&&strtolower($order[1])=='desc') {
+				$orderDirection='DESC';
+			} else {
+				$orderDirection='ASC';
+			}
+
+			$query=Bollo::whereHas('dettaglio_veicolo', function($query) use ($search) {
+				$query->withCommonRelationships($search);
+			})->orWhere('id', '=', $search)
+				->orWhere('id_veicolo', '=', $search)
+				->orWhere('anno', 'LIKE', "%{$search}%")
+				->orWhere('data_pagamento', 'LIKE', "%{$search}%")
+				->orWhere('inizio_validita', 'LIKE', "%{$search}%")
+				->orWhere('fine_validita', 'LIKE', "%{$search}%")
+				->orWhere('importo', 'LIKE', "%{$search}%");
+
+			if ($orderBy!=='id_veicolo') {
+				$query = $query->orderBy($orderBy, $orderDirection)->get();
+			} else {
+				$query = $query->orderBy('id_veicolo', 'ASC')->get();
+			}
+
+			if ($orderBy=='id_veicolo') {
+				if($orderDirection=='DESC') {
+					$query=($query->sortByDesc('id_veicolo'));
+				} else {
+					$query=($query->sortBy('id_veicolo'));
+				}
+			}
+
+			// Manually slice the results for pagination
+			$offset = ($page - 1) * AlertBase::$itemsPerPage;
+			if($slice) {
+				$itemsForCurrentPage = $query->slice($offset, AlertBase::$itemsPerPage);
+			} else {
+				$itemsForCurrentPage = $query;
+			}
+
+			return new LengthAwarePaginator(
+				$itemsForCurrentPage,
+				$query->count(),
+				AlertBase::$itemsPerPage,
+				$page,
+				['path' => LengthAwarePaginator::resolveCurrentPath()]
+			);
+		}
+
+
+		public function dettaglio_veicolo()
+		{
+			return $this->belongsTo(DettaglioVeicolo::class, 'id_veicolo');
+		}
 	}

@@ -21,14 +21,8 @@
 			$cacheKey = 'valid_' . $table . '_list';
 
 			if ($calculateNewCachedData || !Cache::has($cacheKey)) {
-				$results = DB::table($table)
-					->select(['id AS current_valid_id','id_veicolo','inizio_validita AS current_valid_inizio_validita','fine_validita AS current_valid_fine_validita'])
-					->where('fine_validita', '>=', now())
-					->where('inizio_validita', '<=', now())
-					->orderBy('id_veicolo', 'ASC')
-					->get();
 
-				$results = DB::table($table)
+				$query = DB::table($table)
 					->select([
 						'id AS current_valid_id',
 						'id_veicolo',
@@ -37,24 +31,22 @@
 					])
 					->where('fine_validita', '>', DB::raw('DATE_SUB(CURDATE(), INTERVAL 1 DAY)'))
 					->where('inizio_validita', '<', DB::raw('DATE_ADD(CURDATE(), INTERVAL 1 DAY)'))
-					->orderBy('id_veicolo', 'ASC')
-					->get();
-
+					->orderBy('id_veicolo', 'ASC');
+					$results=$query->get();
 
 				$Dictionary=[];
 
 				foreach ($results as $item) {
-					if($item->id_veicolo == 1455) {
-						//dd($table,$results);
+					if (!isset($Dictionary[$item->id_veicolo])) {
+						$Dictionary[$item->id_veicolo] = [];
 					}
+
+					$Dictionary[$item->id_veicolo][] = $item;
 				}
 
-
-
-
-				//Cache::put($cacheKey, $Dictionary, 60 * 60);
+				Cache::put($cacheKey, $Dictionary, 60 * 60);
 			} else {
-				//$Dictionary = Cache::get($cacheKey);
+				$Dictionary = Cache::get($cacheKey);
 			}
 
 			return $Dictionary;

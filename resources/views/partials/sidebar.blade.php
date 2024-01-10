@@ -482,6 +482,112 @@
 					</div>
 					<!--end:Menu item-->
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+					<!--begin:Menu item-->
+					<div data-kt-menu-trigger="click" class="menu-item here menu-accordion">
+						<!--begin:Menu link-->
+						<span class="menu-link">
+							<span class="menu-icon">
+									<i class="ki-duotone ki-element-11 fs-2">
+											<span class="path1"></span>
+											<span class="path2"></span>
+											<span class="path3"></span>
+											<span class="path4"></span>
+									</i>
+							</span>
+							<span class="menu-title">Atp</span>
+							<span class="menu-arrow"></span>
+						</span>
+						<!--end:Menu link-->
+						<!--begin:Menu sub-->
+						<div class="menu-sub menu-sub-accordion">
+							<!--begin:Menu item-->
+							<div class="menu-item">
+								<!--begin:Menu link-->
+								<a class="menu-link" href="/create_atp">
+									<span class="menu-bullet">
+											<span class="bullet bullet-dot"></span>
+									</span>
+									<span class="menu-title">Inserisci</span>
+								</a>
+								<!--end:Menu link-->
+							</div>
+							<!--end:Menu item-->
+							<!--begin:Menu item-->
+							<div class="menu-item">
+								<!--begin:Menu link-->
+								<a class="menu-link" href="/list_atp">
+									<span class="menu-bullet">
+											<span class="bullet bullet-dot"></span>
+									</span>
+									<span class="menu-title">Lista</span>
+								</a>
+								<!--end:Menu link-->
+							</div>
+							<!--end:Menu item-->
+							@if(request()->is('update_atp/*'))
+								<!--begin:Menu item-->
+								<div class="menu-item">
+									<!--begin:Menu link-->
+									<a class="menu-link" href="/update_atp">
+									<span class="menu-bullet">
+											<span class="bullet bullet-dot"></span>
+									</span>
+										<span class="menu-title">Aggiorna</span>
+									</a>
+									<!--end:Menu link-->
+								</div>
+								<!--end:Menu item-->
+							@endif
+							@if(request()->is('delete_atp/*'))
+								<!--begin:Menu item-->
+								<div class="menu-item">
+									<!--begin:Menu link-->
+									<a class="menu-link" href="/delete_atp">
+									<span class="menu-bullet">
+											<span class="bullet bullet-dot"></span>
+									</span>
+										<span class="menu-title">Cancella</span>
+									</a>
+									<!--end:Menu link-->
+								</div>
+								<!--end:Menu item-->
+							@endif
+						</div>
+						<!--end:Menu sub-->
+					</div>
+					<!--end:Menu item-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 					<!--begin:Menu item-->
 					<div data-kt-menu-trigger="click" class="menu-item here menu-accordion">
 						<!--begin:Menu link-->
@@ -525,37 +631,152 @@
 							</div>
 							<!--end:Menu item-->
 							@if(request()->is('update_bollo/*'))
-							<!--begin:Menu item-->
-							<div class="menu-item">
-								<!--begin:Menu link-->
-								<a class="menu-link" href="/update_bollo">
+								<!--begin:Menu item-->
+								<div class="menu-item">
+									<!--begin:Menu link-->
+									<a class="menu-link" href="/update_bollo">
 									<span class="menu-bullet">
 											<span class="bullet bullet-dot"></span>
 									</span>
-									<span class="menu-title">Aggiorna</span>
-								</a>
-								<!--end:Menu link-->
-							</div>
-							<!--end:Menu item-->
+										<span class="menu-title">Aggiorna</span>
+									</a>
+									<!--end:Menu link-->
+								</div>
+								<!--end:Menu item-->
 							@endif
 							@if(request()->is('delete_bollo/*'))
-							<!--begin:Menu item-->
-							<div class="menu-item">
-								<!--begin:Menu link-->
-								<a class="menu-link" href="/delete_bollo">
+								<!--begin:Menu item-->
+								<div class="menu-item">
+									<!--begin:Menu link-->
+									<a class="menu-link" href="/delete_bollo">
 									<span class="menu-bullet">
 											<span class="bullet bullet-dot"></span>
 									</span>
-									<span class="menu-title">Cancella</span>
-								</a>
-								<!--end:Menu link-->
-							</div>
-							<!--end:Menu item-->
+										<span class="menu-title">Cancella</span>
+									</a>
+									<!--end:Menu link-->
+								</div>
+								<!--end:Menu item-->
 							@endif
 						</div>
 						<!--end:Menu sub-->
 					</div>
 					<!--end:Menu item-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+					<!--begin:Menu item-->
+					<div data-kt-menu-trigger="click" class="menu-item here menu-accordion">
+						<!--begin:Menu link-->
+						<span class="menu-link">
+								<span class="menu-icon">
+									<i class="ki-duotone ki-element-11 fs-2">
+											<span class="path1"></span>
+											<span class="path2"></span>
+											<span class="path3"></span>
+											<span class="path4"></span>
+									</i>
+							</span>
+							<span class="menu-title">Bombole</span>
+							<span class="menu-arrow"></span>
+						</span>
+						<!--end:Menu link-->
+						<!--begin:Menu sub-->
+						<div class="menu-sub menu-sub-accordion">
+							<!--begin:Menu item-->
+							<div class="menu-item">
+								<!--begin:Menu link-->
+								<a class="menu-link" href="/create_bombole">
+									<span class="menu-bullet">
+											<span class="bullet bullet-dot"></span>
+									</span>
+									<span class="menu-title">Inserisci</span>
+								</a>
+								<!--end:Menu link-->
+							</div>
+							<!--end:Menu item-->
+							<!--begin:Menu item-->
+							<div class="menu-item">
+								<!--begin:Menu link-->
+								<a class="menu-link" href="/list_bombole">
+									<span class="menu-bullet">
+											<span class="bullet bullet-dot"></span>
+									</span>
+									<span class="menu-title">Lista</span>
+								</a>
+								<!--end:Menu link-->
+							</div>
+							<!--end:Menu item-->
+							@if(request()->is('update_bombole/*'))
+								<!--begin:Menu item-->
+								<div class="menu-item">
+									<!--begin:Menu link-->
+									<a class="menu-link" href="/update_bombole">
+									<span class="menu-bullet">
+											<span class="bullet bullet-dot"></span>
+									</span>
+										<span class="menu-title">Aggiorna</span>
+									</a>
+									<!--end:Menu link-->
+								</div>
+								<!--end:Menu item-->
+							@endif
+							@if(request()->is('delete_bombole/*'))
+								<!--begin:Menu item-->
+								<div class="menu-item">
+									<!--begin:Menu link-->
+									<a class="menu-link" href="/delete_bombole">
+									<span class="menu-bullet">
+											<span class="bullet bullet-dot"></span>
+									</span>
+										<span class="menu-title">Cancella</span>
+									</a>
+									<!--end:Menu link-->
+								</div>
+								<!--end:Menu item-->
+							@endif
+						</div>
+						<!--end:Menu sub-->
+					</div>
+					<!--end:Menu item-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 					<!--begin:Menu item-->
 					<div data-kt-menu-trigger="click" class="menu-item here menu-accordion">
@@ -631,6 +852,133 @@
 						<!--end:Menu sub-->
 					</div>
 					<!--end:Menu item-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+					<!--begin:Menu item-->
+					<div data-kt-menu-trigger="click" class="menu-item here menu-accordion">
+						<!--begin:Menu link-->
+						<span class="menu-link">
+							<span class="menu-icon">
+									<i class="ki-duotone ki-element-11 fs-2">
+											<span class="path1"></span>
+											<span class="path2"></span>
+											<span class="path3"></span>
+											<span class="path4"></span>
+									</i>
+							</span>
+							<span class="menu-title">Tachigrafo</span>
+							<span class="menu-arrow"></span>
+						</span>
+						<!--end:Menu link-->
+						<!--begin:Menu sub-->
+						<div class="menu-sub menu-sub-accordion">
+							<!--begin:Menu item-->
+							<div class="menu-item">
+								<!--begin:Menu link-->
+								<a class="menu-link" href="/create_tachigrafo">
+									<span class="menu-bullet">
+											<span class="bullet bullet-dot"></span>
+									</span>
+									<span class="menu-title">Inserisci</span>
+								</a>
+								<!--end:Menu link-->
+							</div>
+							<!--end:Menu item-->
+							<!--begin:Menu item-->
+							<div class="menu-item">
+								<!--begin:Menu link-->
+								<a class="menu-link" href="/list_tachigrafo">
+									<span class="menu-bullet">
+											<span class="bullet bullet-dot"></span>
+									</span>
+									<span class="menu-title">Lista</span>
+								</a>
+								<!--end:Menu link-->
+							</div>
+							<!--end:Menu item-->
+							@if(request()->is('update_tachigrafo/*'))
+								<!--begin:Menu item-->
+								<div class="menu-item">
+									<!--begin:Menu link-->
+									<a class="menu-link" href="/update_tachigrafo">
+									<span class="menu-bullet">
+											<span class="bullet bullet-dot"></span>
+									</span>
+										<span class="menu-title">Aggiorna</span>
+									</a>
+									<!--end:Menu link-->
+								</div>
+								<!--end:Menu item-->
+							@endif
+							@if(request()->is('delete_tachigrafo/*'))
+								<!--begin:Menu item-->
+								<div class="menu-item">
+									<!--begin:Menu link-->
+									<a class="menu-link" href="/delete_tachigrafo">
+									<span class="menu-bullet">
+											<span class="bullet bullet-dot"></span>
+									</span>
+										<span class="menu-title">Cancella</span>
+									</a>
+									<!--end:Menu link-->
+								</div>
+								<!--end:Menu item-->
+							@endif
+						</div>
+						<!--end:Menu sub-->
+					</div>
+					<!--end:Menu item-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 					<!--begin:Menu item-->
 					<div data-kt-menu-trigger="click" class="menu-item here menu-accordion">

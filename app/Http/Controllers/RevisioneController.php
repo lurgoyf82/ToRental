@@ -2,6 +2,7 @@
 
 	namespace App\Http\Controllers;
 
+	use App\Models\AlertBase;
 	use App\Models\DestinazioneUso;
 	use App\Models\DettaglioVeicolo;
 	use App\Models\Marca;
@@ -64,7 +65,7 @@
 		/**
 		 * Show the form for creating a new resource.
 		 */
-		public function create()
+		public function createOld()
 		{
 
 			//list to handle id_veicolo
@@ -99,13 +100,24 @@
 				'lista_alimentazione' => $lista_alimentazione,
 				'lista_destinazione_uso' => $lista_destinazione_uso]);
 		}
+		public function create($id_veicolo = null)
+		{
+			return view('create_revisione', ['id_veicolo' => $id_veicolo]);
+		}
 
 		/**
 		 * Store a newly created resource in storage.
 		 */
 		public function store(Request $request)
 		{
-			//
+			$validatedData = Revisione::validatePartial($request->all());
+
+			// Remove 'targa' from $validatedData and create Veicolo
+			$revisione = Revisione::create($validatedData);
+
+			AlertBase::clearCache(true);
+
+			return redirect()->route('create_revisione')->with('success', 'Revisione created successfully.');
 		}
 
 		/**

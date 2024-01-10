@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
@@ -310,13 +311,13 @@ class Assicurazione extends AlertBase
 
 		switch (strtolower($order[0])) {
 			case 'marca':
-				$orderBy = Marca::getTableName() . '.nome';
+				$orderBy = 'marca.nome';
 				break;
 			case 'modello':
-				$orderBy = Modello::getTableName() . '.nome';
+				$orderBy = 'modello.nome';
 				break;
 			case 'targa':
-				$orderBy = Targa::getTableName() . '.targa';
+				$orderBy = 'targa.targa';
 				break;
 			default:
 				$orderBy = 'id_veicolo';
@@ -329,45 +330,132 @@ class Assicurazione extends AlertBase
 			$orderDirection='ASC';
 		}
 
-		$query=Bollo::whereHas('dettaglio_veicolo', function($query) use ($search) {
-			$query->withCommonRelationships($search);
-		})->orWhere('id', '=', $search)
-			->orWhere('id_veicolo', '=', $search)
-			->orWhere('assicurazione.targa', '=', $search)
-			->orWhere('assicurazione.anno', '=', $search)
-			->orWhere('assicurazione.data_pagamento', 'LIKE', "%{$search}%")
-			->orWhere('assicurazione.inizio_validita', 'LIKE', "%{$search}%")
-			->orWhere('assicurazione.fine_validita', 'LIKE', "%{$search}%")
-			->orWhere('assicurazione.importo', 'LIKE', "%{$search}%")
-			->orWhere('assicurazione.agenzia', 'LIKE', "%{$search}%")
-			->orWhere('assicurazione.polizza', 'LIKE', "%{$search}%")
-			->orWhere('assicurazione.tipo_scadenza', 'LIKE', "%{$search}%");
+		$query = Assicurazione::select([
+			'assicurazione.id',
+			'assicurazione.id_veicolo',
+			'assicurazione.targa',
+			'assicurazione.anno',
+			'assicurazione.data_pagamento',
+			'assicurazione.inizio_validita',
+			'assicurazione.fine_validita',
+			'assicurazione.importo',
+			'assicurazione.agenzia',
+			'assicurazione.polizza',
+			'assicurazione.tipo_scadenza',
+			'dettaglio_veicolo.id_proprietario',
+			'dettaglio_veicolo.id_tipo_veicolo',
+			'dettaglio_veicolo.id_tipo_allestimento',
+			'dettaglio_veicolo.id_marca',
+			'dettaglio_veicolo.id_modello',
+			'dettaglio_veicolo.colore',
+			'dettaglio_veicolo.lunghezza_esterna',
+			'dettaglio_veicolo.larghezza_esterna',
+			'dettaglio_veicolo.massa',
+			'dettaglio_veicolo.portata',
+			'dettaglio_veicolo.cilindrata',
+			'dettaglio_veicolo.potenza',
+			'dettaglio_veicolo.numero_assi',
+			'dettaglio_veicolo.tipo_asse',
+			'dettaglio_veicolo.tipo_cambio',
+			'dettaglio_veicolo.alimentazione',
+			'dettaglio_veicolo.destinazione_uso',
+			'dettaglio_veicolo.altre_caratteristiche',
+			'dettaglio_veicolo.data_acquisto',
+			'dettaglio_veicolo.note_acquisto',
+			'dettaglio_veicolo.prezzo',
+			'dettaglio_veicolo.data_vendita',
+			'dettaglio_veicolo.controparte_vendita',
+			'societa.nome as societa_nome',
+			'tipo_veicolo.nome as tipo_veicolo_nome',
+			'tipo_allestimento.nome as tipo_allestimento_nome',
+			'marca.nome as marca_nome',
+			'modello.nome as modello_nome',
+			'tipo_asse.nome as tipo_asse_nome',
+			'tipo_cambio.nome as tipo_cambio_nome',
+			'destinazione_uso.nome as destinazione_uso_nome'
+		])
+			->leftJoin('dettaglio_veicolo', 'assicurazione.id_veicolo', '=', 'dettaglio_veicolo.id')
+			->leftJoin('societa', 'dettaglio_veicolo.id_proprietario', '=', 'societa.id')
+			->leftJoin('tipo_veicolo', 'dettaglio_veicolo.id_tipo_veicolo', '=', 'tipo_veicolo.id')
+			->leftJoin('tipo_allestimento', 'dettaglio_veicolo.id_tipo_allestimento', '=', 'tipo_allestimento.id')
+			->leftJoin('marca', 'dettaglio_veicolo.id_marca', '=', 'marca.id')
+			->leftJoin('modello', 'dettaglio_veicolo.id_modello', '=', 'modello.id')
+			->leftJoin('tipo_asse', 'dettaglio_veicolo.tipo_asse', '=', 'tipo_asse.id')
+			->leftJoin('tipo_cambio', 'dettaglio_veicolo.tipo_cambio', '=', 'tipo_cambio.id')
+			->leftJoin('destinazione_uso', 'dettaglio_veicolo.destinazione_uso', '=', 'destinazione_uso.id')
+			->where(function($query) use ($search) {
+				$query->where('assicurazione.id', 'LIKE', "%{$search}%")
+					->orWhere('assicurazione.id_veicolo', 'LIKE', "%{$search}%")
+					->orWhere('assicurazione.targa', 'LIKE', "%{$search}%")
+					->orWhere('assicurazione.anno', 'LIKE', "%{$search}%")
+					->orWhere('assicurazione.data_pagamento', 'LIKE', "%{$search}%")
+					->orWhere('assicurazione.inizio_validita', 'LIKE', "%{$search}%")
+					->orWhere('assicurazione.fine_validita', 'LIKE', "%{$search}%")
+					->orWhere('assicurazione.importo', 'LIKE', "%{$search}%")
+					->orWhere('assicurazione.agenzia', 'LIKE', "%{$search}%")
+					->orWhere('assicurazione.polizza', 'LIKE', "%{$search}%")
+					->orWhere('assicurazione.tipo_scadenza', 'LIKE', "%{$search}%")
+					->orWhere('dettaglio_veicolo.colore', 'LIKE', "%{$search}%")
+					->orWhere('dettaglio_veicolo.lunghezza_esterna', 'LIKE', "%{$search}%")
+					->orWhere('dettaglio_veicolo.larghezza_esterna', 'LIKE', "%{$search}%")
+					->orWhere('dettaglio_veicolo.massa', 'LIKE', "%{$search}%")
+					->orWhere('dettaglio_veicolo.portata', 'LIKE', "%{$search}%")
+					->orWhere('dettaglio_veicolo.cilindrata', 'LIKE', "%{$search}%")
+					->orWhere('dettaglio_veicolo.potenza', 'LIKE', "%{$search}%")
+					->orWhere('dettaglio_veicolo.numero_assi', 'LIKE', "%{$search}%")
+					->orWhere('dettaglio_veicolo.tipo_asse', 'LIKE', "%{$search}%")
+					->orWhere('dettaglio_veicolo.tipo_cambio', 'LIKE', "%{$search}%")
+					->orWhere('dettaglio_veicolo.alimentazione', 'LIKE', "%{$search}%")
+					->orWhere('dettaglio_veicolo.destinazione_uso', 'LIKE', "%{$search}%")
+					->orWhere('dettaglio_veicolo.altre_caratteristiche', 'LIKE', "%{$search}%")
+					->orWhere('dettaglio_veicolo.data_acquisto', 'LIKE', "%{$search}%")
+					->orWhere('dettaglio_veicolo.note_acquisto', 'LIKE', "%{$search}%")
+					->orWhere('dettaglio_veicolo.prezzo', 'LIKE', "%{$search}%")
+					->orWhere('dettaglio_veicolo.data_vendita', 'LIKE', "%{$search}%")
+					->orWhere('dettaglio_veicolo.controparte_vendita', 'LIKE', "%{$search}%")
+					->orWhere('societa.nome', 'LIKE', "%{$search}%")
+					->orWhere('tipo_veicolo.nome', 'LIKE', "%{$search}%")
+					->orWhere('tipo_allestimento.nome', 'LIKE', "%{$search}%")
+					->orWhere('marca.nome', 'LIKE', "%{$search}%")
+					->orWhere('tipo_asse.nome', 'LIKE', "%{$search}%")
+					->orWhere('tipo_cambio.nome', 'LIKE', "%{$search}%")
+					->orWhere('destinazione_uso.nome', 'LIKE', "%{$search}%")
+					->orWhereExists(function ($query) use ($search) {
+						$query->select(DB::raw(1))
+							->from('targa')
+							->whereRaw('dettaglio_veicolo.id = targa.id_veicolo')
+							->where('targa.targa', 'LIKE', "%{$search}%");
+					})
+					->orWhereExists(function ($query) use ($search) {
+						$query->select(DB::raw(1))
+							->from('telaio')
+							->whereRaw('dettaglio_veicolo.id = telaio.id_veicolo')
+							->where('telaio.telaio', 'LIKE', "%{$search}%");
+					});
+			});
 
 		if ($orderBy!=='id_veicolo') {
-			$query = $query->orderBy($orderBy, $orderDirection)->get();
+			$results = $query->orderBy($orderBy, $orderDirection)->get();
 		} else {
-			$query = $query->orderBy('assicurazione.id_veicolo', 'ASC')->get();
-		}
-
-		if ($orderBy=='id_veicolo') {
-			if($orderDirection=='DESC') {
-				$query=($query->sortByDesc('id_veicolo'));
+			$results = $query->get();
+			if($orderDirection!=='DESC') {
+				$results=($results->sortByDesc('id_veicolo'));
 			} else {
-				$query=($query->sortBy('id_veicolo'));
+				$results=($results->sortBy('id_veicolo'));
 			}
 		}
 
 		// Manually slice the results for pagination
 		$offset = ($page - 1) * AlertBase::$itemsPerPage;
 		if($slice) {
-			$itemsForCurrentPage = $query->slice($offset, AlertBase::$itemsPerPage);
+			$itemsForCurrentPage = $results->slice($offset, AlertBase::$itemsPerPage);
 		} else {
-			$itemsForCurrentPage = $query;
+			$itemsForCurrentPage = $results;
 		}
 
 		return new LengthAwarePaginator(
 			$itemsForCurrentPage,
-			$query->count(),
+			$results->count(),
 			AlertBase::$itemsPerPage,
 			$page,
 			['path' => LengthAwarePaginator::resolveCurrentPath()]
@@ -375,8 +463,191 @@ class Assicurazione extends AlertBase
 	}
 
 
+
+	//$query=Assicurazione::select([
+	//	'id as assicurazione_id',
+	//	'id_veicolo',
+	//	'targa as assicurazione_targa',
+	//	'anno as assicurazione_anno',
+	//	'data_pagamento as assicurazione_data_pagamento',
+	//	'inizio_validita as assicurazione_inizio_validita',
+	//	'fine_validita as assicurazione_fine_validita',
+	//	'importo as assicurazione_importo',
+	//	'agenzia as assicurazione_agenzia',
+	//	'polizza as assicurazione_polizza',
+	//	'tipo_scadenza as assicurazione_tipo_scadenza',
+	//	'modello.nome as modello_nome'
+	//])->whereHas('dettaglio_veicolo', function($query) use ($search) {
+	//	$query->withCommonRelationships($search);
+	//})->orWhere('id', '=', $search)
+	//	->orWhere('id_veicolo', '=', $search)
+	//	->orWhere('assicurazione.targa', '=', $search)
+	//	->orWhere('assicurazione.anno', '=', $search)
+	//	->orWhere('assicurazione.data_pagamento', 'LIKE', "%{$search}%")
+	//	->orWhere('assicurazione.inizio_validita', 'LIKE', "%{$search}%")
+	//	->orWhere('assicurazione.fine_validita', 'LIKE', "%{$search}%")
+	//	->orWhere('assicurazione.importo', 'LIKE', "%{$search}%")
+	//	->orWhere('assicurazione.agenzia', 'LIKE', "%{$search}%")
+	//	->orWhere('assicurazione.polizza', 'LIKE', "%{$search}%")
+	//	->orWhere('assicurazione.tipo_scadenza', 'LIKE', "%{$search}%");
+
 	public function dettaglio_veicolo()
 	{
 		return $this->belongsTo(DettaglioVeicolo::class, 'id_veicolo');
+	}
+
+
+	public static function getAggregatedAlerts($search=null,$order='livello',$page=1,$slice=true): LengthAwarePaginator
+	{
+		$valid = static::getCurrentValidList();
+		$expired = static::getExpiredList();
+		$startingNext = static::getStartingNextList();
+
+		$page = intval($page);
+		if ($page <= 0 || !is_int($page)) {
+			$page = 1;
+		}
+
+		$order=explode('_',$order);
+
+		switch (strtolower($order[0])) {
+			case 'marca':
+				$orderBy = 'marca.nome';
+				break;
+			case 'modello':
+				$orderBy = 'modello.nome';
+				break;
+			case 'targa':
+				$orderBy = 'targa.targa';
+				break;
+			default:
+				$orderBy = 'livello';
+				break;
+		}
+
+		if(array_key_exists(1,$order,)&&strtolower($order[1])=='desc') {
+			$orderDirection='DESC';
+		} else {
+			$orderDirection='ASC';
+		}
+
+		$query = DB::table(Veicolo::getTableName())
+			->leftJoin(Marca::getTableName(), Veicolo::getTableName() . '.id_marca', '=', Marca::getTableName() . '.id')
+			->leftJoin(Modello::getTableName(), function ($join) {
+				$join->on(Veicolo::getTableName() . '.id_modello', '=', Modello::getTableName() . '.id')
+					->on(Modello::getTableName() . '.id_marca', '=', Marca::getTableName() . '.id');
+			})
+			->leftJoin(Targa::getTableName(), Targa::getTableName() . '.id_veicolo', '=', Veicolo::getTableName() . '.id')
+			->select([
+				Marca::getTableName() . '.id as id_marca',
+				Marca::getTableName() . '.nome as marca',
+				Modello::getTableName() . '.id as id_modello',
+				Modello::getTableName() . '.nome as modello',
+				Veicolo::getTableName() . '.id as id_veicolo'
+			]);
+
+		if ($search !== null) {
+			$query->where(function ($query) use ($search) {
+				$query->where('targa.targa', 'LIKE', '%' . $search . '%')
+					->orWhere('marca.nome', 'LIKE', '%' . $search . '%')
+					->orWhere('modello.nome', 'LIKE', '%' . $search . '%');
+			});
+		}
+
+		//$query->offset(($page - 1) * AlertBase::$itemsPerPage)->limit(AlertBase::$itemsPerPage);
+
+		if ($orderBy!=='livello') {
+			$result = $query->orderBy($orderBy, $orderDirection)->get();
+		} else {
+			$result = $query->orderBy(Veicolo::getTableName() . '.id', 'ASC')->get();
+		}
+
+		foreach($result as $key => $vehicle) {
+			$vehicle->livello = null;
+			$vehicle->next = null;
+			$vehicle->id = null;
+
+			if(@isset($valid[$vehicle->id_veicolo])) {
+				$vehicle->valid = $valid[$vehicle->id_veicolo];
+				foreach ($vehicle->valid as $contract) {
+					$livello = Carbon::parse($contract->current_valid_fine_validita)->diffInDays(Carbon::now());
+					if($livello>$vehicle->livello) {
+						$vehicle->livello = $livello;
+						$vehicle->inizio_validita = $contract->current_valid_inizio_validita;
+						$vehicle->fine_validita = $contract->current_valid_fine_validita;
+						$vehicle->id = $contract->current_valid_id;
+					}
+				}
+			} else {
+				$vehicle->valid = false;
+			}
+
+			if(@isset($startingNext[$vehicle->id_veicolo])) {
+				$vehicle->startingNext = $startingNext[$vehicle->id_veicolo];
+				foreach ($vehicle->startingNext as $contract) {
+					$next = Carbon::parse($contract->next_inizio_validita)->diffInDays(Carbon::now());
+					if($next<$vehicle->next) {
+						$vehicle->next = $next;
+						$vehicle->inizio_validita = $contract->next_inizio_validita;
+						$vehicle->fine_validita = $contract->next_fine_validita;
+						$vehicle->id = $contract->next_id;
+					}
+				}
+			} else {
+				$vehicle->startingNext = false;
+			}
+
+			if(@isset($expired[$vehicle->id_veicolo])) {
+				$vehicle->expired = $expired[$vehicle->id_veicolo];
+				if($vehicle->livello===null) {
+					foreach ($vehicle->expired as $contract) {
+						$livello = -(Carbon::now()->diffInDays($contract->expired_fine_validita));
+						if($livello>$vehicle->livello) {
+							$vehicle->livello = $livello;
+							$vehicle->inizio_validita = $contract->expired_inizio_validita;
+							$vehicle->fine_validita = $contract->expired_fine_validita;
+							$vehicle->id = $contract->expired_id;
+						}
+					}
+				}
+			} else {
+				$vehicle->expired = false;
+			}
+
+			if($vehicle->livello > Alert::$thirdThreshold) {
+				unset($result[$key]);
+			}
+		}
+
+		if ($orderBy=='livello') {
+			if($orderDirection=='DESC') {
+				$result=($result->sortByDesc('livello'));
+			} else {
+				$result=($result->sortBy('livello'));
+			}
+		}
+
+//		foreach($result as $row) {
+//			if($row->id===1456) {
+//				var_dump($row);
+//				die();
+//			}
+//		}
+
+		// Manually slice the results for pagination
+		$offset = ($page - 1) * AlertBase::$itemsPerPage;
+		if($slice) {
+			$itemsForCurrentPage = $result->slice($offset, AlertBase::$itemsPerPage);
+		} else {
+			$itemsForCurrentPage = $result;
+		}
+
+		return new LengthAwarePaginator(
+			$itemsForCurrentPage,
+			$result->count(),
+			AlertBase::$itemsPerPage,
+			$page,
+			['path' => LengthAwarePaginator::resolveCurrentPath()]
+		);
 	}
 }

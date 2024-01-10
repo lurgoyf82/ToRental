@@ -2,6 +2,7 @@
 
 	namespace App\Http\Controllers;
 
+	use App\Models\AlertBase;
 	use Illuminate\Http\Request;
 	use App\Models\Targa;
 	use App\Models\Atp;
@@ -40,9 +41,9 @@
 		/**
 		 * Show the form for creating a new resource.
 		 */
-		public function create()
+		public function create($id_veicolo = null)
 		{
-			//
+			return view('create_atp', ['id_veicolo' => $id_veicolo]);
 		}
 
 		/**
@@ -50,7 +51,14 @@
 		 */
 		public function store(Request $request)
 		{
-			//
+			$validatedData = Atp::validatePartial($request->all());
+
+			// Remove 'targa' from $validatedData and create Veicolo
+			$veicolo = Atp::create($validatedData);
+
+			AlertBase::clearCache(true);
+
+			return redirect()->route('create_atp')->with('success', 'Atp created successfully.');
 		}
 
 		/**

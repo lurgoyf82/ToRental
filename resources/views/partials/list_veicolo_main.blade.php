@@ -2,7 +2,7 @@
 	use App\Models\Alert;
 	//use App\Models\Revisione;
 	//Revisione::getAlerts();
-	$results=$expiringRevisioniMeccaniche;
+	//$list=$expiringRevisioniMeccaniche;
 	$list_route='list_veicolo';
 	$update_route='update_veicolo';
 	$delete_route='delete_veicolo';
@@ -37,7 +37,7 @@
 										</div>
 										<!--begin::Pages-->
 										@php
-											renderPagination($results, request('search'), request('order'),11);
+											renderPagination($list, request('search'), request('order'),11);
 										@endphp
 										<!--end::Pages-->
 										<!--end::Toolbar-->
@@ -66,7 +66,7 @@
 								</thead>
 								<tbody class="fw-semibold text-gray-600">
 
-								@foreach($results as $row)
+								@foreach($list as $row)
 									<tr class="bg-light-primary bg-hover-primary" >
 										<td class="min-w-150px align-center">{{ $row->id_veicolo }}
 										</td>

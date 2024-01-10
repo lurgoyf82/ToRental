@@ -1,4 +1,4 @@
-<form action="{{ route('store_assicurazione') }}" method="POST">
+<form action="{{ route('store_bombole') }}" method="POST">
 	@csrf
 	<!--begin::Content-->
 	<div id="kt_app_content" class="app-content flex-column-fluid">
@@ -14,8 +14,8 @@
 						<div class="card-header pt-5">
 							<!--begin::Title-->
 							<h3 class="card-title align-items-start flex-column">
-								<span class="card-label fw-bold text-dark">Inserisci Dati Dell' Assicurazione</span>
-								<span class="text-gray-400 mt-1 fw-semibold fs-6">Seleziona il veicolo ed inserisci l' Assicurazione</span>
+								<span class="card-label fw-bold text-dark">Inserisci Revisione Bombole</span>
+								<span class="text-gray-400 mt-1 fw-semibold fs-6">Seleziona il veicolo ed inserisci la revisione delle bombole</span>
 							</h3>
 							<!--end::Title-->
 						</div>
@@ -61,54 +61,36 @@
 									<!-- Anno Field -->
 									<div class="form-group">
 										<label for="anno">Anno</label>
-										<input type="number" name="anno" id="anno" class="form-control" value="{{ old('anno') }}" placeholder="Anno">
+										<input type="number" name="anno" id="anno" class="form-control" value="{{ old('anno') }}"
+													 placeholder="Anno">
 									</div>
 
 									<!-- Data Pagamento Field -->
 									<div class="form-group">
 										<label for="data_pagamento">Data Pagamento</label>
-										<input type="date" name="data_pagamento" id="data_pagamento" class="form-control" value="{{ old('data_pagamento') }}">
+										<input type="date" name="data_pagamento" id="data_pagamento" class="form-control"
+													 value="{{ old('data_pagamento') }}">
 									</div>
 
 									<!-- Importo Field -->
 									<div class="form-group">
 										<label for="importo">Importo</label>
-										<input type="number" step="0.01" name="importo" id="importo" class="form-control" value="{{ old('importo') }}" placeholder="Importo">
-									</div>
-
-									<!-- Agenzia Field -->
-									<div class="form-group">
-										<label for="agenzia">Agenzia</label>
-										<input type="text" name="agenzia" id="agenzia" class="form-control" value="{{ old('agenzia') }}" placeholder="Agenzia">
-									</div>
-
-									<!-- Polizza Field -->
-									<div class="form-group">
-										<label for="polizza">Polizza</label>
-										<input type="text" name="polizza" id="polizza" class="form-control" value="{{ old('polizza') }}" placeholder="Polizza">
+										<input type="number" step="0.01" name="importo" id="importo" class="form-control"
+													 value="{{ old('importo') }}" placeholder="Importo">
 									</div>
 
 									<!-- Inizio Validità Field -->
 									<div class="form-group">
 										<label for="inizio_validita">Inizio Validità</label>
-										<input type="date" name="inizio_validita" id="inizio_validita" class="form-control" value="{{ old('inizio_validita') }}">
-									</div>
-
-									<!-- Tipo Scadenza Field -->
-									<div class="form-group">
-										<label for="tipo_scadenza">Tipo Scadenza</label>
-										<select name="tipo_scadenza" id="tipo_scadenza" class="form-control">
-											<option value="">Selezionare Tipo Scadenza</option>
-											<option value="Quadrimestrale" @if(old('tipo_scadenza') == 'Quadrimestrale') selected @endif>Quadrimestrale</option>
-											<option value="Semestrale" @if(old('tipo_scadenza') == 'Semestrale') selected @endif>Semestrale</option>
-											<option value="Annuale" @if(old('tipo_scadenza') == 'Annuale') selected @endif>Annuale</option>
-										</select>
+										<input type="date" name="inizio_validita" id="inizio_validita" class="form-control"
+													 value="{{ old('inizio_validita') }}">
 									</div>
 
 									<!-- Fine Validità Field -->
 									<div class="form-group">
 										<label for="fine_validita">Fine Validità</label>
-										<input type="date" name="fine_validita" id="fine_validita" class="form-control" value="{{ old('fine_validita') }}">
+										<input type="date" name="fine_validita" id="fine_validita" class="form-control"
+													 value="{{ old('fine_validita') }}">
 									</div>
 
 
@@ -152,36 +134,11 @@
 
 
 <script>
-	function calculateFineValidita() {
-		var inizioValidita = document.getElementById('inizio_validita').value;
-		var tipoScadenza = document.getElementById('tipo_scadenza').value;
-		var fineValiditaInput = document.getElementById('fine_validita');
 
-		if (inizioValidita && tipoScadenza) {
-			var startDate = new Date(inizioValidita);
-			switch (tipoScadenza) {
-				case 'Quadrimestrale':
-					startDate.setMonth(startDate.getMonth() + 4);
-					break;
-				case 'Semestrale':
-					startDate.setMonth(startDate.getMonth() + 6);
-					break;
-				case 'Annuale':
-					startDate.setFullYear(startDate.getFullYear() + 1);
-					break;
-			}
-
-			var dd = String(startDate.getDate()).padStart(2, '0');
-			var mm = String(startDate.getMonth() + 1).padStart(2, '0'); // Months are 0-based
-			var yyyy = startDate.getFullYear();
-
-			fineValiditaInput.value = yyyy + '-' + mm + '-' + dd;
-		}
-	}
 	// Function to fetch and set vehicle data based on search input
-	function fetchAndSetVehicleData(searchInput,exactId=false) {
+	function fetchAndSetVehicleData(searchInput, exactId = false) {
 		if (searchInput.length >= 1) {
-			if(exactId == true){
+			if (exactId) {
 				var searchUrl = "/veicolo/id/";
 			} else {
 				var searchUrl = "/veicolo/search/";
@@ -194,10 +151,10 @@
 					$('#veicoli').empty();
 					vehicles = {};
 					data.forEach(function (vehicle) {
-						var optionText = '( ID: '+vehicle.id + ') ' + vehicle.targa + ' - ' +	vehicle.marca_nome + ' ' + vehicle.modello_nome + ' - ' + vehicle.colore;
+						var optionText = '( ID: ' + vehicle.id + ') ' + vehicle.targa + ' - ' + vehicle.marca_nome + ' ' + vehicle.modello_nome + ' - ' + vehicle.colore;
 						$('#veicoli').append($('<option>').val(optionText));
 						vehicles[optionText] = vehicle.id;
-						if(exactId) {
+						if (exactId) {
 							$('#searchInput').val(optionText);
 						}
 					});
@@ -208,13 +165,13 @@
 
 	$(document).ready(function () {
 		var oldSearchInput = "{{ old('searchInput') }}";
-		var oldVeicoloId = "@if(old('id_veicolo')){{old('id_veicolo')}}@elseif(isset($id_veicolo)){{$id_veicolo}}@endif";
+		var oldVeicoloId = "@if(old('id_veicolo')) {{ old('id_veicolo') }} @elseif(isset($id_veicolo)) {{ $id_veicolo }} @endif";
 
 		// If there's an old 'searchInput', repopulate the fields
 		if (oldVeicoloId) {
 			//$('#searchInput').val(oldSearchInput);
 			$('#id_veicolo').val(oldVeicoloId);
-			fetchAndSetVehicleData(oldVeicoloId,true);
+			fetchAndSetVehicleData(oldVeicoloId, true);
 		}
 
 		//var vehicles = {};
@@ -231,9 +188,6 @@
 				$('#id_veicolo').val(''); // Clear hidden field if no vehicle is selected
 			}
 		});
-
-		document.getElementById('inizio_validita').addEventListener('change', calculateFineValidita);
-		document.getElementById('tipo_scadenza').addEventListener('change', calculateFineValidita);
 	});
 
 </script>

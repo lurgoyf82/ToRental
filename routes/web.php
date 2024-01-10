@@ -69,7 +69,7 @@
 		// Display the form for creating a new veicolo
 		Route::get('create_veicolo', [DettaglioVeicoloController::class, 'create'])->name('create_veicolo');
 		// Display a list of veicoli
-		Route::get('list_veicolo', [DettaglioVeicoloController::class, 'index'])->name('list_veicolo');
+		Route::get('list_veicolo', [DettaglioVeicoloController::class, 'list_veicolo'])->name('list_veicolo');
 
 		// Show the form for editing a veicolo
 		Route::get('update_veicolo/{id}', [DettaglioVeicoloController::class, 'edit'])->name('update_veicolo');
@@ -157,6 +157,41 @@
 		Route::get('store_assicurazione', function () {
 			return redirect()->route('create_assicurazione');
 		});
+		/**************************************  ATP  **************************************/
+
+		// Display the form for creating a new atp
+		Route::get('create_atp', [AtpController::class, 'create'])->name('create_atp');
+
+		Route::get('create_atp/{id_veicolo}', [AtpController::class, 'create'])->name('create_atp_with_id');
+
+		// Display a list of atp
+		Route::get('list_atp', [AtpController::class, 'index'])->name('list_atp');
+
+		// Show the form for editing a atp
+		Route::get('update_atp/{id}', [AtpController::class, 'edit'])->name('update_atp');
+
+		// Update the specified atp
+		Route::put('update_atp/{id}', [AtpController::class, 'update_atp']);
+
+		// Delete the specified atp
+		Route::delete('delete_atp/{id}', [AtpController::class, 'destroy'])->name('delete_atp');
+
+		// Store a newly created atp
+		Route::post('store_atp', [AtpController::class, 'store'])->name('store_atp');
+
+		// Search by general criteria
+		Route::get('atp/search/{search}', [AtpController::class, 'search'])->defaults('searchField', false);
+
+		// Search by id atp
+		Route::get('atp/id/{search}', [AtpController::class, 'search'])->defaults('searchField', 'id');
+
+		// Search by id veicolo
+		Route::get('atp/id_veicolo/{search}', [AtpController::class, 'search'])->defaults('searchField', 'id_veicolo');
+
+		// Fallback for accessing store_atp via GET
+		Route::get('store_atp', function () {
+			return redirect()->route('create_atp');
+		});
 
 		/**************************************  BOLLO  **************************************/
 
@@ -191,6 +226,42 @@
 			return redirect()->route('create_bollo');
 		});
 
+		/**************************************  BOMBOLE  **************************************/
+
+		// Display the form for creating a new bombole
+		Route::get('create_bombole', [BomboleController::class, 'create'])->name('create_bombole');
+
+		Route::get('create_bombole/{id_veicolo}', [BomboleController::class, 'create'])->name('create_bombole_with_id');
+
+		// Display a list of bombole
+		Route::get('list_bombole', [BomboleController::class, 'index'])->name('list_bombole');
+
+		// Show the form for editing a bombole
+		Route::get('update_bombole/{id}', [BomboleController::class, 'edit'])->name('update_bombole');
+
+		// Update the specified bombole
+		Route::put('update_bombole/{id}', [BomboleController::class, 'update_bombole']);
+
+		// Delete the specified bombole
+		Route::delete('delete_bombole/{id}', [BomboleController::class, 'destroy'])->name('delete_bombole');
+
+		// Store a newly created bombole
+		Route::post('store_bombole', [BomboleController::class, 'store'])->name('store_bombole');
+
+		// Search by general criteria
+		Route::get('bombole/search/{search}', [BomboleController::class, 'search'])->defaults('searchField', false);
+
+		// Search by id bombole
+		Route::get('bombole/id/{search}', [BomboleController::class, 'search'])->defaults('searchField', 'id');
+
+		// Search by id veicolo
+		Route::get('bombole/id_veicolo/{search}', [BomboleController::class, 'search'])->defaults('searchField', 'id_veicolo');
+
+		// Fallback for accessing store_bombole via GET
+		Route::get('store_bombole', function () {
+			return redirect()->route('create_bombole');
+		});
+
 		/**************************************  TAGLIANDO  **************************************/
 
 		// Display the form for creating a new assicurazione
@@ -222,6 +293,39 @@
 		// Fallback for accessing store_tagliando via GET
 		Route::get('store_tagliando', function () {
 			return redirect()->route('create_tagliando');
+		});
+
+		/**************************************  TACHIGRAFO  **************************************/
+
+		// Display the form for creating a new assicurazione
+		Route::get('create_tachigrafo', [TachigrafoController::class, 'create'])->name('create_tachigrafo');
+
+		Route::get('create_tachigrafo/{id_veicolo}', [TachigrafoController::class, 'create'])->name('create_tachigrafo_with_id');
+
+		// Display a list of assicurazione
+		Route::get('list_tachigrafo', [TachigrafoController::class, 'index'])->name('list_tachigrafo');
+
+		// Show the form for editing a assicurazione
+		Route::get('update_tachigrafo/{id}', [TachigrafoController::class, 'edit'])->name('update_tachigrafo');
+
+		// Update the specified assicurazione
+		Route::put('update_tachigrafo/{id}', [TachigrafoController::class, 'update_tachigrafo']);
+
+		// Delete the specified assicurazione
+		Route::delete('delete_tachigrafo/{id}', [TachigrafoController::class, 'destroy'])->name('delete_tachigrafo');
+
+		// Store a newly created assicurazione
+		Route::post('store_tachigrafo', [TachigrafoController::class, 'store'])->name('store_tachigrafo');
+
+		// Search by general criteria
+		Route::get('tachigrafo/search/{search}', [TachigrafoController::class, 'search'])->defaults('searchField', false);
+
+		// Search by ID
+		Route::get('tachigrafo/id/{search}', [TachigrafoController::class, 'search'])->defaults('searchField', true);
+
+		// Fallback for accessing store_tachigrafo via GET
+		Route::get('store_tachigrafo', function () {
+			return redirect()->route('create_tachigrafo');
 		});
 
 		/**************************************  GPS  **************************************/
@@ -398,17 +502,17 @@
 
 		/**************************************  ATP  **************************************/
 
-		// Search by general criteria
-		Route::get('atp/search/{search}', [AtpController::class, 'search'])->defaults('searchField', false);
-
-		// Search by ID
-		Route::get('atp/id/{search}', [AtpController::class, 'search'])->defaults('searchField', 'id');
-
-		// Search by id_veicolo
-		Route::get('atp/id_veicolo/{search}', [AtpController::class, 'search'])->defaults('searchField', 'id_veicolo');
-
-		// Search by id_veicolo
-		Route::get('atp/targa/{search}', [AtpController::class, 'search'])->defaults('searchField', 'targa');
+//		// Search by general criteria
+//		Route::get('atp/search/{search}', [AtpController::class, 'search'])->defaults('searchField', false);
+//
+//		// Search by ID
+//		Route::get('atp/id/{search}', [AtpController::class, 'search'])->defaults('searchField', 'id');
+//
+//		// Search by id_veicolo
+//		Route::get('atp/id_veicolo/{search}', [AtpController::class, 'search'])->defaults('searchField', 'id_veicolo');
+//
+//		// Search by id_veicolo
+//		Route::get('atp/targa/{search}', [AtpController::class, 'search'])->defaults('searchField', 'targa');
 
 
 

@@ -25,6 +25,7 @@
 		}
 
 		public function listExpiringPolizzeAssicurative(Request $request): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
+
 		{
 			$search = $request->input('search',null);
 			$order  = $request->input('order','livello');

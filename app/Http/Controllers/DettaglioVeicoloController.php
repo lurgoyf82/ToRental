@@ -31,22 +31,30 @@
 		/**
 		 * Display a listing of the resource.
 		 */
-		public function index(Request $request): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
+//
+//		public function index2(Request $request): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
+//		{
+//			$search = $request->input('search',null);
+//			$order  = $request->input('order','livello');
+//			$page   = $request->input('page', 1);  // default to 1 if not provided
+//
+//
+//			$expiringRevisioniMeccaniche = DettaglioVeicolo::index($search, $order, $page);
+//
+//			$targaList= Targa::getTargaListByIdVeicolo();
+//			foreach ($expiringRevisioniMeccaniche as $key=>$alert) {
+//				if(isset($targaList[$alert->id_veicolo])) {
+//					$expiringRevisioniMeccaniche[$key]->targa = $targaList[$alert->id_veicolo]->targa;
+//				}
+//			}
+//			return view('list_veicolo', ['expiringRevisioniMeccaniche' => $expiringRevisioniMeccaniche]);
+//		}
+
+
+		public function list_veicolo(Request $request): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
 		{
-			$search = $request->input('search',null);
-			$order  = $request->input('order','livello');
-			$page   = $request->input('page', 1);  // default to 1 if not provided
-
-
-			$expiringRevisioniMeccaniche = DettaglioVeicolo::index($search, $order, $page);
-
-			$targaList= Targa::getTargaListByIdVeicolo();
-			foreach ($expiringRevisioniMeccaniche as $key=>$alert) {
-				if(isset($targaList[$alert->id_veicolo])) {
-					$expiringRevisioniMeccaniche[$key]->targa = $targaList[$alert->id_veicolo]->targa;
-				}
-			}
-			return view('list_veicolo', ['expiringRevisioniMeccaniche' => $expiringRevisioniMeccaniche]);
+			// 'list_bollo' is the view name specific to this controller
+			return $this->indexView($request, DettaglioVeicolo::class, 'list_veicolo');
 		}
 
 
@@ -152,15 +160,28 @@
 
 		/**
 		 * Search the specified resource from storage.
+		 * @param Request $request
+		 * @param false $search
+		 * @param false $searchField
 		 */
-//		public function search($search, $search = false, $searchField = false)
+
+
+//		public function search(Request $request, $searchField = false)
 //		{
-//			var_dump($searchField, $searchFieldVeicolo);
+//			$search = $request->input('search', null);
 //			$result = DettaglioVeicolo::search($search, $searchField, $searchField);
 //			return response()->json($result);
 //		}
-	}
 
+//	public function search($search, $search = false, $searchField = false)
+//	{
+//		var_dump($searchField, $searchFieldVeicolo);
+//		$result = DettaglioVeicolo::search($search, $searchField, $searchField);
+//		return response()->json($result);
+//	}
+//	}
+
+	}
 	//
 //	namespace App\Http\Controllers;
 //

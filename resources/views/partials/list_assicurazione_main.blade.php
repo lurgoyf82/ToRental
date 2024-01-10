@@ -2,14 +2,16 @@
 	use App\Models\Alert;
 	//use App\Models\Revisione;
 	//Revisione::getAlerts();
-	$expiring=$expiringRevisioniAtp;
-	$alert_revisione_meccanica='alert_revisione_atp';
+
+	$list_route='list_assicurazione';
+	$update_route='update_assicurazione';
+	$delete_route='delete_assicurazione';
 ?>
 	<!--begin::Main-->
 <div class="app-main flex-column flex-row-fluid" id="kt_app_main">
 	<!--begin::Content wrapper-->
 	<div class="d-flex flex-column flex-column-fluid">
-		<form action="{{ url($alert_revisione_meccanica) }}" method="get">
+		<form action="{{ url($list_route) }}" method="get">
 			<!--begin::Content-->
 			<div id="kt_app_content" class="app-content flex-column-fluid">
 				<!--begin::Content container-->
@@ -35,9 +37,9 @@
 										</div>
 										<!--begin::Pages-->
 										@php
-											renderPagination($expiring, request('search'), request('order'),11);
+											renderPagination($list, request('search'), request('order'),11);
 										@endphp
-											<!--end::Pages-->
+										<!--end::Pages-->
 										<!--end::Toolbar-->
 									</div>
 									<!--end::Card toolbar-->
@@ -53,10 +55,10 @@
 							<table class="table text-center align-middle table-row-dashed fs-6 gy-5" id="kt_customers_table">
 								<thead>
 								<tr class="text-gray-400 fw-bold fs-7 text-uppercase gs-0">
-									<th class="min-w-150px"><a href="{{ generate_order_url($alert_revisione_meccanica, 'livello') }}">Livello</a></th>
-									<th class="min-w-150px"><a href="{{ generate_order_url($alert_revisione_meccanica, 'targa') }}">Targa</a></th>
-									<th class="min-w-150px"><a href="{{ generate_order_url($alert_revisione_meccanica, 'marca') }}">Marca</a></th>
-									<th class="min-w-150px"><a href="{{ generate_order_url($alert_revisione_meccanica, 'modello') }}">Modello</a></th>
+									<th class="min-w-150px"><a href="{{ generate_order_url($list_route, 'idveicolo') }}">Id Veicolo</a></th>
+									<th class="min-w-150px"><a href="{{ generate_order_url($list_route, 'targa') }}">Targa</a></th>
+									<th class="min-w-150px"><a href="{{ generate_order_url($list_route, 'marca') }}">Marca</a></th>
+									<th class="min-w-150px"><a href="{{ generate_order_url($list_route, 'modello') }}">Modello</a></th>
 									<th class="min-w-150px">Inizio Validit&agrave;</th>
 									<th class="min-w-150px">Fine Validit&agrave;</th>
 									<th class="text-end w-100px">Azioni</th>
@@ -64,54 +66,34 @@
 								</thead>
 								<tbody class="fw-semibold text-gray-600">
 
-								@foreach($expiring as $row)
-										<?php
-										if($row->livello >= Alert::$thirdThreshold) {
-											continue;
-										}
-										?>
-									<tr
-										@if($row->livello<=Alert::$firstThreshold)
-											class="bg-light-danger bg-hover-danger"
-										@elseif($row->livello<=Alert::$secondThreshold)
-											class="bg-light-warning bg-hover-warning"
-										@elseif($row->livello<=Alert::$thirdThreshold)
-											class="bg-light-primary bg-hover-primary"
-										@endif
-									>
-										<td class="min-w-150px align-center">
-											@if(!isset($row->livello))
-												Mai Revisionato
-											@elseif($row->livello<0)
-												Scaduto da {{ -$row->livello }} giorni
-											@else
-												Scade tra {{ $row->livello }} giorni
-											@endif
+								@foreach($list as $row)
+									<tr class="bg-light-primary bg-hover-primary" >
+										<td class="min-w-150px align-center">{{ $row->id_veicolo }}
 										</td>
 										<td class="min-w-150px">
-											<!-- <a href="update_veicolo/{{ $row->id_veicolo }}" class="text-gray-800 text-hover-white mb-1"> -->
-											{{ $row->targa ?? 'N/A' }}
+											<!-- <a href="{{ url($update_route) }}/{{ $row->id_veicolo }}" class="text-gray-800 text-hover-white mb-1"> -->
+												{{ $row->targa ?? 'N/A' }}
 											<!-- </a> -->
 										</td>
 										<td class="min-w-150px">
 											<!-- <a href="update_marca/{{ $row->id_marca }}" class="text-gray-800 text-hover-white mb-1"> -->
-											{{ $row->marca ?? 'N/A' }}
-											<!-- </a> -->
+												{{ $row->marca_nome ?? 'N/A' }}
+												<!-- </a> -->
 										</td>
 										<td class="min-w-150px">
 											<!-- <a href="update_modello/{{ $row->id_modello }}" class="text-gray-800 text-hover-white mb-1"> -->
-											{{ $row->modello ?? 'N/A' }}
-											<!-- </a> -->
+												{{ $row->modello_nome ?? 'N/A' }}
+												<!-- </a> -->
 										</td>
 										<td class="min-w-150px">
-											<!-- <a href="update_atp/{{ $row->id_veicolo }}" class="text-gray-800 text-hover-white mb-1"> -->
-											{{ $row->inizio_validita ?? 'N/A' }}
-											<!-- </a> -->
+											<!-- <a href="update_revisione/{{ $row->id_veicolo }}" class="text-gray-800 text-hover-white mb-1"> -->
+												{{ $row->inizio_validita ?? 'N/A' }}
+												<!-- </a> -->
 										</td>
 										<td class="min-w-150px">
-											<!-- <a href="update_atp/{{ $row->id_veicolo }}" class="text-gray-800 text-hover-white mb-1"> -->
-											{{ $row->fine_validita ?? 'N/A' }}
-											<!-- </a> -->
+											<!-- <a href="update_revisione/{{ $row->id_veicolo }}" class="text-gray-800 text-hover-white mb-1"> -->
+												{{ $row->fine_validita ?? 'N/A' }}
+												<!-- </a> -->
 										</td>
 										<td class="text-end w-100px">
 											<a href="#" class="btn btn-sm btn-light-primary btn-flex btn-center btn-active-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Azioni
@@ -119,18 +101,18 @@
 											<!--begin::Menu-->
 											<div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-success fw-semibold fs-7 w-125px py-4" data-kt-menu="true">
 												<!--begin::Menu item-->
-												<a href="create_atp/{{$row->id_veicolo}}" class="btn btn-success">
-													<span class="indicator-label">Revisiona Mezzo</span>
+												<a href="{{ url($update_route) }}/{{$row->id_veicolo}}" class="btn btn-success">
+													<span class="indicator-label">Modifica</span>
 												</a>
 												<!--end::Menu item-->
-												@if($row->id)
+												@if($row->id_veicolo)
 													<!--begin::Menu item-->
-													<a href="update_atp/{{$row->id}}" class="btn btn-danger">
-														<span class="indicator-label">Modifica Revisione Corrente</span>
+													<a href="{{ url($delete_route) }}/{{$row->id_veicolo}}" class="btn btn-danger">
+														<span class="indicator-label">Elimina</span>
 													</a>
 													<!--end::Menu item-->
 												@endif
-													<?php
+												<?php
 													/*
 												<!--begin::Menu item-->
 												<div class="menu-item px-3">
@@ -138,7 +120,7 @@
 												</div>
 												<!--end::Menu item-->
 													 */
-													?>
+												?>
 											</div>
 											<!--end::Menu-->
 										</td>

@@ -119,9 +119,11 @@
 				->leftJoin('tipo_alimentazione', 'tipo_alimentazione.id', '=', 'dettaglio_veicolo.alimentazione')
 				->leftJoin('targa', 'targa.id_veicolo', '=', 'dettaglio_veicolo.id')
 				->where(function ($query) use ($search, $searchField) {
-					$scopeSearch=self::scopeSearch($query,$search,$searchField);
-					if($scopeSearch==null){
-						// Search across multiple fields
+//					$scopeSearch= DettaglioVeicolo::scopeSearch($query, $search, $searchField);
+//					if($scopeSearch==null){
+					if($searchField=='id'||$searchField=='id_veicolo') {
+						$query->where('dettaglio_veicolo.id', '=', $search);
+					} else {
 						$query->where('dettaglio_veicolo.id', '=', $search)
 							->orWhere('dettaglio_veicolo.colore', 'LIKE', "%{$search}%")
 							->orWhere('dettaglio_veicolo.massa', 'LIKE', "%{$search}%")
@@ -140,11 +142,11 @@
 							->orWhere('tipo_alimentazione.nome', 'LIKE', "%{$search}%")
 							->orWhere('targa.targa', 'LIKE', "%{$search}%");
 					}
-					else {
-						$query=$scopeSearch;
-					}
-				})
-				->get([
+//					}
+//					else {
+//						$query=$scopeSearch;
+//					}
+				})->get([
 					'dettaglio_veicolo.id',
 					'dettaglio_veicolo.colore',
 					'dettaglio_veicolo.massa',
@@ -188,6 +190,8 @@
 					$orderBy = 'id_veicolo';
 					break;
 			}
+
+			//dd($orderBy);
 
 			if(array_key_exists(1,$order,)&&strtolower($order[1])=='desc') {
 				$orderDirection='DESC';
@@ -442,4 +446,55 @@
 			return $query;
 		}
 
+		public static function scopeSearch($query, $search, $searchField = false)
+		{
+			if (!$search) {
+				return $query;
+			}
+
+			if ($searchField) {
+				// Search only in the specified field.
+				return $query->where($searchField, 'LIKE', "%{$search}%");
+			} else {
+				// Search in all searchable fields.
+				return $query->where(function ($q) use ($search) {
+					$q->where('dettaglio_veicolo.colore', 'LIKE', "%{$search}%")
+						->orWhere('dettaglio_veicolo.lunghezza_esterna', 'LIKE', "%{$search}%")
+						->orWhere('dettaglio_veicolo.larghezza_esterna', 'LIKE', "%{$search}%")
+						->orWhere('dettaglio_veicolo.massa', 'LIKE', "%{$search}%")
+						->orWhere('dettaglio_veicolo.portata', 'LIKE', "%{$search}%")
+						->orWhere('dettaglio_veicolo.cilindrata', 'LIKE', "%{$search}%")
+						->orWhere('dettaglio_veicolo.potenza', 'LIKE', "%{$search}%")
+						->orWhere('dettaglio_veicolo.numero_assi', 'LIKE', "%{$search}%")
+						->orWhere('dettaglio_veicolo.tipo_asse', 'LIKE', "%{$search}%")
+						->orWhere('dettaglio_veicolo.tipo_cambio', 'LIKE', "%{$search}%")
+						->orWhere('dettaglio_veicolo.alimentazione', 'LIKE', "%{$search}%")
+						->orWhere('dettaglio_veicolo.destinazione_uso', 'LIKE', "%{$search}%")
+						->orWhere('dettaglio_veicolo.altre_caratteristiche', 'LIKE', "%{$search}%")
+						->orWhere('dettaglio_veicolo.note_acquisto', 'LIKE', "%{$search}%")
+						->orWhere('dettaglio_veicolo.prezzo', 'LIKE', "%{$search}%")
+						->orWhere('dettaglio_veicolo.controparte_vendita', 'LIKE', "%{$search}%")
+						->orWhere('targa.targa', 'LIKE', "%{$search}%");
+				});
+			}
+		}
+
 	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

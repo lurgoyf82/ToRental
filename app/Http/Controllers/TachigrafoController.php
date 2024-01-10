@@ -2,6 +2,7 @@
 
 	namespace App\Http\Controllers;
 
+	use App\Models\AlertBase;
 	use Illuminate\Http\Request;
 	use App\Models\Targa;
 	use App\Models\Tachigrafo;
@@ -40,9 +41,9 @@
 		/**
 		 * Show the form for creating a new resource.
 		 */
-		public function create()
+		public function create($id_veicolo = null)
 		{
-			//
+			return view('create_tachigrafo', ['id_veicolo' => $id_veicolo]);
 		}
 
 		/**
@@ -50,7 +51,14 @@
 		 */
 		public function store(Request $request)
 		{
-			//
+			$validatedData = Tachigrafo::validatePartial($request->all());
+
+			// Remove 'targa' from $validatedData and create Veicolo
+			$veicolo = Tachigrafo::create($validatedData);
+
+			AlertBase::clearCache(true);
+
+			return redirect()->route('create_tachigrafo')->with('success', 'Tachigrafo created successfully.');
 		}
 
 		/**

@@ -3,13 +3,13 @@
 	//use App\Models\Revisione;
 	//Revisione::getAlerts();
 	$expiring=$expiringRevisioniTachigrafi;
-	$alert_revisione_meccanica='alert_revisione_tachigrafo';
+	$alert_revisione_tachigrafo='alert_revisione_tachigrafo';
 ?>
 	<!--begin::Main-->
 <div class="app-main flex-column flex-row-fluid" id="kt_app_main">
 	<!--begin::Content wrapper-->
 	<div class="d-flex flex-column flex-column-fluid">
-		<form action="{{ url($alert_revisione_meccanica) }}" method="get">
+		<form action="{{ url($alert_revisione_tachigrafo) }}" method="get">
 			<!--begin::Content-->
 			<div id="kt_app_content" class="app-content flex-column-fluid">
 				<!--begin::Content container-->
@@ -53,10 +53,10 @@
 							<table class="table text-center align-middle table-row-dashed fs-6 gy-5" id="kt_customers_table">
 								<thead>
 								<tr class="text-gray-400 fw-bold fs-7 text-uppercase gs-0">
-									<th class="min-w-150px"><a href="{{ generate_order_url($alert_revisione_meccanica, 'livello') }}">Livello</a></th>
-									<th class="min-w-150px"><a href="{{ generate_order_url($alert_revisione_meccanica, 'targa') }}">Targa</a></th>
-									<th class="min-w-150px"><a href="{{ generate_order_url($alert_revisione_meccanica, 'marca') }}">Marca</a></th>
-									<th class="min-w-150px"><a href="{{ generate_order_url($alert_revisione_meccanica, 'modello') }}">Modello</a></th>
+									<th class="min-w-150px"><a href="{{ generate_order_url($alert_revisione_tachigrafo, 'livello') }}">Livello</a></th>
+									<th class="min-w-150px"><a href="{{ generate_order_url($alert_revisione_tachigrafo, 'targa') }}">Targa</a></th>
+									<th class="min-w-150px"><a href="{{ generate_order_url($alert_revisione_tachigrafo, 'marca') }}">Marca</a></th>
+									<th class="min-w-150px"><a href="{{ generate_order_url($alert_revisione_tachigrafo, 'modello') }}">Modello</a></th>
 									<th class="min-w-150px">Inizio Validit&agrave;</th>
 									<th class="min-w-150px">Fine Validit&agrave;</th>
 									<th class="text-end w-100px">Azioni</th>
@@ -104,12 +104,12 @@
 											<!-- </a> -->
 										</td>
 										<td class="min-w-150px">
-											<!-- <a href="update_revisione/{{ $row->id_veicolo }}" class="text-gray-800 text-hover-white mb-1"> -->
+											<!-- <a href="update_tachigrafo/{{ $row->id_veicolo }}" class="text-gray-800 text-hover-white mb-1"> -->
 											{{ $row->inizio_validita ?? 'N/A' }}
 											<!-- </a> -->
 										</td>
 										<td class="min-w-150px">
-											<!-- <a href="update_revisione/{{ $row->id_veicolo }}" class="text-gray-800 text-hover-white mb-1"> -->
+											<!-- <a href="update_tachigrafo/{{ $row->id_veicolo }}" class="text-gray-800 text-hover-white mb-1"> -->
 											{{ $row->fine_validita ?? 'N/A' }}
 											<!-- </a> -->
 										</td>
@@ -119,13 +119,13 @@
 											<!--begin::Menu-->
 											<div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-success fw-semibold fs-7 w-125px py-4" data-kt-menu="true">
 												<!--begin::Menu item-->
-												<a href="create_revisione/{{$row->id_veicolo}}" class="btn btn-success">
+												<a href="create_tachigrafo/{{$row->id_veicolo}}" class="btn btn-success">
 													<span class="indicator-label">Revisiona Mezzo</span>
 												</a>
 												<!--end::Menu item-->
 												@if($row->id)
 													<!--begin::Menu item-->
-													<a href="update_revisione/{{$row->id}}" class="btn btn-danger">
+													<a href="update_tachigrafo/{{$row->id}}" class="btn btn-danger">
 														<span class="indicator-label">Modifica Revisione Corrente</span>
 													</a>
 													<!--end::Menu item-->

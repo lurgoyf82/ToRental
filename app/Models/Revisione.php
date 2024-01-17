@@ -61,6 +61,169 @@
 
 			switch (strtolower($order[0])) {
 				case 'marca':
+					$orderBy = 'marca.nome';
+					break;
+				case 'modello':
+					$orderBy = 'modello.nome';
+					break;
+				case 'targa':
+					$orderBy = 'targa.targa';
+					break;
+				default:
+					$orderBy = 'id_veicolo';
+					break;
+			}
+
+			if(array_key_exists(1,$order,)&&strtolower($order[1])=='desc') {
+				$orderDirection='DESC';
+			} else {
+				$orderDirection='ASC';
+			}
+
+			$query = Revisione::select([
+				'revisione.id',
+				'revisione.id_veicolo',
+				//'revisione.targa',
+				'revisione.anno',
+				'revisione.data_pagamento',
+				'revisione.inizio_validita',
+				'revisione.fine_validita',
+				'revisione.importo',
+				'revisione.agenzia',
+				'revisione.polizza',
+				'revisione.tipo_scadenza',
+				'dettaglio_veicolo.id_proprietario',
+				'dettaglio_veicolo.id_tipo_veicolo',
+				'dettaglio_veicolo.id_tipo_allestimento',
+				'dettaglio_veicolo.id_marca',
+				'dettaglio_veicolo.id_modello',
+				'dettaglio_veicolo.colore',
+				'dettaglio_veicolo.lunghezza_esterna',
+				'dettaglio_veicolo.larghezza_esterna',
+				'dettaglio_veicolo.massa',
+				'dettaglio_veicolo.portata',
+				'dettaglio_veicolo.cilindrata',
+				'dettaglio_veicolo.potenza',
+				'dettaglio_veicolo.numero_assi',
+				'dettaglio_veicolo.tipo_asse',
+				'dettaglio_veicolo.tipo_cambio',
+				'dettaglio_veicolo.alimentazione',
+				'dettaglio_veicolo.destinazione_uso',
+				'dettaglio_veicolo.altre_caratteristiche',
+				'dettaglio_veicolo.data_acquisto',
+				'dettaglio_veicolo.note_acquisto',
+				'dettaglio_veicolo.prezzo',
+				'dettaglio_veicolo.data_vendita',
+				'dettaglio_veicolo.controparte_vendita',
+				'societa.nome as societa_nome',
+				'tipo_veicolo.nome as tipo_veicolo_nome',
+				'tipo_allestimento.nome as tipo_allestimento_nome',
+				'marca.nome as marca_nome',
+				'modello.nome as modello_nome',
+				'tipo_asse.nome as tipo_asse_nome',
+				'tipo_cambio.nome as tipo_cambio_nome',
+				'destinazione_uso.nome as destinazione_uso_nome'
+			])
+				->leftJoin('dettaglio_veicolo', 'revisione.id_veicolo', '=', 'dettaglio_veicolo.id')
+				->leftJoin('targa', 'revisione.id_veicolo', '=', 'targa.id_veicolo')
+				->leftJoin('societa', 'dettaglio_veicolo.id_proprietario', '=', 'societa.id')
+				->leftJoin('tipo_veicolo', 'dettaglio_veicolo.id_tipo_veicolo', '=', 'tipo_veicolo.id')
+				->leftJoin('tipo_allestimento', 'dettaglio_veicolo.id_tipo_allestimento', '=', 'tipo_allestimento.id')
+				->leftJoin('marca', 'dettaglio_veicolo.id_marca', '=', 'marca.id')
+				->leftJoin('modello', 'dettaglio_veicolo.id_modello', '=', 'modello.id')
+				->leftJoin('tipo_asse', 'dettaglio_veicolo.tipo_asse', '=', 'tipo_asse.id')
+				->leftJoin('tipo_cambio', 'dettaglio_veicolo.tipo_cambio', '=', 'tipo_cambio.id')
+				->leftJoin('destinazione_uso', 'dettaglio_veicolo.destinazione_uso', '=', 'destinazione_uso.id')
+				->where(function($query) use ($search) {
+					$query->where('revisione.id', 'LIKE', "%{$search}%")
+						->orWhere('revisione.id_veicolo', 'LIKE', "%{$search}%")
+						//->orWhere('revisione.targa', 'LIKE', "%{$search}%")
+						->orWhere('revisione.anno', 'LIKE', "%{$search}%")
+						->orWhere('revisione.data_pagamento', 'LIKE', "%{$search}%")
+						->orWhere('revisione.inizio_validita', 'LIKE', "%{$search}%")
+						->orWhere('revisione.fine_validita', 'LIKE', "%{$search}%")
+						->orWhere('revisione.importo', 'LIKE', "%{$search}%")
+						->orWhere('revisione.agenzia', 'LIKE', "%{$search}%")
+						->orWhere('revisione.polizza', 'LIKE', "%{$search}%")
+						->orWhere('revisione.tipo_scadenza', 'LIKE', "%{$search}%")
+						->orWhere('dettaglio_veicolo.colore', 'LIKE', "%{$search}%")
+						->orWhere('dettaglio_veicolo.lunghezza_esterna', 'LIKE', "%{$search}%")
+						->orWhere('dettaglio_veicolo.larghezza_esterna', 'LIKE', "%{$search}%")
+						->orWhere('dettaglio_veicolo.massa', 'LIKE', "%{$search}%")
+						->orWhere('dettaglio_veicolo.portata', 'LIKE', "%{$search}%")
+						->orWhere('dettaglio_veicolo.cilindrata', 'LIKE', "%{$search}%")
+						->orWhere('dettaglio_veicolo.potenza', 'LIKE', "%{$search}%")
+						->orWhere('dettaglio_veicolo.numero_assi', 'LIKE', "%{$search}%")
+						->orWhere('dettaglio_veicolo.tipo_asse', 'LIKE', "%{$search}%")
+						->orWhere('dettaglio_veicolo.tipo_cambio', 'LIKE', "%{$search}%")
+						->orWhere('dettaglio_veicolo.alimentazione', 'LIKE', "%{$search}%")
+						->orWhere('dettaglio_veicolo.destinazione_uso', 'LIKE', "%{$search}%")
+						->orWhere('dettaglio_veicolo.altre_caratteristiche', 'LIKE', "%{$search}%")
+						->orWhere('dettaglio_veicolo.data_acquisto', 'LIKE', "%{$search}%")
+						->orWhere('dettaglio_veicolo.note_acquisto', 'LIKE', "%{$search}%")
+						->orWhere('dettaglio_veicolo.prezzo', 'LIKE', "%{$search}%")
+						->orWhere('dettaglio_veicolo.data_vendita', 'LIKE', "%{$search}%")
+						->orWhere('dettaglio_veicolo.controparte_vendita', 'LIKE', "%{$search}%")
+						->orWhere('societa.nome', 'LIKE', "%{$search}%")
+						->orWhere('tipo_veicolo.nome', 'LIKE', "%{$search}%")
+						->orWhere('tipo_allestimento.nome', 'LIKE', "%{$search}%")
+						->orWhere('marca.nome', 'LIKE', "%{$search}%")
+						->orWhere('tipo_asse.nome', 'LIKE', "%{$search}%")
+						->orWhere('tipo_cambio.nome', 'LIKE', "%{$search}%")
+						->orWhere('destinazione_uso.nome', 'LIKE', "%{$search}%")
+						->orWhereExists(function ($query) use ($search) {
+							$query->select(DB::raw(1))
+								->from('targa')
+								->whereRaw('dettaglio_veicolo.id = targa.id_veicolo')
+								->where('targa.targa', 'LIKE', "%{$search}%");
+						})
+						->orWhereExists(function ($query) use ($search) {
+							$query->select(DB::raw(1))
+								->from('telaio')
+								->whereRaw('dettaglio_veicolo.id = telaio.id_veicolo')
+								->where('telaio.telaio', 'LIKE', "%{$search}%");
+						});
+				});
+
+			//dd($query->toSql());
+
+			if ($orderBy!=='id_veicolo') {
+				$results = $query->orderBy($orderBy, $orderDirection)->get();
+			} else {
+				$results = $query->get();
+				if($orderDirection!=='DESC') {
+					$results=($results->sortByDesc('id_veicolo'));
+				} else {
+					$results=($results->sortBy('id_veicolo'));
+				}
+			}
+
+			// Manually slice the results for pagination
+			$offset = ($page - 1) * AlertBase::$itemsPerPage;
+			if($slice) {
+				$itemsForCurrentPage = $results->slice($offset, AlertBase::$itemsPerPage);
+			} else {
+				$itemsForCurrentPage = $results;
+			}
+
+			return new LengthAwarePaginator(
+				$itemsForCurrentPage,
+				$results->count(),
+				AlertBase::$itemsPerPage,
+				$page,
+				['path' => LengthAwarePaginator::resolveCurrentPath()]
+			);
+		}
+		public static function indexOLD($search = null, $order = 'livello', $page = 1, $slice = true) {
+			$page = intval($page);
+			if ($page <= 0 || !is_int($page)) {
+				$page = 1;
+			}
+
+			$order=explode('_',$order);
+
+			switch (strtolower($order[0])) {
+				case 'marca':
 					$orderBy = Marca::getTableName() . '.nome';
 					break;
 				case 'modello':

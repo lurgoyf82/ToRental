@@ -333,7 +333,7 @@ class Assicurazione extends AlertBase
 		$query = Assicurazione::select([
 			'assicurazione.id',
 			'assicurazione.id_veicolo',
-			'assicurazione.targa',
+			//'assicurazione.targa',
 			'assicurazione.anno',
 			'assicurazione.data_pagamento',
 			'assicurazione.inizio_validita',
@@ -375,6 +375,7 @@ class Assicurazione extends AlertBase
 			'destinazione_uso.nome as destinazione_uso_nome'
 		])
 			->leftJoin('dettaglio_veicolo', 'assicurazione.id_veicolo', '=', 'dettaglio_veicolo.id')
+			->leftJoin('targa', 'assicurazione.id_veicolo', '=', 'targa.id_veicolo')
 			->leftJoin('societa', 'dettaglio_veicolo.id_proprietario', '=', 'societa.id')
 			->leftJoin('tipo_veicolo', 'dettaglio_veicolo.id_tipo_veicolo', '=', 'tipo_veicolo.id')
 			->leftJoin('tipo_allestimento', 'dettaglio_veicolo.id_tipo_allestimento', '=', 'tipo_allestimento.id')

@@ -47,7 +47,7 @@
 		public function indexView(Request $request, $model, $viewName, $additionalData = []): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
 		{
 			$search = $request->input('search', null);
-			$order  = $request->input('order', 'id');
+			$order  = $request->input('order', 'id_desc');
 			$page   = $request->input('page', 1);  // default to page 1
 
 			$result = $model::index($search, $order, $page);

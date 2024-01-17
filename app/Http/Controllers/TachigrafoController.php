@@ -31,14 +31,6 @@
 		}
 
 		/**
-		 * Display a listing of the resource.
-		 */
-		public function index()
-		{
-			//
-		}
-
-		/**
 		 * Show the form for creating a new resource.
 		 */
 		public function create($id_veicolo = null)
@@ -91,6 +83,15 @@
 		public function destroy(string $id)
 		{
 			//
+		}
+
+
+		/**
+		 * Display a listing of the resource.
+		 */
+		public function index(Request $request): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
+		{
+			return $this->indexView($request, Tachigrafo::class, 'list_tachigrafo');
 		}
 
 //		public function search($search, $searchField = false, $searchFieldVeicolo = false) {

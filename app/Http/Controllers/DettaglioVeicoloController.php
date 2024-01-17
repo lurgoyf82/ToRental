@@ -57,6 +57,11 @@
 			return $this->indexView($request, DettaglioVeicolo::class, 'list_veicolo');
 		}
 
+		public function index(Request $request): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
+		{
+			return $this->indexView($request, DettaglioVeicolo::class, 'list_veicolo');
+		}
+
 
 		/**
 		 * Show the form for creating a new resource.
@@ -121,8 +126,8 @@
 		 */
 		public function show($id)
 		{
-			$veicolo = Veicolo::findOrFail($id);
-			return view('list_veicolo', compact('veicolo'));
+			$veicolo = DettaglioVeicolo::findOrFail($id);
+			return view('update_veicolo', compact('veicolo'));
 		}
 
 		/**
@@ -130,8 +135,8 @@
 		 */
 		public function edit($id)
 		{
-			$veicolo = Veicolo::findOrFail($id);
-			return view('update_veicolo', compact('veicolo'));
+			$veicolo = DettaglioVeicolo::findOrFail($id);
+			return view('edit_veicolo', compact('veicolo'));
 		}
 
 		/**

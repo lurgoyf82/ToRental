@@ -161,7 +161,6 @@
 
 		public function index(Request $request): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
 		{
-			// 'list_bollo' is the view name specific to this controller
 			return $this->indexView($request, Assicurazione::class, 'list_assicurazione');
 		}
 	}

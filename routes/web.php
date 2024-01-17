@@ -4,6 +4,7 @@
 	use App\Http\Controllers\DecorazioneController;
 	use App\Http\Controllers\DettaglioVeicoloController;
 	use App\Http\Controllers\GpsController;
+	use App\Http\Controllers\ImportVeicoloController;
 	use App\Http\Controllers\MultaController;
 	use App\Http\Controllers\NoleggioController;
 	use App\Http\Controllers\TachigrafoController;
@@ -64,18 +65,44 @@
 		Route::get('alert_scadenza_bollo', [BolloController::class, 'listExpiringScadenzeBolli']);
 
 
+		/************************************  IMPORT EXCEL  ************************************/
+
+//		Route::get('import_veicolo', [ImportVeicoloController::class, 'import_veicolo'])->name('import_veicolo');
+//		Route::post('import_veicolo', [ImportVeicoloController::class, 'store_veicolo'])->name('store_veicolo');
+//
+//		Route::get('import_scadenze', [ImportScadenzeController::class, 'import_scadenze'])->name('import_scadenze');
+//		Route::post('import_scadenze', [ImportScadenzeController::class, 'store_scadenze'])->name('store_scadenze');
+
+		// Routes for ImportVeicolo
+		Route::get('import_veicolo', [ImportVeicoloController::class, 'create'])->name('import_veicolo.create');
+		Route::post('import_veicolo', [ImportVeicoloController::class, 'store'])->name('import_veicolo.store');
+
+		// Routes for ImportScadenze
+		//Route::get('import_scadenze', [ImportScadenzeController::class, 'create'])->name('import_scadenze.create');
+		//Route::post('import_scadenze', [ImportScadenzeController::class, 'store'])->name('import_scadenze.store');
+
+
+
 		/**************************************  VEICOLO  **************************************/
 
 		// Display the form for creating a new veicolo
 		Route::get('create_veicolo', [DettaglioVeicoloController::class, 'create'])->name('create_veicolo');
 		// Display a list of veicoli
-		Route::get('list_veicolo', [DettaglioVeicoloController::class, 'list_veicolo'])->name('list_veicolo');
+		//Route::get('list_veicolo', [DettaglioVeicoloController::class, 'list_veicolo'])->name('list_veicolo');
+		Route::get('list_veicolo', [DettaglioVeicoloController::class, 'index'])->name('list_veicolo');
+
+//		// Show the form for editing a veicolo
+//		Route::get('update_veicolo/{id}', [DettaglioVeicoloController::class, 'edit'])->name('update_veicolo');
+//
+//		// Update the specified veicolo
+//		Route::put('update_veicolo/{id}', [DettaglioVeicoloController::class, 'update_veicolo']);
 
 		// Show the form for editing a veicolo
-		Route::get('update_veicolo/{id}', [DettaglioVeicoloController::class, 'edit'])->name('update_veicolo');
+		Route::get('update_veicolo/{id}', [DettaglioVeicoloController::class, 'edit'])->name('edit_veicolo');
 
 		// Update the specified veicolo
-		Route::put('update_veicolo/{id}', [DettaglioVeicoloController::class, 'update_veicolo']);
+		Route::put('update_veicolo/{id}', [DettaglioVeicoloController::class, 'update'])->name('update_veicolo');
+
 
 		// Delete the specified veicolo
 		Route::delete('delete_veicolo/{id}', [DettaglioVeicoloController::class, 'destroy'])->name('delete_veicolo');

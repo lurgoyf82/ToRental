@@ -33,4 +33,13 @@
 			return $return;
 		}
 
+		public static function create($validatedData) {
+			$targa = new Targa();
+			$targa->id_veicolo = $validatedData['id_veicolo'];
+			$targa->targa = $validatedData['targa'];
+			$targa->data_immatricolazione = $validatedData['data_immatricolazione'];
+			$targa->save();
+			return $targa;
+		}
+
 	}

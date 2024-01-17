@@ -43,16 +43,6 @@
 		}
 
 		/**
-		 * Display a listing of the resource.
-		 */
-
-
-		public function index()
-		{
-			//
-		}
-
-		/**
 		 * Show the form for creating a new resource.
 		 */
 		public function create($id_veicolo = null)
@@ -123,6 +113,15 @@
 		/**
 		 * Search the specified resource from storage.
 		 */
+
+
+		/**
+		 * Display a listing of the resource.
+		 */
+		public function index(Request $request): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
+		{
+			return $this->indexView($request, Tagliando::class, 'list_tagliando');
+		}
 //		public function search($search, $searchField = false, $searchFieldVeicolo = false) {
 //			$result = Tagliando::search($search, $searchField, $exactIdVeicolo);
 //			return response()->json($result);

@@ -69,9 +69,6 @@
 			return view('create_bollo', ['id_veicolo' => $id_veicolo]);
 		}
 
-		/**
-		 * Store a newly created resource in storage.
-		 */
 		public function store(Request $request)
 		{
 			$validatedData = Bollo::validatePartial($request->all());
@@ -102,7 +99,7 @@
 
 		/**
 		 * Update the specified resource in storage.
-		 */
+*/
 		public function update(Request $request, string $id)
 		{
 			//
@@ -118,15 +115,17 @@
 		/**
 		 * Search the specified resource from storage.
 		 */
+
 //		public function search($search, $searchField = false, $searchFieldVeicolo = false) {
 //			$result = Bollo::search($search, $searchField, $searchFieldVeicolo);
 //			return response()->json($result);
 //		}
 
+		/**
+		 * Display a listing of the resource.
+		 */
 		public function index(Request $request): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
 		{
-			// 'list_bollo' is the view name specific to this controller
 			return $this->indexView($request, Bollo::class, 'list_bollo');
 		}
-
 	}

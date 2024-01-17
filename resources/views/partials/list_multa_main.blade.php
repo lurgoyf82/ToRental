@@ -1,11 +1,11 @@
 <?php
-	//use App\Models\Alert;
+	use App\Models\Alert;
 	//use App\Models\Revisione;
 	//Revisione::getAlerts();
 
-	$list_route='list_veicolo';
-	$update_route='update_veicolo';
-	$delete_route='delete_veicolo';
+	$list_route='list_multa';
+	$update_route='update_multa';
+	$delete_route='delete_multa';
 ?>
 	<!--begin::Main-->
 <div class="app-main flex-column flex-row-fluid" id="kt_app_main">
@@ -39,7 +39,7 @@
 										@php
 											renderPagination($list, request('search'), request('order'),11);
 										@endphp
-											<!--end::Pages-->
+										<!--end::Pages-->
 										<!--end::Toolbar-->
 									</div>
 									<!--end::Card toolbar-->
@@ -57,78 +57,43 @@
 								<tr class="text-gray-400 fw-bold fs-7 text-uppercase gs-0">
 									<th class="min-w-150px"><a href="{{ generate_order_url($list_route, 'idveicolo') }}">Id Veicolo</a></th>
 									<th class="min-w-150px"><a href="{{ generate_order_url($list_route, 'targa') }}">Targa</a></th>
-									<th class="min-w-150px"><a href="{{ generate_order_url($list_route, 'societa_nome') }}">Proprietario</a></th>
-									<th class="min-w-150px"><a href="{{ generate_order_url($list_route, 'marca') }}">Marca / Modello</a></th>
+									<th class="min-w-150px"><a href="{{ generate_order_url($list_route, 'marca') }}">Marca</a></th>
 									<th class="min-w-150px"><a href="{{ generate_order_url($list_route, 'modello') }}">Modello</a></th>
-									<th class="min-w-150px">Massa / Portata</th>
+									<th class="min-w-150px">Inizio Validit&agrave;</th>
+									<th class="min-w-150px">Fine Validit&agrave;</th>
 									<th class="text-end w-100px">Azioni</th>
 								</tr>
 								</thead>
 								<tbody class="fw-semibold text-gray-600">
 
 								@foreach($list as $row)
-									<?php
-									//"id" => 1
-									//"id_veicolo" => 1
-									//"id_proprietario" => 1
-									//"id_tipo_veicolo" => 1
-									//"id_tipo_allestimento" => 1
-									//"id_marca" => 1
-									//"id_modello" => 1
-									//"colore" => "BIANCO"
-									//"lunghezza_esterna" => "13.90"
-									//"larghezza_esterna" => "2.55"
-									//"massa" => "368.00"
-									//"portata" => 29200
-									//"cilindrata" => 0
-									//"potenza" => 0
-									//"numero_assi" => 3
-									//"tipo_asse" => 1
-									//"tipo_cambio" => 1
-									//"alimentazione" => 1
-									//"destinazione_uso" => 1
-									//"altre_caratteristiche" => null
-									//"data_acquisto" => null
-									//"note_acquisto" => null
-									//"prezzo" => null
-									//"data_vendita" => null
-									//"controparte_vendita" => null
-									//"societa_nome" => "TOP CAR"
-									//"tipo_veicolo_nome" => "SEMIRIMORCHIO"
-									//"tipo_allestimento_nome" => "CENTINATO"
-									//"marca_nome" => "CARDI"
-									//"modello_nome" => "39S3SP"
-									//"tipo_asse_nome" => "SINGOLO"
-									//"tipo_cambio_nome" => "MECCANICO"
-									//"destinazione_uso_nome" => "USO TERZI"
-										?>
 									<tr class="bg-light-primary bg-hover-primary" >
 										<td class="min-w-150px align-center">{{ $row->id_veicolo }}
 										</td>
 										<td class="min-w-150px">
 											<!-- <a href="{{ url($update_route) }}/{{ $row->id_veicolo }}" class="text-gray-800 text-hover-white mb-1"> -->
-											{{ $row->targa ?? 'N/A' }}
-											<!-- </a> -->
-										</td>
-										<td class="min-w-150px">
-											<!-- <a href="update_revisione/{{ $row->id_veicolo }}" class="text-gray-800 text-hover-white mb-1"> -->
-											{{ $row->societa_nome ?? 'N/A' }}
+												{{ $row->targa ?? 'N/A' }}
 											<!-- </a> -->
 										</td>
 										<td class="min-w-150px">
 											<!-- <a href="update_marca/{{ $row->id_marca }}" class="text-gray-800 text-hover-white mb-1"> -->
-											{{ $row->marca_nome ?? 'N/A' }} - {{ $row->modello_nome ?? 'N/A' }}
-											<!-- </a> -->
+												{{ $row->marca_nome ?? 'N/A' }}
+												<!-- </a> -->
 										</td>
 										<td class="min-w-150px">
 											<!-- <a href="update_modello/{{ $row->id_modello }}" class="text-gray-800 text-hover-white mb-1"> -->
-											{{ $row->modello_nome ?? 'N/A' }}
-											<!-- </a> -->
+												{{ $row->modello_nome ?? 'N/A' }}
+												<!-- </a> -->
 										</td>
 										<td class="min-w-150px">
 											<!-- <a href="update_revisione/{{ $row->id_veicolo }}" class="text-gray-800 text-hover-white mb-1"> -->
-											{{ $row->massa ?? 'N/A' }} / {{ $row->portata ?? 'N/A' }}
-											<!-- </a> -->
+												{{ $row->inizio_validita ?? 'N/A' }}
+												<!-- </a> -->
+										</td>
+										<td class="min-w-150px">
+											<!-- <a href="update_revisione/{{ $row->id_veicolo }}" class="text-gray-800 text-hover-white mb-1"> -->
+												{{ $row->fine_validita ?? 'N/A' }}
+												<!-- </a> -->
 										</td>
 										<td class="text-end w-100px">
 											<a href="#" class="btn btn-sm btn-light-primary btn-flex btn-center btn-active-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Azioni
@@ -147,7 +112,7 @@
 													</a>
 													<!--end::Menu item-->
 												@endif
-													<?php
+												<?php
 													/*
 												<!--begin::Menu item-->
 												<div class="menu-item px-3">
@@ -155,7 +120,7 @@
 												</div>
 												<!--end::Menu item-->
 													 */
-													?>
+												?>
 											</div>
 											<!--end::Menu-->
 										</td>

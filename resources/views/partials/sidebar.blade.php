@@ -980,6 +980,7 @@
 
 
 
+					@can('edit roles')
 					<!--begin:Menu item-->
 					<div data-kt-menu-trigger="click" class="menu-item here menu-accordion">
 						<!--begin:Menu link-->
@@ -1056,6 +1057,29 @@
 					</div>
 					<!--end:Menu item-->
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 					<!--begin:Menu item-->
 					<div data-kt-menu-trigger="click" class="menu-item here menu-accordion">
 						<!--begin:Menu link-->
@@ -1131,6 +1155,28 @@
 						<!--end:Menu sub-->
 					</div>
 					<!--end:Menu item-->
+
+
+
+
+
+
+
+
+					@endcan
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 					<!--begin:Menu item-->
 					<div data-kt-menu-trigger="click" class="menu-item here menu-accordion">

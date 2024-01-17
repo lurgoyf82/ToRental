@@ -77,12 +77,12 @@
 										</td>
 										<td class="min-w-150px">
 											<!-- <a href="update_marca/{{ $row->id_marca }}" class="text-gray-800 text-hover-white mb-1"> -->
-												{{ $row->marca ?? 'N/A' }}
+												{{ $row->marca_nome ?? 'N/A' }}
 												<!-- </a> -->
 										</td>
 										<td class="min-w-150px">
 											<!-- <a href="update_modello/{{ $row->id_modello }}" class="text-gray-800 text-hover-white mb-1"> -->
-												{{ $row->modello ?? 'N/A' }}
+												{{ $row->modello_nome ?? 'N/A' }}
 												<!-- </a> -->
 										</td>
 										<td class="min-w-150px">

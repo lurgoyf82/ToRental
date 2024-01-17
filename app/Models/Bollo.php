@@ -14,7 +14,7 @@
 
 		protected $table = 'bollo';
 		public static string $tableName = 'bollo';
-		protected $fillable = ['id_veicolo', 'anno', 'data_pagamento', 'inizio_validita', 'fine_validita', 'importo'];
+		protected $fillable = ['id_veicolo', 'anno', 'data_pagamento', 'inizio_validita', 'fine_validita', 'importo', 'targa'];
 
 		public static function getExpiringScadenzeBolli($search = null): \Illuminate\Support\Collection
 		{
@@ -158,11 +158,15 @@
 			$query = Bollo::select([
 				'bollo.id',
 				'bollo.id_veicolo',
+				//'bollo.targa',
 				'bollo.anno',
 				'bollo.data_pagamento',
 				'bollo.inizio_validita',
 				'bollo.fine_validita',
 				'bollo.importo',
+				'bollo.agenzia',
+				'bollo.polizza',
+				'bollo.tipo_scadenza',
 				'dettaglio_veicolo.id_proprietario',
 				'dettaglio_veicolo.id_tipo_veicolo',
 				'dettaglio_veicolo.id_tipo_allestimento',
@@ -196,6 +200,7 @@
 				'destinazione_uso.nome as destinazione_uso_nome'
 			])
 				->leftJoin('dettaglio_veicolo', 'bollo.id_veicolo', '=', 'dettaglio_veicolo.id')
+				->leftJoin('targa', 'bollo.id_veicolo', '=', 'targa.id_veicolo')
 				->leftJoin('societa', 'dettaglio_veicolo.id_proprietario', '=', 'societa.id')
 				->leftJoin('tipo_veicolo', 'dettaglio_veicolo.id_tipo_veicolo', '=', 'tipo_veicolo.id')
 				->leftJoin('tipo_allestimento', 'dettaglio_veicolo.id_tipo_allestimento', '=', 'tipo_allestimento.id')
@@ -207,11 +212,15 @@
 				->where(function($query) use ($search) {
 					$query->where('bollo.id', 'LIKE', "%{$search}%")
 						->orWhere('bollo.id_veicolo', 'LIKE', "%{$search}%")
+						//->orWhere('bollo.targa', 'LIKE', "%{$search}%")
 						->orWhere('bollo.anno', 'LIKE', "%{$search}%")
 						->orWhere('bollo.data_pagamento', 'LIKE', "%{$search}%")
 						->orWhere('bollo.inizio_validita', 'LIKE', "%{$search}%")
 						->orWhere('bollo.fine_validita', 'LIKE', "%{$search}%")
 						->orWhere('bollo.importo', 'LIKE', "%{$search}%")
+						->orWhere('bollo.agenzia', 'LIKE', "%{$search}%")
+						->orWhere('bollo.polizza', 'LIKE', "%{$search}%")
+						->orWhere('bollo.tipo_scadenza', 'LIKE', "%{$search}%")
 						->orWhere('dettaglio_veicolo.colore', 'LIKE', "%{$search}%")
 						->orWhere('dettaglio_veicolo.lunghezza_esterna', 'LIKE', "%{$search}%")
 						->orWhere('dettaglio_veicolo.larghezza_esterna', 'LIKE', "%{$search}%")
@@ -251,77 +260,8 @@
 						});
 				});
 
+			//dd($query->toSql());
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-			$query = Bollo::select([
-				'bollo.id',
-				'bollo.id_veicolo',
-				'bollo.anno',
-				'bollo.data_pagamento',
-				'bollo.inizio_validita',
-				'bollo.fine_validita',
-				'bollo.importo',
-				ModelBase::commonFields()
-			])
-				->leftJoin('dettaglio_veicolo', 'bollo.id_veicolo', '=', 'dettaglio_veicolo.id')
-				->ModelBase::commonJoins()
-				->where(function($query) use ($search) {
-					$query->where('bollo.id', 'LIKE', "%{$search}%")
-						->orWhere('bollo.id_veicolo', 'LIKE', "%{$search}%")
-						->orWhere('bollo.anno', 'LIKE', "%{$search}%")
-						->orWhere('bollo.data_pagamento', 'LIKE', "%{$search}%")
-						->orWhere('bollo.inizio_validita', 'LIKE', "%{$search}%")
-						->orWhere('bollo.fine_validita', 'LIKE', "%{$search}%")
-						->orWhere('bollo.importo', 'LIKE', "%{$search}%")
-						->ModelBase::commonWheres();
-				});
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-			//echo $query->toSql(); die();
 			if ($orderBy!=='id_veicolo') {
 				$results = $query->orderBy($orderBy, $orderDirection)->get();
 			} else {

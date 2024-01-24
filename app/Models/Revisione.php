@@ -17,7 +17,7 @@
 
 		public static function cancellami($search=null): \Illuminate\Pagination\LengthAwarePaginator
 		{
-			return Revisione::getAggregatedAlerts($search);
+			return Revisione::getAggregatedAlertsList($search);
 		}
 		public static function validationRules(): array
 		{

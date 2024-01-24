@@ -1,4 +1,22 @@
-<form action="{{ route('store_assicurazione') }}" method="POST">
+<style>
+	/* Define the warning message style */
+	.warning {
+		font-size: 24px;
+		color: red;
+		animation: blink 1s infinite;
+	}
+
+	/* Define the blinking animation */
+	@keyframes blink {
+		25%, 100% {
+			opacity: 1;
+		}
+		50% {
+			opacity: 0;
+		}
+	}
+</style>
+<form action="{{ route('import_veicolo.create') }}" method="POST" enctype="multipart/form-data">
 	@csrf
 	<!--begin::Content-->
 	<div id="kt_app_content" class="app-content flex-column-fluid">
@@ -45,90 +63,20 @@
 									@endif
 
 
-									<!-- Search Input for Veicolo -->
+
+
+
+									<!-- File Excel -->
 									<div class="form-group">
-										<label for="searchInput">Veicolo</label>
-										<input list="veicoli" name="searchInput" id="searchInput" class="form-control"
-													 value="{{ old('searchInput') }}" placeholder="Cerca Veicolo">
-										<datalist id="veicoli">
-											<!-- Options will be dynamically loaded -->
-										</datalist>
+										<label for="fine_validita">File</label>
+										<input type="file" name="excelFile" accept=".xlsx, .xls">
 									</div>
 
-									<!-- Hidden Field for the actual Veicolo ID -->
-									<input type="hidden" name="id_veicolo" id="id_veicolo" value="{{ old('id_veicolo') }}">
-
-									<!-- Anno Field -->
-									<div class="form-group">
-										<label for="anno">Anno</label>
-										<input type="number" name="anno" id="anno" class="form-control" value="{{ old('anno') }}" placeholder="Anno">
-									</div>
-
-									<!-- Data Pagamento Field -->
-									<div class="form-group">
-										<label for="data_pagamento">Data Pagamento</label>
-										<input type="date" name="data_pagamento" id="data_pagamento" class="form-control" value="{{ old('data_pagamento') }}">
-									</div>
-
-									<!-- Importo Field -->
-									<div class="form-group">
-										<label for="importo">Importo</label>
-										<input type="number" step="0.01" name="importo" id="importo" class="form-control" value="{{ old('importo') }}" placeholder="Importo">
-									</div>
-
-									<!-- Agenzia Field -->
-									<div class="form-group">
-										<label for="agenzia">Agenzia</label>
-										<input type="text" name="agenzia" id="agenzia" class="form-control" value="{{ old('agenzia') }}" placeholder="Agenzia">
-									</div>
-
-									<!-- Polizza Field -->
-									<div class="form-group">
-										<label for="polizza">Polizza</label>
-										<input type="text" name="polizza" id="polizza" class="form-control" value="{{ old('polizza') }}" placeholder="Polizza">
-									</div>
-
-									<!-- Inizio Validità Field -->
-									<div class="form-group">
-										<label for="inizio_validita">Inizio Validità</label>
-										<input type="date" name="inizio_validita" id="inizio_validita" class="form-control" value="{{ old('inizio_validita') }}">
-									</div>
-
-									<!-- Tipo Scadenza Field -->
-									<div class="form-group">
-										<label for="tipo_scadenza">Tipo Scadenza</label>
-										<select name="tipo_scadenza" id="tipo_scadenza" class="form-control">
-											<option value="">Selezionare Tipo Scadenza</option>
-											<option value="Quadrimestrale" @if(old('tipo_scadenza') == 'Quadrimestrale') selected @endif>Quadrimestrale</option>
-											<option value="Semestrale" @if(old('tipo_scadenza') == 'Semestrale') selected @endif>Semestrale</option>
-											<option value="Annuale" @if(old('tipo_scadenza') == 'Annuale') selected @endif>Annuale</option>
-										</select>
-									</div>
-
-									<!-- Fine Validità Field -->
-									<div class="form-group">
-										<label for="fine_validita">Fine Validità</label>
-										<input type="date" name="fine_validita" id="fine_validita" class="form-control" value="{{ old('fine_validita') }}">
-									</div>
-
-
-									<?php
-
-										/*								<div class="form-group">
-																			<label for="targa">Targa</label>
-																			<input type="text" name="targa" id="targa" class="form-control" required>
-																		</div>
-
-																		<!-- Example input for stato_id -->
-																		<div class="form-group">
-																			<label for="stato_id">Stato ID</label>
-																			<input type="text" name="stato_id" id="stato_id" class="form-control" required>
-																		</div>*/
-									?>
-
-										<!-- Add other input fields for veicolo attributes here -->
 									<!--ed::Items-->
 
+									<div class="warning">
+										ATTENZIONE, PROCEDENDO L'INTERO DATABASE VERRÀ SOVRASCRITTO !
+									</div>
 
 									<div class="clearfix"></div>
 									<div class="form-group">

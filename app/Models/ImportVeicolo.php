@@ -20,9 +20,17 @@ class ImportVeicolo extends BaseModel
 		'tipo_cambio','alimentazione','data_immatricolazione','destinazione_uso'];
 	public $timestamps = true;
 
+	public static function validateExcel(Request $request)
+	{
+		/** @var  $validatedData */
+		if($request->validate(['excelFile' => 'required|mimes:xlsx,xls,csv'])){
+			return $request->file('excelFile');
+		}
+	}
 
 	public static function validate(Request $request): array
 	{
+		/** @var  $validatedData */
 		$validatedData = $request->validate([
 			'targa' => 'required|string|max:10',
 			'telaio' => 'required|string|max:17',
@@ -45,7 +53,6 @@ class ImportVeicolo extends BaseModel
 			'data_immatricolazione' => 'required|date',
 			'destinazione_uso' => 'required|string|max:255',
 		]);
-
 		return $validatedData;
 	}
 

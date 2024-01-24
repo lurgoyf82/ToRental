@@ -13,6 +13,7 @@
 	use App\Models\TipoAsse;
 	use App\Models\TipoCambio;
 	use App\Models\TipoVeicolo;
+	use App\Models\Veicolo;
 	use Illuminate\Http\Request;
 	use App\Models\Targa;
 	use App\Models\Assicurazione;
@@ -25,13 +26,12 @@
 		}
 
 		public function listExpiringPolizzeAssicurative(Request $request): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
-
 		{
 			$search = $request->input('search',null);
 			$order  = $request->input('order','livello');
 			$page   = $request->input('page', 1);  // default to 1 if not provided
 
-			$expiringPolizzeAssicurative = Assicurazione::getAggregatedAlerts($search, $order, $page);
+			$expiringPolizzeAssicurative = Assicurazione::getAggregatedAlertsList($search, $order, $page);
 
 			$targaList= Targa::getTargaListByIdVeicolo();
 			foreach ($expiringPolizzeAssicurative as $key=>$alert) {
@@ -163,4 +163,77 @@
 		{
 			return $this->indexView($request, Assicurazione::class, 'list_assicurazione');
 		}
+
+
+
+
+
+
+		public function listExpiringPolizzeAssicurativeNEW(Request $request): \Illuminate\Http\JsonResponse
+		{
+
+			$search = $request->input('search',null);
+			$order  = $request->input('order','livello');
+			$page   = $request->input('page', 1);  // default to 1 if not provided
+
+
+			$page = intval($page);
+			if ($page <= 0 || !is_int($page)) {
+				$page = 1;
+			}
+
+			$order=explode('_',$order);
+
+			switch (strtolower($order[0])) {
+				case 'marca':
+					$orderBy = 'marca.nome';
+					break;
+				case 'modello':
+					$orderBy = 'modello.nome';
+					break;
+				case 'targa':
+					$orderBy = 'targa.targa';
+					break;
+				default:
+					$orderBy = 'livello';
+					break;
+			}
+
+			if(array_key_exists(1,$order,)&&strtolower($order[1])=='desc') {
+				$orderDirection='DESC';
+			} else {
+				$orderDirection='ASC';
+			}
+
+			//GET AGGREAGATED DICTIONARY WITH VALID, EXPIRING AND STARTING NEXT CONTRACTS
+			$dictionary = Assicurazione::getAggregatedDictionary();
+			//EXECUTE QUERY
+			$results = Veicolo::getFilteredVehicles($search, $page, $orderBy, $orderDirection);
+			//INSERT AGGREGATED RESULTS IN THE QUERY RESULTS
+			foreach ($results as $key=>$row) {
+				if(array_key_exists($row->id_veicolo,$dictionary)) {
+					$vehicleDictionary=($dictionary[$row->id_veicolo]);
+					if(array_key_exists('valid',$vehicleDictionary)) {
+						$results[$key]->valid = $vehicleDictionary['valid'];
+					} else {
+						$results[$key]->valid = [];
+					}
+					if(array_key_exists('expired',$vehicleDictionary)) {
+						$results[$key]->expired = $vehicleDictionary['expired'];
+					} else {
+						$results[$key]->expired = [];
+					}
+					if(array_key_exists('starting',$vehicleDictionary)) {
+						$results[$key]->starting = $vehicleDictionary['starting'];
+					} else {
+						$results[$key]->starting = [];
+					}
+				}
+			}
+			//PAGINATE THE RESULTS
+			//$paginatedResults = Veicolo::resultToPagination($results,$page);
+			//RETURN THE VIEW
+			return response()->json($results);
+		}
+
 	}

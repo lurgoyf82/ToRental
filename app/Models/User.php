@@ -41,4 +41,33 @@
 			'email_verified_at' => 'datetime',
 			'password' => 'hashed',
 		];
+
+		/**
+		 * Get the validation rules that apply to the request.
+		 *
+		 * @return array<string, string>
+		 */
+		public static function getRules(): array
+		{
+			return [
+				'name' => 'required|string|max:255',
+				'email' => 'required|string|email|max:255|unique:users',
+				'password' => 'required|string|confirmed|min:8',
+			];
+		}
+
+		/**
+		 * Insert a new user, the $data['password'] will be hashed by this method.
+		 *
+		 * @param array<string, string> $data
+		 * @return User
+		 */
+		public static function insertUser(array $data): User {
+			return User::create([
+				'name' => $data['name'],
+				'email' => $data['email'],
+				'password' => Hash::make($data['password']),
+			]);
+		}
+
 	}

@@ -16,7 +16,7 @@
 		 */
 		public function index()
 		{
-			$lista_societa = Societa::getAggregatedAlerts();
+			$lista_societa = Societa::getAggregatedAlertsList();
 			return view('societa.index', ['lista_societa' => $lista_societa]);
 		}
 

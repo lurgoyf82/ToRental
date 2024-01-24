@@ -30,7 +30,7 @@
 			$order  = $request->input('order','livello');
 			$page   = $request->input('page', 1);  // default to 1 if not provided
 
-			$expiringPolizzeAssicurative = Assicurazione::getAggregatedAlerts($search, $order, $page);
+			$expiringPolizzeAssicurative = Assicurazione::getAggregatedAlertsList($search, $order, $page);
 
 			$targaList= Targa::getTargaListByIdVeicolo();
 			foreach ($expiringPolizzeAssicurative as $key=>$alert) {

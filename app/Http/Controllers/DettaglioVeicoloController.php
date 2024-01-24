@@ -112,7 +112,7 @@
 			// Now create Targa with the veicolo ID and the targa value
 			$targaData = [
 				'id_veicolo' => $veicolo->id, // Use the ID of the Veicolo you just created
-				'targa' => $validatedData['targa'], // Get the targa value from the original data
+				'targa' => strtoupper($validatedData['targa']), // Get the targa value from the original data
 				'data_immatricolazione' => $validatedData['data_immatricolazione'] // Set the data_immatricolazione to today's date
 			];
 

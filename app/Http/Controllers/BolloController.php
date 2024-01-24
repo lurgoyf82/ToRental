@@ -29,7 +29,7 @@
 			$order  = $request->input('order','livello');
 			$page   = $request->input('page', 1);  // default to 1 if not provided
 
-			$expiringScadenzeBolli = Bollo::getAggregatedAlerts($search, $order, $page);
+			$expiringScadenzeBolli = Bollo::getAggregatedAlertsList($search, $order, $page);
 
 			$targaList= Targa::getTargaListByIdVeicolo();
 			foreach ($expiringScadenzeBolli as $key=>$alert) {

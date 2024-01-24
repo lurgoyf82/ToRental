@@ -46,7 +46,7 @@
 									<!-- Input for Targa -->
 									<div class="form-group">
 										<label for="targa">Targa</label>
-										<input name="targa" type="text" id="targa" class="form-control" value="{{ old('targa') }}" placeholder="Inserire La Targa (AA123AA)">
+										<input name="targa" type="text" id="targa" class="form-control" value="{{ strtoupper(str_replace(' ', '', old('targa'))) }}" placeholder="Inserire La Targa (AA123AA)">
 									</div>
 
 

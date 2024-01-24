@@ -18,7 +18,7 @@
 			$order  = $request->input('order','livello');
 			$page   = $request->input('page', 1);  // default to 1 if not provided
 
-			$expiringContrattiNoleggio = Noleggio::getAggregatedAlerts($search, $order, $page);
+			$expiringContrattiNoleggio = Noleggio::getAggregatedAlertsList($search, $order, $page);
 
 			$targaList= Targa::getTargaListByIdVeicolo();
 			foreach ($expiringContrattiNoleggio as $key=>$alert) {

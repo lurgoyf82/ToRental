@@ -113,8 +113,7 @@
 
 			return $Dictionary;
 		}
-
-		public static function validatePartial(array $data)
+		public static function validatePartialUseless(array $data)
 		{
 			$rules = self::validationRules();
 
@@ -127,70 +126,37 @@
 
 			return Validator::make($data, $applicableRules, self::validationMessages())->validate();
 		}
-		public static function getAggregatedAlerts($search=null,$order='livello',$page=1,$slice=true): LengthAwarePaginator
+		public static function clearCache($all=false) {
+
+			if($all) {
+				Cache::flush();
+			} else {
+				$table=(new static)->getTable();
+
+				$valid = 'valid_' . $table . '_list';
+				$next = 'startingNext_' . $table . '_list';
+				$expired = 'expired_' . $table . '_list';
+
+				Cache::forget($valid);
+				Cache::forget($next);
+				Cache::forget($expired);
+				Cache::forget('alerts');
+			}
+		}
+
+		public static function getAggregatedAlertsList($search=null,$order='livello',$page=1,$slice=true): LengthAwarePaginator
 		{
 			$valid = static::getCurrentValidList();
 			$expired = static::getExpiredList();
 			$startingNext = static::getStartingNextList();
 
-			$page = intval($page);
-			if ($page <= 0 || !is_int($page)) {
-				$page = 1;
-			}
+			//Checks the order
+			$order=self::setOrder($order);
+			$orderBy=$order['orderBy'];
+			$orderDirection=$order['orderDirection'];
 
-			$order=explode('_',$order);
-
-			switch (strtolower($order[0])) {
-				case 'marca':
-					$orderBy = Marca::getTableName() . '.nome';
-					break;
-				case 'modello':
-					$orderBy = Modello::getTableName() . '.nome';
-					break;
-				case 'targa':
-					$orderBy = Targa::getTableName() . '.targa';
-					break;
-				default:
-					$orderBy = 'livello';
-					break;
-			}
-
-			if(array_key_exists(1,$order,)&&strtolower($order[1])=='desc') {
-				$orderDirection='DESC';
-			} else {
-				$orderDirection='ASC';
-			}
-
-			$query = DB::table(Veicolo::getTableName())
-				->leftJoin(Marca::getTableName(), Veicolo::getTableName() . '.id_marca', '=', Marca::getTableName() . '.id')
-				->leftJoin(Modello::getTableName(), function ($join) {
-					$join->on(Veicolo::getTableName() . '.id_modello', '=', Modello::getTableName() . '.id')
-						->on(Modello::getTableName() . '.id_marca', '=', Marca::getTableName() . '.id');
-				})
-				->leftJoin(Targa::getTableName(), Targa::getTableName() . '.id_veicolo', '=', Veicolo::getTableName() . '.id')
-				->select([
-					Marca::getTableName() . '.id as id_marca',
-					Marca::getTableName() . '.nome as marca',
-					Modello::getTableName() . '.id as id_modello',
-					Modello::getTableName() . '.nome as modello',
-					Veicolo::getTableName() . '.id as id_veicolo'
-				]);
-
-			if ($search !== null) {
-				$query->where(function ($query) use ($search) {
-					$query->where(Targa::getTableName() . '.targa', 'LIKE', '%' . $search . '%')
-						->orWhere(Marca::getTableName() . '.nome', 'LIKE', '%' . $search . '%')
-						->orWhere(Modello::getTableName() . '.nome', 'LIKE', '%' . $search . '%');
-				});
-			}
-
-			//$query->offset(($page - 1) * AlertBase::$itemsPerPage)->limit(AlertBase::$itemsPerPage);
-
-			if ($orderBy!=='livello') {
-				$result = $query->orderBy($orderBy, $orderDirection)->get();
-			} else {
-				$result = $query->orderBy(Veicolo::getTableName() . '.id', 'ASC')->get();
-			}
+			//Get all the vehicles considering the search
+			$result=self::getFilteredVehicles($search, $page, $orderBy, $orderDirection);
 
 			foreach($result as $key => $vehicle) {
 				$vehicle->livello = null;
@@ -200,7 +166,7 @@
 				if(@isset($valid[$vehicle->id_veicolo])) {
 					$vehicle->valid = $valid[$vehicle->id_veicolo];
 					foreach ($vehicle->valid as $contract) {
-						$livello = Carbon::parse($contract->current_valid_fine_validita)->diffInDays(Carbon::now());
+						$livello = Carbon::parse($contract->current_valid_fine_validita)->addDay()->diffInDays(Carbon::now()) + 1;
 						if($livello>$vehicle->livello) {
 							$vehicle->livello = $livello;
 							$vehicle->inizio_validita = $contract->current_valid_inizio_validita;
@@ -257,29 +223,135 @@
 				}
 			}
 
-			// Manually slice the results for pagination
-			$offset = ($page - 1) * AlertBase::$itemsPerPage;
-			if($slice) {
-				$itemsForCurrentPage = $result->slice($offset, AlertBase::$itemsPerPage);
-			} else {
-				$itemsForCurrentPage = $result;
+			return self::resultToPagination($result,$page,$slice);
+		}
+		public static function getAggregatedAlertsListNew($search=null,$order='livello',$page=1,$slice=true): LengthAwarePaginator
+		{
+			//CHECK CACHE
+			//GET ALL VEHICLES
+			//UPDATE VEHICLES WITH VALID CONTRACTS
+			//UPDATE VEHICLES WITH EXPIRED CONTRACTS
+			//UPDATE VEHICLES WITH STARTING NEXT CONTRACTS
+			//CREATE DICTIONARY
+			//ADD TO CACHE
+			//RETURN
+
+
+
+			/*
+			$valid = static::getCurrentValidList();
+			$expired = static::getExpiredList();
+			$startingNext = static::getStartingNextList();
+
+			//Checks the order
+			$order=self::setOrder($order);
+			$orderBy=$order['orderBy'];
+			$orderDirection=$order['orderDirection'];
+
+			//Get all the vehicles considering the search
+			$result=self::getFilteredVehicles($search, $page, $orderBy, $orderDirection);
+
+			foreach($result as $key => $vehicle) {
+				$vehicle->livello = null;
+				$vehicle->next = null;
+				$vehicle->id = null;
+
+				if(@isset($valid[$vehicle->id_veicolo])) {
+					$vehicle->valid = $valid[$vehicle->id_veicolo];
+					foreach ($vehicle->valid as $contract) {
+						$livello = Carbon::parse($contract->current_valid_fine_validita)->addDay()->diffInDays(Carbon::now()) + 1;
+						if($livello>$vehicle->livello) {
+							$vehicle->livello = $livello;
+							$vehicle->inizio_validita = $contract->current_valid_inizio_validita;
+							$vehicle->fine_validita = $contract->current_valid_fine_validita;
+							$vehicle->id = $contract->current_valid_id;
+						}
+					}
+				} else {
+					$vehicle->valid = false;
+				}
+
+				if(@isset($startingNext[$vehicle->id_veicolo])) {
+					$vehicle->startingNext = $startingNext[$vehicle->id_veicolo];
+					foreach ($vehicle->startingNext as $contract) {
+						$next = Carbon::parse($contract->next_inizio_validita)->diffInDays(Carbon::now());
+						if($next<$vehicle->next) {
+							$vehicle->next = $next;
+							$vehicle->inizio_validita = $contract->next_inizio_validita;
+							$vehicle->fine_validita = $contract->next_fine_validita;
+							$vehicle->id = $contract->next_id;
+						}
+					}
+				} else {
+					$vehicle->startingNext = false;
+				}
+
+				if(@isset($expired[$vehicle->id_veicolo])) {
+					$vehicle->expired = $expired[$vehicle->id_veicolo];
+					if($vehicle->livello===null) {
+						foreach ($vehicle->expired as $contract) {
+							$livello = -(Carbon::now()->diffInDays($contract->expired_fine_validita));
+							if($livello>$vehicle->livello) {
+								$vehicle->livello = $livello;
+								$vehicle->inizio_validita = $contract->expired_inizio_validita;
+								$vehicle->fine_validita = $contract->expired_fine_validita;
+								$vehicle->id = $contract->expired_id;
+							}
+						}
+					}
+				} else {
+					$vehicle->expired = false;
+				}
+
+				if($vehicle->livello > Alert::$thirdThreshold) {
+					unset($result[$key]);
+				}
 			}
 
-			return new LengthAwarePaginator(
-				$itemsForCurrentPage,
-				$result->count(),
-				AlertBase::$itemsPerPage,
-				$page,
-				['path' => LengthAwarePaginator::resolveCurrentPath()]
-			);
-		}
+			if ($orderBy=='livello') {
+				if($orderDirection=='DESC') {
+					$result=($result->sortByDesc('livello'));
+				} else {
+					$result=($result->sortBy('livello'));
+				}
+			}
 
-		/*
-		public static function getAggregatedAlerts($search=null): \Illuminate\Support\Collection
+			return self::resultToPagination($result,$page,$slice);
+			*/
+		}
+		public static function getAggregatedAlertsListWorking($search=null,$order='livello',$page=1,$slice=true): LengthAwarePaginator
 		{
 			$valid = static::getCurrentValidList();
 			$expired = static::getExpiredList();
 			$startingNext = static::getStartingNextList();
+
+			$page = intval($page);
+			if ($page <= 0 || !is_int($page)) {
+				$page = 1;
+			}
+
+			$order=explode('_',$order);
+
+			switch (strtolower($order[0])) {
+				case 'marca':
+					$orderBy = 'marca.nome';
+					break;
+				case 'modello':
+					$orderBy = 'modello.nome';
+					break;
+				case 'targa':
+					$orderBy = 'targa.targa';
+					break;
+				default:
+					$orderBy = 'livello';
+					break;
+			}
+
+			if(array_key_exists(1,$order,)&&strtolower($order[1])=='desc') {
+				$orderDirection='DESC';
+			} else {
+				$orderDirection='ASC';
+			}
 
 			$query = DB::table(Veicolo::getTableName())
 				->leftJoin(Marca::getTableName(), Veicolo::getTableName() . '.id_marca', '=', Marca::getTableName() . '.id')
@@ -297,20 +369,20 @@
 				]);
 
 			if ($search !== null) {
-				$query->where(Targa::getTableName() . '.targa', 'LIKE', '%' . $search . '%');
+				$query->where(function ($query) use ($search) {
+					$query->where('targa.targa', 'LIKE', '%' . $search . '%')
+						->orWhere('marca.nome', 'LIKE', '%' . $search . '%')
+						->orWhere('modello.nome', 'LIKE', '%' . $search . '%');
+				});
 			}
 
-			$result = $query->orderBy(Veicolo::getTableName() . '.id', 'ASC')->get();
+			//$query->offset(($page - 1) * AlertBase::$itemsPerPage)->limit(AlertBase::$itemsPerPage);
 
-			//$listaTarghe=Targa::getTargaListByIdVeicolo();
-
-			//foreach($result as $key=>$value) {
-			//	if(isset($listaTarghe[$value->id_veicolo])) {
-			//		$result[$key]->targa=$listaTarghe[$value->id_veicolo]->targa;
-			//	} else {
-			//		$result[$key]->targa=null;
-			//	}
-			//}
+			if ($orderBy!=='livello') {
+				$result = $query->orderBy($orderBy, $orderDirection)->get();
+			} else {
+				$result = $query->orderBy(Veicolo::getTableName() . '.id', 'ASC')->get();
+			}
 
 			foreach($result as $key => $vehicle) {
 				$vehicle->livello = null;
@@ -320,9 +392,23 @@
 				if(@isset($valid[$vehicle->id_veicolo])) {
 					$vehicle->valid = $valid[$vehicle->id_veicolo];
 					foreach ($vehicle->valid as $contract) {
-						$livello = Carbon::parse($contract->current_valid_inizio_validita)->diffInDays(Carbon::now());
+
+
+
+
+
+
+						//	$livello = Carbon::parse($contract->current_valid_fine_validita)->diffInDays(Carbon::now());
+						$livello = Carbon::parse($contract->current_valid_fine_validita)->addDay()->diffInDays(Carbon::now()) + 1;
+
+
+
+
+
 						if($livello>$vehicle->livello) {
 							$vehicle->livello = $livello;
+							$vehicle->inizio_validita = $contract->current_valid_inizio_validita;
+							$vehicle->fine_validita = $contract->current_valid_fine_validita;
 							$vehicle->id = $contract->current_valid_id;
 						}
 					}
@@ -336,6 +422,8 @@
 						$next = Carbon::parse($contract->next_inizio_validita)->diffInDays(Carbon::now());
 						if($next<$vehicle->next) {
 							$vehicle->next = $next;
+							$vehicle->inizio_validita = $contract->next_inizio_validita;
+							$vehicle->fine_validita = $contract->next_fine_validita;
 							$vehicle->id = $contract->next_id;
 						}
 					}
@@ -350,6 +438,8 @@
 							$livello = -(Carbon::now()->diffInDays($contract->expired_fine_validita));
 							if($livello>$vehicle->livello) {
 								$vehicle->livello = $livello;
+								$vehicle->inizio_validita = $contract->expired_inizio_validita;
+								$vehicle->fine_validita = $contract->expired_fine_validita;
 								$vehicle->id = $contract->expired_id;
 							}
 						}
@@ -357,121 +447,41 @@
 				} else {
 					$vehicle->expired = false;
 				}
+
+				if($vehicle->livello > Alert::$thirdThreshold) {
+					unset($result[$key]);
+				}
 			}
-			// Filter the results in Laravel based on the $search parameter
-			//if ($search !== null) {
-			//	$result = $result->filter(function ($vehicle) use ($search) {
-			//		return str_contains($vehicle->targa, $search);
-			//	});
-			//}
-			return ($result->sortBy('livello'));
-		}
-		*/
-		public static function clearCache($all=false) {
 
-			if($all) {
-				Cache::flush();
-			} else {
-				$table=(new static)->getTable();
-
-				$valid = 'valid_' . $table . '_list';
-				$next = 'startingNext_' . $table . '_list';
-				$expired = 'expired_' . $table . '_list';
-
-				Cache::forget($valid);
-				Cache::forget($next);
-				Cache::forget($expired);
-				Cache::forget('alerts');
+			if ($orderBy=='livello') {
+				if($orderDirection=='DESC') {
+					$result=($result->sortByDesc('livello'));
+				} else {
+					$result=($result->sortBy('livello'));
+				}
 			}
-		}
 
-
-
-//
-//		public static function index($search=null,$order='livello',$page=1,$slice=true): LengthAwarePaginator
-//		{
-//			$page = intval($page);
-//			if ($page <= 0 || !is_int($page)) {
-//				$page = 1;
+//		foreach($result as $row) {
+//			if($row->id===1456) {
+//				var_dump($row);
+//				die();
 //			}
-//
-//			$order=explode('_',$order);
-//
-//			switch (strtolower($order[0])) {
-//				case 'marca':
-//					$orderBy = Marca::getTableName() . '.nome';
-//					break;
-//				case 'modello':
-//					$orderBy = Modello::getTableName() . '.nome';
-//					break;
-//				case 'targa':
-//					$orderBy = Targa::getTableName() . '.targa';
-//					break;
-//				default:
-//					$orderBy = 'id_veicolo';
-//					break;
-//			}
-//
-//			if(array_key_exists(1,$order,)&&strtolower($order[1])=='desc') {
-//				$orderDirection='DESC';
-//			} else {
-//				$orderDirection='ASC';
-//			}
-//
-//			$query = DB::table(Veicolo::getTableName())
-//				->leftJoin(Marca::getTableName(), Veicolo::getTableName() . '.id_marca', '=', Marca::getTableName() . '.id')
-//				->leftJoin(Modello::getTableName(), function ($join) {
-//					$join->on(Veicolo::getTableName() . '.id_modello', '=', Modello::getTableName() . '.id')
-//						->on(Modello::getTableName() . '.id_marca', '=', Marca::getTableName() . '.id');
-//				})
-//				->leftJoin(Targa::getTableName(), Targa::getTableName() . '.id_veicolo', '=', Veicolo::getTableName() . '.id')
-//				->select([
-//					Marca::getTableName() . '.id as id_marca',
-//					Marca::getTableName() . '.nome as marca',
-//					Modello::getTableName() . '.id as id_modello',
-//					Modello::getTableName() . '.nome as modello',
-//					Veicolo::getTableName() . '.id as id_veicolo'
-//				]);
-//
-//			if ($search !== null) {
-//				$query->where(function ($query) use ($search) {
-//					$query->where(Targa::getTableName() . '.targa', 'LIKE', '%' . $search . '%')
-//						->orWhere(Marca::getTableName() . '.nome', 'LIKE', '%' . $search . '%')
-//						->orWhere(Modello::getTableName() . '.nome', 'LIKE', '%' . $search . '%');
-//				});
-//			}
-//
-//			//$query->offset(($page - 1) * AlertBase::$itemsPerPage)->limit(AlertBase::$itemsPerPage);
-//
-//			if ($orderBy!=='id') {
-//				$result = $query->orderBy($orderBy, $orderDirection)->get();
-//			} else {
-//				$result = $query->orderBy(Veicolo::getTableName() . '.id', 'ASC')->get();
-//			}
-//
-//			if ($orderBy=='id') {
-//				if($orderDirection=='DESC') {
-//					$result=($result->sortByDesc('id'));
-//				} else {
-//					$result=($result->sortBy('id'));
-//				}
-//			}
-//
-//			// Manually slice the results for pagination
-//			$offset = ($page - 1) * AlertBase::$itemsPerPage;
-//			if($slice) {
-//				$itemsForCurrentPage = $result->slice($offset, AlertBase::$itemsPerPage);
-//			} else {
-//				$itemsForCurrentPage = $result;
-//			}
-//
-//			return new LengthAwarePaginator(
-//				$itemsForCurrentPage,
-//				$result->count(),
-//				AlertBase::$itemsPerPage,
-//				$page,
-//				['path' => LengthAwarePaginator::resolveCurrentPath()]
-//			);
 //		}
 
+			// Manually slice the results for pagination
+			$offset = ($page - 1) * AlertBase::$itemsPerPage;
+			if($slice) {
+				$itemsForCurrentPage = $result->slice($offset, AlertBase::$itemsPerPage);
+			} else {
+				$itemsForCurrentPage = $result;
+			}
+
+			return new LengthAwarePaginator(
+				$itemsForCurrentPage,
+				$result->count(),
+				AlertBase::$itemsPerPage,
+				$page,
+				['path' => LengthAwarePaginator::resolveCurrentPath()]
+			);
+		}
 	}

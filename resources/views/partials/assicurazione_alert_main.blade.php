@@ -2,7 +2,7 @@
 	use App\Models\Alert;
 	//use App\Models\Revisione;
 	//Revisione::getAlerts();
-	$expiring=$expiringPolizzeAssicurative;
+	$expiring=$results;
 	$alert_revisione_meccanica='alert_polizza_assicurativa';
 ?>
 	<!--begin::Main-->

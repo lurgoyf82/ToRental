@@ -134,7 +134,7 @@
 				'fine_validita', 'importo');//,'agenzia','polizza','tipo_scadenza');
 		}
 
-		public static function validatePartial(array $data)
+		public static function validatePartialUseless(array $data)
 		{
 			$rules = self::validationRules();
 

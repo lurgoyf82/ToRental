@@ -136,13 +136,13 @@ class Alert extends AlertBase
 			])
 			->orderBy('dettaglio_veicolo.id', 'ASC');
 
-		$revisione=Revisione::getAggregatedAlerts(null,'livello',1,false);
-		$tachigrafo=Tachigrafo::getAggregatedAlerts(null,'livello',1,false);
-		$bollo=Bollo::getAggregatedAlerts(null,'livello',1,false);
-		$bombole=Bombole::getAggregatedAlerts(null,'livello',1,false);
-		$atp=Atp::getAggregatedAlerts(null,'livello',1,false);
-		$noleggio=Noleggio::getAggregatedAlerts(null,'livello',1,false);
-		$assicurazione=Assicurazione::getAggregatedAlerts(null,'livello',1,false);
+		$revisione=Revisione::getAggregatedAlertsList(null,'livello',1,false);
+		$tachigrafo=Tachigrafo::getAggregatedAlertsList(null,'livello',1,false);
+		$bollo=Bollo::getAggregatedAlertsList(null,'livello',1,false);
+		$bombole=Bombole::getAggregatedAlertsList(null,'livello',1,false);
+		$atp=Atp::getAggregatedAlertsList(null,'livello',1,false);
+		$noleggio=Noleggio::getAggregatedAlertsList(null,'livello',1,false);
+		$assicurazione=Assicurazione::getAggregatedAlertsList(null,'livello',1,false);
 
 		$revisione=Alert::getAlertLevels($revisione);
 		$tachigrafo=Alert::getAlertLevels($tachigrafo);
@@ -171,7 +171,6 @@ class Alert extends AlertBase
 
 
 		foreach($list as $item) {
-			//1455
 
 			if($item->livello === null) {
 				$count++;

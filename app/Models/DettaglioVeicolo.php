@@ -21,10 +21,12 @@
 		];
 		public $timestamps = true;
 
+		/**  /
 
 		public static function validationRules(): array
 		{
-			$targa = ['required', 'regex:/^[A-Za-z]{2}\s?\d{3}\s?[A-Za-z]{2}$/', 'unique:targa,targa'];
+			//$targa = ['required', 'regex:/^[A-Za-z]{2}\s?\d{3}\s?[A-Za-z]{2}$/', 'unique:targa,targa'];
+			$targa = ['required', 'regex:/^[A-Z0-9]{5,}$/i', 'unique:targa,targa'];
 			$data_immatricolazione = 'required|date_format:Y-m-d';
 			$id_proprietario = 'required|exists:societa,id';
 			$id_tipo_veicolo = 'required|exists:tipo_veicolo,id';
@@ -99,8 +101,9 @@
 				}
 			}
 
-			return Validator::make($data, $applicableRules, self::validationMessages())->validate();
+			dd(Validator::make($data, $applicableRules, self::validationMessages())->validate());
 		}
+
 
 		/**
 		 * Search for vehicles based on a given search term.
@@ -458,7 +461,6 @@
 
 			$result = $query->get();
 
-			dd($result); die();
 			return $result;
 		}
 
@@ -557,7 +559,7 @@
 						$query->orWhere('telaio', $search); // Condition for 'telaio'
 					}
 				]);
-				var_dump($query->toSql());
+				//var_dump($query->toSql());
 			return $query;
 		}
 
@@ -630,6 +632,9 @@
 
 		public static function create ($validatedData): DettaglioVeicolo
 		{
+			if(is_array($validatedData)&&array_key_exists('targa',$validatedData)) {
+				$validatedData['targa']=strtoupper(str_replace(' ', '', $validatedData['targa']));
+			}
 			$dettaglioVeicolo = new DettaglioVeicolo();
 			$dettaglioVeicolo->fill($validatedData);
 			$dettaglioVeicolo->save();

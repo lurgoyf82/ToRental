@@ -26,7 +26,7 @@
 		/*
 		public function listExpiringRevisioniMeccaniche(Request $request): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
 		{
-			$expiringRevisioniMeccaniche = Revisione::getAggregatedAlerts($request->input('search'));
+			$expiringRevisioniMeccaniche = Revisione::getAggregatedAlertsList($request->input('search'));
 
 			$targaList= Targa::getTargaListByIdVeicolo();
 			foreach ($expiringRevisioniMeccaniche as $key=>$alert) {
@@ -44,7 +44,7 @@
 			$page   = $request->input('page', 1);  // default to 1 if not provided
 
 
-			$expiringRevisioniMeccaniche = Revisione::getAggregatedAlerts($search, $order, $page);
+			$expiringRevisioniMeccaniche = Revisione::getAggregatedAlertsList($search, $order, $page);
 
 			$targaList= Targa::getTargaListByIdVeicolo();
 			foreach ($expiringRevisioniMeccaniche as $key=>$alert) {

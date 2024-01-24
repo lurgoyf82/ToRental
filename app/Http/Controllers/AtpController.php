@@ -19,7 +19,7 @@
 			$order  = $request->input('order','livello');
 			$page   = $request->input('page', 1);  // default to 1 if not provided
 
-			$expiringRevisioniAtp = Atp::getAggregatedAlerts($search, $order, $page);
+			$expiringRevisioniAtp = Atp::getAggregatedAlertsList($search, $order, $page);
 
 			$targaList= Targa::getTargaListByIdVeicolo();
 			foreach ($expiringRevisioniAtp as $key=>$alert) {

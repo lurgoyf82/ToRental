@@ -19,7 +19,7 @@
 			$order  = $request->input('order','livello');
 			$page   = $request->input('page', 1);  // default to 1 if not provided
 
-			$expiringRevisioniBombole = Bombole::getAggregatedAlerts($search, $order, $page);
+			$expiringRevisioniBombole = Bombole::getAggregatedAlertsList($search, $order, $page);
 
 			$targaList= Targa::getTargaListByIdVeicolo();
 			foreach ($expiringRevisioniBombole as $key=>$alert) {

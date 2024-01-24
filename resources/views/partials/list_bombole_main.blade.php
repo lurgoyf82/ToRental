@@ -101,13 +101,15 @@
 											<!--begin::Menu-->
 											<div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-success fw-semibold fs-7 w-125px py-4" data-kt-menu="true">
 												<!--begin::Menu item-->
-												<a href="{{ url($update_route) }}/{{$row->id_veicolo}}" class="btn btn-success">
+												<?php /*<a href="{{ url($update_route) }}/{{$row->id_veicolo}}" class="btn btn-success">*/ ?>
+												<a class="btn btn-success">
 													<span class="indicator-label">Modifica</span>
 												</a>
 												<!--end::Menu item-->
 												@if($row->id_veicolo)
 													<!--begin::Menu item-->
-													<a href="{{ url($delete_route) }}/{{$row->id_veicolo}}" class="btn btn-danger">
+													<?php /* <a href="{{ url($delete_route) }}/{{$row->id_veicolo}}" class="btn btn-danger" > */ ?>
+													<a class="btn btn-danger" >
 														<span class="indicator-label">Elimina</span>
 													</a>
 													<!--end::Menu item-->

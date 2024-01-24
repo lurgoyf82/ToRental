@@ -6,7 +6,7 @@
 					'atp' => App\Http\Controllers\AtpController::class,
 					'bollo' => App\Http\Controllers\BolloController::class,
 					'bombole' => App\Http\Controllers\BomboleController::class,
-					//'decorazione' => App\Http\Controllers\DecorazioneController::class,
+					'decorazione' => App\Http\Controllers\DecorazioneController::class,
 					'destinazione_uso' => App\Http\Controllers\DestinazioneUsoController::class,
 					'veicolo' => App\Http\Controllers\DettaglioVeicoloController::class,
 					'gps' => App\Http\Controllers\GpsController::class,

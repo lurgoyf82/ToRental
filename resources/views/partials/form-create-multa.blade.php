@@ -1,3 +1,4 @@
+<?php $campiDate=['inizio_validita', 'fine_validita', 'data_pagamento']; ?>
 <form action="{{ route('store_gps') }}" method="POST">
 	@csrf
 	<!--begin::Content-->
@@ -27,71 +28,19 @@
 								<!--begin::Tab pane-->
 								<div class="tab-pane fade active show" id="kt_chart_widget_8_month_tab" role="tabpanel">
 									<!--begin::Items-->
-									@if ($errors->any())
-										<div class="form-group">
-											<div class="alert alert-danger" role="alert">
-												@foreach ($errors->all() as $error)
-													{{ $error }}<br/>
-												@endforeach
-											</div>
-										</div>
-									@endif
-									@if (Session::has('success'))
-										<div class="form-group">
-											<div class="alert alert-success" role="alert">
-												{{ Session::get('success') }}
-											</div>
-										</div>
-									@endif
+									@include('form.elements.success-error-messages')
 
+									@include('form.elements.id-veicolo')
 
-									<!-- Search Input for Veicolo -->
-									<div class="form-group">
-										<label for="searchInput">Veicolo</label>
-										<input list="veicoli" name="searchInput" id="searchInput" class="form-control"
-													 value="{{ old('searchInput') }}" placeholder="Cerca Veicolo">
-										<datalist id="veicoli">
-											<!-- Options will be dynamically loaded -->
-										</datalist>
-									</div>
+									@include('form.elements.anno')
 
-									<!-- Hidden Field for the actual Veicolo ID -->
-									<input type="hidden" name="id_veicolo" id="id_veicolo" value="{{ old('id_veicolo') }}">
+									@include('form.elements.data-pagamento')
 
-									<!-- Anno Field -->
-									<div class="form-group">
-										<label for="anno">Anno</label>
-										<input type="number" name="anno" id="anno" class="form-control" value="{{ old('anno') }}"
-													 placeholder="Anno">
-									</div>
+									@include('form.elements.importo')
 
-									<!-- Data Pagamento Field -->
-									<div class="form-group">
-										<label for="data_pagamento">Data Pagamento</label>
-										<input type="date" name="data_pagamento" id="data_pagamento" class="form-control"
-													 value="{{ old('data_pagamento') }}">
-									</div>
+									@include('form.elements.inizio-validita')
 
-									<!-- Importo Field -->
-									<div class="form-group">
-										<label for="importo">Importo</label>
-										<input type="number" step="0.01" name="importo" id="importo" class="form-control"
-													 value="{{ old('importo') }}" placeholder="Importo">
-									</div>
-
-									<!-- Inizio Validità Field -->
-									<div class="form-group">
-										<label for="inizio_validita">Inizio Validità</label>
-										<input type="date" name="inizio_validita" id="inizio_validita" class="form-control"
-													 value="{{ old('inizio_validita') }}">
-									</div>
-
-									<!-- Fine Validità Field -->
-									<div class="form-group">
-										<label for="fine_validita">Fine Validità</label>
-										<input type="date" name="fine_validita" id="fine_validita" class="form-control"
-													 value="{{ old('fine_validita') }}">
-									</div>
+									@include('form.elements.fine-validita')
 
 
 									<?php
@@ -109,13 +58,8 @@
 									?>
 
 										<!-- Add other input fields for veicolo attributes here -->
-									<!--ed::Items-->
 
-
-									<div class="clearfix"></div>
-									<div class="form-group">
-										<button type="submit" class="btn btn-primary">Inserisci I Dati Nel DB</button>
-									</div>
+									@include('form.elements.submit-insert')
 									<!--ed::Items-->
 								</div>
 								<!--end::Tab pane-->
@@ -135,6 +79,7 @@
 
 <script>
 
+{{-- }}
 	// Function to fetch and set vehicle data based on search input
 	function fetchAndSetVehicleData(searchInput, exactId = false) {
 		if (searchInput.length >= 1) {
@@ -191,3 +136,9 @@
 	});
 
 </script>
+
+{{  --}}
+
+@include('form.js.full')
+
+@include('form.js.datepicker-it')

@@ -8,6 +8,7 @@
 	use App\Models\Modello;
 	use App\Models\Multa;
 	use App\Models\Societa;
+	use App\Models\Targa;
 	use App\Models\TipoAlimentazione;
 	use App\Models\TipoAllestimento;
 	use App\Models\TipoAsse;
@@ -119,4 +120,26 @@
 //			$result = Multa::search($search, $searchField, $searchFieldVeicolo);
 //			return response()->json($result);
 //		}
+
+
+
+		public function listExpiringMulte(Request $request): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
+		{
+			$search = $request->input('search',null);
+			$order  = $request->input('order','livello');
+			$page   = $request->input('page', 1);  // default to 1 if not provided
+
+			$expiringMulte = Multa::getAggregatedAlertsList($search, $order, $page);
+
+			$targaList= Targa::getTargaListByIdVeicolo();
+
+			foreach ($expiringMulte as $key=>$alert) {
+				if(isset($targaList[$alert->id_veicolo])) {
+					$expiringMulte[$key]->targa = $targaList[$alert->id_veicolo]->targa;
+				}
+			}
+
+			return view('alert_polizza_multa', ['results' => $expiringMulte]);
+		}
+
 	}

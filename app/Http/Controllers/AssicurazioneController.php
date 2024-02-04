@@ -34,13 +34,14 @@
 			$expiringPolizzeAssicurative = Assicurazione::getAggregatedAlertsList($search, $order, $page);
 
 			$targaList= Targa::getTargaListByIdVeicolo();
+
 			foreach ($expiringPolizzeAssicurative as $key=>$alert) {
 				if(isset($targaList[$alert->id_veicolo])) {
 					$expiringPolizzeAssicurative[$key]->targa = $targaList[$alert->id_veicolo]->targa;
 				}
 			}
 
-			return view('alert_polizza_assicurativa', ['expiringPolizzeAssicurative' => $expiringPolizzeAssicurative]);
+			return view('alert_polizza_assicurativa', ['results' => $expiringPolizzeAssicurative]);
 		}
 
 		/**
@@ -171,11 +172,9 @@
 
 		public function listExpiringPolizzeAssicurativeNEW(Request $request): \Illuminate\Http\JsonResponse
 		{
-
 			$search = $request->input('search',null);
 			$order  = $request->input('order','livello');
 			$page   = $request->input('page', 1);  // default to 1 if not provided
-
 
 			$page = intval($page);
 			if ($page <= 0 || !is_int($page)) {
@@ -218,11 +217,13 @@
 					} else {
 						$results[$key]->valid = [];
 					}
+
 					if(array_key_exists('expired',$vehicleDictionary)) {
 						$results[$key]->expired = $vehicleDictionary['expired'];
 					} else {
 						$results[$key]->expired = [];
 					}
+
 					if(array_key_exists('starting',$vehicleDictionary)) {
 						$results[$key]->starting = $vehicleDictionary['starting'];
 					} else {
@@ -231,9 +232,11 @@
 				}
 			}
 			//PAGINATE THE RESULTS
-			//$paginatedResults = Veicolo::resultToPagination($results,$page);
+			$paginatedResults = Veicolo::resultToPagination($results,$page);
 			//RETURN THE VIEW
+			//dd($paginatedResults);
 			return response()->json($results);
+
 		}
 
 	}

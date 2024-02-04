@@ -1,3 +1,4 @@
+<?php $campiDate=['inizio_validita', 'fine_validita', 'data_pagamento']; ?>
 <form action="{{ route('store_gps') }}" method="POST">
 	@csrf
 	<!--begin::Content-->
@@ -27,37 +28,9 @@
 								<!--begin::Tab pane-->
 								<div class="tab-pane fade active show" id="kt_chart_widget_8_month_tab" role="tabpanel">
 									<!--begin::Items-->
-									@if ($errors->any())
-										<div class="form-group">
-											<div class="alert alert-danger" role="alert">
-												@foreach ($errors->all() as $error)
-													{{ $error }}<br/>
-												@endforeach
-											</div>
-										</div>
-									@endif
-									@if (Session::has('success'))
-										<div class="form-group">
-											<div class="alert alert-success" role="alert">
-												{{ Session::get('success') }}
-											</div>
-										</div>
-									@endif
+									@include('form.elements.success-error-messages')
 
-
-									<!-- Search Input for Veicolo -->
-									<div class="form-group">
-										<label for="searchInput">Veicolo</label>
-										<input list="veicoli" name="searchInput" id="searchInput" class="form-control"
-													 value="{{ old('searchInput') }}" placeholder="Cerca Veicolo">
-										<datalist id="veicoli">
-											<!-- Options will be dynamically loaded -->
-										</datalist>
-									</div>
-
-
-									<!-- Hidden Field for the actual Veicolo ID -->
-									<input type="hidden" name="id_veicolo" id="id_veicolo" value="{{ old('id_veicolo') }}">
+									@include('form.elements.id-veicolo')
 
 									<!-- Numero IMEI Field -->
 									<div class="form-group">
@@ -132,13 +105,8 @@
 									?>
 
 										<!-- Add other input fields for veicolo attributes here -->
-									<!--ed::Items-->
 
-
-									<div class="clearfix"></div>
-									<div class="form-group">
-										<button type="submit" class="btn btn-primary">Inserisci I Dati Nel DB</button>
-									</div>
+									@include('form.elements.submit-insert')
 									<!--ed::Items-->
 								</div>
 								<!--end::Tab pane-->
@@ -158,6 +126,7 @@
 
 <script>
 
+{{-- }}
 	// Function to fetch and set vehicle data based on search input
 	function fetchAndSetVehicleData(searchInput, exactId = false) {
 		if (searchInput.length >= 1) {
@@ -214,3 +183,10 @@
 	});
 
 </script>
+
+
+{{  --}}
+
+@include('form.js.full')
+
+@include('form.js.datepicker-it')

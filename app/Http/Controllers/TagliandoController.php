@@ -30,16 +30,16 @@
 			$order  = $request->input('order','livello');
 			$page   = $request->input('page', 1);  // default to 1 if not provided
 
-			$expiringPolizzeAssicurative = Assicurazione::getAggregatedAlertsList($search, $order, $page);
+			$expiringTagliandi = Tagliando::getAggregatedAlertsList($search, $order, $page);
 
 			$targaList= Targa::getTargaListByIdVeicolo();
-			foreach ($expiringPolizzeAssicurative as $key=>$alert) {
+			foreach ($expiringTagliandi as $key=>$alert) {
 				if(isset($targaList[$alert->id_veicolo])) {
-					$expiringPolizzeAssicurative[$key]->targa = $targaList[$alert->id_veicolo]->targa;
+					$expiringTagliandi[$key]->targa = $targaList[$alert->id_veicolo]->targa;
 				}
 			}
 
-			return view('alert_polizza_assicurativa', ['expiringPolizzeAssicurative' => $expiringPolizzeAssicurative]);
+			return view('alert_revisione_tagliando', ['expiringRevisioniTagliandi' => $expiringTagliandi]);
 		}
 
 		/**

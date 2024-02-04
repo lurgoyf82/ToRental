@@ -8,7 +8,7 @@
 	use Illuminate\Support\Facades\DB;
 	use Illuminate\Support\Facades\Validator;
 
-	class Multa extends BaseModel
+	class Multa extends AlertBase
 	{
 		use HasFactory;
 		protected $table = 'multa';

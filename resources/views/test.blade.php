@@ -1101,7 +1101,7 @@ License: For each use you must have a valid license purchased only from above li
 				<div class="d-flex flex-column flex-column-fluid">
 					<form action="http://torental.bentraining.it/alert_revisione_meccanica" method="get">
 						<!--begin::Content-->
-						<div id="kt_app_content" class="app-content flex-column-fluid">
+						<div id="kt_app_content" class="app-content flex-column-fluid" style="width: 1200px;">
 							<!--begin::Content container-->
 							<div id="kt_app_content_container" class="app-container container-xxl">
 								<!--begin::Card-->

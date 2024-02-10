@@ -2,7 +2,7 @@
 <form action="{{ route('store_revisione') }}" method="POST">
 	@csrf
 	<!--begin::Content-->
-	<div id="kt_app_content" class="app-content flex-column-fluid">
+	<div id="kt_app_content" class="app-content flex-column-fluid" style="width: 1200px;">
 		<!--begin::Content container-->
 		<div id="kt_app_content_container" class="app-container container-fluid">
 			<!--begin::Row-->

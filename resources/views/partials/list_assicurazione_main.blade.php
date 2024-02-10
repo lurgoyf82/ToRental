@@ -13,7 +13,7 @@
 	<div class="d-flex flex-column flex-column-fluid">
 		<form action="{{ url($list_route) }}" method="get">
 			<!--begin::Content-->
-			<div id="kt_app_content" class="app-content flex-column-fluid">
+			<div id="kt_app_content" class="app-content flex-column-fluid" style="width: 1200px;" style="width: 1200px;">
 				<!--begin::Content container-->
 				<div id="kt_app_content_container" class="app-container container-xxl">
 					<!--begin::Card-->
@@ -61,7 +61,7 @@
 									<th class="min-w-150px"><a href="{{ generate_order_url($list_route, 'modello') }}">Modello</a></th>
 									<th class="min-w-150px">Inizio Validit&agrave;</th>
 									<th class="min-w-150px">Fine Validit&agrave;</th>
-									<th class="text-end w-100px">Azioni</th>
+									<th class="min-w-150px">Azioni</th>
 								</tr>
 								</thead>
 								<tbody class="fw-semibold text-gray-600">
@@ -92,9 +92,13 @@
 										</td>
 										<td class="min-w-150px">
 											<!-- <a href="update_revisione/{{ $row->id_veicolo }}" class="text-gray-800 text-hover-white mb-1"> -->
-												{{ $row->fine_validita ?? 'N/A' }}
-												<!-- </a> -->
+											{{ $row->fine_validita ?? 'N/A' }}
+											<!-- </a> -->
 										</td>
+										<td class="min-w-150px">
+
+										</td>
+										{{--
 										<td class="text-end w-100px">
 											<a href="#" class="btn btn-sm btn-light-primary btn-flex btn-center btn-active-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Azioni
 												<i class="ki-duotone ki-down fs-5 ms-1"></i></a>
@@ -124,6 +128,7 @@
 											</div>
 											<!--end::Menu-->
 										</td>
+										--}}
 									</tr>
 								@endforeach
 

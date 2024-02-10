@@ -13,7 +13,7 @@
 	<div class="d-flex flex-column flex-column-fluid">
 		<form action="{{ url($list_route) }}" method="get">
 			<!--begin::Content-->
-			<div id="kt_app_content" class="app-content flex-column-fluid">
+			<div id="kt_app_content" class="app-content flex-column-fluid" style="width: 1200px;">
 				<!--begin::Content container-->
 				<div id="kt_app_content_container" class="app-container container-xxl">
 					<!--begin::Card-->

@@ -66,6 +66,9 @@
 
 		public function dashtest(Request $request) {
 			$vehicles=Alert::getFilteredVehicles();
+
+			dd($vehicles);
+
 			return view('dashtest', ['vehicles' => $vehicles]);
 		}
 	}

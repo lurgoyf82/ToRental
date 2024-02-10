@@ -1,3 +1,4 @@
+<?php $campiDate=['inizio_validita', 'fine_validita', 'data_pagamento']; ?>
 <form action="{{ route('store_veicolo') }}" method="POST">
 	@csrf
 	<!--begin::Content-->
@@ -27,22 +28,9 @@
 								<!--begin::Tab pane-->
 								<div class="tab-pane fade active show" id="kt_chart_widget_8_month_tab" role="tabpanel">
 									<!--begin::Items-->
-									@if ($errors->any())
-										<div class="form-group">
-											<div class="alert alert-danger" role="alert">
-												@foreach ($errors->all() as $error)
-													{{ $error }}<br />
-												@endforeach
-											</div>
-										</div>
-									@endif
-									@if (Session::has('success'))
-										<div class="form-group">
-											<div class="alert alert-success" role="alert">
-													{{ Session::get('success') }}
-											</div>
-										</div>
-									@endif
+									@include('form.elements.success-error-messages')
+
+									@include('form.elements.id-veicolo')
 									<!-- Select for Societa -->
 									<!-- Input for Targa -->
 									<div class="form-group">
@@ -156,15 +144,8 @@
 									?>
 
 										<!-- Add other input fields for veicolo attributes here -->
-									<!--ed::Items-->
 
-
-
-
-									<div class="clearfix"></div>
-									<div class="form-group">
-										<button type="submit" class="btn btn-primary">Inserisci I Dati Nel DB</button>
-									</div>
+									@include('form.elements.submit-insert')
 									<!--ed::Items-->
 								</div>
 								<!--end::Tab pane-->
@@ -180,3 +161,10 @@
 		</div>
 	</div>
 </form>
+
+{{-- }}
+{{  --}}
+
+@include('form.js.full')
+
+@include('form.js.datepicker-it')

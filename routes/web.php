@@ -37,7 +37,11 @@
 		return view('dashboard');
 	})->middleware(['auth', 'verified'])->name('dashboard');
 
-	Route::middleware('auth')->group(function () {
+	Route::middleware('auth')->group(/**
+	 * Registers the routes for the application.
+	 *
+	 * @return void
+	 */ function () {
 
 		//Dashboard Test
 		Route::get('dashtest', [AlertController::class, 'dashtest'])->name('dashtest');
@@ -62,6 +66,7 @@
 
 		$tableControllerMappings = config('table_controller_mappings');
 
+
 		foreach ($tableControllerMappings as $table => $controller) {
 			Route::get('alert_'.$table, [$controller, 'listExpiring'.ucfirst($table)]);
 			Route::get('list_'.$table, [$controller, 'index'])->name('list_'.$table);
@@ -72,16 +77,17 @@
 			}
 			Route::put('update_'.$table.'/{id}', [$controller, 'update'])->name('update_'.$table);
 			Route::delete('delete_'.$table.'/{id}', [$controller, 'destroy'])->name('delete_'.$table);
-			Route::get($table.'/search/{search}', [$controller, 'search'])->name($table.'_search');
-			Route::get($table.'/id/{search}', [$controller, 'searchById'])->name($table.'_id_search');
-			Route::get($table.'/id_veicolo/{search}', [$controller, 'searchByIdVeicolo'])->name($table.'_id_veicolo_search');
-			Route::get($table.'/targa/{search}', [$controller, 'searchByTarga'])->name($table.'_targa_search');
+			//Route::get($table.'/search/{search}', [$controller, 'search'])->name($table.'_search');
+			Route::get($table.'/search/{search}', [$controller, 'search'])->defaults('searchField', false)->name($table.'_search');
+			//Route::get($table.'/id/{search}', [$controller, 'searchById'])->name($table.'_id_search');
+			Route::get($table.'/id/{search}', [$controller, 'search'])->defaults('searchField', 'id')->name($table.'_id_search');
+			//Route::get($table.'/id_veicolo/{search}', [$controller, 'searchByIdVeicolo'])->name($table.'_id_veicolo_search');
+			Route::get($table.'/id_veicolo/{search}', [$controller, 'search'])->defaults('searchField', 'id_veicolo')->name($table.'_id_veicolo_search');
+			//Route::get($table.'/targa/{search}', [$controller, 'searchByTarga'])->name($table.'_targa_search');
+			Route::get($table.'/targa/{search}', [$controller, 'search'])->defaults('searchField', 'targa')->name($table.'_targa_search');
 
-//AB62675
-
-//		Route::get('create_bollo', [BolloController::class, 'create'])->name('create_bollo');
-//
-//		Route::get('create_bollo/{id_veicolo}', [BolloController::class, 'create'])->name('create_bollo_with_id');
+			//Route::get('create_bollo', [BolloController::class, 'create'])->name('create_bollo');
+			//Route::get('create_bollo/{id_veicolo}', [BolloController::class, 'create'])->name('create_bollo_with_id');
 		}
 
 	/*
@@ -113,15 +119,19 @@
 		Route::get('alert_revisione_atp', [AtpController::class, 'listExpiringRevisioniAtp']);
 		//alert revisione tachigrafo
 		Route::get('alert_revisione_tachigrafo', [TachigrafoController::class, 'listExpiringRevisioniTachigrafi']);
+		//alert revisione tagliando
+		Route::get('alert_revisione_tagliando', [TagliandoController::class, 'listExpiringTagliandi']);
 		//alert contratto noleggio
 		Route::get('alert_contratto_noleggio', [NoleggioController::class, 'listExpiringContrattiNoleggio']);
 		//alert polizza assicurativa
 		Route::get('alert_polizza_assicurativa', [AssicurazioneController::class, 'listExpiringPolizzeAssicurative']);
-		Route::get('alert_polizza_assicurativa', [AssicurazioneController::class, 'listExpiringPolizzeAssicurativeNEW'])->defaults('level', '3')->name('alert_polizza_assicurativa_danger');
+		//Route::get('alert_polizza_assicurativa_danger', [AssicurazioneController::class, 'listExpiringPolizzeAssicurativeNEW'])->defaults('level', '3')->name('alert_polizza_assicurativa_danger');
 		//alert scadenza bollo
 		Route::get('alert_scadenza_bollo', [BolloController::class, 'listExpiringScadenzeBolli']);
 
 
+		//alert multa
+		Route::get('alert_multa', [MultaController::class, 'listExpiringMulte']);
 
 
 
@@ -191,7 +201,9 @@
 			return redirect()->route('create_decorazione');
 		});
 
-//		/**************************************  ASSICURAZIONE  **************************************/
+		/**************************************  ASSICURAZIONE  **************************************/
+
+/*
 //
 //		// Display the form for creating a new assicurazione
 //		Route::get('create_assicurazione', [AssicurazioneController::class, 'create'])->name('create_assicurazione');

@@ -13,30 +13,30 @@ class ImportVeicoloController extends Controller
 	{
 		$requiredColumns = [
 			'targa',
-			'telaio',
-			'societa',
-			'tipologia_veicolo',
-			'allestimento',
-			'marca',
-			'modello',
-			'colore',
-			'lunghezza',
-			'larghezza',
-			'massa',
-			'portata',
-			'cilindrata',
-			'potenza',
-			'numero_assi',
-			'tipo_asse',
-			'tipo_cambio',
-			'alimentazione',
-			'data_immatricolazione',
-			'destinazione_uso',
+			//'telaio',
+			//'societa',
+			//'tipologia_veicolo',
+			//'allestimento',
+			//'marca',
+			//'modello',
+			//'colore',
+			//'lunghezza',
+			//'larghezza',
+			//'massa',
+			//'portata',
+			//'cilindrata',
+			//'potenza',
+			//'numero_assi',
+			//'tipo_asse',
+			//'tipo_cambio',
+			//'alimentazione',
+			//'data_immatricolazione',
+			//'destinazione_uso'
 			];
 		//check data integrity
 
 		foreach ($requiredColumns as $column) {
-			if (!array_key_exists($column, $rowData)) {
+			if (!array_key_exists($column, $rowData)||empty($rowData[$column])) {
 				return false;
 			}
 		}
@@ -105,10 +105,10 @@ class ImportVeicoloController extends Controller
 						$rowData[$columnName] = $cell->getValue(); // Assign the cell value to the corresponding key in $rowData
 					}
 				}
-
 			}
 
-			if(self::isAnagraficaRowValid($rowData)) {
+
+			if(!self::isAnagraficaRowValid($rowData)) {
 				continue;
 			}
 
@@ -118,6 +118,21 @@ class ImportVeicoloController extends Controller
 		return $anagrafica;
 	}
 
+	public static function resetDB() {
+		\App\Models\Telaio::truncate();
+		\App\Models\DettaglioVeicolo::truncate();
+		\App\Models\Societa::truncate();
+		\App\Models\TipoVeicolo::truncate();
+		\App\Models\TipoAllestimento::truncate();
+		\App\Models\Modello::truncate();
+		\App\Models\Marca::truncate();
+		\App\Models\TipoAsse::truncate();
+		\App\Models\TipoCambio::truncate();
+		\App\Models\TipoAlimentazione::truncate();
+		\App\Models\DestinazioneUso::truncate();
+		\App\Models\Targa::truncate();
+		\App\Models\StatoVeicolo::truncate();
+	}
 
 	/****************** Standard web methods ***************/
 
@@ -145,6 +160,9 @@ class ImportVeicoloController extends Controller
 				case('ANAGRAFICA FLOTTA'):
 					{
 						$anagrafica = self::getAnagraficaFromWorksheet($worksheet);
+
+						ImportVeicolo::truncate();
+						\Illuminate\Support\Facades\DB::statement("ALTER TABLE `import_veicolo` AUTO_INCREMENT = 1;");
 						self::storeAnagrafica($anagrafica);
 						break;
 					}
@@ -162,7 +180,6 @@ class ImportVeicoloController extends Controller
 
 			return back()->with('success', 'File imported successfully');
 		}
-
 	}
 
 	public function show(ImportVeicolo $importVeicolo) { /* Return view with a single import_veicolo */

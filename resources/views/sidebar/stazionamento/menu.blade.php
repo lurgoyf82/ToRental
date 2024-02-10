@@ -1,5 +1,5 @@
 
-<!--            MULTA MENU            -->
+<!--            STAZIONAMENTO PROLUNGATO MENU            -->
 <!--begin:Menu item-->
 <div data-kt-menu-trigger="click" class="menu-item here menu-accordion">
 	<!--begin:Menu link-->
@@ -12,7 +12,7 @@
 											<span class="path4"></span>
 									</i>
 							</span>
-							<span class="menu-title">Multe</span>
+							<span class="menu-title">Stazionamento</span>
 							<span class="menu-arrow"></span>
 						</span>
 	<!--end:Menu link-->
@@ -21,7 +21,7 @@
 		<!--begin:Menu item-->
 		<div class="menu-item">
 			<!--begin:Menu link-->
-			<a class="menu-link" href="/create_multa">
+			<a class="menu-link" href="/create_stazionamento">
 									<span class="menu-bullet">
 											<span class="bullet bullet-dot"></span>
 									</span>
@@ -33,7 +33,7 @@
 		<!--begin:Menu item-->
 		<div class="menu-item">
 			<!--begin:Menu link-->
-			<a class="menu-link" href="/list_multa">
+			<a class="menu-link" href="/list_stazionamento">
 									<span class="menu-bullet">
 											<span class="bullet bullet-dot"></span>
 									</span>
@@ -42,11 +42,11 @@
 			<!--end:Menu link-->
 		</div>
 		<!--end:Menu item-->
-		@if(request()->is('update_multa/*'))
+		@if(request()->is('update_stazionamento/*'))
 			<!--begin:Menu item-->
 			<div class="menu-item">
 				<!--begin:Menu link-->
-				<a class="menu-link" href="/update_multa">
+				<a class="menu-link" href="/update_stazionamento">
 									<span class="menu-bullet">
 											<span class="bullet bullet-dot"></span>
 									</span>
@@ -56,11 +56,11 @@
 			</div>
 			<!--end:Menu item-->
 		@endif
-		@if(request()->is('delete_multa/*'))
+		@if(request()->is('delete_stazionamento/*'))
 			<!--begin:Menu item-->
 			<div class="menu-item">
 				<!--begin:Menu link-->
-				<a class="menu-link" href="/delete_multa">
+				<a class="menu-link" href="/delete_stazionamento">
 									<span class="menu-bullet">
 											<span class="bullet bullet-dot"></span>
 									</span>

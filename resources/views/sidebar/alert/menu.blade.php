@@ -1,4 +1,3 @@
-
 <!--            ALERTS MENU            -->
 <!--begin:Menu item-->
 <div data-kt-menu-trigger="click" class="menu-item here menu-accordion">
@@ -54,6 +53,31 @@
 		</div>
 		<!--end:Menu item-->
 
+
+
+
+
+
+
+		<!--begin:Menu item Scadenza multe-->
+		<div class="menu-item">
+			<!--begin:Menu link-->
+			<a class="menu-link" href="/alert_revisione_multa">
+									<span
+										class="badge badge-square badge-outline {{ $class_alerts[$color_alerts['multa']] }} badge-lg">{{ $count_alerts['multa'] }}</span>&nbsp;
+				<span class="menu-title">Revisione Multa</span>
+			</a>
+			<!--end:Menu link-->
+		</div>
+		<!--end:Menu item-->
+
+
+
+
+
+
+
+
 		<!--begin:Menu item Scadenza revisione tachigrafo-->
 		<div class="menu-item">
 			<!--begin:Menu link-->
@@ -78,26 +102,23 @@
 
 
 
-		<?php
-			//@include('partials.sidebar.tagliando')
-		?>
 
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
+		<!--begin:Menu item Scadenza revisione tagliando-->
+		<div class="menu-item">
+			<!--begin:Menu link-->
+			<a class="menu-link" href="/alert_revisione_tagliando">
+									<span
+										class="badge badge-square badge-outline {{ $class_alerts[$color_alerts['tagliando']] }} badge-lg">{{ $count_alerts['tagliando'] }}</span>&nbsp;
+				<span class="menu-title">Revisione Tagliando</span>
+			</a>
+			<!--end:Menu link-->
+		</div>
+		<!--end:Menu item-->
 
 
 
@@ -119,7 +140,8 @@
 		<div class="menu-item">
 			<!--begin:Menu link-->
 			<a class="menu-link" href="/alert_contratto_noleggio">
-				<span class="badge badge-square badge-outline {{ $class_alerts[$color_alerts['noleggio']] }} badge-lg">{{ $count_alerts['noleggio'] }}</span>&nbsp;
+				<span
+					class="badge badge-square badge-outline {{ $class_alerts[$color_alerts['noleggio']] }} badge-lg">{{ $count_alerts['noleggio'] }}</span>&nbsp;
 				<span class="menu-title">Contratto Noleggio</span>
 			</a>
 			<!--end:Menu link-->
@@ -130,7 +152,8 @@
 		<div class="menu-item">
 			<!--begin:Menu link-->
 			<a class="menu-link" href="/alert_polizza_assicurativa">
-				<span class="badge badge-square badge-outline {{ $class_alerts[$color_alerts['assicurazione']] }} badge-lg">{{ $count_alerts['assicurazione'] }}</span>&nbsp;
+				<span
+					class="badge badge-square badge-outline {{ $class_alerts[$color_alerts['assicurazione']] }} badge-lg">{{ $count_alerts['assicurazione'] }}</span>&nbsp;
 				<span class="menu-title">Polizza Assicurativa</span>
 			</a>
 			<!--end:Menu link-->
@@ -141,7 +164,8 @@
 		<div class="menu-item">
 			<!--begin:Menu link-->
 			<a class="menu-link" href="/alert_scadenza_bollo">
-				<span class="badge badge-square badge-outline {{ $class_alerts[$color_alerts['bollo']] }} badge-lg">{{ $count_alerts['bollo'] }}</span>&nbsp;
+				<span
+					class="badge badge-square badge-outline {{ $class_alerts[$color_alerts['bollo']] }} badge-lg">{{ $count_alerts['bollo'] }}</span>&nbsp;
 				<span class="menu-title">Scadenza Bollo</span>
 			</a>
 			<!--end:Menu link-->

@@ -1,7 +1,5 @@
 <?php
-	function boh()
-	{
-		$controllers = ['assicurazione' => App\Http\Controllers\AssicurazioneController::class,
+	return ['assicurazione' => App\Http\Controllers\AssicurazioneController::class,
 			'atp' => App\Http\Controllers\AtpController::class,
 			'bollo' => App\Http\Controllers\BolloController::class,
 			'bombole' => App\Http\Controllers\BomboleController::class,
@@ -21,18 +19,3 @@
 			'targa' => App\Http\Controllers\TargaController::class,
 			'telaio' => App\Http\Controllers\TelaioController::class
 		];
-
-		$user = auth()->user(); // get the authenticated user
-
-		if ($user->can('edit roles')) {
-			// The user has the 'edit roles' permission
-		}
-
-
-
-
-
-		return $controllers;
-	}
-
-	return boh();

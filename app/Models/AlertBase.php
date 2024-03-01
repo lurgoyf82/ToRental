@@ -20,6 +20,8 @@
 			$table=(new static)->getTable();
 			$cacheKey = 'valid_' . $table . '_list';
 
+
+
 			if ($calculateNewCachedData || !Cache::has($cacheKey)) {
 
 				$query = DB::table($table)
